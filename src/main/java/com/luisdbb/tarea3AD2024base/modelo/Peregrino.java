@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
+//prueba git
 @Entity
 @Table(name = "peregrinos") // Nombre de la tabla en la base de datos
 public class Peregrino {
