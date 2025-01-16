@@ -1,4 +1,4 @@
-package com.luisdbb.tarea3AD2024base.modelo;
+package com.Gabriel.Noel.tarea3AD2024base.modelo;
 
 import jakarta.persistence.*; // Usa jakarta.persistence con Spring Boot 3.x
 import java.time.LocalDate;

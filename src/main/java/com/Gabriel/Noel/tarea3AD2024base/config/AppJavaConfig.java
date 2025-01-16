@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.luisdbb.tarea3AD2024base.config;
+package com.Gabriel.Noel.tarea3AD2024base.config;
 
 import java.io.IOException;
 import java.util.ResourceBundle;

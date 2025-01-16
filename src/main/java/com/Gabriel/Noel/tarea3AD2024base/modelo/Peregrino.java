@@ -1,4 +1,4 @@
-package com.luisdbb.tarea3AD2024base.modelo;
+package com.Gabriel.Noel.tarea3AD2024base.modelo;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;
