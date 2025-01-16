@@ -6,28 +6,42 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" 
-fx:controller="com.Gabriel.Noel.tarea3AD2024base.controller.LoginController">
+<AnchorPane prefHeight="466.0" prefWidth="687.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Gabriel.Noel.tarea3AD2024base.controller.LoginController">
    <children>
-      <Rectangle fill="DODGERBLUE" height="250.0" stroke="#ffffff8b" strokeType="INSIDE" width="400.0" />
-      <Label fx:id="lblLogin" layoutX="97.0" layoutY="46.0" text="Login" textFill="WHITE">
+      <Rectangle fill="#557797" height="466.0" stroke="#ffffff8b" strokeType="INSIDE" width="687.0" />
+      <Label fx:id="lblLogin" layoutX="439.0" layoutY="91.0" text="Inicio de Sesión" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="username" layoutX="98.0" layoutY="92.0" prefHeight="36.0" prefWidth="204.0" promptText="Username" />
-      <PasswordField fx:id="password" layoutX="98.0" layoutY="141.0" onAction="#login" prefHeight="36.0" prefWidth="204.0" promptText="Password" />
-      <Button fx:id="btnLogin" layoutX="215.0" layoutY="193.0" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="86.0" styleClass="btnGreen" text="Sign In" textFill="WHITE">
+      <TextField fx:id="username" layoutX="358.0" layoutY="141.0" prefHeight="36.0" prefWidth="300.0" promptText="Username" />
+      <PasswordField fx:id="password" layoutX="358.0" layoutY="215.0" onAction="#login" prefHeight="36.0" prefWidth="300.0" promptText="Password" />
+      <Button fx:id="btnLogin" layoutX="358.0" layoutY="286.0" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="86.0" styleClass="btnGreen" text="Entrar" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
          <effect>
             <DropShadow blurType="ONE_PASS_BOX" />
          </effect></Button>
+      <Button fx:id="btnLogin1" layoutX="520.0" layoutY="286.0" mnemonicParsing="false" onAction="#login" prefHeight="31.0" prefWidth="138.0" styleClass="btnGreen" text="Nuevo Peregrino" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <effect>
+            <DropShadow blurType="ONE_PASS_BOX" />
+         </effect>
+      </Button>
+      <ImageView fitHeight="351.0" fitWidth="375.0" layoutX="-5.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" styleClass="imagenPeregrino">
+         <image>
+            <Image url="@../images/image.png" />
+         </image>
+      </ImageView>
    </children>
    <opaqueInsets>
       <Insets />
