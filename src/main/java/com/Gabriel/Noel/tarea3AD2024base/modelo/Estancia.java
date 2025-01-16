@@ -101,7 +101,7 @@ public class Estancia {
                vip == other.vip;
     }
 
-    // Método toString
+    // Método toString(modificar al formato correcto )
     @Override
     public String toString() {
         return "Estancia [id=" + id +
