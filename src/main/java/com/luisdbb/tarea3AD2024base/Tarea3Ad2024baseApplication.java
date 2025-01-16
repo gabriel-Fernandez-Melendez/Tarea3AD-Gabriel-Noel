@@ -9,7 +9,7 @@ import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-
+//prueba
 @SpringBootApplication
 public class Tarea3Ad2024baseApplication extends Application {
 
