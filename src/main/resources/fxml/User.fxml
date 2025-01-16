@@ -22,7 +22,7 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" 
-fx:controller="com.luisdbb.tarea3AD2024base.controller.UserController">
+fx:controller="com.Gabriel.Noel.tarea3AD2024base.controller.UserController">
    <top>
       <MenuBar BorderPane.alignment="TOP_LEFT">
         <menus>
