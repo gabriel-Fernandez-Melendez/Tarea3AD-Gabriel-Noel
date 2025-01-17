@@ -1,11 +1,13 @@
 package com.Gabriel.Noel.tarea3AD2024base.modelo;
 
 import jakarta.persistence.*; // Para las anotaciones JPA
+
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "credenciales") // Nombre de la tabla en la base de datos
-public class Credenciales {
+public class Credenciales implements Serializable {
 
 	// Atributos
 	@Id
@@ -51,7 +53,7 @@ public class Credenciales {
 	public Long getId() {
 		return id;
 	}
-
+                                                                  
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -79,11 +81,30 @@ public class Credenciales {
 	public void setTipo(Usuarios tipo) {
 		this.tipo = tipo;
 	}
+	
+	//getters de la relacion onetoone
+	
 
 	// Métodos hashCode y equals
 	@Override
 	public int hashCode() {
 		return Objects.hash(contraseñaUsuario, id, nombreUsuario, tipo);
+	}
+
+	public Parada getParada() {
+		return parada;
+	}
+
+	public void setParada(Parada parada) {
+		this.parada = parada;
+	}
+
+	public Peregrino getPeregrino() {
+		return peregrino;
+	}
+
+	public void setPeregrino(Peregrino peregrino) {
+		this.peregrino = peregrino;
 	}
 
 	@Override

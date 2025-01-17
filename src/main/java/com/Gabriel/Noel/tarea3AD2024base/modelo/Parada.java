@@ -3,11 +3,12 @@ package com.Gabriel.Noel.tarea3AD2024base.modelo;
 import jakarta.persistence.*;
 import java.util.Objects;
 import java.util.Set;
+import java.io.Serializable;
 import java.util.HashSet;
 
 @Entity
 @Table(name = "paradas") // Nombre de la tabla en la base de datos
-public class Parada {
+public class Parada implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +30,7 @@ public class Parada {
     @OneToMany(mappedBy = "parada", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ParadaSellada> paradasSelladas = new HashSet<>();
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "")
 	@PrimaryKeyJoinColumn
     private Credenciales credenciales;
     
@@ -99,14 +100,23 @@ public class Parada {
     public void setParadasSelladas(Set<ParadaSellada> paradasSelladas) {
         this.paradasSelladas = paradasSelladas;
     }
+    //getters y setters de las relaciones onetoone
+    public Credenciales getCredenciales() {
+		return credenciales;
+	}
 
+	public void setCredenciales(Credenciales credenciales) {
+		this.credenciales = credenciales;
+	}
     // hashCode, equals y toString
     @Override
     public int hashCode() {
         return Objects.hash(id, nombre, region, responsable, idUsuario);
     }
 
-    @Override
+    
+
+	@Override
     public boolean equals(Object obj) {
         if (this == obj)
             return true;

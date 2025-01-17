@@ -1,6 +1,8 @@
 package com.Gabriel.Noel.tarea3AD2024base.modelo;
 
 import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,7 +10,7 @@ import java.util.Objects;
 //prueba git
 @Entity
 @Table(name = "peregrinos") // Nombre de la tabla en la base de datos
-public class Peregrino {
+public class Peregrino implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -102,12 +104,23 @@ public class Peregrino {
 	public void setParadasSelladas(List<ParadaSellada> paradasSelladas) {
 		this.paradasSelladas = paradasSelladas;
 	}
+	
+	//getters y setters de la relacion onetoone
+		public Credenciales getCredenciales() {
+		return credenciales;
+	}
+
+	public void setCredenciales(Credenciales credenciales) {
+		this.credenciales = credenciales;
+	}
+
 
 	// Métodos hashCode y equals
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, nombre, nacionalidad, carnet, estancias, paradasSelladas);
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
