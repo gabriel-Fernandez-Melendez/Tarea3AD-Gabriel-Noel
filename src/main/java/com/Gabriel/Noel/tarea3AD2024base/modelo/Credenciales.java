@@ -20,18 +20,31 @@ public class Credenciales {
 
 	@Enumerated(EnumType.STRING) // Persistir el enum como String
 	@Column(name = "tipo_usuario", nullable = false)
-	private TipoUsuario tipo;
+	private Usuarios tipo;
+
+	// conectores de credenciales con parada y peregrino
+	@OneToOne(cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private Parada parada;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private Peregrino peregrino;
+
+	// Constructor por defecto
+	public Credenciales() {
+	}
 
 	// Constructor con parámetros
-	public Credenciales(Long id, String nombreUsuario, String contraseñaUsuario, TipoUsuario tipo) {
+	public Credenciales(Long id, String nombreUsuario, String contraseñaUsuario, Usuarios tipo, Parada parada,
+			Peregrino peregrino) {
+		super();
 		this.id = id;
 		this.nombreUsuario = nombreUsuario;
 		this.contraseñaUsuario = contraseñaUsuario;
 		this.tipo = tipo;
-	}
-
-	// Constructor por defecto
-	public Credenciales() {
+		this.parada = parada;
+		this.peregrino = peregrino;
 	}
 
 	// Getters y Setters
@@ -59,11 +72,11 @@ public class Credenciales {
 		this.contraseñaUsuario = contraseñaUsuario;
 	}
 
-	public TipoUsuario getTipo() {
+	public Usuarios getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(TipoUsuario tipo) {
+	public void setTipo(Usuarios tipo) {
 		this.tipo = tipo;
 	}
 

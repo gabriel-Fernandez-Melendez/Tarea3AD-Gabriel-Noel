@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 
+// posiblemente esta es la clase donde hay que añadir la notacion enable jparepositories
 
 @Configuration
 public class AppJavaConfig {

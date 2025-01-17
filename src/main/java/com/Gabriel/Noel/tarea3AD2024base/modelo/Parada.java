@@ -28,25 +28,35 @@ public class Parada {
     // Relación con ParadaSellada
     @OneToMany(mappedBy = "parada", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ParadaSellada> paradasSelladas = new HashSet<>();
+    
+    @OneToOne(cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+    private Credenciales credenciales;
+    
 
     // Constructor por defecto
     public Parada() {}
 
     // Constructor con parámetros
-    public Parada(Long id, String nombre, char region, String responsable, Long idUsuario) {
-        this.id = id;
-        this.nombre = nombre;
-        this.region = region;
-        this.responsable = responsable;
-        this.idUsuario = idUsuario;
-    }
+    public Parada(Long id, String nombre, char region, String responsable, Long idUsuario,
+			Set<ParadaSellada> paradasSelladas, Credenciales credenciales) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.region = region;
+		this.responsable = responsable;
+		this.idUsuario = idUsuario;
+		this.paradasSelladas = paradasSelladas;
+		this.credenciales = credenciales;
+	}
+
 
     // Getters y Setters
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+	public void setId(Long id) {
         this.id = id;
     }
 
