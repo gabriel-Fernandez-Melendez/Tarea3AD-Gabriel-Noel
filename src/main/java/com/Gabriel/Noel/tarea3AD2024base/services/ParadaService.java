@@ -25,7 +25,7 @@ public class ParadaService {
 			throw new Exception("El nombre de parada no puede estar vacio");
 		}
 		
-		if(paradasRepository.findByNombre(parada.getNombre()) != null)
+		if(paradasRepository.findByNombreIgnoreCase(parada.getNombre()) != null)
 		{
 			throw new Exception("El nombre de la parada ya existe");
 		}
@@ -48,7 +48,7 @@ public class ParadaService {
 	// Metodo para obtener la parada por el nombre
 	public Parada obtenerParadaPorNombre (String nombre)
 	{
-		return paradasRepository.findByNombre(nombre);
+		return paradasRepository.findByNombreIgnoreCase(nombre);
 	}
 	
 	
