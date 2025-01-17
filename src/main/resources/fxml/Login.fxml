@@ -20,8 +20,8 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="username" layoutX="358.0" layoutY="141.0" prefHeight="36.0" prefWidth="300.0" promptText="Username" />
-      <PasswordField fx:id="password" layoutX="358.0" layoutY="215.0" onAction="#login" prefHeight="36.0" prefWidth="300.0" promptText="Password" />
+      <TextField fx:id="username" layoutX="358.0" layoutY="141.0" prefHeight="36.0" prefWidth="300.0" promptText="Nombre de Usuario" />
+      <PasswordField fx:id="password" layoutX="358.0" layoutY="208.0" onAction="#login" prefHeight="36.0" prefWidth="300.0" promptText="Contraseña" />
       <Button fx:id="btnLogin" layoutX="358.0" layoutY="286.0" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="86.0" styleClass="btnGreen" text="Entrar" textFill="WHITE">
          <font>
             <Font size="15.0" />
@@ -42,6 +42,11 @@
             <Image url="@../images/image.png" />
          </image>
       </ImageView>
+      <Label layoutX="356.0" layoutY="253.0" onMouseClicked="#recuperarContraseña" text="¿Ha olvidado su contraseña?" textFill="#ffb400">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
    <opaqueInsets>
       <Insets />
