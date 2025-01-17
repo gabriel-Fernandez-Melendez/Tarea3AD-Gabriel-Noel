@@ -14,23 +14,41 @@ public class ParadaService {
 	@Autowired
 	private ParadasRepository paradasRepository;
 	
-	public Parada crearParada(Parada parada)
+	
+	// Metodo Crea una parada
+	public Parada crearParada(Parada parada) throws Exception
 	{
+		//Validaciones antes de retornar la nueva parada
+		
+		if(parada.getNombre() == null || parada.getNombre().isEmpty())
+		{
+			throw new Exception("El nombre de parada no puede estar vacio");
+		}
+		
+		if(paradasRepository.findByNombre(parada.getNombre()) != null)
+		{
+			throw new Exception("El nombre de la parada ya existe");
+		}
+		
 		return paradasRepository.save(parada);
 	}
 	
-	// Un metodo para encontrar una parada por ID
-	public Parada obtenerParada(Long id)
-	{
-		Parada miParada = paradasRepository.findByIdUsuario(id);
-		return miParada;
-		
-	}
-	
-	
+	// Metodo que obtiene y lista todas las paradas
 	public List<Parada> listaParadas()
 	{
 		return paradasRepository.findAll();
+	}
+	
+	// Metodo que devuelve la parada por id del responsable de su credencial
+	public Parada obtenerParadaPorResponsable(Long idUsuario)
+	{
+		return paradasRepository.findByIdUsuario(idUsuario);
+	}
+	
+	// Metodo para obtener la parada por el nombre
+	public Parada obtenerParadaPorNombre (String nombre)
+	{
+		return paradasRepository.findByNombre(nombre);
 	}
 	
 	

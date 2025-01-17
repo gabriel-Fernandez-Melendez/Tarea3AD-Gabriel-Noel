@@ -12,6 +12,9 @@ public interface ParadasRepository extends JpaRepository<Parada, Long> {
 
     // Buscar paradas por región
     List<Parada> findByRegion(char region);
+    
+    //Buscar parada por nombre
+    Parada findByNombre (String nombre);
 
     // Buscar paradas asociadas a un responsable
     Parada findByIdUsuario(Long idUsuario);
