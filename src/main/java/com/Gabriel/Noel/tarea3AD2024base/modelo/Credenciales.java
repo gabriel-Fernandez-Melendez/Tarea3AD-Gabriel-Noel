@@ -26,11 +26,9 @@ public class Credenciales implements Serializable {
 
 	// conectores de credenciales con parada y peregrino
 	@OneToOne(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
 	private Parada parada;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
 	private Peregrino peregrino;
 
 	// Constructor por defecto

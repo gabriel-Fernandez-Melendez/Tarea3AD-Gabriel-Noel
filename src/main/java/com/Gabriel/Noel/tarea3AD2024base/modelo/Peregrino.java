@@ -36,7 +36,7 @@ public class Peregrino implements Serializable{
 	private List<ParadaSellada> paradasSelladas = new ArrayList<>();
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name = "Credenciales_id", referencedColumnName = "id", nullable = false) //preguntar a luis por que de forma bidirecional no 
 	private Credenciales credenciales;
 
 	// Constructor por defecto

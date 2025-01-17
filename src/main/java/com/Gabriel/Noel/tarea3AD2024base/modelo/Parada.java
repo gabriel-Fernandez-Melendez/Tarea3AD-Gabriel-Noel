@@ -30,8 +30,8 @@ public class Parada implements Serializable{
     @OneToMany(mappedBy = "parada", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ParadaSellada> paradasSelladas = new HashSet<>();
     
-    @OneToOne(cascade = CascadeType.ALL,mappedBy = "")
-	@PrimaryKeyJoinColumn
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "Credenciales_id", referencedColumnName = "id", nullable = false)
     private Credenciales credenciales;
     
 
