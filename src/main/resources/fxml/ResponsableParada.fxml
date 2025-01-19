@@ -112,9 +112,14 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
+                        <Button fx:id="botonReseteo" alignment="CENTER" layoutX="185.0" layoutY="20.0" mnemonicParsing="false" text="Resetear">
+                           <HBox.margin>
+                              <Insets left="120.0" top="10.0" />
+                           </HBox.margin>
+                        </Button>
                         <Button fx:id="botonExportarParada" alignment="CENTER" mnemonicParsing="false" text="Exportar Parada">
                            <HBox.margin>
-                              <Insets left="175.0" right="450.0" top="10.0" />
+                              <Insets left="50.0" right="350.0" top="10.0" />
                            </HBox.margin>
                         </Button>
                         <Button fx:id="botonAceptarSellado" mnemonicParsing="false" text="Aceptar">
