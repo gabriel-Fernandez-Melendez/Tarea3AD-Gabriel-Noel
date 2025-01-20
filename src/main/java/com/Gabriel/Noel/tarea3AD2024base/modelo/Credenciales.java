@@ -24,12 +24,7 @@ public class Credenciales implements Serializable {
 	@Column(name = "tipo_usuario", nullable = false)
 	private Usuarios tipo;
 
-	// conectores de credenciales con parada y peregrino
-	@OneToOne(cascade = CascadeType.ALL)
-	private Parada parada;
-
-	@OneToOne(cascade = CascadeType.ALL)
-	private Peregrino peregrino;
+	
 
 	// Constructor por defecto
 	public Credenciales() {
@@ -43,8 +38,6 @@ public class Credenciales implements Serializable {
 		this.nombreUsuario = nombreUsuario;
 		this.contraseñaUsuario = contraseñaUsuario;
 		this.tipo = tipo;
-		this.parada = parada;
-		this.peregrino = peregrino;
 	}
 
 	// Getters y Setters
@@ -89,21 +82,7 @@ public class Credenciales implements Serializable {
 		return Objects.hash(contraseñaUsuario, id, nombreUsuario, tipo);
 	}
 
-	public Parada getParada() {
-		return parada;
-	}
-
-	public void setParada(Parada parada) {
-		this.parada = parada;
-	}
-
-	public Peregrino getPeregrino() {
-		return peregrino;
-	}
-
-	public void setPeregrino(Peregrino peregrino) {
-		this.peregrino = peregrino;
-	}
+	
 
 	@Override
 	public boolean equals(Object obj) {
