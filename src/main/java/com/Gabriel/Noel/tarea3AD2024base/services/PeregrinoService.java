@@ -11,17 +11,17 @@ import com.Gabriel.Noel.tarea3AD2024base.repositorios.PeregrinoRepository;
 @Service
 public class PeregrinoService {
 
-	//declaramos un  objeto de tipo repository para operar sobre el (lo hago estatico por que siempre utilizaremos el mismo)
+	//declaramos un  objeto de tipo repository para operar sobre el 
 	@Autowired
-	private PeregrinoRepository peregrinoRepository;
+	private PeregrinoRepository peregrinoBD;
 	
 	//metodos de recuperacion de datos haciendo uso del repositorio del peregrino
 	public Peregrino GuardarPeregrino(Peregrino p) {
-		return peregrinoRepository.save(p);
+		return peregrinoBD.save(p);
 	}
-	//posible error en el import por hacer uso de util y no del import de list hibernate
+	//posible error en el import por hacer uso de util y no del import de list hibernate(este ye el metodo qu)
 	public List<Peregrino> ListaDePeregrinos(){
-		return peregrinoRepository.findAll();
+		return peregrinoBD.findAll();
 	}
 	
 	
