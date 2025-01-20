@@ -20,8 +20,8 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="username" layoutX="358.0" layoutY="141.0" prefHeight="36.0" prefWidth="300.0" promptText="Nombre de Usuario" />
-      <PasswordField fx:id="password" layoutX="358.0" layoutY="208.0" onAction="#login" prefHeight="36.0" prefWidth="300.0" promptText="Contraseña" />
+      <TextField fx:id="nombreUsuario" layoutX="358.0" layoutY="141.0" prefHeight="36.0" prefWidth="300.0" promptText="Nombre de Usuario" />
+      <PasswordField fx:id="contraseña" layoutX="358.0" layoutY="208.0" onAction="#login" prefHeight="36.0" prefWidth="300.0" promptText="Contraseña" />
       <Button fx:id="btnLogin" layoutX="358.0" layoutY="286.0" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="86.0" styleClass="btnGreen" text="Entrar" textFill="WHITE">
          <font>
             <Font size="15.0" />
@@ -29,7 +29,7 @@
          <effect>
             <DropShadow blurType="ONE_PASS_BOX" />
          </effect></Button>
-      <Button fx:id="btnLogin1" layoutX="520.0" layoutY="286.0" mnemonicParsing="false" onAction="#login" prefHeight="31.0" prefWidth="138.0" styleClass="btnGreen" text="Nuevo Peregrino" textFill="WHITE">
+      <Button fx:id="botonNuevoPeregrino" layoutX="520.0" layoutY="286.0" mnemonicParsing="false" onAction="#login" prefHeight="31.0" prefWidth="138.0" styleClass="btnGreen" text="Nuevo Peregrino" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
@@ -39,10 +39,10 @@
       </Button>
       <ImageView fitHeight="351.0" fitWidth="375.0" layoutX="-5.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" styleClass="imagenPeregrino">
          <image>
-            <Image url="@../images/image.png" />
+            <Image url="@../images/Peregrino%20Ordenador.png" />
          </image>
       </ImageView>
-      <Label layoutX="356.0" layoutY="253.0"  text="¿Ha olvidado su contraseña?" textFill="#ffb400">
+      <Label fx:id="contraseñaOlvidada" layoutX="356.0" layoutY="253.0" onMouseClicked="#redirigirRecuperarContraseña" text="¿Ha olvidado su contraseña?" textFill="#ffb400">
          <font>
             <Font size="14.0" />
          </font>

@@ -33,16 +33,23 @@ public class LoginController implements Initializable{
     private Button btnLogin;
 
     @FXML
-    private PasswordField password;
+    private PasswordField contraseña;
 
     @FXML
-    private TextField username;
+    private TextField nombreUsuario;
 
     @FXML
     private Label lblLogin;
     
+    @FXML
+    private Button botonNuevoPeregrino;
+    
+    @FXML
+    private Label contraseñaOlvidada;
+    
     @Autowired
     private UserService userService;
+    
     
     @Lazy
     @Autowired
@@ -55,16 +62,46 @@ public class LoginController implements Initializable{
     		stageManager.switchScene(FxmlView.USER);
     		
     	}else{
-    		lblLogin.setText("Login Failed.");
+    		lblLogin.setText("Inicio Fallido.");
     	}
     }
+		
+	@FXML
+	private void redirigirRecuperarContraseña()
+	{
+		try
+		{
+			stageManager.switchScene(FxmlView.RECUPERAR_CONTRASEÑA);
+		}
+		
+		catch(Exception e)
+		{
+			System.out.println("Error en el metodo redirigirRecuperarContraseña()");
+		}
+	}
+	
+	// Añadir cuando Gabi haga la pantalla de crear nuevo peregrino
+//	@FXML
+//	private void nuevoPeregrino()
+//	{
+//		try
+//		{
+//			stageManager.switchScene(FxmlView.);
+//		}
+//		
+//		catch(Exception e)
+//		{
+//			System.out.println("Error en el metodo nuevoPeregrino");
+//		}
+//	}
+	
 	
 	public String getPassword() {
-		return password.getText();
+		return contraseña.getText();
 	}
 
 	public String getUsername() {
-		return username.getText();
+		return contraseña.getText();
 	}
 
 	@Override

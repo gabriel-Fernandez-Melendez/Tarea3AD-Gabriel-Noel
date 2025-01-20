@@ -34,9 +34,20 @@ public enum FxmlView {
 		public String getFxmlFile() {
 			return "/fxml/ResponsableParada.fxml";
 		}
-	}
+	},
 	
-	;
+	RECUPERAR_CONTRASEÑA{
+		@Override
+		public String getTitle()
+		{
+			return getStringFromResourceBundle("contraseña.title");
+		}
+		@Override
+		public String getFxmlFile()
+		{
+			return "/fxml/RecordarContraseña.fxml";
+		}
+	};
 
 	public abstract String getTitle();
 
