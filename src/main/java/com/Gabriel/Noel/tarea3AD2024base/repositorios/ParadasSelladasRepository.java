@@ -20,6 +20,6 @@ public interface ParadasSelladasRepository extends JpaRepository<ParadaSellada, 
 	
     
     // Filtrar paradas selladas por fecha
-    List<Peregrino> findPeregrinosByParadaAndFechaBetween(Long idParada, LocalDate fechaInicio, LocalDate fechaFin);
+    //List<Peregrino> findPeregrinosByParadaAndFechaBetween(Long idParada, LocalDate fechaInicio, LocalDate fechaFin);
 	
 }

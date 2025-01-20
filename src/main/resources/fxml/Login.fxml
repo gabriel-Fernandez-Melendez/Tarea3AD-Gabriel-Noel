@@ -42,7 +42,7 @@
             <Image url="@../images/image.png" />
          </image>
       </ImageView>
-      <Label layoutX="356.0" layoutY="253.0" onMouseClicked="#recuperarContraseña" text="¿Ha olvidado su contraseña?" textFill="#ffb400">
+      <Label layoutX="356.0" layoutY="253.0"  text="¿Ha olvidado su contraseña?" textFill="#ffb400">
          <font>
             <Font size="14.0" />
          </font>

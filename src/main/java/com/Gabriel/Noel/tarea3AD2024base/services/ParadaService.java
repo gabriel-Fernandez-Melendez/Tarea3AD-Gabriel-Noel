@@ -6,13 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.Gabriel.Noel.tarea3AD2024base.modelo.Estancia;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
-import com.Gabriel.Noel.tarea3AD2024base.modelo.ParadaSellada;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
 import com.Gabriel.Noel.tarea3AD2024base.repositorios.ParadasRepository;
 import com.Gabriel.Noel.tarea3AD2024base.repositorios.ParadasSelladasRepository;
-import com.Gabriel.Noel.tarea3AD2024base.repositorios.EstanciaRepository;
 
 @Service
 public class ParadaService {
@@ -20,8 +17,6 @@ public class ParadaService {
 	@Autowired
 	private ParadasRepository paradasRepository;
 
-	@Autowired
-	private EstanciaRepository estanciaRepository;
 	
 	@Autowired
 	private ParadasSelladasRepository paradasSelladasRepository;
@@ -60,44 +55,28 @@ public class ParadaService {
 		return paradasRepository.findByNombreIgnoreCase(nombre);
 	}
 
-	public List<Peregrino> obtenerPeregrinosPorFecha (Long idParada, LocalDate fechaInicio, LocalDate fechaFin)
-	{
-		try
-		{
-			if (fechaInicio == null || fechaFin == null)
-			{
-				System.out.println("Los campos de fecha no pueden estar vacios");
-			}
-			
-			if (fechaFin.isBefore(fechaInicio))
-			{
-				System.out.println("La fecha de inicio es posterior a la fecha de fin");
-			}
-		}
-		catch(Exception e)
-		{
-			System.out.println("Error en el metodo obtenerPeregrinosPorFecha");
-		}
-		
-		return paradasSelladasRepository.findPeregrinosByParadaAndFechaBetween(idParada, fechaInicio, fechaFin);
-	}
+//	public List<Peregrino> obtenerPeregrinosPorFecha (Long idParada, LocalDate fechaInicio, LocalDate fechaFin)
+//	{
+//		try
+//		{
+//			if (fechaInicio == null || fechaFin == null)
+//			{
+//				System.out.println("Los campos de fecha no pueden estar vacios");
+//			}
+//			
+//			if (fechaFin.isBefore(fechaInicio))
+//			{
+//				System.out.println("La fecha de inicio es posterior a la fecha de fin");
+//			}
+//		}
+//		catch(Exception e)
+//		{
+//			System.out.println("Error en el metodo obtenerPeregrinosPorFecha");
+//		}
+//		
+//		return paradasSelladasRepository.findPeregrinosByParadaAndFechaBetween(idParada, fechaInicio, fechaFin);
+//	}
 
-	// Metodo para sellar el carnet del peregrino
-	public void sellarCarnet(Peregrino miPeregrino, String nombreParada, boolean esVip) {
-		
-		ParadaSellada miParadaSellada = new ParadaSellada();
-		
-		Parada miParada = obtenerParadaPorNombre(nombreParada);
-		
-		// id ??
-		miParadaSellada.setParada(miParada);
-		miParadaSellada.setPeregrino(miPeregrino);
-		miParadaSellada.setFechaParada(LocalDate.now());
-		// es vip ??
-		
-		paradasSelladasRepository.save(miParadaSellada);
-		
-		
-	}
+
 
 }

@@ -118,7 +118,7 @@ public class ResponsableParadaController {
             }
 
             // Sellamos el carnet del peregrino dandole los datos por parametro
-            paradaService.sellarCarnet(peregrinoSeleccionado, paradaDelResponsable, vip);
+            //paradaService.sellarCarnet(peregrinoSeleccionado, paradaDelResponsable, vip);
             
             // Alerta para confirmar de qyue el carnet se ha sellado perfectamente
             mostrarAlerta("Éxito", "Carnet sellado correctamente.", Alert.AlertType.INFORMATION);
@@ -155,11 +155,11 @@ public class ResponsableParadaController {
             }
 
             // Obtenermos a lista de los peregrinos filtrados por las fechas dadas
-            List<Peregrino> peregrinosFiltrados = paradaService.obtenerPeregrinosPorFecha(idParada, inicio, fin);
+            //List<Peregrino> peregrinosFiltrados = paradaService.obtenerPeregrinosPorFecha(idParada, inicio, fin);
             
             // LLevamos a la tabla
             tablaPeregrinos.getItems().clear();
-            tablaPeregrinos.getItems().setAll(peregrinosFiltrados);
+            //tablaPeregrinos.getItems().setAll(peregrinosFiltrados);
             
         } 
         
