@@ -26,6 +26,7 @@ public class Credenciales implements Serializable {
 
 	
 
+
 	// Constructor por defecto
 	public Credenciales() {
 	}
@@ -38,6 +39,7 @@ public class Credenciales implements Serializable {
 		this.nombreUsuario = nombreUsuario;
 		this.contraseñaUsuario = contraseñaUsuario;
 		this.tipo = tipo;
+
 	}
 
 	// Getters y Setters
@@ -82,7 +84,7 @@ public class Credenciales implements Serializable {
 		return Objects.hash(contraseñaUsuario, id, nombreUsuario, tipo);
 	}
 
-	
+
 
 	@Override
 	public boolean equals(Object obj) {
