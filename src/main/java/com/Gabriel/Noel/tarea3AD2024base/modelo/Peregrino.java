@@ -35,9 +35,7 @@ public class Peregrino implements Serializable{
 	@OneToMany(mappedBy = "peregrino", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ParadaSellada> paradasSelladas = new ArrayList<>();
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Credenciales_id", referencedColumnName = "id", nullable = false) //preguntar a luis por que de forma bidirecional no 
-	private Credenciales credenciales;
+
 
 	// Constructor por defecto
 	public Peregrino() {
@@ -53,7 +51,6 @@ public class Peregrino implements Serializable{
 		this.carnet = carnet;
 		this.estancias = estancias;
 		this.paradasSelladas = paradasSelladas;
-		this.credenciales = credenciales;
 	}
 
 	// Getters y Setters
@@ -105,14 +102,7 @@ public class Peregrino implements Serializable{
 		this.paradasSelladas = paradasSelladas;
 	}
 	
-	//getters y setters de la relacion onetoone
-		public Credenciales getCredenciales() {
-		return credenciales;
-	}
 
-	public void setCredenciales(Credenciales credenciales) {
-		this.credenciales = credenciales;
-	}
 
 
 	// Métodos hashCode y equals

@@ -34,7 +34,7 @@ public class Tarea3Ad2024baseApplication extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		//stageManager = springContext.getBean(StageManager.class, primaryStage);
+		stageManager = springContext.getBean(StageManager.class, primaryStage);
 		CredencialesController.prueba();
 		//displayInitialScene();
 

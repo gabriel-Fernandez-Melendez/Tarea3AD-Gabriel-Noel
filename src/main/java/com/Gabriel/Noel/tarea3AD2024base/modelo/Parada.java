@@ -30,9 +30,7 @@ public class Parada implements Serializable{
     @OneToMany(mappedBy = "parada", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ParadaSellada> paradasSelladas = new HashSet<>();
     
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Credenciales_id", referencedColumnName = "id", nullable = false)
-    private Credenciales credenciales;
+
     
 
     // Constructor por defecto
@@ -48,7 +46,6 @@ public class Parada implements Serializable{
 		this.responsable = responsable;
 		this.idUsuario = idUsuario;
 		this.paradasSelladas = paradasSelladas;
-		this.credenciales = credenciales;
 	}
 
 
@@ -100,14 +97,7 @@ public class Parada implements Serializable{
     public void setParadasSelladas(Set<ParadaSellada> paradasSelladas) {
         this.paradasSelladas = paradasSelladas;
     }
-    //getters y setters de las relaciones onetoone
-    public Credenciales getCredenciales() {
-		return credenciales;
-	}
 
-	public void setCredenciales(Credenciales credenciales) {
-		this.credenciales = credenciales;
-	}
     // hashCode, equals y toString
     @Override
     public int hashCode() {

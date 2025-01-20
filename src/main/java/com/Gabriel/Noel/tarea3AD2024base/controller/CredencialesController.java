@@ -11,9 +11,6 @@ public class CredencialesController {
 	public  static void prueba() {
 		System.out.println("prueba");
 		Credenciales cred = new Credenciales();
-
-	
-		cred.setId(1L);
 		cred.setNombreUsuario("admin");
 		cred.setContraseñaUsuario("admin");
 		cred.setTipo(Usuarios.Peregrino	);
