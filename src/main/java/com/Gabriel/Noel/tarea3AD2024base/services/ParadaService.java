@@ -22,7 +22,7 @@ public class ParadaService {
 	private ParadasSelladasRepository paradasSelladasRepository;
 
 	// Metodo Crea una parada
-	public Parada crearParada(Parada parada) {
+	public Parada insertarParada(Parada parada) {
 		// Validaciones antes de retornar la nueva parada
 		try {
 			if (parada.getNombre() == null || parada.getNombre().isEmpty()) {
@@ -41,20 +41,28 @@ public class ParadaService {
 	}
 
 	// Metodo que obtiene y lista todas las paradas
-	public List<Parada> listaParadas() {
+	public List<Parada> obtenerParadas() {
 		return paradasRepository.findAll();
 	}
 
 	// Metodo que devuelve la parada por id del responsable de su credencial
-	public Parada obtenerParadaPorResponsable(Long idUsuario) {
-		return paradasRepository.findByIdUsuario(idUsuario);
+	public Parada obtenerParadaPorIdResponsable(Long idUsuario) {
+		return paradasRepository.findById(idUsuario);
 	}
+	
+	// Metodo que devuelve la parada por ID
+//	public Parada obtenerParadaId(Long idParada)
+//	{
+//		return paradasRepository.findByIdParada(idParada);
+//	}
 
-	// Metodo para obtener la parada por el nombre
-	public Parada obtenerParadaPorNombre(String nombre) {
-		return paradasRepository.findByNombreIgnoreCase(nombre);
-	}
-
+	// Metodo para obtener la parada por id del peregrino
+//	public Parada obtenerParadaPorIdPeregrino(Long idPeregrino)
+//	{
+//		return paradasRepository.findByIdPeregrino(idPeregrino);
+//	}
+	
+	
 //	public List<Peregrino> obtenerPeregrinosPorFecha (Long idParada, LocalDate fechaInicio, LocalDate fechaFin)
 //	{
 //		try

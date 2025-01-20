@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="466.0" prefWidth="687.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Gabriel.Noel.tarea3AD2024base.controller.LoginController">
+   <children>
+      <Rectangle fill="#557797" height="466.0" stroke="#ffffff8b" strokeType="INSIDE" width="687.0" />
+      <Label fx:id="lblLogin" layoutX="252.0" layoutY="74.0" text="Recordar Contraseña" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="username" layoutX="192.0" layoutY="135.0" prefHeight="36.0" prefWidth="300.0" promptText="Nombre" />
+      <PasswordField fx:id="password" layoutX="192.0" layoutY="197.0" onAction="#login" prefHeight="36.0" prefWidth="300.0" promptText="Apellido" />
+      <Button fx:id="btnLogin" layoutX="282.0" layoutY="356.0" mnemonicParsing="false" onAction="#login" prefHeight="31.0" prefWidth="121.0" styleClass="btnGreen" text="Recuperar" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <effect>
+            <DropShadow blurType="ONE_PASS_BOX" />
+         </effect></Button>
+      <Button fx:id="btnLogin1" layoutX="525.0" layoutY="26.0" mnemonicParsing="false" onAction="#login" prefHeight="31.0" prefWidth="138.0" styleClass="btnGreen" text="Volver al Login" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <effect>
+            <DropShadow blurType="ONE_PASS_BOX" />
+         </effect>
+      </Button>
+      <DatePicker layoutX="192.0" layoutY="262.0" prefHeight="36.0" prefWidth="300.0" promptText="Fecha de Nacimiento" />
+   </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+</AnchorPane>
