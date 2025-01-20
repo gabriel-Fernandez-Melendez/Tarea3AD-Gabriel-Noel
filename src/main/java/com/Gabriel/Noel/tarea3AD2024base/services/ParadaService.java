@@ -1,4 +1,4 @@
-package com.Gabriel.Noel.tarea3AD2024base.services;
+/*package com.Gabriel.Noel.tarea3AD2024base.services;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -12,43 +12,34 @@ import com.Gabriel.Noel.tarea3AD2024base.repositorios.ParadasRepository;
 import com.Gabriel.Noel.tarea3AD2024base.repositorios.ParadasSelladasRepository;
 
 @Service
-public class ParadaService {
+public class ParadaService {*/
 
-	@Autowired
-	private ParadasRepository paradasRepository;
-
-	
-	@Autowired
-	private ParadasSelladasRepository paradasSelladasRepository;
-
-	// Metodo Crea una parada
-	public Parada insertarParada(Parada parada) {
-		// Validaciones antes de retornar la nueva parada
-		try {
-			if (parada.getNombre() == null || parada.getNombre().isEmpty()) {
-				System.out.println("El nombre de parada no puede estar vacio");
-			}
-
-			if (paradasRepository.findByNombreIgnoreCase(parada.getNombre()) != null) {
-				System.out.println("El nombre de la parada ya existe");
-			}
-
-		} catch (Exception e) {
-			System.out.println("Error en el metodo crearParada");
-		}
-
-		return paradasRepository.save(parada);
-	}
-
-	// Metodo que obtiene y lista todas las paradas
-	public List<Parada> obtenerParadas() {
-		return paradasRepository.findAll();
-	}
-
-	// Metodo que devuelve la parada por id del responsable de su credencial
-	public Parada obtenerParadaPorIdResponsable(Long idUsuario) {
-		return paradasRepository.findById(idUsuario);
-	}
+	/*
+	 * @Autowired private ParadasRepository paradasRepository;
+	 * 
+	 * 
+	 * @Autowired private ParadasSelladasRepository paradasSelladasRepository;
+	 * 
+	 * // Metodo Crea una parada public Parada insertarParada(Parada parada) { //
+	 * Validaciones antes de retornar la nueva parada try { if (parada.getNombre()
+	 * == null || parada.getNombre().isEmpty()) {
+	 * System.out.println("El nombre de parada no puede estar vacio"); }
+	 * 
+	 * if (paradasRepository.findByNombreIgnoreCase(parada.getNombre()) != null) {
+	 * System.out.println("El nombre de la parada ya existe"); }
+	 * 
+	 * } catch (Exception e) { System.out.println("Error en el metodo crearParada");
+	 * }
+	 * 
+	 * return paradasRepository.save(parada); }
+	 * 
+	 * // Metodo que obtiene y lista todas las paradas public List<Parada>
+	 * obtenerParadas() { return paradasRepository.findAll(); }
+	 * 
+	 * // Metodo que devuelve la parada por id del responsable de su credencial
+	 * public Parada obtenerParadaPorIdResponsable(Long idUsuario) { return
+	 * paradasRepository.findById(idUsuario); }
+	 */
 	
 	// Metodo que devuelve la parada por ID
 //	public Parada obtenerParadaId(Long idParada)
@@ -87,4 +78,4 @@ public class ParadaService {
 
 
 
-}
+//}
