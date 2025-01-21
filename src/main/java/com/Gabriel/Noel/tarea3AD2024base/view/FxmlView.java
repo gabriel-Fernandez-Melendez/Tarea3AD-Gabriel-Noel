@@ -47,7 +47,22 @@ public enum FxmlView {
 		{
 			return "/fxml/RecordarContraseña.fxml";
 		}
-	};
+	},
+	
+	ESTANCIAS_FILTRADAS{
+		@Override
+		public String getTitle()
+		{
+			return getStringFromResourceBundle("Estancias_Filtradas.title");
+		}
+		@Override
+		public String getFxmlFile()
+		{
+			return "/fxml/EstanciasFiltradas.fxml";
+		}
+	}
+	
+	;
 
 	public abstract String getTitle();
 

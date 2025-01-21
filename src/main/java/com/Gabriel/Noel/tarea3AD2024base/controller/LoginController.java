@@ -16,6 +16,7 @@ import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -57,13 +58,44 @@ public class LoginController implements Initializable{
         
 	@FXML
     private void login(ActionEvent event) throws IOException{
-    	if(userService.authenticate(getUsername(), getPassword())){
-    		    		
-    		stageManager.switchScene(FxmlView.USER);
-    		
-    	}else{
-    		lblLogin.setText("Inicio Fallido.");
-    	}
+		
+		try 
+		{
+			if (userService.authenticate(getUsername(), getPassword()))
+			{
+				// Ahora obtener el rol del usuario Responsable de parada / Administrador general / peregrino
+				String rol = userService.obtenerRolPorEmail(getUsername());
+				
+				// Ahora un Switch
+				
+				switch (rol)
+				{
+				
+				// case "Administrador_general":
+                //    stageManager.switchScene(FxmlView.ADMINISTRADOR);
+                //    break;
+                    
+                // case "Peregrino":
+                //    stageManager.switchScene(FxmlView.PEREGRINO);
+                //    break;
+                    
+                case "Responsable_parada":
+                    stageManager.switchScene(FxmlView.RESPONSABLE);
+                    break;
+                    
+                default:
+                    mostrarAlerta("Error", "Rol desconocido. Contacte con soporte.", Alert.AlertType.ERROR);
+                    break;
+				
+				}
+			}
+		}
+		
+		catch (Exception e)
+		{
+			System.out.println("Error");
+			
+		}
     }
 		
 	@FXML
@@ -108,5 +140,13 @@ public class LoginController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		
 	}
+	
+
+	private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
+        Alert miAlerta = new Alert(tipo);
+        miAlerta.setTitle(titulo);
+        miAlerta.setContentText(mensaje);
+        miAlerta.showAndWait();
+    }
 
 }

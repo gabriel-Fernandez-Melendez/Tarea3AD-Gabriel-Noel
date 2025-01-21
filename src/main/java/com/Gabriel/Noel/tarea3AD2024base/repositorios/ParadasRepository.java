@@ -16,12 +16,13 @@ public interface ParadasRepository extends JpaRepository<Parada, Long> {
 //    //Buscar parada por nombre
 //    Parada findByNombreIgnoreCase (String nombre);
 //
-//    // Buscar paradas asociadas a un responsable
-//    Parada findByIdUsuario(Long idResponsable);
+    // Buscar paradas asociadas a un responsable
+	Parada findByIdUsuario(Long idResponsable);
 //    
 //    // Busca parada por id de parada
 //    //Parada findByIdParada(Long idParada);
 //    
 //    // Busca Parada asociadas al peregrino
 //    //Parada findByIdPeregrino(Long idPeregrino);
+	
 }

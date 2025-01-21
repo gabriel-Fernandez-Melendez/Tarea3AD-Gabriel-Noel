@@ -26,10 +26,10 @@ public class Tarea3Ad2024baseApplication extends Application {
 	@Override
 	public void init() throws Exception {
 		springContext = springBootApplicationContext();
-		CredencialesController credencialesController = springContext.getBean(CredencialesController.class);
+		//CredencialesController credencialesController = springContext.getBean(CredencialesController.class);
 
 	
-	    credencialesController.prueba();
+	    //credencialesController.prueba();
 	}
 
 	public static void main(final String[] args) {
