@@ -58,4 +58,8 @@ public class UserService {
 		userRepository.deleteAll(users);
 	}
 
+	public String obtenerRolPorEmail(String email) {
+        User user = userRepository.findByEmail(email);
+        return user != null ? user.getRole() : null;
+    }
 }
