@@ -15,6 +15,9 @@ public class CarnetService {
 	@Autowired
 	private CarnetRepository carnetBD;
 	
+	public Carnet GuardarCarnet(Carnet c) {
+		return carnetBD.save(c);
+	}
 	
 	//metodo que permite buscar en funcion de un  id el carnet de ese peregrino(noel este metodo puede devolver nulo, si lo es pon lo como condicional para entrar en un do while)
 	public Carnet BuscarPorId(long id) {

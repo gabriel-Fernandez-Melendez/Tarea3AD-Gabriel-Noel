@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.Gabriel.Noel.tarea3AD2024base.config.StageManager;
+import com.Gabriel.Noel.tarea3AD2024base.modelo.Usuarios;
 import com.Gabriel.Noel.tarea3AD2024base.services.UserService;
 import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
 
@@ -63,12 +64,17 @@ public class LoginController implements Initializable{
 		{
 			if (userService.authenticate(getUsername(), getPassword()))
 			{
+				Usuarios usuarioaux=Usuarios.Invitado;
 				// Ahora obtener el rol del usuario Responsable de parada / Administrador general / peregrino
 				String rol = userService.obtenerRolPorEmail(getUsername());
-				
+				for(Usuarios u : Usuarios.values()) {
+					if(rol.equalsIgnoreCase(u.getTipoDeUsuario())) {
+						 usuarioaux=u;
+					}
+				}
 				// Ahora un Switch
 				
-				switch (rol)
+				switch (usuarioaux)
 				{
 				
 				// case "Administrador_general":
@@ -79,7 +85,7 @@ public class LoginController implements Initializable{
                 //    stageManager.switchScene(FxmlView.PEREGRINO);
                 //    break;
                     
-                case "Responsable_parada":
+                case Responsable_Parada:
                     stageManager.switchScene(FxmlView.RESPONSABLE);
                     break;
                     

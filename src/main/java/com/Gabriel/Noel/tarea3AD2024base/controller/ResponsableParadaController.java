@@ -138,7 +138,7 @@ public class ResponsableParadaController {
 				carnet.setNvips(carnet.getNvips() + 1);
 			}
 
-			// Guardar los cambios en el carnet
+			// Guardar los cambios en el carnet // gabriel - implementado
 			carnetService.GuardarCarnet(carnet);
 
 			// Si el peregrino decide hospedarse, registrar la estancia
