@@ -13,9 +13,12 @@ import com.Gabriel.Noel.tarea3AD2024base.repositorios.CredencialesRepository;
 public class CredencialesService {
 
 	//declaramos un  objeto de tipo repository para operar sobre el 
-	@Autowired
-	private CredencialesRepository credencialesBD;
-	
+		private final CredencialesRepository credencialesBD;
+		
+		
+		public CredencialesService(CredencialesRepository c) {
+			this.credencialesBD=c;
+		}
 	//metodos de recuperacion de datos haciendo uso del repositorio de las credenciales
 	public Credenciales GuardarCredenciales(Credenciales c) {
 		return credencialesBD.save(c);
