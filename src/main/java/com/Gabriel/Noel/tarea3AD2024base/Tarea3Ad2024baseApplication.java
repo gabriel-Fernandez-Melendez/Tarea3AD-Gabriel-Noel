@@ -48,6 +48,7 @@ public class Tarea3Ad2024baseApplication extends Application {
 	 * Useful to override this method by sub-classes wishing to change the first
 	 * Scene to be displayed on startup. Example: Functional tests on main window.
 	 */
+	//es aqui  donde tnego q	ue modficar la vista
 	protected void displayInitialScene() {
 		stageManager.switchScene(FxmlView.LOGIN);
 	}
