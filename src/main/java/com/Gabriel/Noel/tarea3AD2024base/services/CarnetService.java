@@ -1,4 +1,4 @@
-package com.Gabriel.Noel.tarea3AD2024base.services;
+ package com.Gabriel.Noel.tarea3AD2024base.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,10 +15,7 @@ public class CarnetService {
 	@Autowired
 	private CarnetRepository carnetBD;
 	
-	//metodos de recuperacion de datos haciendo uso del repositorio del peregrino
-	public Carnet GuardarCarnet(Carnet c) {
-		return carnetBD.save(c);
-	}
+	
 	//metodo que permite buscar en funcion de un  id el carnet de ese peregrino(noel este metodo puede devolver nulo, si lo es pon lo como condicional para entrar en un do while)
 	public Carnet BuscarPorId(long id) {
 		Carnet carnet = carnetBD.findById(id).orElse(null);
