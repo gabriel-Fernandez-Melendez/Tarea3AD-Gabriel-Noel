@@ -87,7 +87,7 @@ public class ResponsableParadaController {
 	public void initialize() {
 		cargarColumnas();
 		cargarPeregrinos();
-		mostrarParada();
+		//mostrarParada();
 	}
 
 	// Metodo para cambiar de ventana a Filtrar Estancias
@@ -103,66 +103,63 @@ public class ResponsableParadaController {
 	}
 
 	// Metodo para sellar el carnet de un peregrino
-	@FXML
-	private void sellarCarnet() {
-		try {
-			// Primero obtener el peregrino seleccionado de la tabla
-			Peregrino peregrinoSeleccionado = tablaPeregrinos.getSelectionModel().getSelectedItem();
+	 @FXML
+	    private void sellarCarnet() {
+	        try {
+	            Peregrino peregrinoSeleccionado = tablaPeregrinos.getSelectionModel().getSelectedItem();
 
-			// Comprobar que se ha seleccionado un peregrino
-			if (peregrinoSeleccionado == null) {
-				mostrarAlerta("Error", "Por favor, selecciona a un peregrino de la lista.", Alert.AlertType.ERROR);
-				return;
-			}
+	            if (peregrinoSeleccionado == null) {
+	                mostrarAlerta("Error", "Por favor, selecciona a un peregrino de la lista.", Alert.AlertType.ERROR);
+	                return;
+	            }
 
-			// Verificar si el peregrino quiere hospedarse
-			boolean seHospeda = checkHospedaje.isSelected();
+	            boolean seHospeda = checkHospedaje.isSelected();
+	            boolean esVip = checkEsVIP.isSelected();
+	            boolean noEsVip = checkNoEsVIP.isSelected();
 
-			// Si se hospeda, verificar que se selecciona VIP o No VIP
-			boolean esVip = checkEsVIP.isSelected();
-			boolean noEsVip = checkNoEsVIP.isSelected();
+	            if (esVip && noEsVip) {
+	                mostrarAlerta("Error", "No puedes seleccionar 'Es VIP' y 'No es VIP' al mismo tiempo.", Alert.AlertType.ERROR);
+	                return;
+	            }
 
-			if (seHospeda && (!esVip && !noEsVip)) {
-				mostrarAlerta("Error", "Por favor, selecciona si el hospedaje es VIP o no.", Alert.AlertType.ERROR);
-				return;
-			}
+	            if (seHospeda && (!esVip && !noEsVip)) {
+	                mostrarAlerta("Error", "Si te hospedas, debes seleccionar si es VIP o no.", Alert.AlertType.ERROR);
+	                return;
+	            }
 
-			// Obtener el carnet del peregrino
-			Carnet carnet = peregrinoSeleccionado.getCarnet();
+	            if (!seHospeda && (esVip || noEsVip)) {
+	                mostrarAlerta("Error", "No puedes seleccionar 'Es VIP' o 'No es VIP' si no te hospedas.", Alert.AlertType.ERROR);
+	                return;
+	            }
 
-			// Incrementar la distancia recorrida en el carnet
-			carnet.setDistancia(carnet.getDistancia() + 5.0);
+	            Carnet carnet = peregrinoSeleccionado.getCarnet();
 
-			// Si se seleccionó hospedaje y es VIP, incrementar el número de estancias VIP
-			if (seHospeda && esVip) {
-				carnet.setNvips(carnet.getNvips() + 1);
-			}
+	            carnet.setDistancia(carnet.getDistancia() + 5.0);
 
-			// Guardar los cambios en el carnet // gabriel - implementado
-			carnetService.GuardarCarnet(carnet);
+	            if (seHospeda && esVip) {
+	                carnet.setNvips(carnet.getNvips() + 1);
+	            }
 
-			// Si el peregrino decide hospedarse, registrar la estancia
-			if (seHospeda) {
-				LocalDate fechaHoy = LocalDate.now();
-				Estancia nuevaEstancia = new Estancia();
+	            carnetService.GuardarCarnet(carnet);
 
-				nuevaEstancia.setFecha(fechaHoy);// Fecha actual
-				nuevaEstancia.setVip(esVip); // Si es VIP o no
-				nuevaEstancia.setParada(paradaActual); // Parada actual
-				nuevaEstancia.setPeregrino(peregrinoSeleccionado);
+	            if (seHospeda) {
+	                LocalDate fechaHoy = LocalDate.now();
+	                Estancia nuevaEstancia = new Estancia();
 
-				// Guardar la estancia
-				//estanciaService.guardarEstancia(nuevaEstancia);
-				estanciaService.guardarEstancia(nuevaEstancia);
-			}
+	                nuevaEstancia.setFecha(fechaHoy);
+	                nuevaEstancia.setVip(esVip);
+	                nuevaEstancia.setParada(paradaActual);
+	                nuevaEstancia.setPeregrino(peregrinoSeleccionado);
 
-			// Mostrar mensaje de éxito
-			mostrarAlerta("Éxito", "Carnet sellado correctamente.", Alert.AlertType.INFORMATION);
+	                estanciaService.guardarEstancia(nuevaEstancia);
+	            }
 
-		} catch (Exception e) {
-			mostrarAlerta("Error", "No se pudo sellar el carnet: " + e.getMessage(), Alert.AlertType.ERROR);
-		}
-	}
+	            mostrarAlerta("Éxito", "Carnet sellado correctamente.", Alert.AlertType.INFORMATION);
+
+	        } catch (Exception e) {
+	            mostrarAlerta("Error", "No se pudo sellar el carnet: " + e.getMessage(), Alert.AlertType.ERROR);
+	        }
+	    }
 
 	// Metodo para cerrar sesion y volver al Login
 	@FXML

@@ -23,7 +23,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#logout" prefHeight="30.0" prefWidth="130.0" styleClass="background" text="Cerrar Sesion" textFill="#fff9f9" textOverrun="CLIP">
+                  <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#volverALogin" prefHeight="30.0" prefWidth="130.0" styleClass="background" text="Cerrar Sesion" textFill="#fff9f9" textOverrun="CLIP">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -55,7 +55,7 @@
                <children>
                   <HBox prefHeight="51.0" prefWidth="1000.0">
                      <children>
-                        <Button fx:id="irAFiltrarEstancias" mnemonicParsing="false" prefHeight="30.0" prefWidth="130.0" styleClass="background" text="Filtrar Estancias" textFill="#fff9f9" textOverrun="CLIP">
+                        <Button fx:id="irAFiltrarEstancias" mnemonicParsing="false" onAction="#redirigirEstanciasFiltradas" prefHeight="30.0" prefWidth="130.0" styleClass="background" text="Filtrar Estancias" textFill="#fff9f9" textOverrun="CLIP">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -85,7 +85,7 @@
                   </HBox>
                   <HBox layoutX="10.0" layoutY="10.0" prefHeight="33.0" prefWidth="1000.0">
                      <children>
-                        <Button fx:id="botonSellarCarnet" mnemonicParsing="false" prefHeight="30.0" prefWidth="130.0" styleClass="background" text="Sellar Carnet" textFill="#fff9f9" textOverrun="CLIP">
+                        <Button fx:id="botonSellarCarnet" mnemonicParsing="false" onAction="#sellarCarnet" prefHeight="30.0" prefWidth="130.0" styleClass="background" text="Sellar Carnet" textFill="#fff9f9" textOverrun="CLIP">
                            <font>
                               <Font size="14.0" />
                            </font>
