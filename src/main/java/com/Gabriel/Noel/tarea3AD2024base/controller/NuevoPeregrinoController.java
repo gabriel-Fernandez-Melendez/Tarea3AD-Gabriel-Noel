@@ -2,7 +2,6 @@ package com.Gabriel.Noel.tarea3AD2024base.controller;
 
 
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -18,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -29,11 +29,15 @@ public class NuevoPeregrinoController implements Initializable {
     @Lazy
     @Autowired
     private StageManager stageManager;
+    
+    
+    @FXML
+    private Button boton;
         
 	@FXML
 	private void e(ActionEvent d){
-	    // Your logic for the "Help" action
-	    System.out.println("Help menu clicked!");
+
+	    System.out.println("se preciono");
 	}
 	
 	@FXML
@@ -44,7 +48,7 @@ public class NuevoPeregrinoController implements Initializable {
 		    WebView webView = new WebView();
 
 		    // Cargar el archivo HTML desde los recursos
-		    String url = getClass().getResource("/resources/ayuda/help.html").toExternalForm();
+		    String url = getClass().getResource("resources/ayuda/help.html").toExternalForm();
 		    webView.getEngine().load(url);
 
 		    // Crear un nuevo Stage para la ventana de ayuda
