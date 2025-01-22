@@ -161,7 +161,7 @@ public class ResponsableParadaController {
 	        }
 	    }
 
-	// Metodo para cerrar sesion y volver al Login
+	// Metodo para cerrar sesion y volver al Login.
 	@FXML
 	private void volverALogin() {
 		try {
