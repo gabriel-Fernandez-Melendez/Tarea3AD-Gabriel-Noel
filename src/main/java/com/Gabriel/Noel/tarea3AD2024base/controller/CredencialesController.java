@@ -1,6 +1,7 @@
 package com.Gabriel.Noel.tarea3AD2024base.controller;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,24 @@ public class CredencialesController implements Initializable {
 		credenciales_service.GuardarCredenciales(cred);
 		System.out.println("termino");
 	}
-
+	
+	//este meotod es el que nos permite contrastar con la las credenciales que hay en la tabla de la basde datos y posteriormente lo envia al menu propicio para ello
+	@FXML
+	public void ValidarCredenciales(){
+		System.out.println("entro al metodo de autenticacion");
+		boolean val = false;
+		ArrayList<Credenciales> cred_lista =(ArrayList<Credenciales>) credenciales_service.ListaDeCredenciales();
+		for(Credenciales c: cred_lista) {
+			if(nombreUsuario.getText().contentEquals(c.getNombreUsuario())&&contraseña.getText().contentEquals(c.getContraseñaUsuario())) {
+				System.out.println("el valido!");
+				val=true;
+			}
+			else {
+				System.out.println("no son credenciales validas");
+			}
+		}
+		//fuera del for tiene que ir la llamada la metodo que conexte con las interfaces pasando como argumento el tipo de usuario que es 
+	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
