@@ -5,9 +5,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.Gabriel.Noel.tarea3AD2024base.config.StageManager;
-import com.Gabriel.Noel.tarea3AD2024base.modelo.User;
-
-import com.Gabriel.Noel.tarea3AD2024base.services.UserService;
+import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
 import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
 
 import javafx.fxml.FXML;
@@ -37,49 +35,47 @@ public class RecuperarContraseñaController {
     @FXML
     private Button botonVolverLogin;
     
-    @Autowired
-    private UserService userService;
-    
     @Lazy
     @Autowired
     private StageManager stageManager;
     
     
     // Metodo para que muestre la contraseña al usuario con una alerta
-    @FXML
-    private void mostrarContraseña()
-    {
-    	try
-    	{
-    		String nombre = campoNombre.getText();
-    		String apellido = campoApellido.getText();
-    		String correo = campoCorreo.getText();
-    		
-    		// Se verifica que se rellenen todos los campos
-    		 if (nombre.isEmpty() || apellido.isEmpty() || correo.isEmpty()) 
-    		 {
-                 mostrarAlerta("Error","Todos los campos son obligatorios.", Alert.AlertType.ERROR);
-                 return;
-             }
-    		 
-    	// Se busca al usuario por correo -- luego mas comprobaciones --
-    	User miUsuario = userService.findByEmail(correo);
-    		 
-    	
-    	if (miUsuario.getFirstName().equals(nombre) && miUsuario.getLastName().equals(apellido))
-    	{
-    		mostrarAlerta("Recuperacion Correcta", "Tu contraseña es: " + miUsuario.getPassword(), Alert.AlertType.INFORMATION);
-    	}
-    	else
-    	{
-    		mostrarAlerta("Error", "Los datos proporcionados no coinciden con ningun usuario", Alert.AlertType.ERROR);
-    	}
-    	}
-    		catch(Exception e)
-    		{
-    			mostrarAlerta("Error", "Ocurrio un problema al recuperar su contraseña", Alert.AlertType.ERROR);
-    		}
-    }
+//    @FXML
+//    private void mostrarContraseña()
+//    {
+//    	try
+//    	{
+//    		String nombre = campoNombre.getText();
+//    		String apellido = campoApellido.getText();
+//    		String correo = campoCorreo.getText();
+//    		
+//    		// Se verifica que se rellenen todos los campos
+//    		 if (nombre.isEmpty() || apellido.isEmpty() || correo.isEmpty()) 
+//    		 {
+//                 mostrarAlerta("Error","Todos los campos son obligatorios.", Alert.AlertType.ERROR);
+//                 return;
+//             }
+//    		 
+//    	// Se busca al usuario por correo -- luego mas comprobaciones --
+//    	//User miUsuario = userService.findByEmail(correo);
+//    		 Credenciales miUsuario = null; // CAMBIAR ESTO ESPERAR AL METODO DE GABRIEL
+//    		 
+//    	
+//    	if (miUsuario.getFirstName().equals(nombre) && miUsuario.getLastName().equals(apellido))
+//    	{
+//    		mostrarAlerta("Recuperacion Correcta", "Tu contraseña es: " + miUsuario.getPassword(), Alert.AlertType.INFORMATION);
+//    	}
+//    	else
+//    	{
+//    		mostrarAlerta("Error", "Los datos proporcionados no coinciden con ningun usuario", Alert.AlertType.ERROR);
+//    	}
+//    	}
+//    		catch(Exception e)
+//    		{
+//    			mostrarAlerta("Error", "Ocurrio un problema al recuperar su contraseña", Alert.AlertType.ERROR);
+//    		}
+//    }
     
     
     @FXML
