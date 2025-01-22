@@ -50,7 +50,7 @@ public class Tarea3Ad2024baseApplication extends Application {
 	 */
 	//es aqui  donde tnego q	ue modficar la vista
 	protected void displayInitialScene() {
-		stageManager.switchScene(FxmlView.NuevoPeregrino);
+		stageManager.switchScene(FxmlView.LOGIN);
 	}
 
 	private ConfigurableApplicationContext springBootApplicationContext() {

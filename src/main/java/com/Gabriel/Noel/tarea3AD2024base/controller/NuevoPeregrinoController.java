@@ -48,7 +48,7 @@ public class NuevoPeregrinoController implements Initializable {
 		    WebView webView = new WebView();
 
 		    // Cargar el archivo HTML desde los recursos
-		    String url = getClass().getResource("resources/ayuda/help.html").toExternalForm();
+		    String url = getClass().getResource("/ayuda/Ayuda.html").toExternalForm();
 		    webView.getEngine().load(url);
 
 		    // Crear un nuevo Stage para la ventana de ayuda

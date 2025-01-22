@@ -12,24 +12,24 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="466.0" prefWidth="687.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Gabriel.Noel.tarea3AD2024base.controller.LoginController">
+<AnchorPane prefHeight="466.0" prefWidth="687.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Gabriel.Noel.tarea3AD2024base.controller.CredencialesController">
    <children>
       <Rectangle fill="#557797" height="466.0" stroke="#ffffff8b" strokeType="INSIDE" width="687.0" />
-      <Label fx:id="lblLogin" layoutX="439.0" layoutY="91.0" text="Inicio de Sesión" textFill="WHITE">
+      <Label layoutX="439.0" layoutY="91.0" text="Inicio de Sesión" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
       <TextField fx:id="nombreUsuario" layoutX="358.0" layoutY="141.0" prefHeight="36.0" prefWidth="300.0" promptText="Nombre de Usuario" />
-      <PasswordField fx:id="contraseña" layoutX="358.0" layoutY="208.0" onAction="#login" prefHeight="36.0" prefWidth="300.0" promptText="Contraseña" />
-      <Button fx:id="btnLogin" layoutX="358.0" layoutY="286.0" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="86.0" styleClass="btnGreen" text="Entrar" textFill="WHITE">
+      <PasswordField fx:id="contraseña" layoutX="358.0" layoutY="208.0" prefHeight="36.0" prefWidth="300.0" promptText="Contraseña" />
+      <Button fx:id="Boton_login" layoutX="358.0" layoutY="286.0" mnemonicParsing="false" onAction="#prueba" prefHeight="30.0" prefWidth="86.0" styleClass="btnGreen" text="Entrar" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
          <effect>
             <DropShadow blurType="ONE_PASS_BOX" />
          </effect></Button>
-      <Button fx:id="botonNuevoPeregrino" layoutX="520.0" layoutY="286.0" mnemonicParsing="false" onAction="#login" prefHeight="31.0" prefWidth="138.0" styleClass="btnGreen" text="Nuevo Peregrino" textFill="WHITE">
+      <Button fx:id="boton_Nuevo_Peregrino" layoutX="520.0" layoutY="286.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="138.0" styleClass="btnGreen" text="Nuevo Peregrino" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
@@ -42,7 +42,7 @@
             <Image url="@../images/Peregrino%20Ordenador.png" />
          </image>
       </ImageView>
-      <Label fx:id="contraseñaOlvidada" layoutX="356.0" layoutY="253.0" onMouseClicked="#redirigirRecuperarContraseña" text="¿Ha olvidado su contraseña?" textFill="#ffb400">
+      <Label layoutX="356.0" layoutY="253.0" text="¿Ha olvidado su contraseña?" textFill="#ffb400">
          <font>
             <Font size="14.0" />
          </font>

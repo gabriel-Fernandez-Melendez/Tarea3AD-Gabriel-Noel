@@ -22,7 +22,7 @@ public enum FxmlView {
 
 		@Override
 		public String getFxmlFile() {
-			return "/fxml/Login.fxml";
+			return "/fxml/Credenciales.fxml";
 		}
 	},
 	RESPONSABLE{
