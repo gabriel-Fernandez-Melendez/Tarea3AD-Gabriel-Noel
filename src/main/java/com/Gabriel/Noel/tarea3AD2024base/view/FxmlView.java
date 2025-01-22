@@ -60,6 +60,30 @@ public enum FxmlView {
 		{
 			return "/fxml/EstanciasFiltradas.fxml";
 		}
+	},
+	NuevoPeregrino{
+		@Override
+		public String getTitle()
+		{
+			return getStringFromResourceBundle("NuevoPeregrino.title");
+		}
+		@Override
+		public String getFxmlFile()
+		{
+			return "/fxml/NuevoPeregrino.fxml";
+		}
+	},
+	ExportarXML{
+		@Override
+		public String getTitle()
+		{
+			return getStringFromResourceBundle("ExportarCarnetXML.title");
+		}
+		@Override
+		public String getFxmlFile()
+		{
+			return "/fxml/ExportarCarnetXML.fxml";
+		}
 	}
 	
 	;
