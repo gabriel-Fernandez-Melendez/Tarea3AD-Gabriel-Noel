@@ -18,6 +18,8 @@ import com.Gabriel.Noel.tarea3AD2024base.services.CredencialesService;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -33,48 +35,65 @@ public class CredencialesController implements Initializable {
 	private Button Boton_login;
 	@FXML
 	private Button boton_Nuevo_Peregrino;
-	
+
 	@Autowired
 	private CredencialesService credenciales_service;
 	@Lazy
 	@Autowired
 	private StageManager stageManager;
-	 
-	//no puedo usar static por que  no llega correctamente la inyeccion de dependencias
+
+	// no puedo usar static por que no llega correctamente la inyeccion de
+	// dependencias
 	@FXML
 	public void prueba() {
 		System.out.println("prueba");
 		Credenciales cred = new Credenciales();
 		cred.setNombreUsuario("rtyhnetd");
 		cred.setContraseñaUsuario("pero q");
-		cred.setTipo(Usuarios.Peregrino	);
+		cred.setTipo(Usuarios.Peregrino);
 		credenciales_service.GuardarCredenciales(cred);
 		System.out.println("termino");
 	}
-	
-	//este meotod es el que nos permite contrastar con la las credenciales que hay en la tabla de la basde datos y posteriormente lo envia al menu propicio para ello
+
+	// este meotod es el que nos permite contrastar con la las credenciales que hay
+	// en la tabla de la basde datos y posteriormente lo envia al menu propicio para
+	// ello
 	@FXML
-	public void ValidarCredenciales(){
+	public void ValidarCredenciales() {
 		System.out.println("entro al metodo de autenticacion");
 		boolean val = false;
-		ArrayList<Credenciales> cred_lista =(ArrayList<Credenciales>) credenciales_service.ListaDeCredenciales();
-		for(Credenciales c: cred_lista) {
-			if(nombreUsuario.getText().contentEquals(c.getNombreUsuario())&&contraseña.getText().contentEquals(c.getContraseñaUsuario())) {
+		ArrayList<Credenciales> cred_lista = (ArrayList<Credenciales>) credenciales_service.ListaDeCredenciales();
+		for (Credenciales c : cred_lista) {
+			if (nombreUsuario.getText().contentEquals(c.getNombreUsuario())
+					&& contraseña.getText().contentEquals(c.getContraseñaUsuario())) {
 				System.out.println("el valido!");
-				val=true;
-			}
-			else {
+				mostrarAlerta("Bienvenido", "Bienvenido: "+c.getTipo().getTipoDeUsuario(), AlertType.INFORMATION);
+				val = true;
+			} else {
 				System.out.println("no son credenciales validas");
 			}
+			
 		}
-		//fuera del for tiene que ir la llamada la metodo que conexte con las interfaces pasando como argumento el tipo de usuario que es 
+		//esta alerta se muestra fuera del for para que no se ejecute muchas veces y un  if para que no se ejecute igualemente siempre al terminar el bucle
+		if(!val) {
+		mostrarAlerta("Las credenciales son invalidas", "Las credenciales introducidas no son validas, intentelo de nuevo", AlertType.ERROR);	
+		}
+		
+		// fuera del for tiene que ir la llamada la metodo que conexte con las
+		// interfaces pasando como argumento el tipo de usuario que es
 	}
+
+	private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
+		Alert miAlerta = new Alert(tipo);
+		miAlerta.setTitle(titulo);
+		miAlerta.setContentText(mensaje);
+		miAlerta.showAndWait();
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		
-	}
-	
-	
-}
 
+	}
+
+}
