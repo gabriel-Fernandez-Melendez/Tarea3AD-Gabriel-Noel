@@ -31,7 +31,7 @@ public class NuevoPeregrinoController implements Initializable {
     private StageManager stageManager;
         
 	@FXML
-	private void e(ActionEvent d) throws IOException{
+	private void e(ActionEvent d){
 	    // Your logic for the "Help" action
 	    System.out.println("Help menu clicked!");
 	}
