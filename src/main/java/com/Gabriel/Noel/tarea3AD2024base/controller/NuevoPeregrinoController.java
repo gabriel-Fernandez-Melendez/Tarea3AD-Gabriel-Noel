@@ -1,17 +1,26 @@
 package com.Gabriel.Noel.tarea3AD2024base.controller;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
+import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
+import com.Gabriel.Noel.tarea3AD2024base.modelo.Usuarios;
+import com.Gabriel.Noel.tarea3AD2024base.services.CredencialesService;
+import com.Gabriel.Noel.tarea3AD2024base.services.PeregrinoService;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -46,6 +55,12 @@ public class NuevoPeregrinoController implements Initializable {
 
 	@FXML
 	private ChoiceBox<Parada> parada;
+
+	@Autowired
+	private CredencialesService credenciales_service;
+
+	@Autowired
+	private PeregrinoService peregrino_service;
 
 	@FXML
 	public void AyudaJavaFX() {
@@ -106,7 +121,50 @@ public class NuevoPeregrinoController implements Initializable {
 		System.out.println("entra al metodo de soltado");
 		mostrar_contraseña.setVisible(false);
 	}
+
+	// aqui iran los metodos que se implementen en los @fxml pero no tengan que
+	// llevar la notacion (los relativos a la base de datos)
+	public boolean GuardarNuevasCredenciales() {
+		boolean val = false;
+		ArrayList<Credenciales> credenciales = (ArrayList<Credenciales>) credenciales_service.ListaDeCredenciales();
+		for (Credenciales c : credenciales) {
+			// no meter de momento el comprobar contraseña por que mientras tengan nombres
+			// distintos no hace falta que las contraseñas sean diferentes
+			if (Nombre_login.getText().equalsIgnoreCase(c.getNombreUsuario())) {
+				mostrarAlerta("nombre de usuario invalido",
+						"el nombre de usuario que ha introducido ya esta cojido, escoja uno diferente",
+						AlertType.ERROR);
+				// val esta a false ya
+			} else {
+				Credenciales cred = new Credenciales();
+				cred.setNombreUsuario(nombre_peregrino.getText());
+				cred.setContraseñaUsuario(Contraseña.getText());
+				cred.setTipo(Usuarios.Peregrino);
+				credenciales_service.GuardarCredenciales(cred);
+				val = true;
+			}
+		}
+		return val;
+	}
 	
+	private boolean GuardarPeregrino() {
+		boolean val =false;
+		ArrayList<Peregrino> peregrinos =(ArrayList<Peregrino>) peregrino_service.ListaDePeregrinos();
+		for(Peregrino p: peregrinos) {
+			// NO HACE FALTA POR QUE LOS NOMBRES DEL PEREGRINO SE PUEDEN REPETIR 
+			if(nombre_peregrino.getText().equals(p.getNombre())) {
+			
+			}
+		}
+		return true;
+	}
+
+	private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
+		Alert miAlerta = new Alert(tipo);
+		miAlerta.setTitle(titulo);
+		miAlerta.setContentText(mensaje);
+		miAlerta.showAndWait();
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
