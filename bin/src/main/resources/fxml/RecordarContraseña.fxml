@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="466.0" prefWidth="687.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Gabriel.Noel.tarea3AD2024base.controller.RecuperarContraseñaController">
+   <children>
+      <Rectangle fill="#557797" height="466.0" stroke="#ffffff8b" strokeType="INSIDE" width="687.0" />
+      <Label fx:id="lblLogin" layoutX="400.0" layoutY="38.0" text="Recordar Contraseña" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="campoNombre" layoutX="342.0" layoutY="99.0" prefHeight="36.0" prefWidth="300.0" promptText="Nombre" />
+      <TextField fx:id="campoApellido" layoutX="343.0" layoutY="168.0" prefHeight="36.0" prefWidth="300.0" promptText="Apellidos" />
+      <TextField fx:id="campoCorreo" layoutX="344.0" layoutY="233.0" prefHeight="36.0" prefWidth="300.0" promptText="Correo Electronico" />
+      <Button fx:id="botonRecuperar" layoutX="432.0" layoutY="302.0" mnemonicParsing="false" onAction="#mostrarContraseña" prefHeight="31.0" prefWidth="121.0" styleClass="btnGreen" text="Recuperar" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <effect>
+            <DropShadow blurType="ONE_PASS_BOX" />
+         </effect></Button>
+      <Button fx:id="botonVolverLogin" layoutX="23.0" layoutY="394.0" mnemonicParsing="false" onAction="#volverALogin" prefHeight="31.0" prefWidth="138.0" styleClass="btnGreen" text="Volver al Login" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <effect>
+            <DropShadow blurType="ONE_PASS_BOX" />
+         </effect>
+      </Button>
+      <ImageView fitHeight="301.0" fitWidth="309.0" layoutX="23.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Peregrino%20Interrogante.png" />
+         </image>
+      </ImageView>
+   </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+</AnchorPane>

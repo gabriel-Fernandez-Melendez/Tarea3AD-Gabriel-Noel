@@ -11,4 +11,7 @@ import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
 public interface CredencialesRepository extends JpaRepository<Credenciales, Long> {
 
 	 //de momento  no hay que declarar ningun metodo ya que estamos utilizando los implementados por jpa
+	
+	// Prueba para buscar el responsable de parada por nombre de usuario (NOEL)
+	Credenciales findByNombreUsuario(String nombreUsuario);
 }

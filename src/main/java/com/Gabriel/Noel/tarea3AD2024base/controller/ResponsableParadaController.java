@@ -10,11 +10,16 @@ import org.springframework.stereotype.Controller;
 
 import com.Gabriel.Noel.tarea3AD2024base.config.StageManager;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Carnet;
+import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Estancia;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
+import com.Gabriel.Noel.tarea3AD2024base.modelo.ParadaSellada;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
 import com.Gabriel.Noel.tarea3AD2024base.services.CarnetService;
+import com.Gabriel.Noel.tarea3AD2024base.services.CredencialesService;
 import com.Gabriel.Noel.tarea3AD2024base.services.EstanciaService;
+import com.Gabriel.Noel.tarea3AD2024base.services.ParadaSelladaService;
+import com.Gabriel.Noel.tarea3AD2024base.services.ParadaService;
 import com.Gabriel.Noel.tarea3AD2024base.services.PeregrinoService;
 import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
 
@@ -29,6 +34,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class ResponsableParadaController {
 
 	private Parada paradaActual;
+	
+	private String nombreParada;
 
 	@FXML
 	private Button btnLogout;
@@ -77,6 +84,15 @@ public class ResponsableParadaController {
 
 	@Autowired
 	private EstanciaService estanciaService;
+	
+	@Autowired
+	private ParadaSelladaService paradaSelladaService;
+	
+	@Autowired
+	private CredencialesService credencialesService;
+	
+	@Autowired
+	private ParadaService paradaService;
 
 	@Lazy
 	@Autowired
@@ -87,7 +103,7 @@ public class ResponsableParadaController {
 	public void initialize() {
 		cargarColumnas();
 		cargarPeregrinos();
-		//mostrarParada();
+		inicializarParadaActual();
 	}
 
 	// Metodo para cambiar de ventana a Filtrar Estancias
@@ -142,17 +158,19 @@ public class ResponsableParadaController {
 
 	            carnetService.GuardarCarnet(carnet);
 
-	            if (seHospeda) {
-	                LocalDate fechaHoy = LocalDate.now();
+	            if (seHospeda) 
+	            {
 	                Estancia nuevaEstancia = new Estancia();
-
-	                nuevaEstancia.setFecha(fechaHoy);
+	                nuevaEstancia.setFecha(LocalDate.now());
 	                nuevaEstancia.setVip(esVip);
 	                nuevaEstancia.setParada(paradaActual);
 	                nuevaEstancia.setPeregrino(peregrinoSeleccionado);
 
 	                estanciaService.guardarEstancia(nuevaEstancia);
 	            }
+	            
+	            // Registramos al peregrino en la parada_sellada
+	            registrarParadaSellada(peregrinoSeleccionado);
 
 	            mostrarAlerta("Éxito", "Carnet sellado correctamente.", Alert.AlertType.INFORMATION);
 
@@ -161,6 +179,29 @@ public class ResponsableParadaController {
 	        }
 	    }
 
+	 // Metodo para registrar en paradas selladas
+	 private void registrarParadaSellada(Peregrino miPeregrino)
+	 {
+		 try
+		 {
+			 ParadaSellada miParadaSellada = new ParadaSellada();
+			 
+			 // Construyo el objeto parada que luego se va a guardar
+			 miParadaSellada.setPeregrino(miPeregrino);
+			 miParadaSellada.setParada(paradaActual);
+			 miParadaSellada.setFechaParada(LocalDate.now());
+			 
+			 // Guardamos la parada
+			 paradaSelladaService.guardarParadaSellada(miParadaSellada);
+		 }
+		 
+		 catch(Exception e)
+		 {
+			 System.out.println("Error en el metodo registrarParadaSellada()");
+		 }
+		 
+	 }
+	 
 	// Metodo para cerrar sesion y volver al Login.
 	@FXML
 	private void volverALogin() {
@@ -171,14 +212,7 @@ public class ResponsableParadaController {
 		catch (Exception e) {
 			System.out.println("Error en el metodo volverALogin");
 		}
-	}
-
-	// Metodo para cambiar el Parada X a la parada actual y saber en que parada me
-	// encuentro
-	private void mostrarParada() {
-		labelParadaResponsable.setText(paradaActual.getNombre());
-	}
-
+	}	
 	// Cargar Columnas del TableView
 	private void cargarColumnas() {
 		colPeregrinoID.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -226,5 +260,72 @@ public class ResponsableParadaController {
 	public void setParada(Parada parada) {
 		this.paradaActual = parada;
 	}
+	
+	
+	// Metodo para inicializar la parada actual
+	private void inicializarParadaActual()
+	{
+//		try
+//		{
+//			// Obtengo la credencial entera a traves del nombre de usuario que se ha logueado
+//			Credenciales miCredencial = credencialesService.obtenerCredencialesPorNombreUsuario(CredencialesController.getNombreUsuario());
+//			
+//			// Asigno la parada buscada a traves del objeto credenciales
+//			paradaActual = paradaService.buscarParadaPorCredenciales(miCredencial);
+//			
+//			// asigno el valor del nombre de la parada
+//			nombreParada = paradaActual.getNombre();
+//		}
+//		
+//		catch(Exception e)
+//		{
+//			System.out.println("Error en el metodo inicializarParadaActual()");
+//		}
+		
+		// Le damos a la label el nombre de la parada
+		labelParadaResponsable.setText("MANOLO");
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

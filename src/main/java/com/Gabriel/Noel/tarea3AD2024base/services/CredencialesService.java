@@ -1,11 +1,13 @@
 package com.Gabriel.Noel.tarea3AD2024base.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
+import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
 import com.Gabriel.Noel.tarea3AD2024base.repositorios.CredencialesRepository;
 
@@ -30,4 +32,12 @@ public class CredencialesService {
 	}
 	
 	//apartir de aqui  implementare mas metodos en casi de ser necesario
+	
+	// Prueba NOEL (RETORNA LAS CREDENCIALES PERTENECIENTES AL NOMBRE DEL USUARIO UNICO)
+	public Credenciales obtenerCredencialesPorNombreUsuario(String nombreUsuario)
+	{
+		return credencialesBD.findByNombreUsuario(nombreUsuario);
+	}
+        		
+	
 }

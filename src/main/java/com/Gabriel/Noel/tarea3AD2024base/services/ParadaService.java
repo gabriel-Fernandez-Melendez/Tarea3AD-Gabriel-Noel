@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Carnet;
+import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
 import com.Gabriel.Noel.tarea3AD2024base.repositorios.CarnetRepository;
@@ -24,6 +25,8 @@ public class ParadaService {
 	
 	@Autowired
 	private ParadasRepository paradasRepository;
+	
+
 	
 	
 	// Metodo para devolver todos los peregrinos
@@ -43,5 +46,19 @@ public class ParadaService {
 	{
         return paradasRepository.findByIdUsuario(idUsuario);
     }
+	
+	// Metodo que retorna todas las paradas
+	public List<Parada> ListaDeParadas() {
+		return paradasRepository.findAll();
+	}
+	
+	// Encuentra el objeto parada por el id de las credenciales del usuario
+	public Parada buscarParadaPorCredenciales(Credenciales miCredencial)
+	{
+		return paradasRepository.findByCredenciales(miCredencial);
+	}
+	
+	
+	
 	
 }

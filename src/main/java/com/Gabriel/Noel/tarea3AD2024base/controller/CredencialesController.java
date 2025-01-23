@@ -27,6 +27,9 @@ import javafx.scene.control.TextField;
 @Controller
 public class CredencialesController implements Initializable {
 
+	// Variable Global estatica para el nombre de usuario (NOEL)
+	private static String nombreUsuarioAutenticado;
+	
 	@FXML
 	private TextField nombreUsuario;
 	@FXML
@@ -67,8 +70,12 @@ public class CredencialesController implements Initializable {
 			if (nombreUsuario.getText().contentEquals(c.getNombreUsuario())
 					&& contraseña.getText().contentEquals(c.getContraseñaUsuario())) {
 				System.out.println("el valido!");
+				
+				nombreUsuarioAutenticado = c.getNombreUsuario();
+				
 				mostrarAlerta("Bienvenido", "Bienvenido: "+c.getTipo().getTipoDeUsuario(), AlertType.INFORMATION);
 				val = true;
+				
 			} else {
 				System.out.println("no son credenciales validas");
 			}
@@ -88,6 +95,12 @@ public class CredencialesController implements Initializable {
 		miAlerta.setTitle(titulo);
 		miAlerta.setContentText(mensaje);
 		miAlerta.showAndWait();
+	}
+	
+	// METODO PRUEBA PREGUNTAR A GABRI (NOEL)
+	public static String getNombreUsuario()
+	{
+		return nombreUsuarioAutenticado;
 	}
 
 	@Override

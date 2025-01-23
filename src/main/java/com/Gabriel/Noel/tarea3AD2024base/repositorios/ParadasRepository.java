@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
 
 @Repository
@@ -18,6 +19,10 @@ public interface ParadasRepository extends JpaRepository<Parada, Long> {
 //
     // Buscar paradas asociadas a un responsable
 	Parada findByIdUsuario(Long idResponsable);
+	
+	
+	// PRUEBA PARA SABER SI FUNCIONA Buscar el objeto parada mediante el objeto Credenciales 
+	Parada findByCredenciales(Credenciales miCredencial);
 //    
 //    // Busca parada por id de parada
 //    //Parada findByIdParada(Long idParada);
