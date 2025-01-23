@@ -1,5 +1,8 @@
 package com.Gabriel.Noel.tarea3AD2024base.controller;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
@@ -9,13 +12,14 @@ import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
 import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 @Controller
-public class RecuperarContraseñaController {
+public class RecuperarContrasenaController implements Initializable{
 
     @FXML
     private Label lblLogin;
@@ -91,12 +95,17 @@ public class RecuperarContraseñaController {
 			System.out.println("Error en el metodo volverALogin");
 		}
     }
-    
-    	private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
-            Alert miAlerta = new Alert(tipo);
-            miAlerta.setTitle(titulo);
-            miAlerta.setContentText(mensaje);
-            miAlerta.showAndWait();
-        }
+	/*
+	 * private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType
+	 * tipo) { Alert miAlerta = new Alert(tipo); miAlerta.setTitle(titulo);
+	 * miAlerta.setContentText(mensaje); miAlerta.showAndWait(); }
+	 */
+
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		
+	}
     
 }

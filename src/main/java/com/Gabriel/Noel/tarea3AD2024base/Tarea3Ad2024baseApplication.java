@@ -26,10 +26,10 @@ public class Tarea3Ad2024baseApplication extends Application {
 	@Override
 	public void init() throws Exception {
 		springContext = springBootApplicationContext();
-		//CredencialesController credencialesController = springContext.getBean(CredencialesController.class);
+		CredencialesController credencialesController = springContext.getBean(CredencialesController.class);
 
 	
-	    //credencialesController.prueba();
+
 	}
 
 	public static void main(final String[] args) {
@@ -39,7 +39,6 @@ public class Tarea3Ad2024baseApplication extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		stageManager = springContext.getBean(StageManager.class, primaryStage);
-		//CredencialesController.prueba();
 		displayInitialScene();
 
 	}
@@ -48,9 +47,9 @@ public class Tarea3Ad2024baseApplication extends Application {
 	 * Useful to override this method by sub-classes wishing to change the first
 	 * Scene to be displayed on startup. Example: Functional tests on main window.
 	 */
-	//es aqui  donde tnego q	ue modficar la vista
+	//es aqui  donde tengo que modificar la vista
 	protected void displayInitialScene() {
-		stageManager.switchScene(FxmlView.RESPONSABLE);
+		stageManager.switchScene(FxmlView.LOGIN);
 	}
 
 	private ConfigurableApplicationContext springBootApplicationContext() {

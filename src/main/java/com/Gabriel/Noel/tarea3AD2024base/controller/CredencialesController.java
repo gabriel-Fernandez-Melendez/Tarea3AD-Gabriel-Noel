@@ -15,6 +15,7 @@ import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Usuarios;
 import com.Gabriel.Noel.tarea3AD2024base.services.CredencialesService;
+import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,8 +29,8 @@ import javafx.scene.control.TextField;
 public class CredencialesController implements Initializable {
 
 	// Variable Global estatica para el nombre de usuario (NOEL)
-	private static String nombreUsuarioAutenticado;
-	
+	private static Credenciales Credenciales_usuario;
+
 	@FXML
 	private TextField nombreUsuario;
 	@FXML
@@ -70,22 +71,24 @@ public class CredencialesController implements Initializable {
 			if (nombreUsuario.getText().contentEquals(c.getNombreUsuario())
 					&& contraseña.getText().contentEquals(c.getContraseñaUsuario())) {
 				System.out.println("el valido!");
-				
-				nombreUsuarioAutenticado = c.getNombreUsuario();
-				
-				mostrarAlerta("Bienvenido", "Bienvenido: "+c.getTipo().getTipoDeUsuario(), AlertType.INFORMATION);
+
+				Credenciales_usuario = c;
+
+				mostrarAlerta("Bienvenido", "Bienvenido: " + c.getTipo().getTipoDeUsuario(), AlertType.INFORMATION);
 				val = true;
-				
+
 			} else {
 				System.out.println("no son credenciales validas");
 			}
-			
+
 		}
-		//esta alerta se muestra fuera del for para que no se ejecute muchas veces y un  if para que no se ejecute igualemente siempre al terminar el bucle
-		if(!val) {
-		mostrarAlerta("Las credenciales son invalidas", "Las credenciales introducidas no son validas, intentelo de nuevo", AlertType.ERROR);	
+		// esta alerta se muestra fuera del for para que no se ejecute muchas veces y un
+		// if para que no se ejecute igualemente siempre al terminar el bucle
+		if (!val) {
+			mostrarAlerta("Las credenciales son invalidas",
+					"Las credenciales introducidas no son validas, intentelo de nuevo", AlertType.ERROR);
 		}
-		
+
 		// fuera del for tiene que ir la llamada la metodo que conexte con las
 		// interfaces pasando como argumento el tipo de usuario que es
 	}
@@ -96,12 +99,22 @@ public class CredencialesController implements Initializable {
 		miAlerta.setContentText(mensaje);
 		miAlerta.showAndWait();
 	}
+
+	// METODO PRUEBA PREGUNTAR A GABRI (NOEL) hay que eliminar este metodo
+	//public static String getNombreUsuario() {
+		//return nombreUsuarioAutenticado;
+	//}
 	
-	// METODO PRUEBA PREGUNTAR A GABRI (NOEL)
-	public static String getNombreUsuario()
-	{
-		return nombreUsuarioAutenticado;
-	}
+	@FXML
+ 	private void RecuperarContraseña() {
+ 		try {
+ 			stageManager.switchScene(FxmlView.RECUPERAR_CONTRASEÑA);
+ 		}
+
+ 		catch (Exception e) {
+ 			System.out.println("Error en el metodo volverALogin");
+ 		}
+ 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

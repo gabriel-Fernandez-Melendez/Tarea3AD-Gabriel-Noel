@@ -18,10 +18,11 @@ import javafx.stage.Stage;
  */
 public class StageManager {
 
+	//
     private static final Logger LOG = getLogger(StageManager.class);
     private final Stage primaryStage;
     private final SpringFXMLLoader springFXMLLoader;
-
+    //constructor de las escenas FXML  usando spring
     public StageManager(SpringFXMLLoader springFXMLLoader, Stage stage) {
         this.springFXMLLoader = springFXMLLoader;
         this.primaryStage = stage;

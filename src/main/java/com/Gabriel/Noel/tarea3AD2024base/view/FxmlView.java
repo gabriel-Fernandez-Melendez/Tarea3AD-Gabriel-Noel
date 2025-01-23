@@ -40,12 +40,12 @@ public enum FxmlView {
 		@Override
 		public String getTitle()
 		{
-			return getStringFromResourceBundle("contraseña.title");
+			return getStringFromResourceBundle("contrasena.title");
 		}
 		@Override
 		public String getFxmlFile()
 		{
-			return "/fxml/RecordarContraseña.fxml";
+			return "/fxml/RecordarContrasena.fxml";
 		}
 	},
 	

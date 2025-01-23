@@ -264,7 +264,7 @@ public class ResponsableParadaController {
 	
 	// Metodo para inicializar la parada actual
 	private void inicializarParadaActual()
-	{
+	{ 
 //		try
 //		{
 //			// Obtengo la credencial entera a traves del nombre de usuario que se ha logueado
