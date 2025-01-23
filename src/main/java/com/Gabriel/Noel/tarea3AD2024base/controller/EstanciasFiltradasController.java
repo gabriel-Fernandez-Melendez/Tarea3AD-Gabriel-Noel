@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -73,8 +74,20 @@ public class EstanciasFiltradasController {
  		}
  	}
     // Metodo para obtener todos los datos de los peregrinos filtrados
+ 	
+ 	// Metodo para resetear las estancias filtradas
     
-    
+    // Metodo para cargar las Columnas
+ 	private void cargarColumnas()
+ 	{
+ 		colPeregrinoID.setCellValueFactory(new PropertyValueFactory<>("id"));
+ 		colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+ 		colFechaNacimiento.setCellValueFactory(new PropertyValueFactory<>("fecha nacimiento"));
+ 		colFechaSellado.setCellValueFactory(new PropertyValueFactory<>("fecha sellado"));
+ 		
+ 		// Mostrar solo las paradas selladas que esten relacionadas con la parada actual del responsable
+ 		colEstancias.setCellValueFactory(new PropertyValueFactory<>("estancias"));
+ 	}
     
     
     

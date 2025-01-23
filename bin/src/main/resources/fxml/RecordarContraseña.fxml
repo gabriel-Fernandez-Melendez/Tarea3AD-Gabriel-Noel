@@ -22,14 +22,14 @@
       <TextField fx:id="campoNombre" layoutX="342.0" layoutY="99.0" prefHeight="36.0" prefWidth="300.0" promptText="Nombre" />
       <TextField fx:id="campoApellido" layoutX="343.0" layoutY="168.0" prefHeight="36.0" prefWidth="300.0" promptText="Apellidos" />
       <TextField fx:id="campoCorreo" layoutX="344.0" layoutY="233.0" prefHeight="36.0" prefWidth="300.0" promptText="Correo Electronico" />
-      <Button fx:id="botonRecuperar" layoutX="432.0" layoutY="302.0" mnemonicParsing="false" onAction="#mostrarContraseña" prefHeight="31.0" prefWidth="121.0" styleClass="btnGreen" text="Recuperar" textFill="WHITE">
+      <Button fx:id="botonRecuperar" layoutX="432.0" layoutY="302.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="121.0" styleClass="btnGreen" text="Recuperar" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
          <effect>
             <DropShadow blurType="ONE_PASS_BOX" />
          </effect></Button>
-      <Button fx:id="botonVolverLogin" layoutX="23.0" layoutY="394.0" mnemonicParsing="false" onAction="#volverALogin" prefHeight="31.0" prefWidth="138.0" styleClass="btnGreen" text="Volver al Login" textFill="WHITE">
+      <Button fx:id="botonVolverLogin" layoutX="23.0" layoutY="394.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="138.0" styleClass="btnGreen" text="Volver al Login" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>

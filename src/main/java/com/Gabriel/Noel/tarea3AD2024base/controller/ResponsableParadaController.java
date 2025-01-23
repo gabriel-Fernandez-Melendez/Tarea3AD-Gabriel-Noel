@@ -15,6 +15,7 @@ import com.Gabriel.Noel.tarea3AD2024base.modelo.Estancia;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.ParadaSellada;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
+import com.Gabriel.Noel.tarea3AD2024base.modelo.Usuarios;
 import com.Gabriel.Noel.tarea3AD2024base.services.CarnetService;
 import com.Gabriel.Noel.tarea3AD2024base.services.CredencialesService;
 import com.Gabriel.Noel.tarea3AD2024base.services.EstanciaService;
@@ -270,8 +271,14 @@ public class ResponsableParadaController {
 			// Obtengo la credencial entera a traves del nombre de usuario que se ha logueado
 			Credenciales miCredencial = CredencialesController.getCredenciales();
 			
+			Credenciales algo = new Credenciales();
+			algo.setId(2L);
+			algo.setNombreUsuario("Paco");
+			algo.setTipo(Usuarios.Responsable_Parada);
+			algo.setContraseñaUsuario("1234");
+			
 			// Asigno la parada buscada a traves del objeto credenciales
-			paradaActual = paradaService.buscarParadaPorCredenciales(miCredencial);
+			paradaActual = paradaService.buscarParadaPorCredenciales(algo);
 			
 			// asigno el valor del nombre de la parada
 			nombreParada = paradaActual.getNombre();
@@ -283,7 +290,7 @@ public class ResponsableParadaController {
 		}
 		
 		// Le damos a la label el nombre de la parada
-		labelParadaResponsable.setText("MANOLO");
+		labelParadaResponsable.setText(nombreParada);
 	}
 	
 	

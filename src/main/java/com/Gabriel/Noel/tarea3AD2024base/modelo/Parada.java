@@ -23,9 +23,6 @@ public class Parada implements Serializable{
     @Column(nullable = false, length = 100) // Responsable de la parada
     private String responsable;
 
-    @Column(name = "id_usuario", nullable = true) // ID de usuario (opcional, si se usa para algo adicional)
-    private Long idUsuario;
-
     // Relación con ParadaSellada
     @OneToMany(mappedBy = "parada", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ParadaSellada> paradasSelladas = new HashSet<>();
@@ -39,14 +36,13 @@ public class Parada implements Serializable{
     public Parada() {}
 
     // Constructor con parámetros
-    public Parada(Long id, String nombre, char region, String responsable, Long idUsuario,
+    public Parada(Long id, String nombre, char region, String responsable,
 			Set<ParadaSellada> paradasSelladas, Credenciales credenciales) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.region = region;
 		this.responsable = responsable;
-		this.idUsuario = idUsuario;
 		this.paradasSelladas = paradasSelladas;
 	}
 
@@ -84,14 +80,6 @@ public class Parada implements Serializable{
         this.responsable = responsable;
     }
 
-    public Long getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
     public Set<ParadaSellada> getParadasSelladas() {
         return paradasSelladas;
     }
@@ -103,7 +91,7 @@ public class Parada implements Serializable{
     // hashCode, equals y toString
     @Override
     public int hashCode() {
-        return Objects.hash(id, nombre, region, responsable, idUsuario);
+        return Objects.hash(id, nombre, region, responsable);
     }
 
     
@@ -118,8 +106,7 @@ public class Parada implements Serializable{
         return Objects.equals(id, other.id) &&
                Objects.equals(nombre, other.nombre) &&
                region == other.region &&
-               Objects.equals(responsable, other.responsable) &&
-               Objects.equals(idUsuario, other.idUsuario);
+               Objects.equals(responsable, other.responsable);
     }
 
     @Override
