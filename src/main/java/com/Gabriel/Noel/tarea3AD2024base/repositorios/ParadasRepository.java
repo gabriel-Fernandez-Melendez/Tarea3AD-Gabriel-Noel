@@ -17,8 +17,7 @@ public interface ParadasRepository extends JpaRepository<Parada, Long> {
 //    //Buscar parada por nombre
 //    Parada findByNombreIgnoreCase (String nombre);
 //
-    // Buscar paradas asociadas a un responsable
-	Parada findByIdUsuario(Long idResponsable);
+
 	
 	
 	// PRUEBA PARA SABER SI FUNCIONA Buscar el objeto parada mediante el objeto Credenciales 

@@ -41,11 +41,6 @@ public class ParadaService {
 		return carnetBD.save(miCarnet);
 	}
 	
-	// Metodo para obtener parada por id de responsable
-	public Parada obtenerParadaPorResponsable(Long idUsuario) 
-	{
-        return paradasRepository.findByIdUsuario(idUsuario);
-    }
 	
 	// Metodo que retorna todas las paradas
 	public List<Parada> ListaDeParadas() {
