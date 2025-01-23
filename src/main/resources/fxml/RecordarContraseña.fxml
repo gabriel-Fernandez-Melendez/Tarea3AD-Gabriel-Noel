@@ -29,7 +29,7 @@
          <effect>
             <DropShadow blurType="ONE_PASS_BOX" />
          </effect></Button>
-      <Button fx:id="botonVolverLogin" layoutX="23.0" layoutY="394.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="138.0" styleClass="btnGreen" text="Volver al Login" textFill="WHITE">
+      <Button fx:id="botonVolverLogin" layoutX="23.0" layoutY="394.0" mnemonicParsing="false" onAction="#volverAlLogin" prefHeight="31.0" prefWidth="138.0" styleClass="btnGreen" text="Volver al Login" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>

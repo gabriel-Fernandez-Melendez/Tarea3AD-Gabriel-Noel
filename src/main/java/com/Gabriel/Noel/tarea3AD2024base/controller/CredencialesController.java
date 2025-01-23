@@ -75,12 +75,11 @@ public class CredencialesController implements Initializable {
 			if (nombreUsuario.getText().contentEquals(c.getNombreUsuario())
 					&& contraseña.getText().contentEquals(c.getContraseñaUsuario())) {
 				System.out.println("el valido!");
-
 				Credenciales_usuario = c;
-
+				
 				mostrarAlerta("Bienvenido", "Bienvenido: " + c.getTipo().getTipoDeUsuario(), AlertType.INFORMATION);
 				val = true;
-
+				AccesoAlMenu();
 			} else {
 				System.out.println("no son credenciales validas");
 			}
@@ -100,6 +99,30 @@ public class CredencialesController implements Initializable {
 	public static Credenciales getCredenciales()
 	{
 		return Credenciales_usuario;
+	}
+	
+	private void AccesoAlMenu() {
+		Usuarios tipodeusuario =Credenciales_usuario.getTipo();
+		
+		switch (tipodeusuario)
+		{
+		case Invitado: 
+			//como al inicio del programa le asignamos invitado temporalmente entra aqui!
+			stageManager.switchScene(FxmlView.NuevoPeregrino);
+			break;
+		case Responsable_Parada: 
+			stageManager.switchScene(FxmlView.RESPONSABLE);
+			break;
+		case Peregrino: 
+			stageManager.switchScene(FxmlView.ExportarXML);
+			break;
+		case Administrador_General: 
+			stageManager.switchScene(FxmlView.ESTANCIAS_FILTRADAS);//esto hay que modificarlo
+	break;
+		
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + tipodeusuario);
+		}
 	}
 
 	private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {

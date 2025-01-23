@@ -83,7 +83,7 @@ public class RecuperarContraseñaController implements Initializable{
     
     
     @FXML
-    private void volverALogin()
+    private void volverAlLogin()
     {
     	try
 		{
