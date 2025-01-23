@@ -86,10 +86,21 @@ public class NuevoPeregrinoController implements Initializable{
 		    e.printStackTrace();
 		    }
 		}
-	
+	//@FXML
+	//Image img=new Image("resources\\images\\eye.png");
+	//@FXML
+	//Image img2=new Image("../images/eye.png");
 	@FXML
 	private void ImagenPrecionada() {
-		Image img=new Image("@../images/hide.png");
+		//imagen.setImage(img);
+		System.out.println("entra al metodo de precionado");
+		//Image img=new Image("resources\\images\\eye.png");
+	}
+	@FXML
+	private void Imagensoltada() {
+		//imagen.setImage(img2);
+		System.out.println("entra al metodo de soltado");
+		
 	}
 
 	@Override

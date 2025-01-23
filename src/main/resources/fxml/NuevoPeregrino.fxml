@@ -75,12 +75,13 @@
                         <Label fx:id="mostrar_contraseña" prefHeight="17.0" prefWidth="372.0" text="Label" />
                      </children>
                   </VBox>
-                  <ImageView fx:id="imagen" fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imagen" fitHeight="26.0" fitWidth="26.0" onMouseEntered="#ImagenPrecionada" onMouseExited="#Imagensoltada" onMouseReleased="#Imagensoltada" pickOnBounds="true" preserveRatio="true">
                      <HBox.margin>
                         <Insets left="20.0" top="36.0" />
                      </HBox.margin>
                      <image>
-                        <Image url="@../images/hide.png" />
+                        <Image url="@../images/hide.png">
+                        </Image>
                      </image>
                   </ImageView>
                </children>
