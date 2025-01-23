@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="466.0" prefWidth="687.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="466.0" prefWidth="687.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Gabriel.Noel.tarea3AD2024base.controller.RecuperarContraseñaController">
    <children>
       <Rectangle fill="#557797" height="466.0" stroke="#ffffff8b" strokeType="INSIDE" width="687.0" />
       <Label fx:id="lblLogin" layoutX="400.0" layoutY="38.0" text="Recordar Contraseña" textFill="WHITE">
@@ -22,7 +22,7 @@
       <TextField fx:id="campoNombre" layoutX="342.0" layoutY="99.0" prefHeight="36.0" prefWidth="300.0" promptText="Nombre" />
       <TextField fx:id="campoApellido" layoutX="343.0" layoutY="168.0" prefHeight="36.0" prefWidth="300.0" promptText="Apellidos" />
       <TextField fx:id="campoCorreo" layoutX="344.0" layoutY="233.0" prefHeight="36.0" prefWidth="300.0" promptText="Correo Electronico" />
-      <Button fx:id="botonRecuperar" layoutX="432.0" layoutY="302.0" mnemonicParsing="false" onAction="#mostrarContraseña" prefHeight="31.0" prefWidth="121.0" styleClass="btnGreen" text="Recuperar" textFill="WHITE">
+      <Button fx:id="botonRecuperar" layoutX="432.0" layoutY="302.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="121.0" styleClass="btnGreen" text="Recuperar" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>

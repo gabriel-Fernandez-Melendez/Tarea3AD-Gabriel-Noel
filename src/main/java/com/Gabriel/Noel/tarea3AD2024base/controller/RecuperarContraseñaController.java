@@ -19,7 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 @Controller
-public class RecuperarContrasenaController implements Initializable{
+public class RecuperarContraseñaController implements Initializable{
 
     @FXML
     private Label lblLogin;

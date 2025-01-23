@@ -117,6 +117,7 @@ public class CredencialesController implements Initializable {
 	@FXML
  	private void RecuperarContraseña() {
  		try {
+ 			System.out.println("lalala prueba");
  			stageManager.switchScene(FxmlView.RECUPERAR_CONTRASEÑA);
  		}
 

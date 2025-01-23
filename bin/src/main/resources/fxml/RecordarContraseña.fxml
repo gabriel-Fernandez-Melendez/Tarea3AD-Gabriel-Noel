@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="466.0" prefWidth="687.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Gabriel.Noel.tarea3AD2024base.controller.RecuperarContrasenaController">
+<AnchorPane prefHeight="466.0" prefWidth="687.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Gabriel.Noel.tarea3AD2024base.controller.RecuperarContraseñaController">
    <children>
       <Rectangle fill="#557797" height="466.0" stroke="#ffffff8b" strokeType="INSIDE" width="687.0" />
       <Label fx:id="lblLogin" layoutX="400.0" layoutY="38.0" text="Recordar Contraseña" textFill="WHITE">
