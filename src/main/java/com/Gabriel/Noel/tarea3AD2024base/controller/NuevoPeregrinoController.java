@@ -106,6 +106,7 @@ public class NuevoPeregrinoController implements Initializable {
 		System.out.println("entra al metodo de soltado");
 		mostrar_contraseña.setVisible(false);
 	}
+	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
