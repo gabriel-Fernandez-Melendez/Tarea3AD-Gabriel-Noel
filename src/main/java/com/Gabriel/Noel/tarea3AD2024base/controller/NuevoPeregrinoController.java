@@ -86,26 +86,31 @@ public class NuevoPeregrinoController implements Initializable{
 		    e.printStackTrace();
 		    }
 		}
-	//@FXML
-	//Image img=new Image("resources\\images\\eye.png");
-	//@FXML
-	//Image img2=new Image("../images/eye.png");
+	
+	
 	@FXML
 	private void ImagenPrecionada() {
 		//imagen.setImage(img);
 		System.out.println("entra al metodo de precionado");
-		//Image img=new Image("resources\\images\\eye.png");
+		Image img=new Image(getClass().getResourceAsStream("/images/eye.png"));
+		imagen.setImage(img);
+		System.out.println("cargo");
+		mostrar_contraseña.setText("Tu contraseña es: "+Contraseña.getText());
+		mostrar_contraseña.setVisible(true);
 	}
 	@FXML
 	private void Imagensoltada() {
-		//imagen.setImage(img2);
+		Image img=new Image(getClass().getResourceAsStream("/images/hide.png"));
+		imagen.setImage(img);
 		System.out.println("entra al metodo de soltado");
+		mostrar_contraseña.setVisible(false);
 		
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
+		mostrar_contraseña.setVisible(false);
 		
 	}
 
