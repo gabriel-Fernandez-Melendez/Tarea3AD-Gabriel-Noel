@@ -1,45 +1,52 @@
 package com.Gabriel.Noel.tarea3AD2024base.controller;
 
-
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
-import com.Gabriel.Noel.tarea3AD2024base.config.StageManager;
-
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.event.ActionEvent;
 
 @Controller
-public class NuevoPeregrinoController implements Initializable {
-    
-    @Lazy
-    @Autowired
-    private StageManager stageManager;
-    
-    
-    @FXML
-    private Button boton;
-        
-	@FXML
-	private void e(ActionEvent d){
+public class NuevoPeregrinoController implements Initializable{
 
-	    System.out.println("se preciono");
-	}
-	
+    @FXML
+    private PasswordField Contraseña;
+
+    @FXML
+    private TextField Nombre_login;
+
+    @FXML
+    private ImageView imagen;
+
+    @FXML
+    private Label mostrar_contraseña;
+
+    @FXML
+    private TextField nombre_peregrino;
+
+    @FXML
+    private ChoiceBox<?> pais;
+
+    @FXML
+    private ComboBox<?> parada;
+    
+
+
 	@FXML
 	public void AyudaJavaFX( ) {
 		try {
@@ -77,17 +84,19 @@ public class NuevoPeregrinoController implements Initializable {
 		    alert.showAndWait();
 		    //esta linea en caso de que necesitemos detectar el origen del fallo atravez de consola
 		    e.printStackTrace();
-		}
-
-		
+		    }
 		}
 	
+	@FXML
+	private void ImagenPrecionada() {
+		Image img=new Image("@../images/hide.png");
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
+
 }
+
