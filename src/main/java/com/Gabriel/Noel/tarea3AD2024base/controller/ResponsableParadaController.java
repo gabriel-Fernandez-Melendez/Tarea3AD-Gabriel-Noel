@@ -265,22 +265,22 @@ public class ResponsableParadaController {
 	// Metodo para inicializar la parada actual
 	private void inicializarParadaActual()
 	{ 
-//		try
-//		{
-//			// Obtengo la credencial entera a traves del nombre de usuario que se ha logueado
-//			Credenciales miCredencial = credencialesService.obtenerCredencialesPorNombreUsuario(CredencialesController.getNombreUsuario());
-//			
-//			// Asigno la parada buscada a traves del objeto credenciales
-//			paradaActual = paradaService.buscarParadaPorCredenciales(miCredencial);
-//			
-//			// asigno el valor del nombre de la parada
-//			nombreParada = paradaActual.getNombre();
-//		}
-//		
-//		catch(Exception e)
-//		{
-//			System.out.println("Error en el metodo inicializarParadaActual()");
-//		}
+		try
+		{
+			// Obtengo la credencial entera a traves del nombre de usuario que se ha logueado
+			Credenciales miCredencial = CredencialesController.getCredenciales();
+			
+			// Asigno la parada buscada a traves del objeto credenciales
+			paradaActual = paradaService.buscarParadaPorCredenciales(miCredencial);
+			
+			// asigno el valor del nombre de la parada
+			nombreParada = paradaActual.getNombre();
+		}
+		
+		catch(Exception e)
+		{
+			System.out.println("Error en el metodo inicializarParadaActual()");
+		}
 		
 		// Le damos a la label el nombre de la parada
 		labelParadaResponsable.setText("MANOLO");

@@ -33,7 +33,7 @@ import javafx.scene.control.TextField;
 public class CredencialesController implements Initializable {
 
 	// Variable Global estatica para el nombre de usuario (NOEL)
-	private static Credenciales Credenciales_usuario;
+	public static Credenciales Credenciales_usuario;
 
 	@FXML
 	private TextField nombreUsuario;
@@ -95,6 +95,11 @@ public class CredencialesController implements Initializable {
 
 		// fuera del for tiene que ir la llamada la metodo que conexte con las
 		// interfaces pasando como argumento el tipo de usuario que es
+	}
+	
+	public static Credenciales getCredenciales()
+	{
+		return Credenciales_usuario;
 	}
 
 	private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
