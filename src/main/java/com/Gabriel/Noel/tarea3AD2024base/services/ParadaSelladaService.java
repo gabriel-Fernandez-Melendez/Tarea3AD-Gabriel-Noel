@@ -1,5 +1,8 @@
 package com.Gabriel.Noel.tarea3AD2024base.services;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +22,11 @@ public class ParadaSelladaService {
 		return paradaSelladaRepository.save(miParadaSellada);
 	}
 
+	 // Método para filtrar sellados por rango de fechas
+    public List<ParadaSellada> filtrarPorFechas(LocalDate fechaInicio, LocalDate fechaFin) {
+        return paradaSelladaRepository.findByFechaParadaBetween(fechaInicio, fechaFin);
+    }
 	
+    
+    
 }

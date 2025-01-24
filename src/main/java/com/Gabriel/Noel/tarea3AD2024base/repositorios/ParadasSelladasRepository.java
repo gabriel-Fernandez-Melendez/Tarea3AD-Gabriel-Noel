@@ -17,6 +17,9 @@ public interface ParadasSelladasRepository extends JpaRepository<ParadaSellada, 
 
     // Buscar paradas selladas por parada
     List<ParadaSellada> findByParadaId(Long idParada);
+    
+    // Método para buscar sellados entre un rango de fechas
+    List<ParadaSellada> findByFechaParadaBetween(LocalDate fechaInicio, LocalDate fechaFin);
 	
     
     // Filtrar paradas selladas por fecha
