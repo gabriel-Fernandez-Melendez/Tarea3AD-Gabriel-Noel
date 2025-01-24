@@ -1,20 +1,27 @@
 package com.Gabriel.Noel.tarea3AD2024base.controller;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.Gabriel.Noel.tarea3AD2024base.modelo.Carnet;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Usuarios;
+import com.Gabriel.Noel.tarea3AD2024base.services.CarnetService;
 import com.Gabriel.Noel.tarea3AD2024base.services.CredencialesService;
+import com.Gabriel.Noel.tarea3AD2024base.services.ParadaService;
 import com.Gabriel.Noel.tarea3AD2024base.services.PeregrinoService;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -54,14 +61,20 @@ public class NuevoPeregrinoController implements Initializable {
 	private ChoiceBox<String> pais;
 
 	@FXML
-	private ChoiceBox<Parada> parada;
+	private ComboBox<Parada> parada;
 
 	@Autowired
 	private CredencialesService credenciales_service;
 
 	@Autowired
 	private PeregrinoService peregrino_service;
+	
+	@Autowired
+	private ParadaService parada_service;
 
+	@Autowired
+	private CarnetService carnet_service;
+	
 	@FXML
 	public void AyudaJavaFX() {
 		try {
@@ -121,6 +134,12 @@ public class NuevoPeregrinoController implements Initializable {
 		System.out.println("entra al metodo de soltado");
 		mostrar_contraseña.setVisible(false);
 	}
+	
+	//TENGO QUE METER EL METOD FXML RELATIVO AL  BOTON QUE GUARDA CASA COSA 
+	@FXML
+	private void GuardarNuevoPeregrino() {
+		
+	}
 
 	// aqui iran los metodos que se implementen en los @fxml pero no tengan que
 	// llevar la notacion (los relativos a la base de datos)
@@ -147,16 +166,27 @@ public class NuevoPeregrinoController implements Initializable {
 		return val;
 	}
 	
-	private boolean GuardarPeregrino() {
-		boolean val =false;
+	private Peregrino GuardarPeregrino() {
+		boolean val =false; // puede que esta variable no haga falta
+		Peregrino per = new Peregrino();
 		ArrayList<Peregrino> peregrinos =(ArrayList<Peregrino>) peregrino_service.ListaDePeregrinos();
 		for(Peregrino p: peregrinos) {
-			// NO HACE FALTA POR QUE LOS NOMBRES DEL PEREGRINO SE PUEDEN REPETIR 
-			if(nombre_peregrino.getText().equals(p.getNombre())) {
+			// hace falta hacer un  if por que tanto el nombre del peregrino como la parada o el pais se pueden repetir  			
+			per.setNombre(nombre_peregrino.getText());
+			per.setNacionalidad(pais.getValue());
+			ArrayList<Parada> paradas =new ArrayList<Parada>();
+			paradas.add(parada.getValue());
 			
 			}
-		}
-		return true;
+		return per;
+	}
+	
+	private void GuardarCarnet(Peregrino p,Parada par) {
+		Carnet c= new Carnet();
+		c.setDistancia(0);
+		c.setFechaexp(LocalDate.now());
+		c.setParadaInicial(par);
+		carnet_service.GuardarCarnet(c);
 	}
 
 	private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
@@ -170,6 +200,27 @@ public class NuevoPeregrinoController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		mostrar_contraseña.setVisible(false);
+		/*
+		 * parada =new ChoiceBox<>(); List<Parada> paradas = new ArrayList<Parada>();
+		 * paradas = parada_service.ListaDeParadas(); // puede que solo sea posible con
+		 * lista gnenerica for(Parada p :paradas) { System.out.println(p.getNombre()); }
+		 * parada.setItems(FXCollections.observableArrayList(paradas));
+		 */
+		 // Imprimir datos para depuración
+
+		List<Parada> paradas = new ArrayList<Parada>();
+		
+		paradas = parada_service.ListaDeParadas();
+	    if (paradas != null && !paradas.isEmpty()) {
+	        for (Parada p : paradas) {
+	            System.out.println(p.getNombre()); 
+	        }
+	    } else {
+	        System.out.println("La lista de paradas está vacía o es null.");
+	    }
+	    ObservableList<Parada> opciones = FXCollections.observableArrayList(paradas);
+	    parada.setItems(opciones);
+	    parada.setValue(paradas.get(0));
 
 	}
 

@@ -111,9 +111,6 @@ public class Parada implements Serializable{
 
     @Override
     public String toString() {
-        return "Parada [id=" + id +
-               ", nombre=" + nombre +
-               ", region=" + region +
-               ", responsable=" + responsable + "]";
+        return nombre;
     }
 }
