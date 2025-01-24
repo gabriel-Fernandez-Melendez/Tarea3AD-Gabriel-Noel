@@ -16,4 +16,15 @@ public class EstanciaService {
 	{
 		return estanciaRepository.save(miEstancia);
 	}
+	
+	public boolean verificarEstancia(Long peregrinoId, Long paradaId) {
+	    return estanciaRepository.existsByPeregrinoIdAndParadaId(peregrinoId, paradaId);
+	}
+
+	
+	public boolean esVIPEnParada(Long peregrinoId, Long paradaId) {
+	    Boolean esVIP = estanciaRepository.esVIPEnParada(peregrinoId, paradaId);
+	    return esVIP != null && esVIP;
+	}
+
 }

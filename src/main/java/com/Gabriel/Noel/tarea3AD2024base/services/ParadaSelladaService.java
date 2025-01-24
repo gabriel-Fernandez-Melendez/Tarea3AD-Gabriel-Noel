@@ -23,9 +23,10 @@ public class ParadaSelladaService {
 	}
 
 	 // Método para filtrar sellados por rango de fechas
-    public List<ParadaSellada> filtrarPorFechas(LocalDate fechaInicio, LocalDate fechaFin) {
-        return paradaSelladaRepository.findByFechaParadaBetween(fechaInicio, fechaFin);
-    }
+	public List<ParadaSellada> filtrarPorParadaYFechas(Long paradaId, LocalDate fechaInicio, LocalDate fechaFin) {
+	    return paradaSelladaRepository.findByParadaAndFechas(paradaId, fechaInicio, fechaFin);
+	}
+
 	
     
     

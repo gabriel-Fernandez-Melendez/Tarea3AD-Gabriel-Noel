@@ -34,7 +34,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 @Controller
 public class ResponsableParadaController {
 
-	private Parada paradaActual;
+	private static Parada paradaActual;
 	
 	private String nombreParada;
 
@@ -259,7 +259,12 @@ public class ResponsableParadaController {
 	}
 
 	public void setParada(Parada parada) {
-		this.paradaActual = parada;
+		ResponsableParadaController.paradaActual = parada;
+	}
+	
+	public static Parada getParada()
+	{
+		return paradaActual;
 	}
 	
 	
@@ -292,6 +297,7 @@ public class ResponsableParadaController {
 		// Le damos a la label el nombre de la parada
 		labelParadaResponsable.setText(nombreParada);
 	}
+
 	
 	
 	
