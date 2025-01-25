@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
 import com.Gabriel.Noel.tarea3AD2024base.repositorios.PeregrinoRepository;
@@ -18,6 +19,7 @@ public class PeregrinoService {
 
 	// metodos de recuperacion de datos haciendo uso del repositorio del
 	// peregrino(tengo que probar que lo inserta sin id )
+	@Transactional
 	public Peregrino GuardarPeregrino(Peregrino p) {
 		return peregrinoBD.save(p);
 	}

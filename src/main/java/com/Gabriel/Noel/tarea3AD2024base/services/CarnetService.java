@@ -2,6 +2,7 @@
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Carnet;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
@@ -15,11 +16,13 @@ public class CarnetService {
 	@Autowired
 	private CarnetRepository carnetBD;
 	
+	@Transactional
 	public Carnet GuardarCarnet(Carnet c) {
 		return carnetBD.save(c);
 	}
 	
 	//metodo que permite buscar en funcion de un  id el carnet de ese peregrino(noel este metodo puede devolver nulo, si lo es pon lo como condicional para entrar en un do while)
+	@Transactional
 	public Carnet BuscarPorId(long id) {
 		Carnet carnet = carnetBD.findById(id).orElse(null);
 		if (carnet == null) {

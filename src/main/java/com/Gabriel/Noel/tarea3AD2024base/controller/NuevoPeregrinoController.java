@@ -81,10 +81,10 @@ public class NuevoPeregrinoController implements Initializable {
 
 	@FXML
 	private ComboBox<Parada> parada;
-	
+
 	@FXML
 	private Button guardar;
-	
+
 	@FXML
 	private Button limpiar;
 
@@ -93,7 +93,7 @@ public class NuevoPeregrinoController implements Initializable {
 
 	@Autowired
 	private PeregrinoService peregrino_service;
-	
+
 	@Autowired
 	private ParadaService parada_service;
 
@@ -102,11 +102,11 @@ public class NuevoPeregrinoController implements Initializable {
 	@Lazy
 	@Autowired
 	private StageManager stageManager;
-	
-	//sin este campo erl introducir el carnet en el peregrino  da problemas
-	@PersistenceContext 
-    private EntityManager entityManager;
-	
+
+	// sin este campo erl introducir el carnet en el peregrino da problemas
+	@PersistenceContext
+	private EntityManager entityManager;
+
 	@FXML
 	public void AyudaJavaFX() {
 		try {
@@ -166,15 +166,15 @@ public class NuevoPeregrinoController implements Initializable {
 		System.out.println("entra al metodo de soltado");
 		mostrar_contraseña.setVisible(false);
 	}
-	
-	//TENGO QUE METER EL METOD FXML RELATIVO AL  BOTON QUE GUARDA CASA COSA 
+
+	// TENGO QUE METER EL METOD FXML RELATIVO AL BOTON QUE GUARDA CASA COSA
 	@FXML
 	private void GuardarNuevoPeregrino() {
-		Credenciales cred=GuardarNuevasCredenciales();
-		Carnet c=GuardarCarnet(parada.getValue());
-		Carnet carnetManaged = entityManager.merge(c);
-		//Carnet carnet_aux=carnet_service.BuscarPorId(c.getId()); // esta detached asi que tengo que buscarlo en funcion del retorno que me da la funcion
-		GuardarPeregrino(cred, carnetManaged);
+		Credenciales cred = GuardarNuevasCredenciales();
+		Carnet c = GuardarCarnet(parada.getValue());
+		Carnet carnet_aux = carnet_service.BuscarPorId(c.getId()); // esta detached asi que tengo que buscarlo en
+																	// funcion del retorno que me da la funcion
+		GuardarPeregrino(cred, carnet_aux);
 		mostrarAlerta("Peregrino añadido", "Puede entrar con sus credenciales de peregrino", AlertType.INFORMATION);
 	}
 
@@ -192,7 +192,7 @@ public class NuevoPeregrinoController implements Initializable {
 						AlertType.ERROR);
 				// val esta a false ya
 			} else {
-				
+
 				cred.setNombreUsuario(nombre_peregrino.getText());
 				cred.setContraseñaUsuario(Contraseña.getText());
 				cred.setTipo(Usuarios.Peregrino);
@@ -201,27 +201,28 @@ public class NuevoPeregrinoController implements Initializable {
 		}
 		return cred;
 	}
+
 	
-	
-	private void GuardarPeregrino(Credenciales c,Carnet car) {
-		boolean val =false; // puede que esta variable no haga falta
+	private void GuardarPeregrino(Credenciales c, Carnet car) {
+		boolean val = false; // puede que esta variable no haga falta
 		Peregrino per = new Peregrino();
-			// NO hace falta hacer un  if por que tanto el nombre del peregrino como la parada o el pais se pueden repetir  			
-			per.setNombre(nombre_peregrino.getText());
-			per.setNacionalidad(pais.getValue());
-			per.setCarnet(car);
-			per.setCredenciales(c);			
-			Peregrino peregrino_nuevo =peregrino_service.GuardarPeregrino(per);
-			
+		// NO hace falta hacer un if por que tanto el nombre del peregrino como la
+		// parada o el pais se pueden repetir
+		per.setNombre(nombre_peregrino.getText());
+		per.setNacionalidad(pais.getValue());
+		per.setCarnet(car);
+		per.setCredenciales(c);
+		Peregrino peregrino_nuevo = peregrino_service.GuardarPeregrino(per);
+
 	}
-	
+
 	private Carnet GuardarCarnet(Parada par) {
-		Carnet c= new Carnet();                                                  
+		Carnet c = new Carnet();
 		c.setDistancia(0);
 		c.setFechaexp(LocalDate.now());
 		c.setParadaInicial(par);
 		c.setNvips(0);
-		Carnet carnet=carnet_service.GuardarCarnet(c);
+		Carnet carnet = carnet_service.GuardarCarnet(c);
 		return carnet;
 	}
 
@@ -232,15 +233,16 @@ public class NuevoPeregrinoController implements Initializable {
 		miAlerta.showAndWait();
 	}
 
-	//metodos para la lectura de los paises 
+	// metodos para la lectura de los paises
 	private static String extraer_datos_pais(String etiqueta, Element elem) {
 		NodeList nodo = elem.getElementsByTagName(etiqueta).item(0).getChildNodes();
 		Node valorNodo = (Node) nodo.item(0);
 		return valorNodo.getNodeValue();
 	}
+
 	public static ArrayList<String> SeleccionDePais() {
-		//tuve que cambiar el argumente del documento en relacion a la segunda entrega
-		 InputStream paises_xml = NuevoPeregrinoController.class.getClassLoader().getResourceAsStream("XML/paises.xml");
+		// tuve que cambiar el argumente del documento en relacion a la segunda entrega
+		InputStream paises_xml = NuevoPeregrinoController.class.getClassLoader().getResourceAsStream("XML/paises.xml");
 		ArrayList<String> paises = new ArrayList<>();
 		try {
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -248,13 +250,14 @@ public class NuevoPeregrinoController implements Initializable {
 			documento.getDocumentElement().normalize();
 			NodeList nodo = documento.getElementsByTagName("pais");
 			for (int i = 0; i < nodo.getLength(); i++) {
-				Node nodo_pais = nodo.item(i);				
+				Node nodo_pais = nodo.item(i);
 				if (nodo_pais.getNodeType() == Node.ELEMENT_NODE) {
 					Element elemento = (Element) nodo_pais;// Obtenemos los elementos del nodo
-						 paises.add(extraer_datos_pais("nombre", elemento));
-					}
+					paises.add(extraer_datos_pais("nombre", elemento));
 				}
-			//borrar para la entrega , es  para comprobar que se cargan  los paises correctamente
+			}
+			// borrar para la entrega , es para comprobar que se cargan los paises
+			// correctamente
 			for (String s : paises) {
 				System.out.println(s);
 			}
@@ -270,36 +273,37 @@ public class NuevoPeregrinoController implements Initializable {
 		}
 		return paises;
 	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		mostrar_contraseña.setText(" ");
 		mostrar_contraseña.setVisible(false);
-		//listas para cargar los datos
+		// listas para cargar los datos
 		List<Parada> paradas = new ArrayList<Parada>();
 		List<String> paises = new ArrayList<String>();
-		
-		//carga de los datos de las paradas ern la vista
+
+		// carga de los datos de las paradas ern la vista
 		paradas = parada_service.ListaDeParadas();
-	    if (paradas != null && !paradas.isEmpty()) {
-	        for (Parada p : paradas) {
-	            System.out.println(p.getNombre()); 
-	        }
-	    } else {
-	        System.out.println("La lista de paradas está vacía o es null.");
-	    }
-	    ObservableList<Parada> opciones = FXCollections.observableArrayList(paradas);
-	    parada.setItems(opciones);
-	    parada.setValue(paradas.get(0));
-	    
-	    //carga de los datos de los paises en la vista
-	    paises=SeleccionDePais();
-	    ObservableList<String> opciones_2 = FXCollections.observableArrayList(paises);
-	    pais.setItems(opciones_2);
-	    pais.setValue(paises.get(0));
-	    
-	    //inicializarlabel
-	    
+		if (paradas != null && !paradas.isEmpty()) {
+			for (Parada p : paradas) {
+				System.out.println(p.getNombre());
+			}
+		} else {
+			System.out.println("La lista de paradas está vacía o es null.");
+		}
+		ObservableList<Parada> opciones = FXCollections.observableArrayList(paradas);
+		parada.setItems(opciones);
+		parada.setValue(paradas.get(0));
+
+		// carga de los datos de los paises en la vista
+		paises = SeleccionDePais();
+		ObservableList<String> opciones_2 = FXCollections.observableArrayList(paises);
+		pais.setItems(opciones_2);
+		pais.setValue(paises.get(0));
+
+		// inicializarlabel
+
 	}
 
 }
