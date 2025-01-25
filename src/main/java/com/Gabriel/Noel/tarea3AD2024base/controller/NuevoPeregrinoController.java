@@ -1,14 +1,27 @@
 package com.Gabriel.Noel.tarea3AD2024base.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Carnet;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
@@ -58,7 +71,7 @@ public class NuevoPeregrinoController implements Initializable {
 	private TextField nombre_peregrino;
 
 	@FXML
-	private ChoiceBox<String> pais;
+	private ComboBox<String> pais;
 
 	@FXML
 	private ComboBox<Parada> parada;
@@ -196,20 +209,53 @@ public class NuevoPeregrinoController implements Initializable {
 		miAlerta.showAndWait();
 	}
 
+	//metodos para la lectura de los paises 
+	private static String extraer_datos_pais(String etiqueta, Element elem) {
+		NodeList nodo = elem.getElementsByTagName(etiqueta).item(0).getChildNodes();
+		Node valorNodo = (Node) nodo.item(0);
+		return valorNodo.getNodeValue();
+	}
+	public static ArrayList<String> SeleccionDePais() {
+		//tuve que cambiar el argumente del documento en relacion a la segunda entrega
+		 InputStream paises_xml = NuevoPeregrinoController.class.getClassLoader().getResourceAsStream("XML/paises.xml");
+		ArrayList<String> paises = new ArrayList<>();
+		try {
+			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+			Document documento = builder.parse(paises_xml);
+			documento.getDocumentElement().normalize();
+			NodeList nodo = documento.getElementsByTagName("pais");
+			for (int i = 0; i < nodo.getLength(); i++) {
+				Node nodo_pais = nodo.item(i);				
+				if (nodo_pais.getNodeType() == Node.ELEMENT_NODE) {
+					Element elemento = (Element) nodo_pais;// Obtenemos los elementos del nodo
+						 paises.add(extraer_datos_pais("nombre", elemento));
+					}
+				}
+			//borrar para la entrega , es  para comprobar que se cargan  los paises correctamente
+			for (String s : paises) {
+				System.out.println(s);
+			}
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return paises;
+	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		mostrar_contraseña.setVisible(false);
-		/*
-		 * parada =new ChoiceBox<>(); List<Parada> paradas = new ArrayList<Parada>();
-		 * paradas = parada_service.ListaDeParadas(); // puede que solo sea posible con
-		 * lista gnenerica for(Parada p :paradas) { System.out.println(p.getNombre()); }
-		 * parada.setItems(FXCollections.observableArrayList(paradas));
-		 */
-		 // Imprimir datos para depuración
-
+		//listas para cargar los datos
 		List<Parada> paradas = new ArrayList<Parada>();
+		List<String> paises = new ArrayList<String>();
 		
+		//carga de los datos de las paradas ern la vista
 		paradas = parada_service.ListaDeParadas();
 	    if (paradas != null && !paradas.isEmpty()) {
 	        for (Parada p : paradas) {
@@ -221,7 +267,12 @@ public class NuevoPeregrinoController implements Initializable {
 	    ObservableList<Parada> opciones = FXCollections.observableArrayList(paradas);
 	    parada.setItems(opciones);
 	    parada.setValue(paradas.get(0));
-
+	    
+	    //carga de los datos de los paises en la vista
+	    paises=SeleccionDePais();
+	    ObservableList<String> opciones_2 = FXCollections.observableArrayList(paises);
+	    pais.setItems(opciones_2);
+	    pais.setValue(paises.get(0));
 	}
 
 }

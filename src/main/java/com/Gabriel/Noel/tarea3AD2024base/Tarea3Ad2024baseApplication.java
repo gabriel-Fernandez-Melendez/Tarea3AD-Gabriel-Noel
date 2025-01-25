@@ -1,11 +1,14 @@
 package com.Gabriel.Noel.tarea3AD2024base;
 
+import java.util.ArrayList;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import com.Gabriel.Noel.tarea3AD2024base.config.StageManager;
 import com.Gabriel.Noel.tarea3AD2024base.controller.CredencialesController;
+import com.Gabriel.Noel.tarea3AD2024base.controller.NuevoPeregrinoController;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Carnet;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
@@ -26,8 +29,7 @@ public class Tarea3Ad2024baseApplication extends Application {
 	@Override
 	public void init() throws Exception {
 		springContext = springBootApplicationContext();
-		CredencialesController credencialesController = springContext.getBean(CredencialesController.class);
-
+		
 	
 
 	}
@@ -49,7 +51,7 @@ public class Tarea3Ad2024baseApplication extends Application {
 	 */
 	//es aqui  donde tengo que modificar la vista
 	protected void displayInitialScene() {
-		stageManager.switchScene(FxmlView.RESPONSABLE);
+		stageManager.switchScene(FxmlView.NuevoPeregrino);
 	}
 
 	private ConfigurableApplicationContext springBootApplicationContext() {
