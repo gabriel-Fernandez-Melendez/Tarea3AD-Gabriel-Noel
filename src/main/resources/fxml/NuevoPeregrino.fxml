@@ -181,7 +181,7 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="405.0" prefHeight="82.0" prefWidth="1000.0">
                <children>
-                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="204.0" text="Button">
+                  <Button fx:id="guardar" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#GuardarNuevoPeregrino" prefHeight="33.0" prefWidth="204.0" text="Button">
                      <HBox.margin>
                         <Insets left="150.0" right="300.0" top="50.0" />
                      </HBox.margin>

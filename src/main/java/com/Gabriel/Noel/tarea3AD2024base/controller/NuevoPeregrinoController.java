@@ -16,13 +16,16 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.Gabriel.Noel.tarea3AD2024base.config.StageManager;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Carnet;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
@@ -33,6 +36,8 @@ import com.Gabriel.Noel.tarea3AD2024base.services.CredencialesService;
 import com.Gabriel.Noel.tarea3AD2024base.services.ParadaService;
 import com.Gabriel.Noel.tarea3AD2024base.services.PeregrinoService;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -41,6 +46,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -75,6 +81,12 @@ public class NuevoPeregrinoController implements Initializable {
 
 	@FXML
 	private ComboBox<Parada> parada;
+	
+	@FXML
+	private Button guardar;
+	
+	@FXML
+	private Button limpiar;
 
 	@Autowired
 	private CredencialesService credenciales_service;
@@ -87,6 +99,13 @@ public class NuevoPeregrinoController implements Initializable {
 
 	@Autowired
 	private CarnetService carnet_service;
+	@Lazy
+	@Autowired
+	private StageManager stageManager;
+	
+	//sin este campo erl introducir el carnet en el peregrino  da problemas
+	@PersistenceContext 
+    private EntityManager entityManager;
 	
 	@FXML
 	public void AyudaJavaFX() {
@@ -151,13 +170,18 @@ public class NuevoPeregrinoController implements Initializable {
 	//TENGO QUE METER EL METOD FXML RELATIVO AL  BOTON QUE GUARDA CASA COSA 
 	@FXML
 	private void GuardarNuevoPeregrino() {
-		
+		Credenciales cred=GuardarNuevasCredenciales();
+		Carnet c=GuardarCarnet(parada.getValue());
+		Carnet carnetManaged = entityManager.merge(c);
+		//Carnet carnet_aux=carnet_service.BuscarPorId(c.getId()); // esta detached asi que tengo que buscarlo en funcion del retorno que me da la funcion
+		GuardarPeregrino(cred, carnetManaged);
+		mostrarAlerta("Peregrino añadido", "Puede entrar con sus credenciales de peregrino", AlertType.INFORMATION);
 	}
 
 	// aqui iran los metodos que se implementen en los @fxml pero no tengan que
 	// llevar la notacion (los relativos a la base de datos)
-	public boolean GuardarNuevasCredenciales() {
-		boolean val = false;
+	public Credenciales GuardarNuevasCredenciales() {
+		Credenciales cred = new Credenciales();
 		ArrayList<Credenciales> credenciales = (ArrayList<Credenciales>) credenciales_service.ListaDeCredenciales();
 		for (Credenciales c : credenciales) {
 			// no meter de momento el comprobar contraseña por que mientras tengan nombres
@@ -168,38 +192,37 @@ public class NuevoPeregrinoController implements Initializable {
 						AlertType.ERROR);
 				// val esta a false ya
 			} else {
-				Credenciales cred = new Credenciales();
+				
 				cred.setNombreUsuario(nombre_peregrino.getText());
 				cred.setContraseñaUsuario(Contraseña.getText());
 				cred.setTipo(Usuarios.Peregrino);
 				credenciales_service.GuardarCredenciales(cred);
-				val = true;
 			}
 		}
-		return val;
+		return cred;
 	}
 	
-	private Peregrino GuardarPeregrino() {
+	
+	private void GuardarPeregrino(Credenciales c,Carnet car) {
 		boolean val =false; // puede que esta variable no haga falta
 		Peregrino per = new Peregrino();
-		ArrayList<Peregrino> peregrinos =(ArrayList<Peregrino>) peregrino_service.ListaDePeregrinos();
-		for(Peregrino p: peregrinos) {
 			// NO hace falta hacer un  if por que tanto el nombre del peregrino como la parada o el pais se pueden repetir  			
 			per.setNombre(nombre_peregrino.getText());
 			per.setNacionalidad(pais.getValue());
-			ArrayList<Parada> paradas =new ArrayList<Parada>();
-			paradas.add(parada.getValue());
-			//meter una relacion 1:1 con parada (noelin t kiero)
-			}
-		return per;
+			per.setCarnet(car);
+			per.setCredenciales(c);			
+			Peregrino peregrino_nuevo =peregrino_service.GuardarPeregrino(per);
+			
 	}
 	
-	private void GuardarCarnet(Peregrino p,Parada par) {
-		Carnet c= new Carnet();
+	private Carnet GuardarCarnet(Parada par) {
+		Carnet c= new Carnet();                                                  
 		c.setDistancia(0);
 		c.setFechaexp(LocalDate.now());
 		c.setParadaInicial(par);
-		carnet_service.GuardarCarnet(c);
+		c.setNvips(0);
+		Carnet carnet=carnet_service.GuardarCarnet(c);
+		return carnet;
 	}
 
 	private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
@@ -250,6 +273,7 @@ public class NuevoPeregrinoController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
+		mostrar_contraseña.setText(" ");
 		mostrar_contraseña.setVisible(false);
 		//listas para cargar los datos
 		List<Parada> paradas = new ArrayList<Parada>();
@@ -273,6 +297,9 @@ public class NuevoPeregrinoController implements Initializable {
 	    ObservableList<String> opciones_2 = FXCollections.observableArrayList(paises);
 	    pais.setItems(opciones_2);
 	    pais.setValue(paises.get(0));
+	    
+	    //inicializarlabel
+	    
 	}
 
 }
