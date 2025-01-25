@@ -184,12 +184,12 @@ public class NuevoPeregrinoController implements Initializable {
 		Peregrino per = new Peregrino();
 		ArrayList<Peregrino> peregrinos =(ArrayList<Peregrino>) peregrino_service.ListaDePeregrinos();
 		for(Peregrino p: peregrinos) {
-			// hace falta hacer un  if por que tanto el nombre del peregrino como la parada o el pais se pueden repetir  			
+			// NO hace falta hacer un  if por que tanto el nombre del peregrino como la parada o el pais se pueden repetir  			
 			per.setNombre(nombre_peregrino.getText());
 			per.setNacionalidad(pais.getValue());
 			ArrayList<Parada> paradas =new ArrayList<Parada>();
 			paradas.add(parada.getValue());
-			
+			//meter una relacion 1:1 con parada (noelin t kiero)
 			}
 		return per;
 	}
