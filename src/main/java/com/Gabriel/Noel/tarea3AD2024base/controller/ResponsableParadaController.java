@@ -105,6 +105,7 @@ public class ResponsableParadaController {
 		cargarColumnas();
 		cargarPeregrinos();
 		inicializarParadaActual();
+
 	}
 
 	// Metodo para cambiar de ventana a Filtrar Estancias
@@ -277,7 +278,7 @@ public class ResponsableParadaController {
 			Credenciales miCredencial = CredencialesController.getCredenciales();
 			
 			Credenciales algo = new Credenciales();
-			algo.setId(2L);
+			algo.setId(4L);
 			algo.setNombreUsuario("Paco");
 			algo.setTipo(Usuarios.Responsable_Parada);
 			algo.setContraseñaUsuario("1234");

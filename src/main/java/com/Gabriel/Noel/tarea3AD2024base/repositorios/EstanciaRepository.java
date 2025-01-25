@@ -16,8 +16,14 @@ public interface EstanciaRepository extends JpaRepository<Estancia, Long> {
 
 	
 	// comprobar bien
-	@Query("SELECT e.vip FROM Estancia e WHERE e.peregrino.id = :peregrinoId AND e.parada.id = :paradaId")
-	boolean esVIPEnParada(@Param("peregrinoId") Long peregrinoId, @Param("paradaId") Long paradaId);
+//	@Query("SELECT e.vip FROM Estancia e WHERE e.peregrino.id = :peregrinoId AND e.parada.id = :paradaId")
+//	boolean esVIPEnParada(@Param("peregrinoId") Long peregrinoId, @Param("paradaId") Long paradaId);
+	
+	
+	// FUNCIONAL QUE NO DEVUELVE NULL SI NO, EL TABLEVIEW ROMPE POR NO PODER TRABAJAR CON NULOS
+	@Query("SELECT CASE WHEN COUNT(e) > 0 THEN e.vip ELSE false END FROM Estancia e WHERE e.peregrino.id = :peregrinoId AND e.parada.id = :paradaId")
+	Boolean esVIPEnParada(@Param("peregrinoId") Long peregrinoId, @Param("paradaId") Long paradaId);
+
 
 	
 	// COMPROBAR BIEN 

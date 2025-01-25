@@ -24,7 +24,8 @@ public class EstanciaService {
 	
 	public boolean esVIPEnParada(Long peregrinoId, Long paradaId) {
 	    Boolean esVIP = estanciaRepository.esVIPEnParada(peregrinoId, paradaId);
-	    return esVIP != null && esVIP;
+	    //return esVIP!= null && esVIP;
+	    return Boolean.TRUE.equals(esVIP);
 	}
 
 }

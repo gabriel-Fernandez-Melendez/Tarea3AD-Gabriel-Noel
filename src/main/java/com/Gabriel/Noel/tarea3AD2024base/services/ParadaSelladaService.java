@@ -22,12 +22,28 @@ public class ParadaSelladaService {
 		return paradaSelladaRepository.save(miParadaSellada);
 	}
 
-	 // Método para filtrar sellados por rango de fechas
+//	 // Método para filtrar sellados por rango de fechas
+//	public List<ParadaSellada> filtrarPorParadaYFechas(Long paradaId, LocalDate fechaInicio, LocalDate fechaFin) {
+//	    return paradaSelladaRepository.findByParadaAndFechas(paradaId, fechaInicio, fechaFin);
+//	}
+	
 	public List<ParadaSellada> filtrarPorParadaYFechas(Long paradaId, LocalDate fechaInicio, LocalDate fechaFin) {
+	    String fechaInicioStr = fechaInicio.toString();
+	    String fechaFinStr = fechaFin.toString();
+	    
+	    System.out.println("=== FILTRANDO PARADAS SELLADAS ===");
+	    System.out.println("ID Parada: " + paradaId);
+	    System.out.println("Fecha Inicio (String): " + fechaInicioStr);
+	    System.out.println("Fecha Fin (String): " + fechaFinStr);
+
 	    return paradaSelladaRepository.findByParadaAndFechas(paradaId, fechaInicio, fechaFin);
 	}
 
-	
+
+	// Obtener todas las paradas selladas
+	public List<ParadaSellada> obtenerTodasParadasSelladas() {
+	    return paradaSelladaRepository.findAll();
+	}
     
     
 }
