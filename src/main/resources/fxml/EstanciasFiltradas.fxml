@@ -68,7 +68,7 @@
                <children>
                   <HBox prefHeight="79.0" prefWidth="1000.0">
                      <children>
-                        <Button fx:id="botonReseteo" mnemonicParsing="false" onAction="#filtrarPorFechas" prefHeight="15.0" prefWidth="130.0" styleClass="background" text="Resetear" textFill="#fff9f9" textOverrun="CLIP">
+                        <Button fx:id="botonReseteo" mnemonicParsing="false" onAction="#filtrarEstancias" prefHeight="15.0" prefWidth="130.0" styleClass="background" text="Resetear" textFill="#fff9f9" textOverrun="CLIP">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -99,7 +99,7 @@
                               <Insets top="20.0" />
                            </HBox.margin>
                         </DatePicker>
-                        <Button fx:id="botonFiltrarEstancias" mnemonicParsing="false" onAction="#filtrarPorFechas" prefHeight="15.0" prefWidth="130.0" styleClass="background" text="Filtrar Estancias" textFill="#fff9f9" textOverrun="CLIP">
+                        <Button fx:id="botonFiltrarEstancias" mnemonicParsing="false" onAction="#filtrarEstancias" prefHeight="15.0" prefWidth="130.0" styleClass="background" text="Filtrar Estancias" textFill="#fff9f9" textOverrun="CLIP">
                            <font>
                               <Font size="14.0" />
                            </font>

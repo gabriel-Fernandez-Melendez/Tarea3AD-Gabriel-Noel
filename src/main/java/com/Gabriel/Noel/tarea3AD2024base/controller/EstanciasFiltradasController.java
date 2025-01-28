@@ -39,6 +39,9 @@ public class EstanciasFiltradasController {
     private Button botonFiltrarEstancias;
     
     @FXML
+    private Button botonReseteo;
+    
+    @FXML
     private TableView<PeregrinoTabla> tablaPeregrinosFiltrados;
 
     @FXML
@@ -66,6 +69,9 @@ public class EstanciasFiltradasController {
     @Autowired
     private ParadaSelladaService paradaSelladaService;
 
+    @Autowired
+    private EstanciaService estanciaService;
+    
     @Lazy
     @Autowired
     private StageManager stageManager;
@@ -89,73 +95,105 @@ public class EstanciasFiltradasController {
     }
 
 
+//    @FXML
+//    private void filtrarPorFechas() {
+//        try {
+//            LocalDate fechaInicio = fechaFiltradoInicio.getValue();
+//            LocalDate fechaFin = fechaFiltradoFin.getValue();
+//
+//            // Validaciones de fechas
+//            if (fechaInicio == null || fechaFin == null) {
+//                mostrarAlerta("Error", "Por favor, selecciona ambas fechas.", Alert.AlertType.ERROR);
+//                return;
+//            }
+//
+//            if (fechaInicio.isAfter(fechaFin)) {
+//                mostrarAlerta("Error", "La fecha de inicio no puede ser posterior a la fecha de fin.", Alert.AlertType.ERROR);
+//                return;
+//            }
+//
+//            if (paradaActual == null) {
+//                mostrarAlerta("Error", "No se ha determinado la parada actual.", Alert.AlertType.ERROR);
+//                return;
+//            }
+//
+//            // Obtener las paradas selladas en el rango de fechas
+//            List<ParadaSellada> misParadas = paradaSelladaService.obtenerTodasParadasSelladas();
+//            List<ParadaSellada> paradasSelladas = paradaSelladaService.filtrarPorParadaYFechas(paradaActual.getId(), fechaInicio, fechaFin);
+//            
+//            System.out.println(misParadas);
+//            System.out.println(paradasSelladas);
+//
+//            if (paradasSelladas.isEmpty()) {
+//                mostrarAlerta("Información", "No se encontraron sellados en este rango de fechas.", Alert.AlertType.INFORMATION);
+//                tablaPeregrinosFiltrados.getItems().clear();
+//                return;
+//            }
+//
+//
+//            
+//         // Crear lista de modelos para la tabla
+//            ObservableList<PeregrinoTabla> peregrinosTabla = FXCollections.observableArrayList();
+//            
+//            for (ParadaSellada sellada : paradasSelladas) 
+//            {
+//                Peregrino peregrino = sellada.getPeregrino();
+//                
+//                Long id = peregrino.getId();
+//                String nombre = peregrino.getNombre();
+//                String fechaSellado = sellada.getFechaParada().toString();
+//               String seEstancio = "si";
+//               String esVIP = "si";
+//
+//
+//                // Crear objeto PeregrinoTabla
+//                PeregrinoTabla modelo = new PeregrinoTabla(id, nombre, fechaSellado, seEstancio, esVIP);
+//                peregrinosTabla.add(modelo);
+//            }
+//            
+//            System.out.println("ESTOS SON LOS PEREGRINOS FILTRADOS");
+//            System.out.println(peregrinosTabla.toString());
+//            
+//            tablaPeregrinosFiltrados.setItems(peregrinosTabla);
+//
+//        } 
+//        
+//        catch (Exception e) {
+//            mostrarAlerta("Error", e.getMessage(), Alert.AlertType.ERROR);
+//        }
+//    }
+    
     @FXML
-    private void filtrarPorFechas() {
+    private void filtrarEstancias() {
         try {
             LocalDate fechaInicio = fechaFiltradoInicio.getValue();
             LocalDate fechaFin = fechaFiltradoFin.getValue();
 
-            // Validaciones de fechas
-            if (fechaInicio == null || fechaFin == null) {
-                mostrarAlerta("Error", "Por favor, selecciona ambas fechas.", Alert.AlertType.ERROR);
+            if (fechaInicio == null || fechaFin == null || paradaActual == null) {
+                mostrarAlerta("Error", "Debes seleccionar fechas válidas y tener una parada asignada.", Alert.AlertType.ERROR);
                 return;
             }
 
-            if (fechaInicio.isAfter(fechaFin)) {
-                mostrarAlerta("Error", "La fecha de inicio no puede ser posterior a la fecha de fin.", Alert.AlertType.ERROR);
-                return;
-            }
+            List<Map<String, Object>> estancias = estanciaService.obtenerEstanciasFiltradas(paradaActual.getId(), fechaInicio, fechaFin);
 
-            if (paradaActual == null) {
-                mostrarAlerta("Error", "No se ha determinado la parada actual.", Alert.AlertType.ERROR);
-                return;
-            }
-
-            // Obtener las paradas selladas en el rango de fechas
-            List<ParadaSellada> misParadas = paradaSelladaService.obtenerTodasParadasSelladas();
-            List<ParadaSellada> paradasSelladas = paradaSelladaService.filtrarPorParadaYFechas(paradaActual.getId(), fechaInicio, fechaFin);
-            
-            System.out.println(misParadas);
-            System.out.println(paradasSelladas);
-
-            if (paradasSelladas.isEmpty()) {
-                mostrarAlerta("Información", "No se encontraron sellados en este rango de fechas.", Alert.AlertType.INFORMATION);
-                tablaPeregrinosFiltrados.getItems().clear();
-                return;
-            }
-
-
-            
-         // Crear lista de modelos para la tabla
             ObservableList<PeregrinoTabla> peregrinosTabla = FXCollections.observableArrayList();
-            
-            for (ParadaSellada sellada : paradasSelladas) 
+
+            for (Map<String, Object> estancia : estancias) 
             {
-                Peregrino peregrino = sellada.getPeregrino();
-                
-                Long id = peregrino.getId();
-                String nombre = peregrino.getNombre();
-                String fechaSellado = sellada.getFechaParada().toString();
-               String seEstancio = "si";
-               String esVIP = "si";
-
-
-                // Crear objeto PeregrinoTabla
-                PeregrinoTabla modelo = new PeregrinoTabla(id, nombre, fechaSellado, seEstancio, esVIP);
+                PeregrinoTabla modelo = new PeregrinoTabla((Long) estancia.get("id"),(String) estancia.get("nombre"),(String) estancia.get("nacionalidad"),
+                    (boolean) estancia.get("seEstancio") ? "Sí" : "No",
+                    (boolean) estancia.get("esVIP") ? "Sí" : "No"
+                );
                 peregrinosTabla.add(modelo);
             }
-            
-            System.out.println("ESTOS SON LOS PEREGRINOS FILTRADOS");
-            System.out.println(peregrinosTabla.toString());
-            
+
             tablaPeregrinosFiltrados.setItems(peregrinosTabla);
 
-        } 
-        
-        catch (Exception e) {
-            mostrarAlerta("Error", e.getMessage(), Alert.AlertType.ERROR);
+        } catch (Exception e) {
+            mostrarAlerta("Error", "Ha ocurrido un error al filtrar las estancias: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+
 
     // Método para mostrar alertas
     private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {

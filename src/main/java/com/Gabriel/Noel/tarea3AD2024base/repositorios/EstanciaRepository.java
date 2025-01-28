@@ -38,4 +38,20 @@ public interface EstanciaRepository extends JpaRepository<Estancia, Long> {
 
     // Buscar estancias por parada y fechas
     List<Estancia> findByParadaIdAndFechaBetween(Long idParada, LocalDate fechaInicio, LocalDate fechaFin);
+    
+    
+    @Query("SELECT p.nombre, p.nacionalidad, " +
+    	       "CASE WHEN e.id IS NOT NULL THEN true ELSE false END AS seEstancio, " +
+    	       "CASE WHEN e.vip = true THEN true ELSE false END AS esVIP, " +
+    	       "ps.fechaParada " +
+    	       "FROM Peregrino p " +
+    	       "LEFT JOIN p.paradasSelladas ps ON ps.peregrino.id = p.id " +
+    	       "LEFT JOIN Estancia e ON e.peregrino.id = p.id AND e.parada.id = ps.parada.id AND e.fecha = ps.fechaParada " +
+    	       "WHERE ps.parada.id = :idParada " +
+    	       "AND ps.fechaParada BETWEEN :fechaInicio AND :fechaFin")
+    	List<Object[]> filtrarEstancias(@Param("idParada") Long idParada,
+    	                                @Param("fechaInicio") LocalDate fechaInicio,
+    	                                @Param("fechaFin") LocalDate fechaFin);
+
+    
 }
