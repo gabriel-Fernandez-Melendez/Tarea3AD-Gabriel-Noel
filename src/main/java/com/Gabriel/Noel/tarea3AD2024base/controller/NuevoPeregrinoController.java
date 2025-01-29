@@ -172,8 +172,7 @@ public class NuevoPeregrinoController implements Initializable {
 	private void GuardarNuevoPeregrino() {
 		Credenciales cred = GuardarNuevasCredenciales();
 		Carnet c = GuardarCarnet(parada.getValue());
-		Carnet carnet_aux = carnet_service.BuscarPorId(c.getId()); // esta detached asi que tengo que buscarlo en
-																	// funcion del retorno que me da la funcion
+		Carnet carnet_aux = carnet_service.BuscarPorId(c.getId()); // esta detached asi que tengo que buscarlo en																// funcion del retorno que me da la funcion
 		GuardarPeregrino(cred, carnet_aux);
 		mostrarAlerta("Peregrino añadido", "Puede entrar con sus credenciales de peregrino", AlertType.INFORMATION);
 	}

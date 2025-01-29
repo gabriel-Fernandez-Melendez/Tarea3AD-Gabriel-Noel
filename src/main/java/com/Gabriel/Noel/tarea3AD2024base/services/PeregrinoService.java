@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
 import com.Gabriel.Noel.tarea3AD2024base.repositorios.PeregrinoRepository;
 
@@ -37,6 +38,11 @@ public class PeregrinoService {
 		if (peregrino == null) {
 			System.out.println("no se encontro ningun peregrino con ese id , intentelo de nuevo");
 		}
+		return peregrino;
+	}
+	@Transactional
+	public Peregrino BuscarPorCredenciales(Credenciales cred) {
+		Peregrino peregrino = peregrinoBD.findByCredenciales(cred);
 		return peregrino;
 	}
 

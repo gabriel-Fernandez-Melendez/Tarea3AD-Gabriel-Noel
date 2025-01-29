@@ -23,19 +23,19 @@ public class Peregrino implements Serializable{
 	private String nacionalidad;
 
 	// Relación Uno a Uno con Carnet
-	@OneToOne(cascade = CascadeType.MERGE, orphanRemoval = true)
+	@OneToOne(cascade = CascadeType.MERGE, orphanRemoval = true,fetch = FetchType.EAGER)
 	@JoinColumn(name = "carnet_id", referencedColumnName = "id", nullable = false) // Clave foránea hacia Carnet
 	private Carnet carnet;
 
 	// Relación Uno a Muchos con Estancia
-	@OneToMany(mappedBy = "peregrino", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "peregrino", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
 	private List<Estancia> estancias = new ArrayList<>();
 
 	// Relación Uno a Muchos con ParadaSellada
-	@OneToMany(mappedBy = "peregrino", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "peregrino", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
 	private List<ParadaSellada> paradasSelladas = new ArrayList<>();
 	// magia divina de un  indio de youtube https://www.youtube.com/watch?v=Ivm-Rep-ayw
-	@OneToOne(cascade = CascadeType.MERGE)
+	@OneToOne(cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
 	@JoinColumn(name = "Credenciales_id", referencedColumnName = "id", nullable = false) //preguntar a luis por que de forma bidirecional no 
 	private Credenciales credenciales;
 

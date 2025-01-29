@@ -188,6 +188,11 @@ public class CredencialesController implements Initializable {
 		    e.printStackTrace();
 		    }
 		}
+	
+	@FXML
+	private void NuevoPeregrino() {
+		stageManager.switchScene(FxmlView.NuevoPeregrino);
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

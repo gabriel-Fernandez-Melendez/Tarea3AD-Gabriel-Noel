@@ -48,13 +48,13 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="10.0" prefHeight="74.0" prefWidth="1000.0">
                <children>
-                  <TableView prefHeight="74.0" prefWidth="957.0">
+                  <TableView fx:id="tabla_carnet" prefHeight="74.0" prefWidth="957.0">
                     <columns>
-                      <TableColumn prefWidth="51.0" text="ID" />
-                      <TableColumn prefWidth="115.0" text="Distancia en km" />
-                        <TableColumn prefWidth="203.0" text="Fecha de Expedicion" />
-                        <TableColumn minWidth="0.0" prefWidth="184.0" text="Estancias vip" />
-                        <TableColumn prefWidth="179.0" text="Parada Inicial" />
+                      <TableColumn fx:id="id_carnet" prefWidth="51.0" text="ID" />
+                      <TableColumn fx:id="distancia" prefWidth="115.0" text="Distancia en km" />
+                        <TableColumn fx:id="fecha" prefWidth="203.0" text="Fecha de Expedicion" />
+                        <TableColumn fx:id="estancians_vip" minWidth="0.0" prefWidth="184.0" text="Estancias vip" />
+                        <TableColumn fx:id="parada" prefWidth="179.0" text="Parada Inicial" />
                     </columns>
                   </TableView>
                </children>
