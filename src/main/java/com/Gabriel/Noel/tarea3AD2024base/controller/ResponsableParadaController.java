@@ -90,9 +90,6 @@ public class ResponsableParadaController {
 	private ParadaSelladaService paradaSelladaService;
 	
 	@Autowired
-	private CredencialesService credencialesService;
-	
-	@Autowired
 	private ParadaService paradaService;
 
 	@Lazy
@@ -121,89 +118,73 @@ public class ResponsableParadaController {
 	}
 
 	// Metodo para sellar el carnet de un peregrino
-	 @FXML
-	    private void sellarCarnet() {
-	        try {
-	            Peregrino peregrinoSeleccionado = tablaPeregrinos.getSelectionModel().getSelectedItem();
+	@FXML
+	private void sellarCarnet() {
+	    try {
+	        Peregrino peregrinoSeleccionado = tablaPeregrinos.getSelectionModel().getSelectedItem();
 
-	            if (peregrinoSeleccionado == null) {
-	                mostrarAlerta("Error", "Por favor, selecciona a un peregrino de la lista.", Alert.AlertType.ERROR);
-	                return;
-	            }
-
-	            boolean seHospeda = checkHospedaje.isSelected();
-	            boolean esVip = checkEsVIP.isSelected();
-	            boolean noEsVip = checkNoEsVIP.isSelected();
-
-	            if (esVip && noEsVip) {
-	                mostrarAlerta("Error", "No puedes seleccionar 'Es VIP' y 'No es VIP' al mismo tiempo.", Alert.AlertType.ERROR);
-	                return;
-	            }
-
-	            if (seHospeda && (!esVip && !noEsVip)) {
-	                mostrarAlerta("Error", "Si te hospedas, debes seleccionar si es VIP o no.", Alert.AlertType.ERROR);
-	                return;
-	            }
-
-	            if (!seHospeda && (esVip || noEsVip)) {
-	                mostrarAlerta("Error", "No puedes seleccionar 'Es VIP' o 'No es VIP' si no te hospedas.", Alert.AlertType.ERROR);
-	                return;
-	            }
-
-	            Carnet carnet = peregrinoSeleccionado.getCarnet();
-
-	            carnet.setDistancia(carnet.getDistancia() + 5.0);
-
-	            if (seHospeda && esVip) {
-	                carnet.setNvips(carnet.getNvips() + 1);
-	            }
-
-	            carnetService.GuardarCarnet(carnet);
-
-	            if (seHospeda) 
-	            {
-	                Estancia nuevaEstancia = new Estancia();
-	                nuevaEstancia.setFecha(LocalDate.now());
-	                nuevaEstancia.setVip(esVip);
-	                nuevaEstancia.setParada(paradaActual);
-	                nuevaEstancia.setPeregrino(peregrinoSeleccionado);
-
-	                estanciaService.guardarEstancia(nuevaEstancia);
-	            }
-	            
-	            // Registramos al peregrino en la parada_sellada
-	            registrarParadaSellada(peregrinoSeleccionado);
-
-	            mostrarAlerta("Éxito", "Carnet sellado correctamente.", Alert.AlertType.INFORMATION);
-
-	        } catch (Exception e) {
-	            mostrarAlerta("Error", "No se pudo sellar el carnet: " + e.getMessage(), Alert.AlertType.ERROR);
+	        if (peregrinoSeleccionado == null) {
+	            mostrarAlerta("Error", "Por favor, selecciona a un peregrino de la lista.", Alert.AlertType.ERROR);
+	            return;
 	        }
-	    }
 
-	 // Metodo para registrar en paradas selladas
-	 private void registrarParadaSellada(Peregrino miPeregrino)
-	 {
-		 try
-		 {
-			 ParadaSellada miParadaSellada = new ParadaSellada();
-			 
-			 // Construyo el objeto parada que luego se va a guardar
-			 miParadaSellada.setPeregrino(miPeregrino);
-			 miParadaSellada.setParada(paradaActual);
-			 miParadaSellada.setFechaParada(LocalDate.now());
-			 
-			 // Guardamos la parada
-			 paradaSelladaService.guardarParadaSellada(miParadaSellada);
-		 }
-		 
-		 catch(Exception e)
-		 {
-			 System.out.println("Error en el metodo registrarParadaSellada()");
-		 }
-		 
-	 }
-	 
+	        // Validar si ya existe el sellado antes de proceder
+	        ParadaSellada miParadaSellada = new ParadaSellada();
+	        miParadaSellada.setPeregrino(peregrinoSeleccionado);
+	        miParadaSellada.setParada(paradaActual);
+	        miParadaSellada.setFechaParada(LocalDate.now());
+
+	        if (paradaSelladaService.guardarParadaSellada(miParadaSellada) == null) {
+	            mostrarAlerta("Error", "El peregrino ya ha sellado en esta parada en la misma fecha.", Alert.AlertType.ERROR);
+	            return; 
+	        }
+
+	        // Continuar con el resto del flujo solo si no hay duplicados
+	        boolean seHospeda = checkHospedaje.isSelected();
+	        boolean esVip = checkEsVIP.isSelected();
+	        boolean noEsVip = checkNoEsVIP.isSelected();
+
+	        if (esVip && noEsVip) {
+	            mostrarAlerta("Error", "No puedes seleccionar 'Es VIP' y 'No es VIP' al mismo tiempo.", Alert.AlertType.ERROR);
+	            return;
+	        }
+
+	        if (seHospeda && (!esVip && !noEsVip)) {
+	            mostrarAlerta("Error", "Si te hospedas, debes seleccionar si es VIP o no.", Alert.AlertType.ERROR);
+	            return;
+	        }
+
+	        if (!seHospeda && (esVip || noEsVip)) {
+	            mostrarAlerta("Error", "No puedes seleccionar 'Es VIP' o 'No es VIP' si no te hospedas.", Alert.AlertType.ERROR);
+	            return;
+	        }
+
+	        Carnet carnet = peregrinoSeleccionado.getCarnet();
+	        carnet.setDistancia(carnet.getDistancia() + 5.0);
+
+	        if (seHospeda && esVip) {
+	            carnet.setNvips(carnet.getNvips() + 1);
+	        }
+
+	        carnetService.GuardarCarnet(carnet);
+
+	        if (seHospeda) {
+	            Estancia nuevaEstancia = new Estancia();
+	            nuevaEstancia.setFecha(LocalDate.now());
+	            nuevaEstancia.setVip(esVip);
+	            nuevaEstancia.setParada(paradaActual);
+	            nuevaEstancia.setPeregrino(peregrinoSeleccionado);
+
+	            estanciaService.guardarEstancia(nuevaEstancia);
+	        }
+
+	        mostrarAlerta("Éxito", "Carnet sellado correctamente.", Alert.AlertType.INFORMATION);
+
+	    } catch (Exception e) {
+	        mostrarAlerta("Error", "No se pudo sellar el carnet: " + e.getMessage(), Alert.AlertType.ERROR);
+	    }
+	}
+	
 	// Metodo para cerrar sesion y volver al Login.
 	@FXML
 	private void volverALogin() {
@@ -277,14 +258,9 @@ public class ResponsableParadaController {
 			// Obtengo la credencial entera a traves del nombre de usuario que se ha logueado
 			Credenciales miCredencial = CredencialesController.getCredenciales();
 			
-			Credenciales algo = new Credenciales();
-			algo.setId(4L);
-			algo.setNombreUsuario("Paco");
-			algo.setTipo(Usuarios.Responsable_Parada);
-			algo.setContraseñaUsuario("1234");
 			
 			// Asigno la parada buscada a traves del objeto credenciales
-			paradaActual = paradaService.buscarParadaPorCredenciales(algo);
+			paradaActual = paradaService.buscarParadaPorCredenciales(miCredencial);
 			
 			// asigno el valor del nombre de la parada
 			nombreParada = paradaActual.getNombre();

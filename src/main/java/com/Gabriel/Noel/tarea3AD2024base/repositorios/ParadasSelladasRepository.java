@@ -26,6 +26,9 @@ public interface ParadasSelladasRepository extends JpaRepository<ParadaSellada, 
     List<ParadaSellada> findByParadaAndFechas(@Param("paradaId") Long paradaId, @Param("fechaInicio") LocalDate fechaInicio, @Param("fechaFin") LocalDate fechaFin);
 
 	
+    @Query("SELECT COUNT(ps) > 0 FROM ParadaSellada ps WHERE ps.peregrino.id = :peregrinoId AND ps.parada.id = :paradaId AND ps.fechaParada = :fecha")
+    Boolean existeSelladoEnFecha(@Param("peregrinoId") Long peregrinoId, @Param("paradaId") Long paradaId, @Param("fecha") LocalDate fecha);
+
     
     // Filtrar paradas selladas por fecha
     //List<Peregrino> findPeregrinosByParadaAndFechaBetween(Long idParada, LocalDate fechaInicio, LocalDate fechaFin);

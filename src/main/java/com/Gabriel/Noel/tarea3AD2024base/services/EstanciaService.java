@@ -1,9 +1,13 @@
 package com.Gabriel.Noel.tarea3AD2024base.services;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Estancia;
+import com.Gabriel.Noel.tarea3AD2024base.modelo.ParadaSellada;
 import com.Gabriel.Noel.tarea3AD2024base.repositorios.EstanciaRepository;
 
 @Service
@@ -16,16 +20,6 @@ public class EstanciaService {
 	{
 		return estanciaRepository.save(miEstancia);
 	}
-	
-	public boolean verificarEstancia(Long peregrinoId, Long paradaId) {
-	    return estanciaRepository.existsByPeregrinoIdAndParadaId(peregrinoId, paradaId);
-	}
 
 	
-	public boolean esVIPEnParada(Long peregrinoId, Long paradaId) {
-	    Boolean esVIP = estanciaRepository.esVIPEnParada(peregrinoId, paradaId);
-	    //return esVIP!= null && esVIP;
-	    return Boolean.TRUE.equals(esVIP);
-	}
-
 }

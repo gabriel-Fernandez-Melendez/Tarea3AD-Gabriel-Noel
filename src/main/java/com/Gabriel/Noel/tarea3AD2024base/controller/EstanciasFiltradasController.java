@@ -27,6 +27,7 @@ import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class EstanciasFiltradasController {
@@ -36,24 +37,6 @@ public class EstanciasFiltradasController {
 
     @FXML
     private Button botonFiltrarEstancias;
-
-//    @FXML
-//    private TableView<Peregrino> tablaPeregrinosFiltrados;
-//
-//    @FXML
-//    private TableColumn<Peregrino, Long> colPeregrinoID;
-//
-//    @FXML
-//    private TableColumn<Peregrino, String> colNombre;
-//
-//    @FXML
-//    private TableColumn<ParadaSellada, String> colFechaSellado;
-//
-//    @FXML
-//    private TableColumn<Estancia, String> colSeEstancio;
-//
-//    @FXML
-//    private TableColumn<Estancia, String> colEsVIP;
     
     @FXML
     private TableView<PeregrinoTabla> tablaPeregrinosFiltrados;
@@ -83,9 +66,6 @@ public class EstanciasFiltradasController {
     @Autowired
     private ParadaSelladaService paradaSelladaService;
 
-    @Autowired
-    private EstanciaService estanciaService;
-
     @Lazy
     @Autowired
     private StageManager stageManager;
@@ -99,29 +79,6 @@ public class EstanciasFiltradasController {
         paradaActual = ResponsableParadaController.getParada();// Asigna la parada actual usando tu lógica (ResponsableParadaController o credenciales)
     }
 
-// // Método para cargar las columnas de la tabla
-//    private void cargarColumnas() {
-//        // Configurar columna de ID del peregrino
-//        colPeregrinoID.setCellValueFactory(new PropertyValueFactory<>("id"));
-//        // Configurar columna de nombre del peregrino
-//        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-//
-////        // Configurar columna de fecha de sellado (convertir LocalDate a String para mostrarlo)
-////        colFechaSellado.setCellValueFactory(cellData -> 
-////            new SimpleStringProperty(cellData.getValue().getFechaSellado() != null 
-////                ? cellData.getValue().getFechaSellado().toString() 
-////                : "N/A"));
-//
-//        // Configurar columna de "Se Estanció" con datos dinámicos
-//        colSeEstancio.setCellValueFactory(cellData -> 
-//            new SimpleStringProperty(
-//                estanciaService.verificarEstancia(cellData.getValue().getId(), paradaActual.getId()) ? "Sí" : "No"));
-//
-//        // Configurar columna de "VIP" con datos dinámicos
-//        colEsVIP.setCellValueFactory(cellData -> 
-//            new SimpleStringProperty(
-//                estanciaService.esVIPEnParada(cellData.getValue().getId(), paradaActual.getId()) ? "Sí" : "No"));
-//    }
     
     private void cargarColumnas() {
         colPeregrinoID.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -167,15 +124,7 @@ public class EstanciasFiltradasController {
                 return;
             }
 
-//            // Convertir ParadaSellada a Peregrino y actualizar la tabla
-//            ObservableList<Peregrino> peregrinos = FXCollections.observableArrayList();
-//            for (ParadaSellada sellada : paradasSelladas) 
-//            {
-//                Peregrino peregrino = sellada.getPeregrino();
-//                sellada.getFechaParada();
-//                
-//                peregrinos.add(peregrino);
-//            }
+
             
          // Crear lista de modelos para la tabla
             ObservableList<PeregrinoTabla> peregrinosTabla = FXCollections.observableArrayList();
@@ -187,14 +136,12 @@ public class EstanciasFiltradasController {
                 Long id = peregrino.getId();
                 String nombre = peregrino.getNombre();
                 String fechaSellado = sellada.getFechaParada().toString();
-                String seEstancio = estanciaService.verificarEstancia(id, paradaActual.getId()) ? "Sí" : "No";
-                String esVIP = estanciaService.esVIPEnParada(id, paradaActual.getId()) ? "Sí" : "No";
+               String seEstancio = "si";
+               String esVIP = "si";
+
 
                 // Crear objeto PeregrinoTabla
                 PeregrinoTabla modelo = new PeregrinoTabla(id, nombre, fechaSellado, seEstancio, esVIP);
-                
-
-
                 peregrinosTabla.add(modelo);
             }
             

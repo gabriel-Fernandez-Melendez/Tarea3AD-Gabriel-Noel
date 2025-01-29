@@ -17,10 +17,10 @@ public class ParadaSelladaService {
 	
 	
 	// Guardar la pàrada sellada (Objeto completo)
-	public ParadaSellada guardarParadaSellada(ParadaSellada miParadaSellada)
-	{
-		return paradaSelladaRepository.save(miParadaSellada);
-	}
+//	public ParadaSellada guardarParadaSellada(ParadaSellada miParadaSellada)
+//	{
+//		return paradaSelladaRepository.save(miParadaSellada);
+//	}
 
 //	 // Método para filtrar sellados por rango de fechas
 //	public List<ParadaSellada> filtrarPorParadaYFechas(Long paradaId, LocalDate fechaInicio, LocalDate fechaFin) {
@@ -45,5 +45,19 @@ public class ParadaSelladaService {
 	    return paradaSelladaRepository.findAll();
 	}
     
-    
+	
+	 public ParadaSellada guardarParadaSellada(ParadaSellada miParadaSellada) {
+	        Long peregrinoId = miParadaSellada.getPeregrino().getId();
+	        Long paradaId = miParadaSellada.getParada().getId();
+	        LocalDate fecha = miParadaSellada.getFechaParada();
+
+	        // Validamos si ya existe un sellado
+	        if (paradaSelladaRepository.existeSelladoEnFecha(peregrinoId, paradaId, fecha)) {
+	            System.out.println("Ya existe un sellado para este peregrino en esta parada y fecha.");
+	            return null; // No guardamos duplicados
+	        }
+
+	        System.out.println("No existe sellado previo. Procedemos a guardar.");
+	        return paradaSelladaRepository.save(miParadaSellada);
+	    }
 }
