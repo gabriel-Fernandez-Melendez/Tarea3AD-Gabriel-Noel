@@ -135,7 +135,7 @@
                         <Insets left="120.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="nombre_region" prefHeight="25.0" prefWidth="328.0">
+                  <TextField fx:id="nombre_parada" prefHeight="25.0" prefWidth="328.0">
                      <HBox.margin>
                         <Insets left="21.0" />
                      </HBox.margin>
@@ -152,7 +152,7 @@
                         <Insets left="120.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField prefHeight="25.0" prefWidth="328.0">
+                  <TextField fx:id="nombre_region" prefHeight="25.0" prefWidth="328.0">
                      <HBox.margin>
                         <Insets left="100.0" />
                      </HBox.margin>

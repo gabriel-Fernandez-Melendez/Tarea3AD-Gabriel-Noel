@@ -100,7 +100,11 @@ public class NuevaParadaController implements Initializable {
 	
 	private void GuardarParada(	Credenciales cred) {
 		Parada p =new Parada();
-		p.setNombre(null);
+		p.setNombre(nombre_parada.getText());
+		p.setRegion(nombre_region.getText().charAt(0)); //asi  solo pillo el primer caracter que introdice (lo controlare en el futuro)
+		p.setResponsable(nombre_responsable.getText());
+		p.setCredenciales(cred);
+		parada_service.guardarParada(p);
 		
 	}
 	
@@ -116,7 +120,12 @@ public class NuevaParadaController implements Initializable {
 	//metodos para guardar la parada y las credenciales del usuario
 	@FXML
 	public void GuardarCredencialesResponsableParada() {
-		
+		Credenciales c=GuardarNuevasCredenciales();
+		if(c==null) {
+			mostrarAlerta("Credenciales no disponibles", "estas credenciales pertenecen a otro usuario del sistema", AlertType.ERROR);
+		}
+		System.out.println("MIS CREDENCIALES SE GUARDARON COMO "+ c.toString());
+		GuardarParada(c);
 	}
 	
 	@FXML

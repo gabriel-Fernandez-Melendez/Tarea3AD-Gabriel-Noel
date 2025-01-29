@@ -40,13 +40,13 @@ public class ParadaService {
 	
 	
 	/**
-	 * Guarda un Carnet en la BD
+	 * Guarda un Carnet en la BD //Gabriel : hay que mover el metodo a su correspondiente clase por que aqui interfiere con la organizacion de codigo
 	 * @param miCarnet
 	 * @return
 	 */
-	public Carnet guardarCarnet(Carnet miCarnet)
+	public Parada guardarParada(Parada p)
 	{
-		return carnetBD.save(miCarnet);
+		return paradasRepository.save(p);
 	}
 	
 	
