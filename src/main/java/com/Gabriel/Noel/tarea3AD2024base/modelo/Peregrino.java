@@ -22,6 +22,8 @@ public class Peregrino implements Serializable{
 	@Column(nullable = false, length = 50) // Nacionalidad del peregrino
 	private String nacionalidad;
 
+	//nota para noel , para que cargaran correctamente los datos en la tabla de exportarXML tuve que agregar fetchtype.EAGER a todas
+	
 	// Relación Uno a Uno con Carnet
 	@OneToOne(cascade = CascadeType.MERGE, orphanRemoval = true,fetch = FetchType.EAGER)
 	@JoinColumn(name = "carnet_id", referencedColumnName = "id", nullable = false) // Clave foránea hacia Carnet
