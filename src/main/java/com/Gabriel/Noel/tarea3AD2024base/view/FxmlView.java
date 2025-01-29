@@ -25,67 +25,77 @@ public enum FxmlView {
 			return "/fxml/Credenciales.fxml";
 		}
 	},
-	RESPONSABLE{
+	RESPONSABLE {
 		@Override
 		public String getTitle() {
 			return getStringFromResourceBundle("responsable.title");
 		}
+
 		@Override
 		public String getFxmlFile() {
 			return "/fxml/ResponsableParada.fxml";
 		}
 	},
-	
-	RECUPERAR_CONTRASEÑA{
+
+	RECUPERAR_CONTRASEÑA {
 		@Override
-		public String getTitle()
-		{
+		public String getTitle() {
 			return getStringFromResourceBundle("contraseña.title");
 		}
+
 		@Override
-		public String getFxmlFile()
-		{
+		public String getFxmlFile() {
 			return "/fxml/RecordarContraseña.fxml";
 		}
 	},
-	
-	ESTANCIAS_FILTRADAS{
+
+	ESTANCIAS_FILTRADAS {
 		@Override
-		public String getTitle()
-		{
+		public String getTitle() {
 			return getStringFromResourceBundle("Estancias_Filtradas.title");
 		}
+
 		@Override
-		public String getFxmlFile()
-		{
+		public String getFxmlFile() {
 			return "/fxml/EstanciasFiltradas.fxml";
 		}
 	},
-	NuevoPeregrino{
+	NuevoPeregrino {
 		@Override
-		public String getTitle()
-		{
+		public String getTitle() {
 			return getStringFromResourceBundle("NuevoPeregrino.title");
 		}
+
 		@Override
-		public String getFxmlFile()
-		{
+		public String getFxmlFile() {
 			return "/fxml/NuevoPeregrino.fxml";
 		}
 	},
-	ExportarXML{
+	ExportarXML {
 		@Override
-		public String getTitle()
-		{
+		public String getTitle() {
 			return getStringFromResourceBundle("ExportarCarnetXML.title");
 		}
+
 		@Override
-		public String getFxmlFile()
-		{
+		public String getFxmlFile() {
 			return "/fxml/ExportarCarnetXML.fxml";
 		}
 	}
-	
+
+	,
+	NuevaParada {
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("NuevaParada.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/NuevaParada.fxml";
+		}
+	}
+
 	;
 
 	public abstract String getTitle();
