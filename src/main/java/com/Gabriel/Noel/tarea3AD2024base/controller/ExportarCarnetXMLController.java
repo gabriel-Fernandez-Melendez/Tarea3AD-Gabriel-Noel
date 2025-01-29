@@ -77,13 +77,13 @@ public class ExportarCarnetXMLController implements Initializable {
 		id_carnet.setCellValueFactory(new PropertyValueFactory<>("id"));
 		distancia.setCellValueFactory(new PropertyValueFactory<>("Distancia"));
 		fecha.setCellValueFactory(new PropertyValueFactory<>("fechaexp"));
-		estancians_vip.setCellValueFactory(new PropertyValueFactory<>("Nvipts"));
-		parada.setCellValueFactory(new PropertyValueFactory<>("paradainicial"));
+		estancians_vip.setCellValueFactory(new PropertyValueFactory<>("Nvips"));
+		parada.setCellValueFactory(new PropertyValueFactory<>("ParadaInicial"));
 		//saco el dato del objeto estatico de credenciales
 		Peregrino per  = peregrino_service.BuscarPorCredenciales(CredencialesController.getCredenciales());
-		System.out.println(per.toString()+"cargo ? ");
-		ObservableList<Carnet> lista = FXCollections.observableArrayList(carnet_service.BuscarPorId(per.getCarnet().getId()));
 		
+		ObservableList<Carnet> lista = FXCollections.observableArrayList(per.getCarnet());
+		System.out.println(per.getCarnet().toString()+"cargo ? ");
 		tabla_carnet.setItems(lista);
 		
 	}
