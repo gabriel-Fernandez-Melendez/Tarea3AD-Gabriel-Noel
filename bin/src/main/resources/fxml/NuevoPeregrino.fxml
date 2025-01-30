@@ -2,7 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -142,16 +142,16 @@
                      </children>
                   </VBox>
                   <VBox prefHeight="51.0" prefWidth="588.0">
-                     <children>
-                        <ChoiceBox fx:id="pais" prefHeight="25.0" prefWidth="415.0">
-                           <VBox.margin>
-                              <Insets top="36.0" />
-                           </VBox.margin>
-                        </ChoiceBox>
-                     </children>
                      <HBox.margin>
                         <Insets left="16.0" />
                      </HBox.margin>
+                     <children>
+                        <ComboBox fx:id="pais" prefHeight="25.0" prefWidth="415.0">
+                           <VBox.margin>
+                              <Insets top="40.0" />
+                           </VBox.margin>
+                        </ComboBox>
+                     </children>
                   </VBox>
                </children>
             </HBox>
@@ -171,18 +171,17 @@
                         <Insets left="16.0" />
                      </HBox.margin>
                      <children>
-                        <ChoiceBox fx:id="pais1" prefHeight="25.0" prefWidth="415.0">
+                        <ComboBox fx:id="parada" prefHeight="25.0" prefWidth="415.0">
                            <VBox.margin>
-                              <Insets top="36.0" />
-                           </VBox.margin>
-                        </ChoiceBox>
+                              <Insets top="40.0" />
+                           </VBox.margin></ComboBox>
                      </children>
                   </VBox>
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="405.0" prefHeight="82.0" prefWidth="1000.0">
                <children>
-                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="204.0" text="Button">
+                  <Button fx:id="guardar" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#GuardarNuevoPeregrino" prefHeight="33.0" prefWidth="204.0" text="Button">
                      <HBox.margin>
                         <Insets left="150.0" right="300.0" top="50.0" />
                      </HBox.margin>

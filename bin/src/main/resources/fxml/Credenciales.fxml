@@ -29,7 +29,7 @@
          <effect>
             <DropShadow blurType="ONE_PASS_BOX" />
          </effect></Button>
-      <Button fx:id="boton_Nuevo_Peregrino" layoutX="520.0" layoutY="286.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="138.0" styleClass="btnGreen" text="Nuevo Peregrino" textFill="WHITE">
+      <Button fx:id="boton_Nuevo_Peregrino" layoutX="520.0" layoutY="286.0" mnemonicParsing="false" onAction="#NuevoPeregrino" prefHeight="31.0" prefWidth="138.0" styleClass="btnGreen" text="Nuevo Peregrino" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>

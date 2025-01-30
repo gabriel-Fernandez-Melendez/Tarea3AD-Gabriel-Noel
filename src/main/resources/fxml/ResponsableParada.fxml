@@ -7,7 +7,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -110,17 +109,11 @@
                   <HBox layoutX="10.0" layoutY="10.0" prefHeight="33.0" prefWidth="1000.0">
                      <children>
                         <ImageView fitHeight="165.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/PeregrinoSeñalando.png" />
-                           </image>
                            <HBox.margin>
                               <Insets left="60.0" top="10.0" />
                            </HBox.margin>
                         </ImageView>
                         <ImageView fitHeight="158.0" fitWidth="157.0" layoutX="70.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/SelladoCarnet.png" />
-                           </image>
                            <HBox.margin>
                               <Insets left="600.0" top="10.0" />
                            </HBox.margin>

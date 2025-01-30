@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Gabriel.Noel.tarea3AD2024base.controller.NuevaParadaController">
+   <top>
+      <MenuBar BorderPane.alignment="TOP_LEFT">
+        <menus>
+          <Menu mnemonicParsing="false" text="Opciones">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Exportar Carnet" />
+                  <MenuItem mnemonicParsing="false" text="Exit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="74.0" prefWidth="1000.0">
+               <children>
+                  <Label text="Nuevaparada">
+                     <HBox.margin>
+                        <Insets left="120.0" top="30.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="10.0" prefHeight="46.0" prefWidth="1000.0">
+               <children>
+                  <Label text="Introduzca las Credenciales del responsable">
+                     <HBox.margin>
+                        <Insets left="90.0" top="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="10.0" prefHeight="61.0" prefWidth="880.0">
+               <VBox.margin>
+                  <Insets left="60.0" right="60.0" />
+               </VBox.margin>
+               <children>
+                  <Label text="Nombre de Usuario ">
+                     <HBox.margin>
+                        <Insets left="120.0" />
+                     </HBox.margin></Label>
+                  <TextField fx:id="nombre_login" prefHeight="25.0" prefWidth="327.0">
+                     <HBox.margin>
+                        <Insets left="31.0" />
+                     </HBox.margin></TextField>
+               </children>
+            </HBox>
+            <HBox layoutX="70.0" layoutY="88.0" prefHeight="49.0" prefWidth="880.0">
+               <children>
+                  <Label text="Contraseña del Usuario  ">
+                     <HBox.margin>
+                        <Insets left="120.0" />
+                     </HBox.margin>
+                  </Label>
+                  <VBox>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                     <children>
+                        <PasswordField fx:id="contraseña_login" prefHeight="25.0" prefWidth="326.0" />
+                        <Label fx:id="mostrar_contraseña" text="Tu contraseña es : " />
+                     </children>
+                  </VBox>
+                  <ImageView fx:id="imagen" fitHeight="26.0" fitWidth="26.0" onMouseEntered="#ImagenPrecionada" onMouseExited="#Imagensoltada" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/hide.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+               <VBox.margin>
+                  <Insets left="60.0" right="60.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="88.0" prefHeight="46.0" prefWidth="1000.0">
+               <children>
+                  <Label text="Introduzca la Parada de la que sera responsable">
+                     <HBox.margin>
+                        <Insets left="90.0" top="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="162.0" prefHeight="47.0" prefWidth="880.0">
+               <children>
+                  <Label text="Nombre del responsable   ">
+                     <HBox.margin>
+                        <Insets left="120.0" />
+                     </HBox.margin></Label>
+                  <TextField fx:id="nombre_responsable" prefHeight="25.0" prefWidth="328.0" />
+               </children>
+               <VBox.margin>
+                  <Insets left="60.0" right="60.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="337.0" prefHeight="47.0" prefWidth="880.0">
+               <children>
+                  <Label text="Nombre de la parada  ">
+                     <HBox.margin>
+                        <Insets left="120.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="nombre_parada" prefHeight="25.0" prefWidth="328.0">
+                     <HBox.margin>
+                        <Insets left="21.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets left="60.0" right="60.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox layoutX="70.0" layoutY="290.0" prefHeight="47.0" prefWidth="880.0">
+               <children>
+                  <Label text="Region ">
+                     <HBox.margin>
+                        <Insets left="120.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="nombre_region" prefHeight="25.0" prefWidth="328.0">
+                     <HBox.margin>
+                        <Insets left="100.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets left="60.0" right="60.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox layoutX="70.0" layoutY="310.0" prefHeight="74.0" prefWidth="1000.0">
+               <children>
+                  <Button fx:id="boton_guardar" mnemonicParsing="false" onAction="#GuardarCredencialesResponsableParada" prefHeight="47.0" prefWidth="156.0" text="Guardar Nueva Parada">
+                     <HBox.margin>
+                        <Insets left="240.0" top="30.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="limpiarcampos" layoutX="250.0" layoutY="10.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="156.0" text="limpiar campos">
+                     <HBox.margin>
+                        <Insets left="190.0" top="30.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

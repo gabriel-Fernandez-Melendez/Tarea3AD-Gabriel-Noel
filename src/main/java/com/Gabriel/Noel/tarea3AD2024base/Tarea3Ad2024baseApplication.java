@@ -54,7 +54,7 @@ public class Tarea3Ad2024baseApplication extends Application {
 		
 		
 		
-		stageManager.switchScene(FxmlView.NuevaParada);
+		stageManager.switchScene(FxmlView.LOGIN);
 	}
 
 	private ConfigurableApplicationContext springBootApplicationContext() {

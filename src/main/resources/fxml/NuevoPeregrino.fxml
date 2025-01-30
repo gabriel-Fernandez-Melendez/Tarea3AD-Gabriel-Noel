@@ -41,7 +41,7 @@
                <children>
                   <Label text="Introduzca los datos con los que va a  acceder a su cuenta de peregrino : ">
                      <HBox.margin>
-                        <Insets left="80.0" top="50.0" />
+                        <Insets left="80.0" top="30.0" />
                      </HBox.margin>
                      <font>
                         <Font size="19.0" />
@@ -63,7 +63,21 @@
                   </TextField>
                </children>
             </HBox>
-            <HBox prefHeight="80.0" prefWidth="1000.0">
+            <HBox layoutX="10.0" layoutY="88.0" prefHeight="52.0" prefWidth="1000.0">
+               <children>
+                  <Label text="Correo Electronico">
+                     <HBox.margin>
+                        <Insets left="100.0" top="25.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="correo_peregrino" prefHeight="25.0" prefWidth="373.0">
+                     <HBox.margin>
+                        <Insets left="54.0" top="20.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="74.0" prefWidth="1000.0">
                <children>
                   <Label text="Contraseña del Usuario">
                      <HBox.margin>
@@ -109,26 +123,32 @@
                <children>
                   <VBox prefHeight="61.0" prefWidth="238.0">
                      <children>
-                        <Label text="Nombre del Peregrino : ">
+                        <Label text="Nombre Peregrino : ">
                            <VBox.margin>
-                              <Insets left="100.0" top="40.0" />
+                              <Insets left="100.0" top="26.0" />
                            </VBox.margin>
                         </Label>
                      </children>
                   </VBox>
                   <VBox prefHeight="51.0" prefWidth="588.0">
                      <children>
-                        <TextField fx:id="nombre_peregrino" prefHeight="25.0" prefWidth="437.0">
+                        <HBox>
                            <VBox.margin>
-                              <Insets right="10.0" top="36.0" />
+                              <Insets left="10.0" right="190.0" top="20.0" />
                            </VBox.margin>
-                        </TextField>
+                           <children>
+                              <TextField fx:id="nombre_peregrino" prefHeight="25.0" prefWidth="378.0" />
+                           </children>
+                        </HBox>
                      </children>
                      <HBox.margin>
-                        <Insets left="16.0" />
+                        <Insets left="16.0" right="40.0" />
                      </HBox.margin>
                   </VBox>
                </children>
+               <VBox.margin>
+                  <Insets right="40.0" />
+               </VBox.margin>
             </HBox>
             <HBox layoutX="10.0" layoutY="287.0" prefHeight="51.0" prefWidth="1000.0">
                <children>
@@ -181,14 +201,14 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="405.0" prefHeight="82.0" prefWidth="1000.0">
                <children>
-                  <Button fx:id="guardar" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#GuardarNuevoPeregrino" prefHeight="33.0" prefWidth="204.0" text="Button">
+                  <Button fx:id="guardar" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#GuardarNuevoPeregrino" prefHeight="33.0" prefWidth="204.0" styleClass="background" text="Guardar Peregrino" textFill="WHITE">
                      <HBox.margin>
-                        <Insets left="150.0" right="300.0" top="50.0" />
+                        <Insets left="60.0" right="300.0" top="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="204.0" text="Button">
+                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="204.0" styleClass="background" text="Limpiar campos" textFill="WHITE">
                      <HBox.margin>
-                        <Insets top="50.0" />
+                        <Insets top="20.0" />
                      </HBox.margin>
                   </Button>
                </children>
@@ -196,4 +216,7 @@
          </children>
       </VBox>
    </center>
+   <left>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+   </left>
 </BorderPane>

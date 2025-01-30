@@ -7,6 +7,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -18,12 +20,20 @@
          <children>
             <HBox alignment="TOP_RIGHT" prefHeight="41.0" prefWidth="640.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="725.0" text="Lista de Peregrinos">
+                  <ImageView fitHeight="150.0" fitWidth="118.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/PeregrinoSonriendo.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" top="5.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label alignment="CENTER" prefHeight="118.0" prefWidth="739.0" text="Lista de Peregrinos">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="40.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="100.0" />
+                        <Insets />
                      </HBox.margin>
                   </Label>
                   <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#volverALogin" prefHeight="30.0" prefWidth="130.0" styleClass="background" text="Cerrar Sesion" textFill="#fff9f9" textOverrun="CLIP">
@@ -31,7 +41,7 @@
                         <Font size="14.0" />
                      </font>
                      <HBox.margin>
-                        <Insets right="5.0" top="5.0" />
+                        <Insets bottom="5.0" right="20.0" top="40.0" />
                      </HBox.margin>
                      <effect>
                         <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
@@ -41,13 +51,11 @@
             </HBox>
             <TableView fx:id="tablaPeregrinosFiltrados" prefHeight="471.0" prefWidth="985.0" tableMenuButtonVisible="true">
               <columns>
-                <TableColumn fx:id="colPeregrinoID" maxWidth="700.0" prefWidth="20.0" text="ID" />
-                <TableColumn fx:id="colNombre" maxWidth="4000.0" prefWidth="75.0" text="Nombre" />
-                  <TableColumn fx:id="colApellido" maxWidth="4000.0" prefWidth="75.0" text="Apellidos" />
-                  <TableColumn fx:id="colFechaNacimiento" maxWidth="4000.0" prefWidth="75.0" text="Fecha de Nacimiento" />
-                  <TableColumn fx:id="colGenero" maxWidth="4000.0" prefWidth="60.0" text="Genero" />
-                  <TableColumn fx:id="colFechaSellado" maxWidth="6000.0" prefWidth="130.0" text="Fecha Sellado" />
-                  <TableColumn fx:id="colEstancias" maxWidth="6000.0" prefWidth="130.0" text="Estancias" />
+                <TableColumn fx:id="colPeregrinoID" maxWidth="700.0" prefWidth="90.0" text="ID" />
+                <TableColumn fx:id="colNombre" maxWidth="4000.0" prefWidth="168.0" text="Nombre" />
+                  <TableColumn fx:id="colFechaSellado" maxWidth="4000.0" prefWidth="374.0" text="Fecha Sellado" />
+                  <TableColumn fx:id="colSeEstancio" maxWidth="6000.0" prefWidth="242.0" text="Se Estanció" />
+                  <TableColumn fx:id="colEsVIP" maxWidth="6000.0" prefWidth="104.0" text="VIP" />
               </columns>
                <VBox.margin>
                   <Insets left="10.0" right="5.0" />
@@ -58,33 +66,9 @@
             </TableView>
             <VBox prefHeight="262.0" prefWidth="694.0">
                <children>
-                  <HBox prefHeight="96.0" prefWidth="1000.0">
+                  <HBox prefHeight="79.0" prefWidth="1000.0">
                      <children>
-                        <Label text="Desde">
-                           <HBox.margin>
-                              <Insets left="200.0" right="20.0" top="20.0" />
-                           </HBox.margin>
-                        </Label>
-                        <DatePicker fx:id="fechaFiltradoInicio">
-                           <HBox.margin>
-                              <Insets top="20.0" />
-                           </HBox.margin>
-                        </DatePicker>
-                        <Label text="Hasta">
-                           <HBox.margin>
-                              <Insets left="100.0" right="20.0" top="20.0" />
-                           </HBox.margin>
-                        </Label>
-                        <DatePicker fx:id="fechaFiltradoFin">
-                           <HBox.margin>
-                              <Insets top="20.0" />
-                           </HBox.margin>
-                        </DatePicker>
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="73.0" prefWidth="1000.0">
-                     <children>
-                        <Button fx:id="botonFiltrarEstancias" mnemonicParsing="false" prefHeight="30.0" prefWidth="130.0" styleClass="background" text="Filtrar Estancias" textFill="#fff9f9" textOverrun="CLIP">
+                        <Button fx:id="botonVolverAtras" mnemonicParsing="false" onAction="#volverAtras" prefHeight="15.0" prefWidth="130.0" styleClass="background" text="Volver Atrás" textFill="#fff9f9" textOverrun="CLIP">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -92,7 +76,49 @@
                               <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
                            </effect>
                            <HBox.margin>
-                              <Insets left="425.0" />
+                              <Insets left="20.0" top="20.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="botonReseteo" mnemonicParsing="false" onAction="#resetearFechas" prefHeight="15.0" prefWidth="130.0" styleClass="background" text="Resetear Fechas" textFill="#fff9f9" textOverrun="CLIP">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <effect>
+                              <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
+                           </effect>
+                           <HBox.margin>
+                              <Insets left="50.0" right="20.0" top="20.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Label text="Desde">
+                           <HBox.margin>
+                              <Insets right="5.0" top="25.0" />
+                           </HBox.margin>
+                        </Label>
+                        <DatePicker fx:id="fechaFiltradoInicio" prefHeight="32.0" prefWidth="174.0">
+                           <HBox.margin>
+                              <Insets top="20.0" />
+                           </HBox.margin>
+                        </DatePicker>
+                        <Label text="Hasta">
+                           <HBox.margin>
+                              <Insets left="30.0" right="5.0" top="25.0" />
+                           </HBox.margin>
+                        </Label>
+                        <DatePicker fx:id="fechaFiltradoFin" prefHeight="31.0" prefWidth="174.0">
+                           <HBox.margin>
+                              <Insets top="20.0" />
+                           </HBox.margin>
+                        </DatePicker>
+                        <Button fx:id="botonFiltrarEstancias" mnemonicParsing="false" onAction="#filtrarEstancias" prefHeight="15.0" prefWidth="130.0" styleClass="background" text="Filtrar Estancias" textFill="#fff9f9" textOverrun="CLIP">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <effect>
+                              <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
+                           </effect>
+                           <HBox.margin>
+                              <Insets left="50.0" top="20.0" />
                            </HBox.margin>
                         </Button>
                      </children>

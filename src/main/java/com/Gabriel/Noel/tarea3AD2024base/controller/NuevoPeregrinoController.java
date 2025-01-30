@@ -75,6 +75,9 @@ public class NuevoPeregrinoController implements Initializable {
 
 	@FXML
 	private TextField nombre_peregrino;
+	
+	@FXML
+	private TextField correo_peregrino;
 
 	@FXML
 	private ComboBox<String> pais;
@@ -194,6 +197,7 @@ public class NuevoPeregrinoController implements Initializable {
 
 				cred.setNombreUsuario(nombre_peregrino.getText());
 				cred.setContraseñaUsuario(Contraseña.getText());
+				cred.setCorreo_usuario(correo_peregrino.getText());
 				cred.setTipo(Usuarios.Peregrino);
 				credenciales_service.GuardarCredenciales(cred);
 			}

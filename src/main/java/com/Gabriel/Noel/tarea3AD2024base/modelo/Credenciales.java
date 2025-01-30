@@ -24,8 +24,9 @@ public class Credenciales implements Serializable {
 	@Column(name = "tipo_usuario", nullable = false)
 	private Usuarios tipo;
 
-	
-
+	@Column(name = "correo_usuario", nullable = false) // nueva columna para que el peregrino pueda recuperar su
+														// contraseña
+	private String correo_usuario;
 
 	// Constructor por defecto
 	public Credenciales() {
@@ -33,12 +34,13 @@ public class Credenciales implements Serializable {
 
 	// Constructor con parámetros
 	public Credenciales(Long id, String nombreUsuario, String contraseñaUsuario, Usuarios tipo, Parada parada,
-			Peregrino peregrino) {
+			String correo_usuario, Peregrino peregrino) {
 		super();
 		this.id = id;
 		this.nombreUsuario = nombreUsuario;
 		this.contraseñaUsuario = contraseñaUsuario;
 		this.tipo = tipo;
+		this.correo_usuario = correo_usuario;
 
 	}
 
@@ -46,7 +48,7 @@ public class Credenciales implements Serializable {
 	public Long getId() {
 		return id;
 	}
-                                                                  
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -74,17 +76,20 @@ public class Credenciales implements Serializable {
 	public void setTipo(Usuarios tipo) {
 		this.tipo = tipo;
 	}
-	
-	//getters de la relacion onetoone
-	
+
+	public String getCorreo_usuario() {
+		return correo_usuario;
+	}
+
+	public void setCorreo_usuario(String correo_usuario) {
+		this.correo_usuario = correo_usuario;
+	}
 
 	// Métodos hashCode y equals
 	@Override
 	public int hashCode() {
 		return Objects.hash(contraseñaUsuario, id, nombreUsuario, tipo);
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
