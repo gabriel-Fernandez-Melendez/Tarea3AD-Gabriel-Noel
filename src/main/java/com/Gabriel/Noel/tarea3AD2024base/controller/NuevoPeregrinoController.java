@@ -29,10 +29,12 @@ import com.Gabriel.Noel.tarea3AD2024base.config.StageManager;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Carnet;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
+import com.Gabriel.Noel.tarea3AD2024base.modelo.ParadaSellada;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Usuarios;
 import com.Gabriel.Noel.tarea3AD2024base.services.CarnetService;
 import com.Gabriel.Noel.tarea3AD2024base.services.CredencialesService;
+import com.Gabriel.Noel.tarea3AD2024base.services.ParadaSelladaService;
 import com.Gabriel.Noel.tarea3AD2024base.services.ParadaService;
 import com.Gabriel.Noel.tarea3AD2024base.services.PeregrinoService;
 
@@ -102,6 +104,10 @@ public class NuevoPeregrinoController implements Initializable {
 
 	@Autowired
 	private CarnetService carnet_service;
+	
+	@Autowired
+	private ParadaSelladaService sellado;
+	
 	@Lazy
 	@Autowired
 	private StageManager stageManager;
@@ -195,7 +201,7 @@ public class NuevoPeregrinoController implements Initializable {
 				// val esta a false ya
 			} else {
 
-				cred.setNombreUsuario(nombre_peregrino.getText());
+				cred.setNombreUsuario(Nombre_login.getText());
 				cred.setContraseñaUsuario(Contraseña.getText());
 				cred.setCorreo_usuario(correo_peregrino.getText());
 				cred.setTipo(Usuarios.Peregrino);
@@ -217,6 +223,11 @@ public class NuevoPeregrinoController implements Initializable {
 		per.setCarnet(car);
 		per.setCredenciales(c);
 		Peregrino peregrino_nuevo = peregrino_service.GuardarPeregrino(per);
+		ParadaSellada p =new ParadaSellada();
+		p.setFechaParada(LocalDate.now());
+		p.setParada(parada.getValue());
+		p.setPeregrino(peregrino_nuevo);
+		sellado.guardarParadaSellada(p);
 
 	}
 
