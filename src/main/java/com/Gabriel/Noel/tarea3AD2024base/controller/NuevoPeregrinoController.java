@@ -77,7 +77,7 @@ public class NuevoPeregrinoController implements Initializable {
 
 	@FXML
 	private TextField nombre_peregrino;
-	
+
 	@FXML
 	private TextField correo_peregrino;
 
@@ -104,10 +104,10 @@ public class NuevoPeregrinoController implements Initializable {
 
 	@Autowired
 	private CarnetService carnet_service;
-	
+
 	@Autowired
 	private ParadaSelladaService sellado;
-	
+
 	@Lazy
 	@Autowired
 	private StageManager stageManager;
@@ -179,11 +179,20 @@ public class NuevoPeregrinoController implements Initializable {
 	// TENGO QUE METER EL METOD FXML RELATIVO AL BOTON QUE GUARDA CASA COSA
 	@FXML
 	private void GuardarNuevoPeregrino() {
+		if (Nombre_login.getText().contains(" ")) {
+			mostrarAlerta("Nombre no valido", "no puede tener espacios blancos el nombre", AlertType.ERROR);
+		}
+		if (Contraseña.getText().contains(" ")) {
+			mostrarAlerta("contraseña no valida", "no puede tener espacios blancos la contraseña", AlertType.ERROR);
+		}
+		else {
 		Credenciales cred = GuardarNuevasCredenciales();
 		Carnet c = GuardarCarnet(parada.getValue());
-		Carnet carnet_aux = carnet_service.BuscarPorId(c.getId()); // esta detached asi que tengo que buscarlo en																// funcion del retorno que me da la funcion
-		GuardarPeregrino(cred, carnet_aux);
-		mostrarAlerta("Peregrino añadido", "Puede entrar con sus credenciales de peregrino", AlertType.INFORMATION);
+		Carnet carnet_aux = carnet_service.BuscarPorId(c.getId()); 																
+		GuardarPeregrinoSellado(cred, carnet_aux);
+		mostrarAlerta("Peregrino añadido", "Puede entrar con sus credenciales de peregrino", AlertType.INFORMATION);	
+		}
+		
 	}
 
 	// aqui iran los metodos que se implementen en los @fxml pero no tengan que
@@ -191,16 +200,18 @@ public class NuevoPeregrinoController implements Initializable {
 	public Credenciales GuardarNuevasCredenciales() {
 		Credenciales cred = new Credenciales();
 		ArrayList<Credenciales> credenciales = (ArrayList<Credenciales>) credenciales_service.ListaDeCredenciales();
+
+
 		for (Credenciales c : credenciales) {
-			// no meter de momento el comprobar contraseña por que mientras tengan nombres
-			// distintos no hace falta que las contraseñas sean diferentes
+
 			if (Nombre_login.getText().equalsIgnoreCase(c.getNombreUsuario())) {
 				mostrarAlerta("nombre de usuario invalido",
 						"el nombre de usuario que ha introducido ya esta cojido, escoja uno diferente",
 						AlertType.ERROR);
 				// val esta a false ya
-			} else {
+			}
 
+			else {
 				cred.setNombreUsuario(Nombre_login.getText());
 				cred.setContraseñaUsuario(Contraseña.getText());
 				cred.setCorreo_usuario(correo_peregrino.getText());
@@ -212,8 +223,7 @@ public class NuevoPeregrinoController implements Initializable {
 		return cred;
 	}
 
-	
-	private void GuardarPeregrino(Credenciales c, Carnet car) {
+	private void GuardarPeregrinoSellado(Credenciales c, Carnet car) {
 		boolean val = false; // puede que esta variable no haga falta
 		Peregrino per = new Peregrino();
 		// NO hace falta hacer un if por que tanto el nombre del peregrino como la
@@ -223,7 +233,7 @@ public class NuevoPeregrinoController implements Initializable {
 		per.setCarnet(car);
 		per.setCredenciales(c);
 		Peregrino peregrino_nuevo = peregrino_service.GuardarPeregrino(per);
-		ParadaSellada p =new ParadaSellada();
+		ParadaSellada p = new ParadaSellada();
 		p.setFechaParada(LocalDate.now());
 		p.setParada(parada.getValue());
 		p.setPeregrino(peregrino_nuevo);
@@ -287,6 +297,15 @@ public class NuevoPeregrinoController implements Initializable {
 			e.printStackTrace();
 		}
 		return paises;
+	}
+
+	public boolean DatosValidos() {
+		boolean val = true;
+		if (Nombre_login.getText().contains(" ")) {
+			mostrarAlerta("Nombre no valido", "no puede tener espacios blancos el nombre", AlertType.ERROR);
+			val = false;
+		}
+		return val;
 	}
 
 	@Override
