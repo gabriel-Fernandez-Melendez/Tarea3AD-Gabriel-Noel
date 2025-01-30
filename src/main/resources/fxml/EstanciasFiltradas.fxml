@@ -7,7 +7,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -19,12 +18,7 @@
          <children>
             <HBox alignment="TOP_RIGHT" prefHeight="41.0" prefWidth="640.0">
                <children>
-                  <ImageView fitHeight="150.0" fitWidth="118.0" pickOnBounds="true" preserveRatio="true">
-                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" top="5.0" />
-                     </HBox.margin>
-                  </ImageView>
-                  <Label alignment="CENTER" prefHeight="118.0" prefWidth="739.0" text="Lista de Peregrinos">
+                  <Label alignment="CENTER" prefHeight="75.0" prefWidth="412.0" text="Lista de Peregrinos en">
                      <font>
                         <Font size="40.0" />
                      </font>
@@ -32,12 +26,17 @@
                         <Insets />
                      </HBox.margin>
                   </Label>
+                  <Label fx:id="nombreDeLaParada" prefHeight="75.0" prefWidth="213.0" text="Label">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </Label>
                   <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#volverALogin" prefHeight="30.0" prefWidth="130.0" styleClass="background" text="Cerrar Sesion" textFill="#fff9f9" textOverrun="CLIP">
                      <font>
                         <Font size="14.0" />
                      </font>
                      <HBox.margin>
-                        <Insets bottom="5.0" right="20.0" top="40.0" />
+                        <Insets bottom="20.0" right="20.0" top="20.0" />
                      </HBox.margin>
                      <effect>
                         <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />

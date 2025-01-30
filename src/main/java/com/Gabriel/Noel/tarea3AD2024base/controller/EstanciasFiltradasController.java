@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -14,10 +15,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import com.Gabriel.Noel.tarea3AD2024base.config.StageManager;
+import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.PeregrinoTabla;
 import com.Gabriel.Noel.tarea3AD2024base.services.EstanciaService;
+import com.Gabriel.Noel.tarea3AD2024base.services.ParadaService;
 import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
+
+
 
 import java.time.LocalDate;
 import java.util.List;
@@ -32,6 +37,11 @@ public class EstanciasFiltradasController {
 
 	@FXML
 	private Button btnLogout;
+	
+	private String nombreParada;
+	
+	@FXML
+	private Label nombreDeLaParada;
 
 	@FXML
 	private Button botonFiltrarEstancias;
@@ -68,6 +78,9 @@ public class EstanciasFiltradasController {
 
 	@Autowired
 	private EstanciaService estanciaService;
+	
+	@Autowired
+	private ParadaService paradaService; 
 
 	@Lazy
 	@Autowired
@@ -83,6 +96,7 @@ public class EstanciasFiltradasController {
 	private void initialize() {
 		cargarColumnas();
 		paradaActual = ResponsableParadaController.getParada();
+		inicializarParadaActual();
 	}
 
 
@@ -194,5 +208,33 @@ public class EstanciasFiltradasController {
 	private void resetearFechas() {
 		fechaFiltradoInicio.setValue(null);
 		fechaFiltradoFin.setValue(null);
+	}
+	
+	@FXML
+	/**
+	 *  Metodo para inicializar la parada actual
+	 */
+	private void inicializarParadaActual()
+	{ 
+		try
+		{
+			// Obtengo la credencial entera a traves del nombre de usuario que se ha logueado
+			Credenciales miCredencial = CredencialesController.getCredenciales();
+			
+			
+			// Asigno la parada buscada a traves del objeto credenciales
+			paradaActual = paradaService.buscarParadaPorCredenciales(miCredencial);
+			
+			// asigno el valor del nombre de la parada
+			nombreParada = paradaActual.getNombre();
+		}
+		
+		catch(Exception e)
+		{
+			System.out.println("Error en el metodo inicializarParadaActual()");
+		}
+		
+		// Le damos a la label el nombre de la parada
+		nombreDeLaParada.setText(nombreParada);
 	}
 }
