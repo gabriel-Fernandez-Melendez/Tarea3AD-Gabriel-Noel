@@ -75,6 +75,20 @@
                      </HBox.margin></TextField>
                </children>
             </HBox>
+            <HBox layoutX="70.0" layoutY="130.0" prefHeight="61.0" prefWidth="880.0">
+               <children>
+                  <Label text="Correo del Usuario">
+                     <HBox.margin>
+                        <Insets left="180.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="correo_usuario" prefHeight="25.0" prefWidth="327.0">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
             <HBox layoutX="70.0" layoutY="88.0" prefHeight="49.0" prefWidth="880.0">
                <children>
                   <Label text="Contraseña del Usuario  ">

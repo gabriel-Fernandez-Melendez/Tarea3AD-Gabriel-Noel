@@ -199,6 +199,7 @@ public class NuevoPeregrinoController implements Initializable {
 				cred.setContraseñaUsuario(Contraseña.getText());
 				cred.setCorreo_usuario(correo_peregrino.getText());
 				cred.setTipo(Usuarios.Peregrino);
+				cred.setCorreo_usuario(correo_peregrino.getText());
 				credenciales_service.GuardarCredenciales(cred);
 			}
 		}

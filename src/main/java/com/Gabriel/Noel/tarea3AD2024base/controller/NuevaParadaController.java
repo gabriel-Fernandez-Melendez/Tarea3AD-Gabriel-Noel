@@ -45,6 +45,9 @@ public class NuevaParadaController implements Initializable {
 	private TextField nombre_parada;
 	
 	@FXML
+	private TextField correo_usuario;
+	
+	@FXML
 	private TextField nombre_region;
 	
 	@FXML
@@ -92,6 +95,7 @@ public class NuevaParadaController implements Initializable {
 				cred.setNombreUsuario(nombre_login.getText());
 				cred.setContraseñaUsuario(contraseña_login.getText());
 				cred.setTipo(Usuarios.Responsable_Parada);
+				cred.setContraseñaUsuario(contraseña_login.getText());
 				cred=credenciales_service.GuardarCredenciales(cred);
 			}
 		}
