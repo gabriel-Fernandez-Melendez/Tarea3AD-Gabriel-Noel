@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
+import com.Gabriel.Noel.tarea3AD2024base.config.AppJavaConfig;
 import com.Gabriel.Noel.tarea3AD2024base.config.StageManager;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
@@ -46,6 +47,12 @@ public class CredencialesController implements Initializable {
 
 	@Autowired
 	private CredencialesService credenciales_service;
+	
+	// Añado una inyeccion para el AppJavaConfig
+	@Autowired
+	private AppJavaConfig appJavaConfig;
+
+	
 	@Lazy
 	@Autowired
 	private StageManager stageManager;
@@ -67,20 +74,45 @@ public class CredencialesController implements Initializable {
 	// en la tabla de la basde datos y posteriormente lo envia al menu propicio para
 	// ello
 	@FXML
-	public void ValidarCredenciales() {
+	public void ValidarCredenciales() 
+	{
 		System.out.println("entro al metodo de autenticacion");
 		boolean val = false;
+		
+		// verificar si el usuario es administrador validar contra application.properties
+		// Se hace antes de que vaya al Switch y primero vea si las credenciales escritas
+		// Son las del administrador (NOEL) #FUNCIONAL
+		 if (nombreUsuario.getText().equals(appJavaConfig.getAdminUsername()) &&
+			        contraseña.getText().equals(appJavaConfig.getAdminPassword())) {
+			        
+			        System.out.println("Inicio de sesión como ADMIN");
+			        mostrarAlerta("Bienvenido", "Bienvenido Administrador", AlertType.INFORMATION);
+			        stageManager.switchScene(FxmlView.NuevaParada); // Acceso directo al menú de admin
+			        return;
+			    }
+		
+		
+		
+		
 		ArrayList<Credenciales> cred_lista = (ArrayList<Credenciales>) credenciales_service.ListaDeCredenciales();
-		for (Credenciales c : cred_lista) {
+		
+		for (Credenciales c : cred_lista) 
+		{
 			if (nombreUsuario.getText().contentEquals(c.getNombreUsuario())
-					&& contraseña.getText().contentEquals(c.getContraseñaUsuario())) {
+					&& contraseña.getText().contentEquals(c.getContraseñaUsuario())) 
+			{
 				System.out.println("el valido!");
 				Credenciales_usuario = c;
 				
 				mostrarAlerta("Bienvenido", "Bienvenido: " + c.getTipo().getTipoDeUsuario(), AlertType.INFORMATION);
 				val = true;
+				
 				AccesoAlMenu();
-			} else {
+				
+			} 
+			
+			else 
+			{
 				System.out.println("no son credenciales validas");
 			}
 
@@ -115,9 +147,9 @@ public class CredencialesController implements Initializable {
 			break;
 		case Peregrino: 
 			stageManager.switchScene(FxmlView.ExportarXML);
-			break;
-		case Administrador_General: 
-			stageManager.switchScene(FxmlView.ESTANCIAS_FILTRADAS);//esto hay que modificarlo
+//			break;
+//		case Administrador_General: 
+//			stageManager.switchScene(FxmlView.NuevaParada);//esto hay que modificarlo
 	break;
 		
 		default:

@@ -14,6 +14,7 @@ import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Usuarios;
 import com.Gabriel.Noel.tarea3AD2024base.services.CredencialesService;
 import com.Gabriel.Noel.tarea3AD2024base.services.ParadaService;
+import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -55,6 +56,9 @@ public class NuevaParadaController implements Initializable {
 	
 	@FXML
 	private Button limpiarcampos;
+	
+	@FXML
+	private Button botonCerrarSesion;
 	
 	@FXML
 	private Label mostrar_contraseña;
@@ -132,9 +136,16 @@ public class NuevaParadaController implements Initializable {
 		GuardarParada(c);
 	}
 	
+	// Metodo para setear todo a null y los campos quedarian vacios (Noel)
 	@FXML
-	public void LimpiarCampos() {
-		
+	public void LimpiarCampos() 
+	{
+		nombre_login.setText(null);
+		correo_usuario.setText(null);
+		contraseña_login.setText(null);
+		nombre_responsable.setText(null);
+		nombre_parada.setText(null);
+		nombre_region.setText(null);
 	}
 	
 	//reutilizo los metodos creados en nuero peregrino para mostrar la contraseña al usuario
@@ -162,5 +173,12 @@ public class NuevaParadaController implements Initializable {
 		
 	}
 	
+	
+	// Cerrar sesion y volver al Login (NOEL)
+	@FXML
+	private void cerrarSesion()
+	{
+		stageManager.switchScene(FxmlView.LOGIN);
+	}
 
 }

@@ -72,9 +72,6 @@ public class ResponsableParadaController {
 	private CheckBox checkEsVIP;
 
 	@FXML
-	private CheckBox checkNoEsVIP;
-
-	@FXML
 	private CheckBox checkHospedaje;
 
 	@FXML
@@ -169,23 +166,10 @@ public class ResponsableParadaController {
 	        // Continuar con el resto del flujo solo si no hay duplicados
 	        boolean seHospeda = checkHospedaje.isSelected();
 	        boolean esVip = checkEsVIP.isSelected();
-	        boolean noEsVip = checkNoEsVIP.isSelected();
 
 	        // Si selecciona VIP y no es VIP al mismo tiempo, saltara la alerta
-	        if (esVip && noEsVip) {
-	            mostrarAlerta("Error", "No puedes seleccionar 'Es VIP' y 'No es VIP' al mismo tiempo.", Alert.AlertType.ERROR);
-	            return;
-	        }
-
-	        // Si se Hospeda y no selecciona si es vip o no lo es, entonces saltará la alerta
-	        if (seHospeda && (!esVip && !noEsVip)) {
-	            mostrarAlerta("Error", "Si te hospedas, debes seleccionar si es VIP o no.", Alert.AlertType.ERROR);
-	            return;
-	        }
-
-	        // Si no se hospeda y selecciona es VIP o no es VIP, saltará la alerta
-	        if (!seHospeda && (esVip || noEsVip)) {
-	            mostrarAlerta("Error", "No puedes seleccionar 'Es VIP' o 'No es VIP' si no te hospedas.", Alert.AlertType.ERROR);
+	        if (esVip && !seHospeda) {
+	            mostrarAlerta("Error", "Si selecciona Es VIP, tiene que seleccionar la casilla de Me Hospedo", Alert.AlertType.ERROR);
 	            return;
 	        }
 

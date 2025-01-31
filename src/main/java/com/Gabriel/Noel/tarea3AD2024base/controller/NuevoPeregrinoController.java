@@ -37,6 +37,7 @@ import com.Gabriel.Noel.tarea3AD2024base.services.CredencialesService;
 import com.Gabriel.Noel.tarea3AD2024base.services.ParadaSelladaService;
 import com.Gabriel.Noel.tarea3AD2024base.services.ParadaService;
 import com.Gabriel.Noel.tarea3AD2024base.services.PeregrinoService;
+import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -93,6 +94,9 @@ public class NuevoPeregrinoController implements Initializable {
 	@FXML
 	private Button limpiar;
 
+	@FXML
+	private Button botonVolverLogin;
+	
 	@Autowired
 	private CredencialesService credenciales_service;
 
@@ -338,6 +342,27 @@ public class NuevoPeregrinoController implements Initializable {
 
 		// inicializarlabel
 
+		// Prueba para que no salga nada en pantalla esque carga un pais y una parada al azar (NOEL)
+		// Funciona, deja este metodo Gabi <3
+		limpiarCampos();
+	}
+	
+	// Volver al Login (Noel)
+	@FXML
+	private void volverLogin()
+	{
+		stageManager.switchScene(FxmlView.LOGIN);
 	}
 
+	
+	@FXML
+	private void limpiarCampos()
+	{
+		Nombre_login.setText(null);
+		correo_peregrino.setText(null);
+		Contraseña.setText(null);
+		nombre_peregrino.setText(null);
+		pais.setValue(null);
+		parada.setValue(null);
+	}
 }

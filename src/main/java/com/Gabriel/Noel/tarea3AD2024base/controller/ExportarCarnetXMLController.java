@@ -15,6 +15,7 @@ import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
 import com.Gabriel.Noel.tarea3AD2024base.services.CarnetService;
 import com.Gabriel.Noel.tarea3AD2024base.services.PeregrinoService;
+import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -30,7 +31,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class ExportarCarnetXMLController implements Initializable {
 
 	@FXML
-	private Button boton;
+	private Button botonFiltrarEstancias;
+	
+	// Añadido boton cerrar sesion (Noel)
+	@FXML
+	private Button botonCerrarSesion;
 	
 	@FXML
 	private TableView<Carnet> tabla_carnet;
@@ -86,6 +91,14 @@ public class ExportarCarnetXMLController implements Initializable {
 		System.out.println(per.getCarnet().toString()+"cargo ? ");
 		tabla_carnet.setItems(lista);
 		
+	}
+	
+	
+	// Añadida la funcionalidad volver al login (Noel)
+	@FXML
+	private void cerrarSesion()
+	{
+		stageManager.switchScene(FxmlView.LOGIN);
 	}
 
 }
