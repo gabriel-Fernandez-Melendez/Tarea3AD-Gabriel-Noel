@@ -189,7 +189,7 @@ public class NuevoPeregrinoController implements Initializable {
 		if (Contraseña.getText().contains(" ")) {
 			mostrarAlerta("contraseña no valida", "no puede tener espacios blancos la contraseña", AlertType.ERROR);
 		} 
-		if (!correo_peregrino.getText().contains("@")) {
+		if (!correo_peregrino.getText().matches("^[\\w-+]+(\\.[\\w-]{1,62}){0,126}@[\\w-]{1,63}(\\.[\\w-]{1,62})+/[\\w-]+$")) {
 			mostrarAlerta("contraseña no valida", "falta el @", AlertType.ERROR);
 		}
 		if (!correo_peregrino.getText().contains(".com")) {
