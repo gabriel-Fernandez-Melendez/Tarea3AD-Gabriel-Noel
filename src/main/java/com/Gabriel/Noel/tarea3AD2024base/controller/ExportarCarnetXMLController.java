@@ -219,7 +219,7 @@ public class ExportarCarnetXMLController implements Initializable {
 			distanciatotal.appendChild(distanciatotalValor);
 			// -- las paradas :D -- //
 			paradas = documento.createElement("paradas");
-		
+			int num=1;
 			for (Parada par:paradas_colec)  // recorremos con un For llamandoa  mi peregrino.getParadas.size para saber el tamaño de paradas que tiene este peregrino
 			{
 				Parada parada_aux = par;// Creo un objeto parada 'p' y cogemos la primera parada que es con la que recorremos el for con ese ultimo .get(a); *entender bien*
@@ -228,7 +228,7 @@ public class ExportarCarnetXMLController implements Initializable {
 				// etiqueta orden
 				orden = documento.createElement("orden");
 				parada.appendChild(orden);
-				int num=1;
+				
 				ordenValor = documento.createTextNode(String.valueOf(num)); // revisar que ye el orden ( revisado, es el orden en el que este hombre "peregrino" ha hecho las paradas primera parada tendra 1 y asisucesivo 2,3,4
 				orden.appendChild(ordenValor);
 				num++;
