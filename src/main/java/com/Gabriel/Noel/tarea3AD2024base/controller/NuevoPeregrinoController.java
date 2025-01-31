@@ -96,7 +96,7 @@ public class NuevoPeregrinoController implements Initializable {
 
 	@FXML
 	private Button botonVolverLogin;
-	
+
 	@Autowired
 	private CredencialesService credenciales_service;
 
@@ -180,7 +180,7 @@ public class NuevoPeregrinoController implements Initializable {
 		mostrar_contraseña.setVisible(false);
 	}
 
-	// TENGO QUE METER EL METOD FXML RELATIVO AL BOTON QUE GUARDA CASA COSA
+	// TENGO QUE METER EL METOD FXML RELATIVO AL BOTON QUE GUARDA CASA COSA(actualmente implementado)
 	@FXML
 	private void GuardarNuevoPeregrino() {
 		if (Nombre_login.getText().contains(" ")) {
@@ -188,15 +188,15 @@ public class NuevoPeregrinoController implements Initializable {
 		}
 		if (Contraseña.getText().contains(" ")) {
 			mostrarAlerta("contraseña no valida", "no puede tener espacios blancos la contraseña", AlertType.ERROR);
+		} else {
+			Credenciales cred = GuardarNuevasCredenciales();
+			Carnet c = GuardarCarnet(parada.getValue());
+			Carnet carnet_aux = carnet_service.BuscarPorId(c.getId());
+			GuardarPeregrinoSellado(cred, carnet_aux);
+			mostrarAlerta("Peregrino añadido", "Puede entrar con sus credenciales de peregrino", AlertType.INFORMATION);
+			stageManager.switchScene(FxmlView.LOGIN);// que una vez registrado con exito te lleve directamente a el login
 		}
-		else {
-		Credenciales cred = GuardarNuevasCredenciales();
-		Carnet c = GuardarCarnet(parada.getValue());
-		Carnet carnet_aux = carnet_service.BuscarPorId(c.getId()); 																
-		GuardarPeregrinoSellado(cred, carnet_aux);
-		mostrarAlerta("Peregrino añadido", "Puede entrar con sus credenciales de peregrino", AlertType.INFORMATION);	
-		}
-		
+
 	}
 
 	// aqui iran los metodos que se implementen en los @fxml pero no tengan que
@@ -204,7 +204,6 @@ public class NuevoPeregrinoController implements Initializable {
 	public Credenciales GuardarNuevasCredenciales() {
 		Credenciales cred = new Credenciales();
 		ArrayList<Credenciales> credenciales = (ArrayList<Credenciales>) credenciales_service.ListaDeCredenciales();
-
 
 		for (Credenciales c : credenciales) {
 
@@ -228,7 +227,6 @@ public class NuevoPeregrinoController implements Initializable {
 	}
 
 	private void GuardarPeregrinoSellado(Credenciales c, Carnet car) {
-		boolean val = false; // puede que esta variable no haga falta
 		Peregrino per = new Peregrino();
 		// NO hace falta hacer un if por que tanto el nombre del peregrino como la
 		// parada o el pais se pueden repetir
@@ -244,7 +242,7 @@ public class NuevoPeregrinoController implements Initializable {
 		sellado.guardarParadaSellada(p);
 
 	}
-
+	//este metodo crea un  carnet bacio con los datos de la parada
 	private Carnet GuardarCarnet(Parada par) {
 		Carnet c = new Carnet();
 		c.setDistancia(0);
@@ -311,6 +309,12 @@ public class NuevoPeregrinoController implements Initializable {
 		}
 		return val;
 	}
+	
+	public void Validar(TextField texto,String s) {
+		if (texto.getText().contains(s)) {
+			mostrarAlerta("dato invalido ", "a ingresado un dato invalido", AlertType.ERROR);
+		}
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -342,22 +346,20 @@ public class NuevoPeregrinoController implements Initializable {
 
 		// inicializarlabel
 
-		// Prueba para que no salga nada en pantalla esque carga un pais y una parada al azar (NOEL)
+		// Prueba para que no salga nada en pantalla esque carga un pais y una parada al
+		// azar (NOEL)
 		// Funciona, deja este metodo Gabi <3
 		limpiarCampos();
 	}
-	
+
 	// Volver al Login (Noel)
 	@FXML
-	private void volverLogin()
-	{
+	private void volverLogin() {
 		stageManager.switchScene(FxmlView.LOGIN);
 	}
 
-	
 	@FXML
-	private void limpiarCampos()
-	{
+	private void limpiarCampos() {
 		Nombre_login.setText(null);
 		correo_peregrino.setText(null);
 		Contraseña.setText(null);
