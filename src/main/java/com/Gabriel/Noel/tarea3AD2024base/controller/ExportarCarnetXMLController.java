@@ -30,8 +30,10 @@ import com.Gabriel.Noel.tarea3AD2024base.modelo.Carnet;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Estancia;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
+import com.Gabriel.Noel.tarea3AD2024base.modelo.ParadaSellada;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
 import com.Gabriel.Noel.tarea3AD2024base.services.CarnetService;
+import com.Gabriel.Noel.tarea3AD2024base.services.ParadaSelladaService;
 import com.Gabriel.Noel.tarea3AD2024base.services.ParadaService;
 import com.Gabriel.Noel.tarea3AD2024base.services.PeregrinoService;
 import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
@@ -90,6 +92,9 @@ public class ExportarCarnetXMLController implements Initializable {
 	@Lazy
 	@Autowired
 	private ParadaService parada_service;
+	@Lazy
+	@Autowired
+	private ParadaSelladaService paradasellada_service;
 
 	@Lazy
 	@Autowired
@@ -124,8 +129,10 @@ public class ExportarCarnetXMLController implements Initializable {
 		Credenciales c =CredencialesController.Credenciales_usuario;
 		Peregrino p=peregrino_service.BuscarPorCredenciales(c);
 		ArrayList<Parada> par = (ArrayList<Parada>) parada_service.ListaDeParadas();
-		exportarCarnet(p, par);
+		ArrayList<ParadaSellada> selladas=(ArrayList<ParadaSellada>) paradasellada_service.obtenerTodasParadasSelladas();
+		exportarCarnet(p, par,selladas);
 		mostrarAlerta("Exportado", "tiene el XML en la carpeta de recursos del proyecto", AlertType.INFORMATION);
+		
 		
 	}
 	
@@ -141,7 +148,7 @@ public class ExportarCarnetXMLController implements Initializable {
 		parada_service.ListaDeParadas();
 	}
 
-	public static void exportarCarnet(Peregrino p,ArrayList<Parada> paradas_colec) // PROBADO Y FUNCIONAL//hace falta poner el nombre de la parada
+	public static void exportarCarnet(Peregrino p,ArrayList<Parada> paradas_colec,ArrayList<ParadaSellada> selladas_colec) // PROBADO Y FUNCIONAL//hace falta poner el nombre de la parada
 	{
 		try {
 			
@@ -220,9 +227,10 @@ public class ExportarCarnetXMLController implements Initializable {
 			// -- las paradas :D -- //
 			paradas = documento.createElement("paradas");
 			int num=1;
-			for (Parada par:paradas_colec)  // recorremos con un For llamandoa  mi peregrino.getParadas.size para saber el tamaño de paradas que tiene este peregrino
+			for (ParadaSellada par:selladas_colec)  // recorremos con un For llamandoa  mi peregrino.getParadas.size para saber el tamaño de paradas que tiene este peregrino
 			{
-				Parada parada_aux = par;// Creo un objeto parada 'p' y cogemos la primera parada que es con la que recorremos el for con ese ultimo .get(a); *entender bien*
+
+				ParadaSellada parada_aux = par;// Creo un objeto parada 'p' y cogemos la primera parada que es con la que recorremos el for con ese ultimo .get(a); *entender bien*
 				parada = documento.createElement("parada"); // Creamos el elemento parada
 
 				// etiqueta orden
@@ -235,13 +243,13 @@ public class ExportarCarnetXMLController implements Initializable {
 				// etiqueta nombre de la parada
 				nombreParada = documento.createElement("nombre");
 				parada.appendChild(nombreParada);
-				nombreValor = documento.createTextNode(String.valueOf(par.getNombre())); // Recogemos el nombre, llamamos al objeto creado de parada 'p' y con .getNombre recogemos el nombre de la primera parada (que recorre el for)
+				nombreValor = documento.createTextNode(String.valueOf(par.getParada().getNombre())); // Recogemos el nombre, llamamos al objeto creado de parada 'p' y con .getNombre recogemos el nombre de la primera parada (que recorre el for)
 				nombreParada.appendChild(nombreValor);
 
 				// etiqueta region
 				region = documento.createElement("region");
 				parada.appendChild(region);
-				regionValor = documento.createTextNode(String.valueOf(par.getRegion())); // La igual que el anterior recogemos la region de la parada a traves el .getRegion de la primera parada que recorremos con el for 
+				regionValor = documento.createTextNode(String.valueOf(par.getParada().getRegion())); // La igual que el anterior recogemos la region de la parada a traves el .getRegion de la primera parada que recorremos con el for 
 				region.appendChild(regionValor);
 
 				paradas.appendChild(parada); // cierro etiqueta parada
