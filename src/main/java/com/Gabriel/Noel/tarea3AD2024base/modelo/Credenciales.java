@@ -24,8 +24,7 @@ public class Credenciales implements Serializable {
 	@Column(name = "tipo_usuario", nullable = false)
 	private Usuarios tipo;
 
-	@Column(name = "correo_usuario", nullable = false) // nueva columna para que el peregrino pueda recuperar su
-														// contraseña
+	@Column(name = "correo_usuario", nullable = false) // nueva columna para que el peregrino pueda recuperar su													// contraseña
 	private String correo_usuario;
 
 	// Constructor por defecto

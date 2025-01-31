@@ -188,7 +188,14 @@ public class NuevoPeregrinoController implements Initializable {
 		}
 		if (Contraseña.getText().contains(" ")) {
 			mostrarAlerta("contraseña no valida", "no puede tener espacios blancos la contraseña", AlertType.ERROR);
-		} else {
+		} 
+		if (!correo_peregrino.getText().contains("@")) {
+			mostrarAlerta("contraseña no valida", "falta el @", AlertType.ERROR);
+		}
+		if (!correo_peregrino.getText().contains(".com")) {
+			mostrarAlerta("contraseña no valida", "falta el .com", AlertType.ERROR);
+		}
+		else {
 			Credenciales cred = GuardarNuevasCredenciales();
 			Carnet c = GuardarCarnet(parada.getValue());
 			Carnet carnet_aux = carnet_service.BuscarPorId(c.getId());

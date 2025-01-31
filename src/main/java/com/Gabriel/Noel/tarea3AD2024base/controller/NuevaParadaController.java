@@ -99,7 +99,7 @@ public class NuevaParadaController implements Initializable {
 				cred.setNombreUsuario(nombre_login.getText());
 				cred.setContraseñaUsuario(contraseña_login.getText());
 				cred.setTipo(Usuarios.Responsable_Parada);
-				cred.setContraseñaUsuario(contraseña_login.getText());
+				cred.setCorreo_usuario(correo_usuario.getText());
 				cred=credenciales_service.GuardarCredenciales(cred);
 			}
 		}
@@ -128,13 +128,40 @@ public class NuevaParadaController implements Initializable {
 	//metodos para guardar la parada y las credenciales del usuario
 	@FXML
 	public void GuardarCredencialesResponsableParada() {
-		Credenciales c=GuardarNuevasCredenciales();
-		if(c==null) {
-			mostrarAlerta("Credenciales no disponibles", "estas credenciales pertenecen a otro usuario del sistema", AlertType.ERROR);
+		boolean validar_correo=true;
+		boolean validar_region=true;
+		boolean validar_nombre=true;
+		boolean validar_contraseña=true;
+
+		if (nombre_login.getText().contains(" ")) {
+			mostrarAlerta("Nombre no valido", "no puede tener espacios blancos el nombre", AlertType.ERROR);
+			validar_nombre=false;
 		}
-		System.out.println("MIS CREDENCIALES SE GUARDARON COMO "+ c.toString());
-		GuardarParada(c);
-	}
+		if (contraseña_login.getText().contains(" ")) {
+			mostrarAlerta("contraseña no valida", "no puede tener espacios blancos la contraseña", AlertType.ERROR);
+			validar_contraseña=false;
+		} 
+		if (!correo_usuario.getText().contains("@")) {
+			mostrarAlerta("contraseña no valida", "falta el @", AlertType.ERROR);
+			validar_correo=false;
+		}
+		if (!correo_usuario.getText().contains(".com")) {
+			mostrarAlerta("contraseña no valida", "falta el .com", AlertType.ERROR);
+			validar_correo=false;
+		}
+		if (nombre_region.getText().length()>1) {
+			mostrarAlerta("contraseña no valida", "la region solo puede ser un caracter", AlertType.ERROR);
+			validar_region=false;
+		}
+		if(validar_contraseña&&validar_correo&&validar_nombre&&validar_region){
+			Credenciales c=GuardarNuevasCredenciales();
+			GuardarParada(c);
+			mostrarAlerta("Nueva parada", "A guardado la nueva parada con sus responsable correspondiente",AlertType.INFORMATION);
+		}
+			
+		}
+
+	
 	
 	// Metodo para setear todo a null y los campos quedarian vacios (Noel)
 	@FXML
