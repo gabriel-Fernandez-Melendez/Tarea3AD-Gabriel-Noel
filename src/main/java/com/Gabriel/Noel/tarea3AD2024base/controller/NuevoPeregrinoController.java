@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -50,9 +51,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -84,7 +87,8 @@ public class NuevoPeregrinoController implements Initializable {
 
 	@FXML
 	private ComboBox<String> pais;
-
+	@FXML
+	private MenuItem menusalir;
 	@FXML
 	private ComboBox<Parada> parada;
 
@@ -192,7 +196,7 @@ public class NuevoPeregrinoController implements Initializable {
 		if (!correo_peregrino.getText().matches("^[\\w-+]+(\\.[\\w-]{1,62}){0,126}@[\\w-]{1,63}(\\.[\\w-]{1,62})+/[\\w-]+$")) {
 			mostrarAlerta("contraseña no valida", "falta el @", AlertType.ERROR);
 		}
-		if (!correo_peregrino.getText().contains(".com")) {
+		if (!correo_peregrino.getText().contains(".com")||!correo_peregrino.getText().contains(".es")) {
 			mostrarAlerta("contraseña no valida", "falta el .com", AlertType.ERROR);
 		}
 		else {
@@ -373,5 +377,18 @@ public class NuevoPeregrinoController implements Initializable {
 		nombre_peregrino.setText(null);
 		pais.setValue(null);
 		parada.setValue(null);
+	}
+	
+	@FXML
+	private void Salir() {
+		Boolean salir = false;
+		Alert miAlerta = new Alert(AlertType.CONFIRMATION);
+		miAlerta.setTitle("Salir");
+		miAlerta.setContentText("seguro que quiere salir?");
+		Optional<ButtonType> resultado = miAlerta.showAndWait();
+
+		if(resultado.get()==ButtonType.OK) {
+			System.exit(0);
+		}
 	}
 }

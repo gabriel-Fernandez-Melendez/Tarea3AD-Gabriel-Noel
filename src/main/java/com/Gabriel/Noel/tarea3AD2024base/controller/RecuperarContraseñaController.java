@@ -1,6 +1,7 @@
 package com.Gabriel.Noel.tarea3AD2024base.controller;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 @Controller
 public class RecuperarContraseñaController implements Initializable{
@@ -26,7 +30,8 @@ public class RecuperarContraseñaController implements Initializable{
 
     @FXML
     private TextField campoNombre;
-
+    @FXML
+	private MenuItem menusalir;
     @FXML
     private TextField campoApellido;
 
@@ -100,7 +105,18 @@ public class RecuperarContraseñaController implements Initializable{
 	 * tipo) { Alert miAlerta = new Alert(tipo); miAlerta.setTitle(titulo);
 	 * miAlerta.setContentText(mensaje); miAlerta.showAndWait(); }
 	 */
+	@FXML
+	private void Salir() {
+		Boolean salir = false;
+		Alert miAlerta = new Alert(AlertType.CONFIRMATION);
+		miAlerta.setTitle("Salir");
+		miAlerta.setContentText("seguro que quiere salir?");
+		Optional<ButtonType> resultado = miAlerta.showAndWait();
 
+		if(resultado.get()==ButtonType.OK) {
+			System.exit(0);
+		}
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
