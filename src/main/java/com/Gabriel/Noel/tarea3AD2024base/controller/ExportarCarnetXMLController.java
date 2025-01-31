@@ -229,9 +229,8 @@ public class ExportarCarnetXMLController implements Initializable {
 			int num=1;
 			for (ParadaSellada par:selladas_colec)  // recorremos con un For llamandoa  mi peregrino.getParadas.size para saber el tamaño de paradas que tiene este peregrino
 			{
-
-				ParadaSellada parada_aux = par;// Creo un objeto parada 'p' y cogemos la primera parada que es con la que recorremos el for con ese ultimo .get(a); *entender bien*
-				parada = documento.createElement("parada"); // Creamos el elemento parada
+				if(p.getId()==par.getPeregrino().getId()) {
+									parada = documento.createElement("parada"); // Creamos el elemento parada
 
 				// etiqueta orden
 				orden = documento.createElement("orden");
@@ -253,6 +252,9 @@ public class ExportarCarnetXMLController implements Initializable {
 				region.appendChild(regionValor);
 
 				paradas.appendChild(parada); // cierro etiqueta parada
+				}
+
+
 			}
 			
 			
