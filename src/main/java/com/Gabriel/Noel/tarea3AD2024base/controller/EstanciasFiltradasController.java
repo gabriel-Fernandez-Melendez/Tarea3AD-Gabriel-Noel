@@ -122,7 +122,7 @@ public class EstanciasFiltradasController {
 	            return;
 	        }
 	        
-	        if (fechaInicio.isBefore(fechaFin))
+	        if (fechaInicio.isAfter(fechaFin))
 	        {
 	        	mostrarAlerta("Error", "La fecha de Inicio no debe ser posterior a la de Fin", Alert.AlertType.ERROR);
 	        	return;
