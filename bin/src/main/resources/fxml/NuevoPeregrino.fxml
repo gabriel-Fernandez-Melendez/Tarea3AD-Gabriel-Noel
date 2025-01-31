@@ -26,7 +26,7 @@
                   <MenuItem mnemonicParsing="false" text="Exit" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu mnemonicParsing="false" text="Ayuda">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#AyudaJavaFX" text="About" />
             </items>
@@ -37,163 +37,198 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="74.0" prefWidth="1000.0">
+            <HBox prefHeight="72.0" prefWidth="944.0">
                <children>
-                  <Label text="Introduzca los datos con los que va a  acceder a su cuenta de peregrino : ">
+                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/peregrino%20(1).png" />
+                     </image>
                      <HBox.margin>
-                        <Insets left="80.0" top="50.0" />
+                        <Insets left="200.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/peregrino.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="20.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label text="Registro Nuevo Peregrino">
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" top="30.0" />
                      </HBox.margin>
                      <font>
-                        <Font size="19.0" />
+                        <Font size="25.0" />
                      </font>
                   </Label>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/editar.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/cerrar-sesion.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="90.0" top="15.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Button fx:id="botonVolverLogin" mnemonicParsing="false" onAction="#volverLogin" prefHeight="33.0" prefWidth="108.0" styleClass="background" text="Volver al Login" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="10.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="304.0" prefHeight="67.0" prefWidth="1000.0">
                <children>
-                  <Label text="Nombre de Usuario">
+                  <Label prefHeight="17.0" prefWidth="130.0" text="Nombre de Usuario">
                      <HBox.margin>
-                        <Insets left="100.0" top="40.0" />
+                        <Insets left="190.0" top="35.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="Nombre_login" prefHeight="25.0" prefWidth="373.0">
+                  <TextField fx:id="Nombre_login" prefHeight="25.0" prefWidth="327.0">
                      <HBox.margin>
-                        <Insets left="48.0" top="36.0" />
+                        <Insets left="30.0" top="30.0" />
                      </HBox.margin>
                   </TextField>
                </children>
             </HBox>
-            <HBox prefHeight="80.0" prefWidth="1000.0">
+            <HBox layoutX="10.0" layoutY="88.0" prefHeight="52.0" prefWidth="1000.0">
                <children>
-                  <Label text="Contraseña del Usuario">
+                  <Label prefWidth="130.0" text="Correo Electronico">
                      <HBox.margin>
-                        <Insets left="100.0" top="40.0" />
+                        <Insets left="190.0" top="25.0" />
                      </HBox.margin>
                   </Label>
-                  <VBox>
+                  <TextField fx:id="correo_peregrino" prefHeight="25.0" prefWidth="327.0">
                      <HBox.margin>
-                        <Insets left="29.0" top="36.0" />
+                        <Insets left="30.0" top="20.0" />
                      </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <VBox prefHeight="76.0" prefWidth="1000.0">
+               <children>
+                  <HBox prefHeight="45.0" prefWidth="1000.0">
                      <children>
-                        <PasswordField fx:id="Contraseña" prefHeight="25.0" prefWidth="373.0" />
-                        <Label fx:id="mostrar_contraseña" prefHeight="17.0" prefWidth="372.0" text="Label">
-                           <font>
-                              <Font size="14.0" />
-                           </font></Label>
-                     </children>
-                  </VBox>
-                  <ImageView fx:id="imagen" fitHeight="26.0" fitWidth="26.0" onMouseEntered="#ImagenPrecionada" onMouseExited="#Imagensoltada" onMouseReleased="#Imagensoltada" pickOnBounds="true" preserveRatio="true">
-                     <HBox.margin>
-                        <Insets left="20.0" top="36.0" />
-                     </HBox.margin>
-                     <image>
-                        <Image url="@../images/hide.png">
+                        <Label prefHeight="17.0" prefWidth="130.0" text="Contraseña del Usuario">
+                           <HBox.margin>
+                              <Insets left="190.0" top="25.0" />
+                           </HBox.margin>
+                        </Label>
+                        <PasswordField fx:id="Contraseña" prefHeight="25.0" prefWidth="327.0">
+                           <HBox.margin>
+                              <Insets left="30.0" top="20.0" />
+                           </HBox.margin>
+                        </PasswordField>
+                        <ImageView fx:id="imagen" fitHeight="26.0" fitWidth="26.0" onMouseEntered="#ImagenPrecionada" onMouseExited="#Imagensoltada" onMouseReleased="#Imagensoltada" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" top="20.0" />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../images/hide.png">
                         </Image>
-                     </image>
-                  </ImageView>
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="10.0" prefHeight="16.0" prefWidth="1000.0">
-               <children>
-                  <Label text="Introduzca sus datos personales y la parada en la que se encuentra : ">
-                     <HBox.margin>
-                        <Insets left="80.0" top="20.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="10.0" prefHeight="51.0" prefWidth="1000.0">
-               <children>
-                  <VBox prefHeight="61.0" prefWidth="238.0">
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="17.0" prefWidth="1000.0">
                      <children>
-                        <Label text="Nombre del Peregrino : ">
-                           <VBox.margin>
-                              <Insets left="100.0" top="40.0" />
-                           </VBox.margin>
+                        <Label fx:id="mostrar_contraseña" prefHeight="17.0" prefWidth="328.0" text="Tu contraseña es :">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="350.0" top="10.0" />
+                           </HBox.margin>
                         </Label>
                      </children>
-                  </VBox>
-                  <VBox prefHeight="51.0" prefWidth="588.0">
-                     <children>
-                        <TextField fx:id="nombre_peregrino" prefHeight="25.0" prefWidth="437.0">
-                           <VBox.margin>
-                              <Insets right="10.0" top="36.0" />
-                           </VBox.margin>
-                        </TextField>
-                     </children>
-                     <HBox.margin>
-                        <Insets left="16.0" />
-                     </HBox.margin>
-                  </VBox>
+                  </HBox>
                </children>
+            </VBox>
+            <HBox layoutX="10.0" layoutY="10.0" prefHeight="51.0" prefWidth="1000.0">
+               <children>
+                  <Label prefWidth="130.0" text="Nombre Peregrino : ">
+                     <HBox.margin>
+                        <Insets left="190.0" top="25.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="nombre_peregrino" prefHeight="25.0" prefWidth="327.0">
+                     <HBox.margin>
+                        <Insets left="30.0" top="20.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets right="40.0" />
+               </VBox.margin>
             </HBox>
             <HBox layoutX="10.0" layoutY="287.0" prefHeight="51.0" prefWidth="1000.0">
                <children>
-                  <VBox prefHeight="61.0" prefWidth="238.0">
-                     <children>
-                        <Label text="Pais de Origen :">
-                           <VBox.margin>
-                              <Insets left="100.0" top="40.0" />
-                           </VBox.margin>
-                        </Label>
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="51.0" prefWidth="588.0">
+                  <Label prefWidth="130.0" text="Pais de Origen :">
                      <HBox.margin>
-                        <Insets left="16.0" />
+                        <Insets left="190.0" top="25.0" />
                      </HBox.margin>
-                     <children>
-                        <ComboBox fx:id="pais" prefHeight="25.0" prefWidth="415.0">
-                           <VBox.margin>
-                              <Insets top="40.0" />
-                           </VBox.margin>
-                        </ComboBox>
-                     </children>
-                  </VBox>
+                  </Label>
+                  <ComboBox fx:id="pais" prefHeight="25.0" prefWidth="200.0">
+                     <HBox.margin>
+                        <Insets left="30.0" top="20.0" />
+                     </HBox.margin>
+                  </ComboBox>
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="348.0" prefHeight="51.0" prefWidth="1000.0">
                <children>
-                  <VBox prefHeight="61.0" prefWidth="238.0">
-                     <children>
-                        <Label text="Parada : ">
-                           <VBox.margin>
-                              <Insets left="100.0" top="40.0" />
-                           </VBox.margin>
-                        </Label>
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="51.0" prefWidth="588.0">
+                  <Label prefWidth="130.0" text="Parada : ">
                      <HBox.margin>
-                        <Insets left="16.0" />
+                        <Insets left="190.0" top="25.0" />
                      </HBox.margin>
-                     <children>
-                        <ComboBox fx:id="parada" prefHeight="25.0" prefWidth="415.0">
-                           <VBox.margin>
-                              <Insets top="40.0" />
-                           </VBox.margin></ComboBox>
-                     </children>
-                  </VBox>
+                  </Label>
+                  <ComboBox fx:id="parada" prefHeight="25.0" prefWidth="200.0">
+                     <HBox.margin>
+                        <Insets left="30.0" top="20.0" />
+                     </HBox.margin>
+                  </ComboBox>
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="405.0" prefHeight="82.0" prefWidth="1000.0">
                <children>
-                  <Button fx:id="guardar" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#GuardarNuevoPeregrino" prefHeight="33.0" prefWidth="204.0" text="Button">
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/disco-flexible.png" />
+                     </image>
                      <HBox.margin>
-                        <Insets left="150.0" right="300.0" top="50.0" />
+                        <Insets left="190.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Button fx:id="guardar" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#GuardarNuevoPeregrino" prefHeight="33.0" prefWidth="130.0" styleClass="background" text="Guardar Peregrino" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="10.0" right="250.0" top="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="204.0" text="Button">
+                  <Button fx:id="limpiar" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#limpiarCampos" prefHeight="33.0" prefWidth="108.0" styleClass="background" text="Limpiar campos" textFill="WHITE">
                      <HBox.margin>
-                        <Insets top="50.0" />
+                        <Insets top="20.0" />
                      </HBox.margin>
                   </Button>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../images/goma-de-borrar.png" />
+                     </image>
+                  </ImageView>
                </children>
             </HBox>
          </children>
       </VBox>
    </center>
+   <left>
+      <VBox prefHeight="575.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
+   </left>
 </BorderPane>

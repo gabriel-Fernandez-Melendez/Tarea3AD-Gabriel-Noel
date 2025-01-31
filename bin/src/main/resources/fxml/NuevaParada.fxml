@@ -8,6 +8,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -25,7 +26,7 @@
                   <MenuItem mnemonicParsing="false" text="Exit" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu mnemonicParsing="false" text="Ayuda">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
             </items>
@@ -38,24 +39,59 @@
          <children>
             <HBox prefHeight="74.0" prefWidth="1000.0">
                <children>
-                  <Label text="Nuevaparada">
+                  <ImageView fitHeight="95.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/parada-de-autobus.png" />
+                     </image>
                      <HBox.margin>
-                        <Insets left="120.0" top="30.0" />
+                        <Insets left="250.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label alignment="CENTER" prefHeight="36.0" prefWidth="307.0" text="Registro Nueva Parada" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" top="30.0" />
                      </HBox.margin>
                      <font>
-                        <Font size="19.0" />
+                        <Font size="25.0" />
                      </font>
                   </Label>
+                  <ImageView fitHeight="99.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/editar.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fitHeight="58.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/cerrar-sesion.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="60.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Button fx:id="botonCerrarSesion" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="30.0" prefWidth="118.0" styleClass="background" text="Cerrar Sesión" textFill="#fff9f9" textOverrun="CLIP">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
+                     </effect>
+                     <HBox.margin>
+                        <Insets top="15.0" />
+                     </HBox.margin>
+                  </Button>
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="10.0" prefHeight="46.0" prefWidth="1000.0">
                <children>
-                  <Label text="Introduzca las Credenciales del responsable">
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="1011.0" text="Introduzca las Credenciales del responsable">
                      <HBox.margin>
-                        <Insets left="90.0" top="10.0" />
+                        <Insets top="10.0" />
                      </HBox.margin>
                      <font>
-                        <Font size="16.0" />
+                        <Font size="20.0" />
                      </font>
                   </Label>
                </children>
@@ -67,28 +103,45 @@
                <children>
                   <Label text="Nombre de Usuario ">
                      <HBox.margin>
-                        <Insets left="120.0" />
+                        <Insets left="120.0" top="15.0" />
                      </HBox.margin></Label>
                   <TextField fx:id="nombre_login" prefHeight="25.0" prefWidth="327.0">
                      <HBox.margin>
-                        <Insets left="31.0" />
+                        <Insets left="31.0" top="10.0" />
                      </HBox.margin></TextField>
+               </children>
+            </HBox>
+            <HBox layoutX="70.0" layoutY="130.0" prefHeight="61.0" prefWidth="880.0">
+               <children>
+                  <Label text="Correo del Usuario">
+                     <HBox.margin>
+                        <Insets left="180.0" top="15.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="correo_usuario" prefHeight="25.0" prefWidth="327.0">
+                     <HBox.margin>
+                        <Insets left="40.0" top="10.0" />
+                     </HBox.margin>
+                  </TextField>
                </children>
             </HBox>
             <HBox layoutX="70.0" layoutY="88.0" prefHeight="49.0" prefWidth="880.0">
                <children>
                   <Label text="Contraseña del Usuario  ">
                      <HBox.margin>
-                        <Insets left="120.0" />
+                        <Insets left="120.0" top="15.0" />
                      </HBox.margin>
                   </Label>
                   <VBox>
                      <HBox.margin>
-                        <Insets left="10.0" />
+                        <Insets left="10.0" top="10.0" />
                      </HBox.margin>
                      <children>
                         <PasswordField fx:id="contraseña_login" prefHeight="25.0" prefWidth="326.0" />
-                        <Label fx:id="mostrar_contraseña" text="Tu contraseña es : " />
+                        <Label fx:id="mostrar_contraseña" prefHeight="17.0" prefWidth="324.0" text="Tu contraseña es : ">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin></Label>
                      </children>
                   </VBox>
                   <ImageView fx:id="imagen" fitHeight="26.0" fitWidth="26.0" onMouseEntered="#ImagenPrecionada" onMouseExited="#Imagensoltada" pickOnBounds="true" preserveRatio="true">
@@ -96,7 +149,7 @@
                         <Image url="@../images/hide.png" />
                      </image>
                      <HBox.margin>
-                        <Insets left="20.0" />
+                        <Insets left="20.0" top="10.0" />
                      </HBox.margin>
                   </ImageView>
                </children>
@@ -106,12 +159,12 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="88.0" prefHeight="46.0" prefWidth="1000.0">
                <children>
-                  <Label text="Introduzca la Parada de la que sera responsable">
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="1128.0" text="Introduzca la Parada de la que sera responsable">
                      <HBox.margin>
-                        <Insets left="90.0" top="10.0" />
+                        <Insets top="10.0" />
                      </HBox.margin>
                      <font>
-                        <Font size="16.0" />
+                        <Font size="20.0" />
                      </font>
                   </Label>
                </children>
@@ -121,8 +174,14 @@
                   <Label text="Nombre del responsable   ">
                      <HBox.margin>
                         <Insets left="120.0" />
-                     </HBox.margin></Label>
-                  <TextField fx:id="nombre_responsable" prefHeight="25.0" prefWidth="328.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets top="15.0" />
+                     </padding></Label>
+                  <TextField fx:id="nombre_responsable" prefHeight="25.0" prefWidth="328.0">
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin></TextField>
                </children>
                <VBox.margin>
                   <Insets left="60.0" right="60.0" />
@@ -132,12 +191,12 @@
                <children>
                   <Label text="Nombre de la parada  ">
                      <HBox.margin>
-                        <Insets left="120.0" />
+                        <Insets left="120.0" top="15.0" />
                      </HBox.margin>
                   </Label>
                   <TextField fx:id="nombre_parada" prefHeight="25.0" prefWidth="328.0">
                      <HBox.margin>
-                        <Insets left="21.0" />
+                        <Insets left="21.0" top="10.0" />
                      </HBox.margin>
                   </TextField>
                </children>
@@ -149,12 +208,12 @@
                <children>
                   <Label text="Region ">
                      <HBox.margin>
-                        <Insets left="120.0" />
+                        <Insets left="120.0" top="15.0" />
                      </HBox.margin>
                   </Label>
                   <TextField fx:id="nombre_region" prefHeight="25.0" prefWidth="328.0">
                      <HBox.margin>
-                        <Insets left="100.0" />
+                        <Insets left="100.0" top="10.0" />
                      </HBox.margin>
                   </TextField>
                </children>
@@ -164,16 +223,44 @@
             </HBox>
             <HBox layoutX="70.0" layoutY="310.0" prefHeight="74.0" prefWidth="1000.0">
                <children>
-                  <Button fx:id="boton_guardar" mnemonicParsing="false" onAction="#GuardarCredencialesResponsableParada" prefHeight="47.0" prefWidth="156.0" text="Guardar Nueva Parada">
+                  <ImageView fitHeight="47.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/disco-flexible.png" />
+                     </image>
                      <HBox.margin>
-                        <Insets left="240.0" top="30.0" />
+                        <Insets left="180.0" top="5.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Button fx:id="boton_guardar" mnemonicParsing="false" onAction="#GuardarCredencialesResponsableParada" prefHeight="30.0" prefWidth="118.0" styleClass="background" text="Guardar Parada" textFill="#fff9f9" textOverrun="CLIP">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
+                     </effect>
+                     <HBox.margin>
+                        <Insets left="10.0" right="280.0" top="15.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="limpiarcampos" layoutX="250.0" layoutY="10.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="156.0" text="limpiar campos">
+                  <Button fx:id="limpiarcampos" mnemonicParsing="false" onAction="#LimpiarCampos" prefHeight="30.0" prefWidth="118.0" styleClass="background" text="Limpiar Campos" textFill="#fff9f9" textOverrun="CLIP">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
+                     </effect>
                      <HBox.margin>
-                        <Insets left="190.0" top="30.0" />
+                        <Insets top="15.0" />
                      </HBox.margin>
                   </Button>
+                  <ImageView fitHeight="50.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/goma-de-borrar.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" top="5.0" />
+                     </HBox.margin>
+                  </ImageView>
                </children>
             </HBox>
          </children>

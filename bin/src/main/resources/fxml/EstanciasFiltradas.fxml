@@ -20,28 +20,33 @@
          <children>
             <HBox alignment="TOP_RIGHT" prefHeight="41.0" prefWidth="640.0">
                <children>
-                  <ImageView fitHeight="150.0" fitWidth="118.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/PeregrinoSonriendo.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" top="5.0" />
-                     </HBox.margin>
-                  </ImageView>
-                  <Label alignment="CENTER" prefHeight="118.0" prefWidth="739.0" text="Lista de Peregrinos">
+                  <Label alignment="CENTER" prefHeight="70.0" prefWidth="262.0" text="Lista de Peregrinos en">
                      <font>
-                        <Font size="40.0" />
+                        <Font size="25.0" />
                      </font>
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                   </Label>
+                  <Label fx:id="nombreDeLaParada" prefHeight="70.0" prefWidth="204.0" text="Label">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="50.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/cerrar-sesion.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
                   <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#volverALogin" prefHeight="30.0" prefWidth="130.0" styleClass="background" text="Cerrar Sesion" textFill="#fff9f9" textOverrun="CLIP">
                      <font>
                         <Font size="14.0" />
                      </font>
                      <HBox.margin>
-                        <Insets bottom="5.0" right="20.0" top="40.0" />
+                        <Insets bottom="20.0" right="20.0" top="20.0" />
                      </HBox.margin>
                      <effect>
                         <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
@@ -68,7 +73,7 @@
                <children>
                   <HBox prefHeight="79.0" prefWidth="1000.0">
                      <children>
-                        <Button fx:id="botonVolverAtras" mnemonicParsing="false" onAction="#volverAtras" prefHeight="15.0" prefWidth="130.0" styleClass="background" text="Volver Atrás" textFill="#fff9f9" textOverrun="CLIP">
+                        <Button fx:id="botonVolverAtras" mnemonicParsing="false" onAction="#volverAtras" prefHeight="30.0" prefWidth="99.0" styleClass="background" text="Volver Atrás" textFill="#fff9f9" textOverrun="CLIP">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -79,7 +84,7 @@
                               <Insets left="20.0" top="20.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="botonReseteo" mnemonicParsing="false" onAction="#resetearFechas" prefHeight="15.0" prefWidth="130.0" styleClass="background" text="Resetear Fechas" textFill="#fff9f9" textOverrun="CLIP">
+                        <Button fx:id="botonReseteo" mnemonicParsing="false" onAction="#resetearFechas" prefHeight="30.0" prefWidth="118.0" styleClass="background" text="Resetear Fechas" textFill="#fff9f9" textOverrun="CLIP">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -87,9 +92,17 @@
                               <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
                            </effect>
                            <HBox.margin>
-                              <Insets left="50.0" right="20.0" top="20.0" />
+                              <Insets left="30.0" right="10.0" top="20.0" />
                            </HBox.margin>
                         </Button>
+                        <ImageView fitHeight="50.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/lazo.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="20.0" top="15.0" />
+                           </HBox.margin>
+                        </ImageView>
                         <Label text="Desde">
                            <HBox.margin>
                               <Insets right="5.0" top="25.0" />
@@ -102,7 +115,7 @@
                         </DatePicker>
                         <Label text="Hasta">
                            <HBox.margin>
-                              <Insets left="30.0" right="5.0" top="25.0" />
+                              <Insets left="15.0" right="5.0" top="25.0" />
                            </HBox.margin>
                         </Label>
                         <DatePicker fx:id="fechaFiltradoFin" prefHeight="31.0" prefWidth="174.0">
@@ -118,9 +131,17 @@
                               <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
                            </effect>
                            <HBox.margin>
-                              <Insets left="50.0" top="20.0" />
+                              <Insets left="30.0" top="20.0" />
                            </HBox.margin>
                         </Button>
+                        <ImageView fitHeight="46.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/filtrar.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="5.0" top="15.0" />
+                           </HBox.margin>
+                        </ImageView>
                      </children>
                   </HBox>
                </children>

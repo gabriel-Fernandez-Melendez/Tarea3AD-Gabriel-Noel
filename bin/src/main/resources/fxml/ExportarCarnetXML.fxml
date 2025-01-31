@@ -8,6 +8,9 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -23,7 +26,7 @@
                   <MenuItem mnemonicParsing="false" text="Exit" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu mnemonicParsing="false" text="Ayuda">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
             </items>
@@ -32,29 +35,48 @@
       </MenuBar>
    </top>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="539.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="74.0" prefWidth="1000.0">
+            <HBox prefHeight="64.0" prefWidth="1000.0">
                <children>
-                  <Label text="Los Datos de Carnet de peregrino">
+                  <Label prefHeight="45.0" prefWidth="457.0" text="Los Datos de Carnet del Peregrino" textAlignment="CENTER">
                      <HBox.margin>
-                        <Insets left="350.0" top="50.0" />
+                        <Insets bottom="10.0" left="300.0" top="50.0" />
                      </HBox.margin>
                      <font>
-                        <Font size="19.0" />
+                        <Font size="30.0" />
                      </font>
                   </Label>
+                  <ImageView fitHeight="52.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/cerrar-sesion.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" top="15.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Button fx:id="botonCerrarSesion" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="40.0" prefWidth="140.0" styleClass="background" text="Cerrar Sesión" textFill="#fff9f9" textOverrun="CLIP">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
+                     </effect>
+                     <HBox.margin>
+                        <Insets left="10.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="10.0" prefHeight="74.0" prefWidth="1000.0">
                <children>
-                  <TableView fx:id="tabla_carnet" prefHeight="74.0" prefWidth="957.0">
+                  <TableView fx:id="tabla_carnet" prefHeight="74.0" prefWidth="909.0">
                     <columns>
                       <TableColumn fx:id="id_carnet" prefWidth="51.0" text="ID" />
                       <TableColumn fx:id="distancia" prefWidth="115.0" text="Distancia en km" />
-                        <TableColumn fx:id="fecha" prefWidth="203.0" text="Fecha de Expedicion" />
-                        <TableColumn fx:id="estancians_vip" minWidth="0.0" prefWidth="184.0" text="Estancias vip" />
-                        <TableColumn fx:id="parada" prefWidth="179.0" text="Parada Inicial" />
+                        <TableColumn fx:id="fecha" prefWidth="263.0" text="Fecha de Expedicion" />
+                        <TableColumn fx:id="estancians_vip" minWidth="0.0" prefWidth="172.0" text="Estancias vip" />
+                        <TableColumn fx:id="parada" prefWidth="202.0" text="Parada Inicial" />
                     </columns>
                   </TableView>
                </children>
@@ -76,11 +98,25 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="162.0" prefHeight="135.0" prefWidth="1000.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="210.0" text="Exportar Carnet">
+                  <Button fx:id="botonFiltrarEstancias" mnemonicParsing="false" prefHeight="62.0" prefWidth="208.0" styleClass="background" text="Filtrar Estancias" textFill="#fff9f9" textOverrun="CLIP">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
+                     </effect>
                      <HBox.margin>
                         <Insets left="400.0" top="40.0" />
                      </HBox.margin>
                   </Button>
+                  <ImageView fitHeight="71.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/exportar.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="15.0" top="40.0" />
+                     </HBox.margin>
+                  </ImageView>
                </children>
             </HBox>
          </children>
