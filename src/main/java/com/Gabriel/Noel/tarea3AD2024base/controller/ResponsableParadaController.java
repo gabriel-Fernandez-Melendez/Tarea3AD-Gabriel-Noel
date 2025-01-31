@@ -139,13 +139,20 @@ public class ResponsableParadaController {
 	{
 	    try 
 	    {
-	    	// Selecciona y coge un peregrino que tu hayas seleccionado de la lista
 	        Peregrino peregrinoSeleccionado = tablaPeregrinos.getSelectionModel().getSelectedItem();
 
-	        // Si se intenta sellar sin un peregrino seleccionado saltara la alerta de que porfavor seleccione uno
 	        if (peregrinoSeleccionado == null) 
 	        {
 	            mostrarAlerta("Error", "Por favor, selecciona a un peregrino de la lista.", Alert.AlertType.ERROR);
+	            return;
+	        }
+	        
+	        boolean seHospeda = checkHospedaje.isSelected();
+	        boolean esVip = checkEsVIP.isSelected();
+
+	        // Si selecciona VIP y no es VIP al mismo tiempo, saltara la alerta
+	        if (esVip && !seHospeda) {
+	            mostrarAlerta("Error", "Si selecciona Es VIP, tiene que seleccionar la casilla con el icono de Hotel", Alert.AlertType.ERROR);
 	            return;
 	        }
 
@@ -155,23 +162,12 @@ public class ResponsableParadaController {
 	        miParadaSellada.setParada(paradaActual);
 	        miParadaSellada.setFechaParada(LocalDate.now());
 
-	        // Si devuelve NULL es que no existe una parada sellada para el peregrino en esa fecha en esa misma parada
-	        // Si devuelve TRUE entonces es que ya existe y saltará la alerta informando al usuario e impidiendo que pueda sellar
+	        
 	        if (paradaSelladaService.guardarParadaSellada(miParadaSellada) == null) 
 	        {
 	            mostrarAlerta("Error", "El peregrino ya ha sellado en esta parada en la misma fecha.", Alert.AlertType.ERROR);
 	            return; 
-	        }
-
-	        // Continuar con el resto del flujo solo si no hay duplicados
-	        boolean seHospeda = checkHospedaje.isSelected();
-	        boolean esVip = checkEsVIP.isSelected();
-
-	        // Si selecciona VIP y no es VIP al mismo tiempo, saltara la alerta
-	        if (esVip && !seHospeda) {
-	            mostrarAlerta("Error", "Si selecciona Es VIP, tiene que seleccionar la casilla de Me Hospedo", Alert.AlertType.ERROR);
-	            return;
-	        }
+	        }        
 
 	        // Creamos un objeto carnet y lo obtenemos del peregrino que hemos seleccionado de la tabla
 	        Carnet carnet = peregrinoSeleccionado.getCarnet();
@@ -209,7 +205,6 @@ public class ResponsableParadaController {
 	            estanciaService.guardarEstancia(nuevaEstancia);
 	        }
 
-	        // Alerta diciendo que ha sido un exito el sellado del carnet del peregrino
 	        mostrarAlerta("Éxito", "Carnet sellado correctamente.", Alert.AlertType.INFORMATION);
 
 	    } 

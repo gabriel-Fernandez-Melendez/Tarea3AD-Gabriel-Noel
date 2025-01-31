@@ -30,7 +30,7 @@ import java.util.Map;
 
 /**
  * Controlador para la vista de estancias filtradas.
- * Permite filtrar peregrinos en base a sus sellados y estancias en una parada específica.
+ * Permite filtrar peregrinos en base a sus sellados y estancias en una parada específica
  */
 @Controller
 public class EstanciasFiltradasController {
@@ -110,66 +110,43 @@ public class EstanciasFiltradasController {
 		colSeEstancio.setCellValueFactory(new PropertyValueFactory<>("seEstancio"));
 		colEsVIP.setCellValueFactory(new PropertyValueFactory<>("esVIP"));
 	}
-
-
-    /**
-     * Filtra las estancias de los peregrinos según la parada y el rango de fechas seleccionado.
-     * Obtiene los datos de la base de datos y los muestra en la tabla.
-     */
+	
 	@FXML
 	private void filtrarEstancias() {
-		try 
-		{
-			LocalDate fechaInicio = fechaFiltradoInicio.getValue();
-			LocalDate fechaFin = fechaFiltradoFin.getValue();
+	    try {
+	        LocalDate fechaInicio = fechaFiltradoInicio.getValue();
+	        LocalDate fechaFin = fechaFiltradoFin.getValue();
 
-			if (fechaInicio == null || fechaFin == null) 
-			{
-				mostrarAlerta("Error", "Debes seleccionar fechas válidas",Alert.AlertType.ERROR);
-				return;
-			}
-			
-			if(fechaInicio.isAfter(fechaFin))
-			{
-				mostrarAlerta("Error","La fecha de inicio no puede ser posterior a la de Fin",Alert.AlertType.ERROR);
-				return;
-			}
+	        if (fechaInicio == null || fechaFin == null) {
+	            mostrarAlerta("Error", "Debes seleccionar fechas válidas y tener una parada asignada.", Alert.AlertType.ERROR);
+	            return;
+	        }
+	        
+	        if (fechaInicio.isBefore(fechaFin))
+	        {
+	        	mostrarAlerta("Error", "La fecha de Inicio no debe ser posterior a la de Fin", Alert.AlertType.ERROR);
+	        	return;
+	        }
 
-			// Obtengo todas las estancias filtradas por el serviciop
-			List<Map<String, Object>> estancias = estanciaService.obtenerEstanciasFiltradas(paradaActual.getId(),fechaInicio, fechaFin);
+	        // Obtener las estancias directamente como objetos PeregrinoTabla
+	        List<PeregrinoTabla> estancias = estanciaService.obtenerEstanciasFiltradas(paradaActual.getId(), fechaInicio, fechaFin);
 
-			// Se convierte todos los datos del objeto para que la tabla los pueda mostrar
-			ObservableList<PeregrinoTabla> peregrinosTabla = FXCollections.observableArrayList();
+	        if (estancias.isEmpty()) 
+	        {
+	            mostrarAlerta("Información", "No se encontraron sellados en este rango de fechas.", Alert.AlertType.INFORMATION);
+	            tablaPeregrinosFiltrados.getItems().clear();
+	            return;
+	        }
 
-			for (Map<String, Object> estancia : estancias) 
-			{
-				Long id = (Long) estancia.get("idPeregrino"); 
-				String nombre = (String) estancia.get("nombre");
-				String fechaSellado = estancia.get("fechaParada").toString();
-				
-				// Se obtiene el boleano de se estanció y de si es VIP
-				boolean seEstancioBoolean = (boolean) estancia.get("seEstancio");
-				boolean esVIPBoolean = (boolean) estancia.get("esVIP");
+	        // Convertir la lista en un ObservableList para la tabla
+	        ObservableList<PeregrinoTabla> peregrinosTabla = FXCollections.observableArrayList(estancias);
 
-				// Convertimos a String para que la tabla me diga si es SI o NO
-				String seEstancio = seEstancioBoolean ? "Sí" : "No";
-				String esVIP = esVIPBoolean ? "Sí" : "No";
+	        // Asignar los valores a la tabla
+	        tablaPeregrinosFiltrados.setItems(peregrinosTabla);
 
-				// Crear el objeto pasandole como parametro los atributos recogidos 
-				PeregrinoTabla modelo = new PeregrinoTabla(id, nombre, fechaSellado, seEstancio, esVIP);
-				
-				peregrinosTabla.add(modelo);
-			}
-
-			// Se asignan los valores a la tabla
-			tablaPeregrinosFiltrados.setItems(peregrinosTabla);
-
-		} 
-		
-		catch (Exception e) 
-		{
-			mostrarAlerta("Error", "Ha ocurrido un error al filtrar las estancias: " + e.getMessage(),Alert.AlertType.ERROR);
-		}
+	    } catch (Exception e) {
+	        mostrarAlerta("Error", "Ha ocurrido un error al filtrar las estancias: " + e.getMessage(), Alert.AlertType.ERROR);
+	    }
 	}
 
 	/**

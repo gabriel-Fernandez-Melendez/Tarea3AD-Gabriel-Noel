@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Estancia;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.ParadaSellada;
+import com.Gabriel.Noel.tarea3AD2024base.modelo.PeregrinoTabla;
 import com.Gabriel.Noel.tarea3AD2024base.repositorios.EstanciaRepository;
 
 @Service
@@ -30,50 +31,17 @@ public class EstanciaService {
 		return estanciaRepository.save(miEstancia);
 	}
 
+	 /**
+     * Obtiene una lista de estancias filtradas por parada y rango de fechas.
+     * @param idParada ID de la parada
+     * @param fechaInicio Fecha de inicio del filtro
+     * @param fechaFin Fecha de fin del filtro
+     * @return Lista de PeregrinoTabla con los datos listos para mostrar en la tabla
+     */
+    public List<PeregrinoTabla> obtenerEstanciasFiltradas(Long idParada, LocalDate fechaInicio, LocalDate fechaFin) 
+    {
+        return estanciaRepository.filtrarEstancias(idParada, fechaInicio, fechaFin);
+    }
 
-	/**
-	 * Obtiene una lista de estancias filtradas por (Parada) y (Rango de fechas)
-	 * Los resultados que son devueltos en una lista de Mapas.
-	 * 
-	 * Cada mapa es una fila con Clave-Valor
-	 * 
-	 * @param idParada
-	 * @param fechaInicio
-	 * @param fechaFin
-	 * @return
-	 */
-	public List<Map<String, Object>> obtenerEstanciasFiltradas(Long idParada, LocalDate fechaInicio, LocalDate fechaFin) 
-	{
-		// Se ejecuta la consulta en el repositorio y se obtienen los resultados en forma de lista de objetos.
-	    List<Object[]> resultados = estanciaRepository.filtrarEstancias(idParada, fechaInicio, fechaFin);
-	    
-	    // Se crea una lista donde se almacenarán los mapas con los datos estructurados.
-	    List<Map<String, Object>> estancias = new ArrayList<>();
-
-	    /**
-         * Cada fila de resultados es un array de objetos (Object[])
-         * donde cada posición corresponde a un campo de la consulta SQL
-         * (idPeregrino,nombre,nacionalidad,seEstancio,esVIP,fechaParada)
-         * 
-         * Se mapea cada fila a un Map<String, Object> en donde:
-         * La clave (String) es el nombre del dato
-         * El valor (Object) es el dato correspondiente (puede ser String, Long, Boolean...)
-         */
-	    for (Object[] fila : resultados) 
-	    {
-	        Map<String, Object> estancia = new HashMap<>();
-	        estancia.put("idPeregrino", fila[0]); // Ahora incluye el ID del peregrino
-	        estancia.put("nombre", fila[1]);
-	        estancia.put("nacionalidad", fila[2]);
-	        estancia.put("seEstancio", fila[3]); // Se maneja con true/False
-	        estancia.put("esVIP", fila[4]);	// Se maneja con True/False
-	        estancia.put("fechaParada", fila[5]);
-	        
-	        // Se añade el mapa con los datos a la lista
-	        estancias.add(estancia);
-	    }
-
-	    return estancias;
-	}
 	
 }
