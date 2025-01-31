@@ -28,7 +28,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Ayuda">
             <items>
-              <MenuItem mnemonicParsing="false" text="Ayuda" />
+              <MenuItem mnemonicParsing="false" onAction="#AyudaJavaFX" text="Ayuda" />
             </items>
           </Menu>
         </menus>
