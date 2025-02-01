@@ -41,7 +41,7 @@
                         <Font size="14.0" />
                      </font>
                      <HBox.margin>
-                        <Insets bottom="5.0" right="15.0" top="40.0" />
+                        <Insets bottom="5.0" right="20.0" top="40.0" />
                      </HBox.margin>
                      <effect>
                         <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
@@ -68,7 +68,7 @@
                <children>
                   <HBox prefHeight="79.0" prefWidth="1000.0">
                      <children>
-                        <Button fx:id="botonReseteo" mnemonicParsing="false" onAction="#filtrarEstancias" prefHeight="15.0" prefWidth="130.0" styleClass="background" text="Resetear" textFill="#fff9f9" textOverrun="CLIP">
+                        <Button fx:id="botonVolverAtras" mnemonicParsing="false" onAction="#volverAtras" prefHeight="15.0" prefWidth="130.0" styleClass="background" text="Volver Atrás" textFill="#fff9f9" textOverrun="CLIP">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -76,7 +76,18 @@
                               <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
                            </effect>
                            <HBox.margin>
-                              <Insets left="100.0" right="20.0" top="20.0" />
+                              <Insets left="20.0" top="20.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="botonReseteo" mnemonicParsing="false" onAction="#resetearFechas" prefHeight="15.0" prefWidth="130.0" styleClass="background" text="Resetear Fechas" textFill="#fff9f9" textOverrun="CLIP">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <effect>
+                              <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
+                           </effect>
+                           <HBox.margin>
+                              <Insets left="50.0" right="20.0" top="20.0" />
                            </HBox.margin>
                         </Button>
                         <Label text="Desde">
@@ -107,7 +118,7 @@
                               <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
                            </effect>
                            <HBox.margin>
-                              <Insets left="40.0" top="20.0" />
+                              <Insets left="50.0" top="20.0" />
                            </HBox.margin>
                         </Button>
                      </children>

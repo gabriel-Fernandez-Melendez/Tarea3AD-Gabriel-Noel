@@ -29,25 +29,43 @@ public class ParadaService {
 
 	
 	
-	// Metodo para devolver todos los peregrinos
+	/**
+	 * Obtiene la lista de todos los peregrinos registrados en la BD
+	 * @return
+	 */
 	public List<Peregrino> listaDePeregrino()
 	{
 		return peregrinoBD.findAll();
 	}
 	
-	// Metodo para guardar el Carnet
+	
+	/**
+	 * Guarda un Carnet en la BD
+	 * @param miCarnet
+	 * @return
+	 */
 	public Carnet guardarCarnet(Carnet miCarnet)
 	{
 		return carnetBD.save(miCarnet);
 	}
 	
 	
-	// Metodo que retorna todas las paradas
+	/**
+	 * Obtiene una lista de todas las paradas de la BD
+	 * @return
+	 */
 	public List<Parada> ListaDeParadas() {
 		return paradasRepository.findAll();
 	}
 	
-	// Encuentra el objeto parada por el id de las credenciales del usuario
+	
+	
+	/**
+	 * Obtiene una parada en base a unas credenciales de un usuario
+	 * en este caso para un (Responsable de Parada)
+	 * @param miCredencial
+	 * @return
+	 */
 	public Parada buscarParadaPorCredenciales(Credenciales miCredencial)
 	{
 		return paradasRepository.findByCredenciales(miCredencial);

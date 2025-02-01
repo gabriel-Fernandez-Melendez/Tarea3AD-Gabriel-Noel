@@ -1,5 +1,10 @@
 package com.Gabriel.Noel.tarea3AD2024base.modelo;
 
+/**
+ * Tabla Creada para manejar los datos mejor e inyectarlos
+ * a la TableView de la EstanciasFiltradasController
+ * solo el contructor y los getter y setters
+ */
 public class PeregrinoTabla {
     private Long id;
     private String nombre;

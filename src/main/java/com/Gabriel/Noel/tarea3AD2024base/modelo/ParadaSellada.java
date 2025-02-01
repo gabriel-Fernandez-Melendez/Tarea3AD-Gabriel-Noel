@@ -20,7 +20,7 @@ public class ParadaSellada {
     @JoinColumn(name = "id_parada", nullable = false) // Clave foránea hacia Parada
     private Parada parada;
 
-    @Column(name = "fecha_parada", nullable = false) // Atributo adicional
+    @Column(name = "fecha_parada", nullable = false) // Atributo Fecha en la que selló el peregrino
     private LocalDate fechaParada;
 
     // Constructor por defecto

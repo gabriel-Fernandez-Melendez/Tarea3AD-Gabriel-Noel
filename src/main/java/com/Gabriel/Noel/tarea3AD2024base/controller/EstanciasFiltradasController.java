@@ -1,6 +1,5 @@
 package com.Gabriel.Noel.tarea3AD2024base.controller;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,196 +14,185 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import com.Gabriel.Noel.tarea3AD2024base.config.StageManager;
-import com.Gabriel.Noel.tarea3AD2024base.modelo.Estancia;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
-import com.Gabriel.Noel.tarea3AD2024base.modelo.ParadaSellada;
-import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.PeregrinoTabla;
 import com.Gabriel.Noel.tarea3AD2024base.services.EstanciaService;
-import com.Gabriel.Noel.tarea3AD2024base.services.ParadaSelladaService;
-import com.Gabriel.Noel.tarea3AD2024base.services.ParadaService;
 import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Controlador para la vista de estancias filtradas.
+ * Permite filtrar peregrinos en base a sus sellados y estancias en una parada específica.
+ */
 @Controller
 public class EstanciasFiltradasController {
 
-    @FXML
-    private Button btnLogout;
+	@FXML
+	private Button btnLogout;
 
-    @FXML
-    private Button botonFiltrarEstancias;
-    
-    @FXML
-    private Button botonReseteo;
-    
-    @FXML
-    private TableView<PeregrinoTabla> tablaPeregrinosFiltrados;
+	@FXML
+	private Button botonFiltrarEstancias;
 
-    @FXML
-    private TableColumn<PeregrinoTabla, Long> colPeregrinoID;
+	@FXML
+	private Button botonReseteo;
 
-    @FXML
-    private TableColumn<PeregrinoTabla, String> colNombre;
+	@FXML
+	private Button botonVolverAtras;
 
-    @FXML
-    private TableColumn<PeregrinoTabla, String> colFechaSellado;
+	@FXML
+	private TableView<PeregrinoTabla> tablaPeregrinosFiltrados;
 
-    @FXML
-    private TableColumn<PeregrinoTabla, String> colSeEstancio;
+	@FXML
+	private TableColumn<PeregrinoTabla, Long> colPeregrinoID;
 
-    @FXML
-    private TableColumn<PeregrinoTabla, String> colEsVIP;
+	@FXML
+	private TableColumn<PeregrinoTabla, String> colNombre;
 
+	@FXML
+	private TableColumn<PeregrinoTabla, String> colFechaSellado;
 
-    @FXML
-    private DatePicker fechaFiltradoInicio;
+	@FXML
+	private TableColumn<PeregrinoTabla, String> colSeEstancio;
 
-    @FXML
-    private DatePicker fechaFiltradoFin;
+	@FXML
+	private TableColumn<PeregrinoTabla, String> colEsVIP;
 
-    @Autowired
-    private ParadaSelladaService paradaSelladaService;
+	@FXML
+	private DatePicker fechaFiltradoInicio;
 
-    @Autowired
-    private EstanciaService estanciaService;
-    
-    @Lazy
-    @Autowired
-    private StageManager stageManager;
+	@FXML
+	private DatePicker fechaFiltradoFin;
 
-    // Parada actual (para filtrar por parada)
-    private Parada paradaActual;
+	@Autowired
+	private EstanciaService estanciaService;
 
-    @FXML
-    private void initialize() {
-    	cargarColumnas();
-        paradaActual = ResponsableParadaController.getParada();// Asigna la parada actual usando tu lógica (ResponsableParadaController o credenciales)
-    }
+	@Lazy
+	@Autowired
+	private StageManager stageManager;
 
-    
-    private void cargarColumnas() {
-        colPeregrinoID.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        colFechaSellado.setCellValueFactory(new PropertyValueFactory<>("fechaSellado"));
-        colSeEstancio.setCellValueFactory(new PropertyValueFactory<>("seEstancio"));
-        colEsVIP.setCellValueFactory(new PropertyValueFactory<>("esVIP"));
-    }
+	private Parada paradaActual;
+
+    /**
+     * Método de inicialización del controlador.
+     * Carga las columnas de la tabla y obtiene la parada actual desde el controlador de responsables.
+     */
+	@FXML
+	private void initialize() {
+		cargarColumnas();
+		paradaActual = ResponsableParadaController.getParada();
+	}
 
 
-//    @FXML
-//    private void filtrarPorFechas() {
-//        try {
-//            LocalDate fechaInicio = fechaFiltradoInicio.getValue();
-//            LocalDate fechaFin = fechaFiltradoFin.getValue();
-//
-//            // Validaciones de fechas
-//            if (fechaInicio == null || fechaFin == null) {
-//                mostrarAlerta("Error", "Por favor, selecciona ambas fechas.", Alert.AlertType.ERROR);
-//                return;
-//            }
-//
-//            if (fechaInicio.isAfter(fechaFin)) {
-//                mostrarAlerta("Error", "La fecha de inicio no puede ser posterior a la fecha de fin.", Alert.AlertType.ERROR);
-//                return;
-//            }
-//
-//            if (paradaActual == null) {
-//                mostrarAlerta("Error", "No se ha determinado la parada actual.", Alert.AlertType.ERROR);
-//                return;
-//            }
-//
-//            // Obtener las paradas selladas en el rango de fechas
-//            List<ParadaSellada> misParadas = paradaSelladaService.obtenerTodasParadasSelladas();
-//            List<ParadaSellada> paradasSelladas = paradaSelladaService.filtrarPorParadaYFechas(paradaActual.getId(), fechaInicio, fechaFin);
-//            
-//            System.out.println(misParadas);
-//            System.out.println(paradasSelladas);
-//
-//            if (paradasSelladas.isEmpty()) {
-//                mostrarAlerta("Información", "No se encontraron sellados en este rango de fechas.", Alert.AlertType.INFORMATION);
-//                tablaPeregrinosFiltrados.getItems().clear();
-//                return;
-//            }
-//
-//
-//            
-//         // Crear lista de modelos para la tabla
-//            ObservableList<PeregrinoTabla> peregrinosTabla = FXCollections.observableArrayList();
-//            
-//            for (ParadaSellada sellada : paradasSelladas) 
-//            {
-//                Peregrino peregrino = sellada.getPeregrino();
-//                
-//                Long id = peregrino.getId();
-//                String nombre = peregrino.getNombre();
-//                String fechaSellado = sellada.getFechaParada().toString();
-//               String seEstancio = "si";
-//               String esVIP = "si";
-//
-//
-//                // Crear objeto PeregrinoTabla
-//                PeregrinoTabla modelo = new PeregrinoTabla(id, nombre, fechaSellado, seEstancio, esVIP);
-//                peregrinosTabla.add(modelo);
-//            }
-//            
-//            System.out.println("ESTOS SON LOS PEREGRINOS FILTRADOS");
-//            System.out.println(peregrinosTabla.toString());
-//            
-//            tablaPeregrinosFiltrados.setItems(peregrinosTabla);
-//
-//        } 
-//        
-//        catch (Exception e) {
-//            mostrarAlerta("Error", e.getMessage(), Alert.AlertType.ERROR);
-//        }
-//    }
-    
-    @FXML
-    private void filtrarEstancias() {
-        try {
-            LocalDate fechaInicio = fechaFiltradoInicio.getValue();
-            LocalDate fechaFin = fechaFiltradoFin.getValue();
-
-            if (fechaInicio == null || fechaFin == null || paradaActual == null) {
-                mostrarAlerta("Error", "Debes seleccionar fechas válidas y tener una parada asignada.", Alert.AlertType.ERROR);
-                return;
-            }
-
-            List<Map<String, Object>> estancias = estanciaService.obtenerEstanciasFiltradas(paradaActual.getId(), fechaInicio, fechaFin);
-
-            ObservableList<PeregrinoTabla> peregrinosTabla = FXCollections.observableArrayList();
-
-            for (Map<String, Object> estancia : estancias) 
-            {
-                PeregrinoTabla modelo = new PeregrinoTabla((Long) estancia.get("id"),(String) estancia.get("nombre"),(String) estancia.get("nacionalidad"),
-                    (boolean) estancia.get("seEstancio") ? "Sí" : "No",
-                    (boolean) estancia.get("esVIP") ? "Sí" : "No"
-                );
-                peregrinosTabla.add(modelo);
-            }
-
-            tablaPeregrinosFiltrados.setItems(peregrinosTabla);
-
-        } catch (Exception e) {
-            mostrarAlerta("Error", "Ha ocurrido un error al filtrar las estancias: " + e.getMessage(), Alert.AlertType.ERROR);
-        }
-    }
+    /**
+     * Configura las columnas de la tabla con los valores correspondientes.
+     */
+	private void cargarColumnas() {
+		colPeregrinoID.setCellValueFactory(new PropertyValueFactory<>("id"));
+		colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+		colFechaSellado.setCellValueFactory(new PropertyValueFactory<>("fechaSellado"));
+		colSeEstancio.setCellValueFactory(new PropertyValueFactory<>("seEstancio"));
+		colEsVIP.setCellValueFactory(new PropertyValueFactory<>("esVIP"));
+	}
 
 
-    // Método para mostrar alertas
-    private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
-        Alert alerta = new Alert(tipo);
-        alerta.setTitle(titulo);
-        alerta.setContentText(mensaje);
-        alerta.showAndWait();
-    }
+    /**
+     * Filtra las estancias de los peregrinos según la parada y el rango de fechas seleccionado.
+     * Obtiene los datos de la base de datos y los muestra en la tabla.
+     */
+	@FXML
+	private void filtrarEstancias() {
+		try 
+		{
+			LocalDate fechaInicio = fechaFiltradoInicio.getValue();
+			LocalDate fechaFin = fechaFiltradoFin.getValue();
 
-    @FXML
-    private void volverALogin() {
-        stageManager.switchScene(FxmlView.LOGIN);
-    }
+			if (fechaInicio == null || fechaFin == null) 
+			{
+				mostrarAlerta("Error", "Debes seleccionar fechas válidas",Alert.AlertType.ERROR);
+				return;
+			}
+			
+			if(fechaInicio.isAfter(fechaFin))
+			{
+				mostrarAlerta("Error","La fecha de inicio no puede ser posterior a la de Fin",Alert.AlertType.ERROR);
+				return;
+			}
+
+			// Obtengo todas las estancias filtradas por el serviciop
+			List<Map<String, Object>> estancias = estanciaService.obtenerEstanciasFiltradas(paradaActual.getId(),fechaInicio, fechaFin);
+
+			// Se convierte todos los datos del objeto para que la tabla los pueda mostrar
+			ObservableList<PeregrinoTabla> peregrinosTabla = FXCollections.observableArrayList();
+
+			for (Map<String, Object> estancia : estancias) 
+			{
+				Long id = (Long) estancia.get("idPeregrino"); 
+				String nombre = (String) estancia.get("nombre");
+				String fechaSellado = estancia.get("fechaParada").toString();
+				
+				// Se obtiene el boleano de se estanció y de si es VIP
+				boolean seEstancioBoolean = (boolean) estancia.get("seEstancio");
+				boolean esVIPBoolean = (boolean) estancia.get("esVIP");
+
+				// Convertimos a String para que la tabla me diga si es SI o NO
+				String seEstancio = seEstancioBoolean ? "Sí" : "No";
+				String esVIP = esVIPBoolean ? "Sí" : "No";
+
+				// Crear el objeto pasandole como parametro los atributos recogidos 
+				PeregrinoTabla modelo = new PeregrinoTabla(id, nombre, fechaSellado, seEstancio, esVIP);
+				
+				peregrinosTabla.add(modelo);
+			}
+
+			// Se asignan los valores a la tabla
+			tablaPeregrinosFiltrados.setItems(peregrinosTabla);
+
+		} 
+		
+		catch (Exception e) 
+		{
+			mostrarAlerta("Error", "Ha ocurrido un error al filtrar las estancias: " + e.getMessage(),Alert.AlertType.ERROR);
+		}
+	}
+
+	/**
+	 * Metodo para mostrar alertas en la vista
+	 * @param titulo
+	 * @param mensaje
+	 * @param tipo
+	 */
+	private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
+		Alert alerta = new Alert(tipo);
+		alerta.setTitle(titulo);
+		alerta.setContentText(mensaje);
+		alerta.showAndWait();
+	}
+
+	/**
+	 * Cambia la vista para ir al login
+	 */
+	@FXML
+	private void volverALogin() {
+		stageManager.switchScene(FxmlView.LOGIN);
+	}
+
+	/**
+	 * Cambia la vista para volver a la ventana del Responsable de Parada
+	 */
+	@FXML
+	private void volverAtras() {
+		stageManager.switchScene(FxmlView.RESPONSABLE);
+	}
+
+	/**
+	 * Metodo asignado al Boton de reseteo para resetear las fechas 
+	 */
+	@FXML
+	private void resetearFechas() {
+		fechaFiltradoInicio.setValue(null);
+		fechaFiltradoFin.setValue(null);
+	}
 }

@@ -7,6 +7,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -18,17 +20,28 @@
          <children>
             <HBox alignment="TOP_RIGHT" prefHeight="41.0" prefWidth="640.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="728.0" text="Lista de Peregrinos">
+                  <Label alignment="CENTER" prefHeight="36.0" prefWidth="162.0" text="Bienvenido a">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="25.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="labelParadaResponsable" prefHeight="36.0" prefWidth="225.0" text="Parada X">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="10.0" right="100.0" top="10.0" />
+                     </HBox.margin>
                   </Label>
                   <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#volverALogin" prefHeight="30.0" prefWidth="130.0" styleClass="background" text="Cerrar Sesion" textFill="#fff9f9" textOverrun="CLIP">
                      <font>
                         <Font size="14.0" />
                      </font>
                      <HBox.margin>
-                        <Insets right="5.0" top="5.0" />
+                        <Insets bottom="10.0" right="20.0" top="10.0" />
                      </HBox.margin>
                      <effect>
                         <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
@@ -55,7 +68,7 @@
                <children>
                   <HBox prefHeight="51.0" prefWidth="1000.0">
                      <children>
-                        <Button fx:id="irAFiltrarEstancias" mnemonicParsing="false" onAction="#redirigirEstanciasFiltradas" prefHeight="30.0" prefWidth="130.0" styleClass="background" text="Filtrar Estancias" textFill="#fff9f9" textOverrun="CLIP">
+                        <Button fx:id="irAFiltrarEstancias" mnemonicParsing="false" onAction="#redirigirEstanciasFiltradas" prefHeight="30.0" prefWidth="180.0" styleClass="background" text="Ir a Filtrar Estancias" textFill="#fff9f9" textOverrun="CLIP">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -63,28 +76,24 @@
                               <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
                            </effect>
                            <HBox.margin>
-                              <Insets left="150.0" top="25.0" />
+                              <Insets left="50.0" right="150.0" top="15.0" />
                            </HBox.margin>
                         </Button>
-                        <CheckBox fx:id="checkEsVIP" mnemonicParsing="false" text="Es VIP">
+                        <CheckBox fx:id="checkEsVIP" mnemonicParsing="false" prefHeight="17.0" prefWidth="79.0" text="Es VIP">
                            <HBox.margin>
-                              <Insets left="400.0" top="25.0" />
+                              <Insets left="50.0" right="5.0" top="25.0" />
                            </HBox.margin>
                         </CheckBox>
-                        <CheckBox fx:id="checkNoEsVIP" mnemonicParsing="false" text="No es VIP">
+                        <CheckBox fx:id="checkNoEsVIP" mnemonicParsing="false" prefHeight="17.0" prefWidth="93.0" text="No es VIP">
                            <HBox.margin>
-                              <Insets left="50.0" top="25.0" />
+                              <Insets left="50.0" right="5.0" top="25.0" />
                            </HBox.margin>
                         </CheckBox>
-                        <CheckBox fx:id="checkHospedaje" layoutX="843.0" layoutY="35.0" mnemonicParsing="false" text="Me Hospedo">
+                        <CheckBox fx:id="checkHospedaje" layoutX="843.0" layoutY="35.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="106.0" text="Me Hospedo">
                            <HBox.margin>
-                              <Insets left="50.0" top="25.0" />
+                              <Insets left="50.0" right="5.0" top="25.0" />
                            </HBox.margin>
                         </CheckBox>
-                     </children>
-                  </HBox>
-                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="33.0" prefWidth="1000.0">
-                     <children>
                         <Button fx:id="botonSellarCarnet" mnemonicParsing="false" onAction="#sellarCarnet" prefHeight="30.0" prefWidth="130.0" styleClass="background" text="Sellar Carnet" textFill="#fff9f9" textOverrun="CLIP">
                            <font>
                               <Font size="14.0" />
@@ -93,26 +102,29 @@
                               <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
                            </effect>
                            <HBox.margin>
-                              <Insets left="750.0" />
+                              <Insets left="20.0" top="15.0" />
                            </HBox.margin>
                         </Button>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="33.0" prefWidth="1000.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="36.0" prefWidth="180.0" text="BIENVENIDO A ">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
+                        <ImageView fitHeight="165.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/PeregrinoSeñalando.png" />
+                           </image>
                            <HBox.margin>
-                              <Insets left="350.0" />
+                              <Insets left="60.0" top="10.0" />
                            </HBox.margin>
-                        </Label>
-                        <Label fx:id="labelParadaResponsable" text="Parada X">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                        </Label>
+                        </ImageView>
+                        <ImageView fitHeight="158.0" fitWidth="157.0" layoutX="70.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/SelladoCarnet.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="600.0" top="10.0" />
+                           </HBox.margin>
+                        </ImageView>
                      </children>
                   </HBox>
                </children>

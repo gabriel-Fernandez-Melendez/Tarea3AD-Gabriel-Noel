@@ -29,8 +29,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+/**
+ * Controlador de la vista del responsable de la parada.
+ * Permite visualizar los peregrinos que han sellado su carnet, 
+ * gestionar su hospedaje y verificar su estado en la parada.
+ */
 @Controller
 public class ResponsableParadaController {
 
@@ -96,7 +102,11 @@ public class ResponsableParadaController {
 	@Autowired
 	private StageManager stageManager;
 
-	// Metodo inicializar para cargar datos a la tableView
+	 /**
+     * Método de inicialización del controlador.
+     * Carga los datos de la tabla de peregrinos
+     *  y asigna la parada actual para ver el nombre de la parada
+     */
 	@FXML
 	public void initialize() {
 		cargarColumnas();
@@ -105,25 +115,39 @@ public class ResponsableParadaController {
 
 	}
 
-	// Metodo para cambiar de ventana a Filtrar Estancias
+	/**
+     * Cambia la vista a la pantalla de filtrado de estancias.
+     */
 	@FXML
-	private void redirigirEstanciasFiltradas() {
-		try {
+	private void redirigirEstanciasFiltradas() 
+	{
+		try 
+		{
 			stageManager.switchScene(FxmlView.ESTANCIAS_FILTRADAS);
 		}
 
-		catch (Exception e) {
+		catch (Exception e) 
+		{
+			mostrarAlerta("Error","No se pudo cambiar de ventana a Estancias Filtradas", Alert.AlertType.ERROR);
 			System.out.println("Error en el metodo redirigirEstanciasFiltradas");
 		}
 	}
 
-	// Metodo para sellar el carnet de un peregrino
+	/**
+     * Sella el carnet de un peregrino y, 
+     * si corresponde, registra su estancia en la parada.
+     */
 	@FXML
-	private void sellarCarnet() {
-	    try {
+	private void sellarCarnet() 
+	{
+	    try 
+	    {
+	    	// Selecciona y coge un peregrino que tu hayas seleccionado de la lista
 	        Peregrino peregrinoSeleccionado = tablaPeregrinos.getSelectionModel().getSelectedItem();
 
-	        if (peregrinoSeleccionado == null) {
+	        // Si se intenta sellar sin un peregrino seleccionado saltara la alerta de que porfavor seleccione uno
+	        if (peregrinoSeleccionado == null) 
+	        {
 	            mostrarAlerta("Error", "Por favor, selecciona a un peregrino de la lista.", Alert.AlertType.ERROR);
 	            return;
 	        }
@@ -134,7 +158,10 @@ public class ResponsableParadaController {
 	        miParadaSellada.setParada(paradaActual);
 	        miParadaSellada.setFechaParada(LocalDate.now());
 
-	        if (paradaSelladaService.guardarParadaSellada(miParadaSellada) == null) {
+	        // Si devuelve NULL es que no existe una parada sellada para el peregrino en esa fecha en esa misma parada
+	        // Si devuelve TRUE entonces es que ya existe y saltará la alerta informando al usuario e impidiendo que pueda sellar
+	        if (paradaSelladaService.guardarParadaSellada(miParadaSellada) == null) 
+	        {
 	            mostrarAlerta("Error", "El peregrino ya ha sellado en esta parada en la misma fecha.", Alert.AlertType.ERROR);
 	            return; 
 	        }
@@ -144,59 +171,92 @@ public class ResponsableParadaController {
 	        boolean esVip = checkEsVIP.isSelected();
 	        boolean noEsVip = checkNoEsVIP.isSelected();
 
+	        // Si selecciona VIP y no es VIP al mismo tiempo, saltara la alerta
 	        if (esVip && noEsVip) {
 	            mostrarAlerta("Error", "No puedes seleccionar 'Es VIP' y 'No es VIP' al mismo tiempo.", Alert.AlertType.ERROR);
 	            return;
 	        }
 
+	        // Si se Hospeda y no selecciona si es vip o no lo es, entonces saltará la alerta
 	        if (seHospeda && (!esVip && !noEsVip)) {
 	            mostrarAlerta("Error", "Si te hospedas, debes seleccionar si es VIP o no.", Alert.AlertType.ERROR);
 	            return;
 	        }
 
+	        // Si no se hospeda y selecciona es VIP o no es VIP, saltará la alerta
 	        if (!seHospeda && (esVip || noEsVip)) {
 	            mostrarAlerta("Error", "No puedes seleccionar 'Es VIP' o 'No es VIP' si no te hospedas.", Alert.AlertType.ERROR);
 	            return;
 	        }
 
+	        // Creamos un objeto carnet y lo obtenemos del peregrino que hemos seleccionado de la tabla
 	        Carnet carnet = peregrinoSeleccionado.getCarnet();
+	        
+	        // Sumamos 5.0Km a su carnet 
 	        carnet.setDistancia(carnet.getDistancia() + 5.0);
 
-	        if (seHospeda && esVip) {
+	        // Si se Hospeda y es VIP sumamos a su carnet en el campo VIP +1
+	        if (seHospeda && esVip) 
+	        {
 	            carnet.setNvips(carnet.getNvips() + 1);
 	        }
 
+	        // Guardamos el carnet Ó Actualizamos
 	        carnetService.GuardarCarnet(carnet);
 
-	        if (seHospeda) {
+	        
+	        /**
+	         * Para el caso de que se Hospede el peregrino
+	         * Recogemos todos los datos que almacena la entidad ESTANCIA
+	         * Cogemos la fecha de hoy
+	         * Cogemos el campo esVIP
+	         * Cogemos la Parada actual del responsable de la parada
+	         * Cogemos el objeto peregrino entero seleccionado de la tabla
+	         */
+	        if (seHospeda) 
+	        {
 	            Estancia nuevaEstancia = new Estancia();
 	            nuevaEstancia.setFecha(LocalDate.now());
 	            nuevaEstancia.setVip(esVip);
 	            nuevaEstancia.setParada(paradaActual);
 	            nuevaEstancia.setPeregrino(peregrinoSeleccionado);
 
+	            // Guardamos la nueva estancia del peregrino que se ha hospedado
 	            estanciaService.guardarEstancia(nuevaEstancia);
 	        }
 
+	        // Alerta diciendo que ha sido un exito el sellado del carnet del peregrino
 	        mostrarAlerta("Éxito", "Carnet sellado correctamente.", Alert.AlertType.INFORMATION);
 
-	    } catch (Exception e) {
+	    } 
+	    
+	    catch (Exception e) 
+	    {
 	        mostrarAlerta("Error", "No se pudo sellar el carnet: " + e.getMessage(), Alert.AlertType.ERROR);
 	    }
 	}
 	
-	// Metodo para cerrar sesion y volver al Login.
+	/**
+	 * Metodo para cerrar sesion y volver al Login.
+	 */
 	@FXML
-	private void volverALogin() {
-		try {
+	private void volverALogin() 
+	{
+		try 
+		{
 			stageManager.switchScene(FxmlView.LOGIN);
 		}
 
-		catch (Exception e) {
+		catch (Exception e) 
+		{
 			System.out.println("Error en el metodo volverALogin");
 		}
 	}	
-	// Cargar Columnas del TableView
+	
+	
+	/**
+	 *  Cargar Columnas del TableView
+	 */
 	private void cargarColumnas() {
 		colPeregrinoID.setCellValueFactory(new PropertyValueFactory<>("id"));
 		colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
@@ -215,10 +275,13 @@ public class ResponsableParadaController {
 
 	}
 
-	// Cargar la lista de los peregrinos
+	/**
+	 *  Cargar la lista de los peregrinos
+	 */
 	private void cargarPeregrinos() {
 
-		try {
+		try 
+		{
 			// Obtenermos los peregrinos
 			List<Peregrino> listaPeregrinos = peregrinoService.ListaDePeregrinos();
 
@@ -228,11 +291,19 @@ public class ResponsableParadaController {
 
 		}
 
-		catch (Exception e) {
+		catch (Exception e) 
+		{
 			System.out.println("Error en el metodo cargarPeregrinos()");
 		}
 	}
 
+	
+	/**
+	 * Metodo para mostrar las alertas en la parte de la vista
+	 * @param titulo
+	 * @param mensaje
+	 * @param tipo
+	 */
 	private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
 		Alert miAlerta = new Alert(tipo);
 		miAlerta.setTitle(titulo);
@@ -240,7 +311,9 @@ public class ResponsableParadaController {
 		miAlerta.showAndWait();
 	}
 
-	public void setParada(Parada parada) {
+	// 
+	public void setParada(Parada parada) 
+	{
 		ResponsableParadaController.paradaActual = parada;
 	}
 	
@@ -250,7 +323,9 @@ public class ResponsableParadaController {
 	}
 	
 	
-	// Metodo para inicializar la parada actual
+	/**
+	 *  Metodo para inicializar la parada actual
+	 */
 	private void inicializarParadaActual()
 	{ 
 		try

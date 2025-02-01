@@ -11,6 +11,7 @@ import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -26,6 +27,7 @@ public class StageManager {
     public StageManager(SpringFXMLLoader springFXMLLoader, Stage stage) {
         this.springFXMLLoader = springFXMLLoader;
         this.primaryStage = stage;
+        this.primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/Concha.png")));
     }
 
     public void switchScene(final FxmlView view) {

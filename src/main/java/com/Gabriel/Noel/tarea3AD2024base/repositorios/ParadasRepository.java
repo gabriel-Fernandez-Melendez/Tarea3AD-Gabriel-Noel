@@ -11,22 +11,13 @@ import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
 @Repository
 public interface ParadasRepository extends JpaRepository<Parada, Long> {
 
-//    // Buscar paradas por región
-//    List<Parada> findByRegion(char region);
-//    
-//    //Buscar parada por nombre
-//    Parada findByNombreIgnoreCase (String nombre);
-//
-
-	
-	
+	/**
+	 * Busca la parada asociada a una credencial
+	 * pasandole como parametro el objeto credencial
+	 * 
+	 * @param miCredencial
+	 * @return
+	 */
 	// PRUEBA PARA SABER SI FUNCIONA Buscar el objeto parada mediante el objeto Credenciales 
 	Parada findByCredenciales(Credenciales miCredencial);
-//    
-//    // Busca parada por id de parada
-//    //Parada findByIdParada(Long idParada);
-//    
-//    // Busca Parada asociadas al peregrino
-//    //Parada findByIdPeregrino(Long idPeregrino);
-	
 }
