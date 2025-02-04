@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.Gabriel.Noel.tarea3AD2024base.modelo.ParadaSellada;
-import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
 
 @Repository
 public interface ParadasSelladasRepository extends JpaRepository<ParadaSellada, Long> {

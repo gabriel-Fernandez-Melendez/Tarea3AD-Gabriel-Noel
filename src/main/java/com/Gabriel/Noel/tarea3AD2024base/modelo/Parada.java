@@ -10,6 +10,11 @@ import java.util.HashSet;
 @Table(name = "paradas") // Nombre de la tabla en la base de datos
 public class Parada implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
