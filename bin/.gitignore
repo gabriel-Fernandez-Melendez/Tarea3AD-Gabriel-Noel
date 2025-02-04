@@ -31,11 +31,3 @@ build/
 
 ### VS Code ###
 .vscode/
-/.gitattributes
-/.gitignore
-/.mvn/
-/LEEME
-/mvnw
-/mvnw.cmd
-/pom.xml
-/src/

@@ -23,12 +23,12 @@
           <Menu mnemonicParsing="false" text="Opciones">
             <items>
               <MenuItem mnemonicParsing="false" text="Exportar Carnet" />
-                  <MenuItem mnemonicParsing="false" text="Exit" />
+                  <MenuItem mnemonicParsing="false" onAction="#Salir" text="Exit" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Ayuda">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" onAction="#AyudaJavaFX" text="Ayuda" />
             </items>
           </Menu>
         </menus>
@@ -98,7 +98,7 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="162.0" prefHeight="135.0" prefWidth="1000.0">
                <children>
-                  <Button fx:id="botonFiltrarEstancias" mnemonicParsing="false" prefHeight="62.0" prefWidth="208.0" styleClass="background" text="Filtrar Estancias" textFill="#fff9f9" textOverrun="CLIP">
+                  <Button fx:id="botonFiltrarEstancias" mnemonicParsing="false" onAction="#ExportarXML" prefHeight="62.0" prefWidth="208.0" styleClass="background" text="Filtrar Estancias" textFill="#fff9f9" textOverrun="CLIP">
                      <font>
                         <Font size="20.0" />
                      </font>
