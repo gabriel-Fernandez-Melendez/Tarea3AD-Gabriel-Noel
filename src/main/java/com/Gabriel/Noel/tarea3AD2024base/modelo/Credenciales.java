@@ -9,6 +9,11 @@ import java.util.Objects;
 @Table(name = "credenciales") // Nombre de la tabla en la base de datos
 public class Credenciales implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	// Atributos
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // Generación automática del ID

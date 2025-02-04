@@ -22,7 +22,6 @@ import org.springframework.stereotype.Controller;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
 
@@ -39,7 +38,6 @@ import com.Gabriel.Noel.tarea3AD2024base.services.ParadaService;
 import com.Gabriel.Noel.tarea3AD2024base.services.PeregrinoService;
 import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
 
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -49,7 +47,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -384,7 +381,7 @@ public class ExportarCarnetXMLController implements Initializable {
 	
 	@FXML
 	private void Salir() {
-		Boolean salir = false;
+		//Boolean salir = false;
 		Alert miAlerta = new Alert(AlertType.CONFIRMATION);
 		miAlerta.setTitle("Salir");
 		miAlerta.setContentText("seguro que quiere salir?");
