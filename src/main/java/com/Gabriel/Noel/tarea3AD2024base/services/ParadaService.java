@@ -1,16 +1,13 @@
 package com.Gabriel.Noel.tarea3AD2024base.services;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.Gabriel.Noel.tarea3AD2024base.modelo.Carnet;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
-import com.Gabriel.Noel.tarea3AD2024base.repositorios.CarnetRepository;
 import com.Gabriel.Noel.tarea3AD2024base.repositorios.ParadasRepository;
 import com.Gabriel.Noel.tarea3AD2024base.repositorios.PeregrinoRepository;
 
@@ -19,9 +16,6 @@ public class ParadaService {
 
 	@Autowired
 	private PeregrinoRepository peregrinoBD;
-	
-	@Autowired
-	private CarnetRepository carnetBD;
 	
 	@Autowired
 	private ParadasRepository paradasRepository;

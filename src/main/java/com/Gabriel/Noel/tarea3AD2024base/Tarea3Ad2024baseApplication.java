@@ -3,12 +3,11 @@ package com.Gabriel.Noel.tarea3AD2024base;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
-
 import com.Gabriel.Noel.tarea3AD2024base.config.StageManager;
 import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
+
 //prueba
 @SpringBootApplication
 public class Tarea3Ad2024baseApplication extends Application {

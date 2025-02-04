@@ -16,9 +16,7 @@ import com.Gabriel.Noel.tarea3AD2024base.modelo.Estancia;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.ParadaSellada;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
-import com.Gabriel.Noel.tarea3AD2024base.modelo.Usuarios;
 import com.Gabriel.Noel.tarea3AD2024base.services.CarnetService;
-import com.Gabriel.Noel.tarea3AD2024base.services.CredencialesService;
 import com.Gabriel.Noel.tarea3AD2024base.services.EstanciaService;
 import com.Gabriel.Noel.tarea3AD2024base.services.ParadaSelladaService;
 import com.Gabriel.Noel.tarea3AD2024base.services.ParadaService;
@@ -379,7 +377,6 @@ public class ResponsableParadaController {
 	
 	@FXML
 	private void Salir() {
-		Boolean salir = false;
 		Alert miAlerta = new Alert(AlertType.CONFIRMATION);
 		miAlerta.setTitle("Salir");
 		miAlerta.setContentText("seguro que quiere salir?");
