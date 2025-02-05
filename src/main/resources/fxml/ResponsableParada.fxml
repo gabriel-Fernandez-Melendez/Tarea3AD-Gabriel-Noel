@@ -20,7 +20,7 @@
          <children>
             <HBox alignment="TOP_RIGHT" prefHeight="41.0" prefWidth="640.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="36.0" prefWidth="162.0" text="Bienvenido a">
+                  <Label alignment="CENTER" prefHeight="36.0" prefWidth="158.0" text="Bienvenido a">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -28,7 +28,7 @@
                         <Insets bottom="10.0" top="10.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="labelParadaResponsable" prefHeight="36.0" prefWidth="225.0" text="Parada X">
+                  <Label fx:id="labelParadaResponsable" prefHeight="36.0" prefWidth="183.0" text="Parada X">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -38,7 +38,7 @@
                   </Label>
                   <ImageView fitHeight="40.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/cerrar-sesion.png" />
+                        <Image url="@../images/CERRARSESION.png" />
                      </image>
                      <HBox.margin>
                         <Insets right="10.0" top="8.0" />
@@ -57,7 +57,7 @@
                   </Button>
                </children>
             </HBox>
-            <TableView fx:id="tablaPeregrinos" prefHeight="387.0" prefWidth="1007.0" tableMenuButtonVisible="true">
+            <TableView fx:id="tablaPeregrinos" prefHeight="630.0" prefWidth="985.0" tableMenuButtonVisible="true">
               <columns>
                 <TableColumn fx:id="colPeregrinoID" maxWidth="700.0" prefWidth="20.0" text="ID" />
                 <TableColumn fx:id="colNombre" maxWidth="4000.0" prefWidth="75.0" text="Nombre" />
@@ -87,9 +87,9 @@
                               <Insets left="50.0" right="20.0" top="15.0" />
                            </HBox.margin>
                         </Button>
-                        <ImageView fitHeight="65.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="54.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/calendario%20(1).png" />
+                              <Image url="@../images/CALENDARIO.png" />
                            </image>
                            <HBox.margin>
                               <Insets top="5.0" />
@@ -97,12 +97,12 @@
                         </ImageView>
                         <CheckBox fx:id="checkEsVIP" mnemonicParsing="false" prefHeight="17.0" prefWidth="15.0">
                            <HBox.margin>
-                              <Insets left="225.0" right="5.0" top="25.0" />
+                              <Insets left="360.0" right="10.0" top="25.0" />
                            </HBox.margin>
                         </CheckBox>
-                        <ImageView fitHeight="55.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/vip.png" />
+                              <Image url="@../images/ESVIP.png" />
                            </image>
                            <HBox.margin>
                               <Insets top="10.0" />
@@ -110,15 +110,15 @@
                         </ImageView>
                         <CheckBox fx:id="checkHospedaje" layoutX="843.0" layoutY="35.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="17.0">
                            <HBox.margin>
-                              <Insets left="25.0" right="5.0" top="25.0" />
+                              <Insets left="25.0" right="10.0" top="25.0" />
                            </HBox.margin>
                         </CheckBox>
-                        <ImageView fitHeight="54.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/simbolo-del-hotel.png" />
+                              <Image url="@../images/HOTEL.png" />
                            </image>
                            <HBox.margin>
-                              <Insets top="10.0" />
+                              <Insets right="40.0" top="10.0" />
                            </HBox.margin>
                         </ImageView>
                         <Button fx:id="botonSellarCarnet" mnemonicParsing="false" onAction="#sellarCarnet" prefHeight="30.0" prefWidth="130.0" styleClass="background" text="Sellar Carnet" textFill="#fff9f9" textOverrun="CLIP">
@@ -129,17 +129,9 @@
                               <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
                            </effect>
                            <HBox.margin>
-                              <Insets left="50.0" top="15.0" />
+                              <Insets right="20.0" top="15.0" />
                            </HBox.margin>
                         </Button>
-                        <ImageView fitHeight="57.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/sello.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets left="10.0" top="5.0" />
-                           </HBox.margin>
-                        </ImageView>
                      </children>
                   </HBox>
                </children>

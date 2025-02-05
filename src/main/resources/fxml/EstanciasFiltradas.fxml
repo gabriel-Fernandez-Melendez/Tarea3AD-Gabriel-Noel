@@ -35,7 +35,7 @@
                   </Label>
                   <ImageView fitHeight="50.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/cerrar-sesion.png" />
+                        <Image url="@../images/CERRARSESION.png" />
                      </image>
                      <HBox.margin>
                         <Insets right="10.0" top="10.0" />
@@ -97,7 +97,7 @@
                         </Button>
                         <ImageView fitHeight="50.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/lazo.png" />
+                              <Image url="@../images/BORRAR-LIMPIAR.png" />
                            </image>
                            <HBox.margin>
                               <Insets right="20.0" top="15.0" />
@@ -134,7 +134,7 @@
                               <Insets left="30.0" top="20.0" />
                            </HBox.margin>
                         </Button>
-                        <ImageView fitHeight="46.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="48.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/filtrar.png" />
                            </image>
