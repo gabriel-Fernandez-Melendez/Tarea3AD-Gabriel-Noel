@@ -12,6 +12,11 @@ import java.util.Objects;
 @Table(name = "peregrinos") // Nombre de la tabla en la base de datos
 public class Peregrino implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

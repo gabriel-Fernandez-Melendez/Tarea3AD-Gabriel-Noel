@@ -29,7 +29,6 @@ import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -223,7 +222,6 @@ public class EstanciasFiltradasController {
 	
 	@FXML
 	private void Salir() {
-		Boolean salir = false;
 		Alert miAlerta = new Alert(AlertType.CONFIRMATION);
 		miAlerta.setTitle("Salir");
 		miAlerta.setContentText("seguro que quiere salir?");
