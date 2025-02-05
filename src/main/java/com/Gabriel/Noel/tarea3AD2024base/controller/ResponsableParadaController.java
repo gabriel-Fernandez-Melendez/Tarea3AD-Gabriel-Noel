@@ -338,6 +338,7 @@ public class ResponsableParadaController {
 	 */
 	@FXML
 	private void sellarCarnet() {
+		Estancia nuevaEstancia = new Estancia();
 		try {
 			Peregrino peregrinoSeleccionado = tablaPeregrinos.getSelectionModel().getSelectedItem(); // <-- GABRIEL
 
@@ -387,7 +388,7 @@ public class ResponsableParadaController {
 			System.out.println("El servicio es" + tieneEnvioACasa);
 
 			// Guardamos el carnet Ó Actualizamos
-			//ELIMINO
+			// ELIMINO
 
 			/**
 			 * Para el caso de que se Hospede el peregrino Recogemos todos los datos que
@@ -396,24 +397,25 @@ public class ResponsableParadaController {
 			 * peregrino entero seleccionado de la tabla
 			 */
 			if (seHospeda) {
-				Estancia nuevaEstancia = new Estancia();
+				
 				nuevaEstancia.setFecha(LocalDate.now());
 				nuevaEstancia.setVip(esVip);
 				nuevaEstancia.setParada(paradaActual);
 				nuevaEstancia.setPeregrino(peregrinoSeleccionado);
 
 				// Guardamos la nueva estancia del peregrino que se ha hospedado
-				estanciaService.guardarEstancia(nuevaEstancia);
+				
 			}
 
 			System.out.println("Se hospeda?" + seHospeda);
-
-			
-
+			if (seHospeda && esVip||seHospeda && !esVip) {
+				estanciaService.guardarEstancia(nuevaEstancia);
+			}
 			// NUEVA IMPLEMENTACION PARA RELLENAR EL FORMULARIO DE ENVIO A CASA
 			if (seHospeda && tieneEnvioACasa && grupo.getSelectedToggle() != null) {
+				
+				carnetService.GuardarCarnet(carnet); //pendiente de localizar
 				mostrarAlerta("Éxito", "Carnet sellado correctamente.", Alert.AlertType.INFORMATION);
-				carnetService.GuardarCarnet(carnet);
 				GuardarConjunto();
 				mostrarAlerta("Información", "Redirigiendo al formulario de Envío a Casa.",
 						Alert.AlertType.INFORMATION);
@@ -423,7 +425,6 @@ public class ResponsableParadaController {
 				mostrarAlerta("Metodo de pago fallido",
 						"seleccione un campo para poder continuar con el proceso de compra", AlertType.ERROR);
 			}
-
 
 		}
 
