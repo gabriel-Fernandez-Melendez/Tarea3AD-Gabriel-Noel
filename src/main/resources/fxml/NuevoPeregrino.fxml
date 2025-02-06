@@ -65,7 +65,7 @@
                   </Label>
                   <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/editar.png" />
+                        <Image url="@../images/Guardar%20(2).png" />
                      </image>
                      <HBox.margin>
                         <Insets top="10.0" />
@@ -73,7 +73,7 @@
                   </ImageView>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/cerrar-sesion.png" />
+                        <Image url="@../images/upload-file_11471564.png" />
                      </image>
                      <HBox.margin>
                         <Insets left="90.0" top="15.0" />
@@ -174,7 +174,7 @@
                         <Insets left="190.0" top="25.0" />
                      </HBox.margin>
                   </Label>
-                  <ComboBox fx:id="pais" prefHeight="25.0" prefWidth="200.0">
+                  <ComboBox fx:id="pais" prefHeight="25.0" prefWidth="328.0">
                      <HBox.margin>
                         <Insets left="30.0" top="20.0" />
                      </HBox.margin>
@@ -188,7 +188,7 @@
                         <Insets left="190.0" top="25.0" />
                      </HBox.margin>
                   </Label>
-                  <ComboBox fx:id="parada" prefHeight="25.0" prefWidth="200.0">
+                  <ComboBox fx:id="parada" prefHeight="25.0" prefWidth="329.0">
                      <HBox.margin>
                         <Insets left="30.0" top="20.0" />
                      </HBox.margin>
@@ -199,7 +199,7 @@
                <children>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/disco-flexible.png" />
+                        <Image url="@../images/download_11471570.png" />
                      </image>
                      <HBox.margin>
                         <Insets left="190.0" top="10.0" />
@@ -207,7 +207,7 @@
                   </ImageView>
                   <Button fx:id="guardar" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#GuardarNuevoPeregrino" prefHeight="33.0" prefWidth="130.0" styleClass="background" text="Guardar Peregrino" textFill="WHITE">
                      <HBox.margin>
-                        <Insets left="10.0" right="250.0" top="20.0" />
+                        <Insets left="10.0" right="190.0" top="20.0" />
                      </HBox.margin>
                   </Button>
                   <Button fx:id="limpiar" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#limpiarCampos" prefHeight="33.0" prefWidth="108.0" styleClass="background" text="Limpiar campos" textFill="WHITE">
@@ -215,12 +215,12 @@
                         <Insets top="20.0" />
                      </HBox.margin>
                   </Button>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="62.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
                      <HBox.margin>
                         <Insets left="10.0" top="10.0" />
                      </HBox.margin>
                      <image>
-                        <Image url="@../images/goma-de-borrar.png" />
+                        <Image url="@../images/edit-folder_11471636%20(1).png" />
                      </image>
                   </ImageView>
                </children>
