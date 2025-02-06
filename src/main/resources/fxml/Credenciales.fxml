@@ -24,14 +24,14 @@
       <PasswordField fx:id="contraseña" layoutX="604.0" layoutY="276.0" prefHeight="36.0" prefWidth="300.0" promptText="Contraseña" />
       <Button fx:id="Boton_login" layoutX="604.0" layoutY="374.0" mnemonicParsing="false" onAction="#ValidarCredenciales" prefHeight="30.0" prefWidth="86.0" styleClass="btnGreen" text="Entrar" textFill="WHITE">
          <font>
-            <Font size="15.0" />
+            <Font size="14.0" />
          </font>
          <effect>
             <DropShadow blurType="ONE_PASS_BOX" />
          </effect></Button>
       <Button fx:id="boton_Nuevo_Peregrino" layoutX="766.0" layoutY="374.0" mnemonicParsing="false" onAction="#NuevoPeregrino" prefHeight="31.0" prefWidth="138.0" styleClass="btnGreen" text="Nuevo Peregrino" textFill="WHITE">
          <font>
-            <Font size="15.0" />
+            <Font size="14.0" />
          </font>
          <effect>
             <DropShadow blurType="ONE_PASS_BOX" />

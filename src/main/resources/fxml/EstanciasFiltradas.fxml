@@ -42,9 +42,9 @@
             </MenuBar>
             <HBox alignment="TOP_RIGHT" prefHeight="41.0" prefWidth="640.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="70.0" prefWidth="262.0" text="Lista de Peregrinos en">
+                  <Label alignment="CENTER" prefHeight="70.0" prefWidth="307.0" text="Lista de Peregrinos en">
                      <font>
-                        <Font size="25.0" />
+                        <Font size="30.0" />
                      </font>
                      <HBox.margin>
                         <Insets />
@@ -52,7 +52,7 @@
                   </Label>
                   <Label fx:id="nombreDeLaParada" prefHeight="70.0" prefWidth="204.0" text="Label">
                      <font>
-                        <Font size="25.0" />
+                        <Font size="30.0" />
                      </font>
                   </Label>
                   <ImageView fitHeight="50.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
