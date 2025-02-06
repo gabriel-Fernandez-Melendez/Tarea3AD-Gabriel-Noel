@@ -49,7 +49,7 @@
                   </Label>
                   <ImageView fitHeight="52.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/Guardar_.png" />
+                        <Image url="@../images/SALIR.png" />
                      </image>
                      <HBox.margin>
                         <Insets left="10.0" top="15.0" />
@@ -111,7 +111,7 @@
                   </Button>
                   <ImageView fitHeight="82.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/Filtrar%20(2).png" />
+                        <Image url="@../images/GUARDARARCHIVO.png" />
                      </image>
                      <HBox.margin>
                         <Insets left="15.0" top="40.0" />

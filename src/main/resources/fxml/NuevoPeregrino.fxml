@@ -70,7 +70,7 @@
                   </ImageView>
                   <ImageView fitHeight="53.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/Guardar_.png" />
+                        <Image url="@../images/SALIR.png" />
                      </image>
                      <HBox.margin>
                         <Insets left="90.0" top="15.0" />
@@ -196,7 +196,7 @@
                <children>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/Guardar_Archivo.png" />
+                        <Image url="@../images/GUARDARARCHIVO.png" />
                      </image>
                      <HBox.margin>
                         <Insets left="190.0" top="10.0" />
@@ -217,7 +217,7 @@
                         <Insets left="10.0" top="10.0" />
                      </HBox.margin>
                      <image>
-                        <Image url="@../images/Editar_Archivo.png" />
+                        <Image url="@../images/LIMPIAR.png" />
                      </image>
                   </ImageView>
                </children>
