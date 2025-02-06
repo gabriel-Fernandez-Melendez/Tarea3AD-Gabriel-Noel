@@ -40,20 +40,17 @@
             <HBox prefHeight="72.0" prefWidth="944.0">
                <children>
                   <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/peregrino%20(1).png" />
-                     </image>
                      <HBox.margin>
                         <Insets left="200.0" top="10.0" />
                      </HBox.margin>
                   </ImageView>
                   <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/peregrino.png" />
-                     </image>
                      <HBox.margin>
                         <Insets left="20.0" top="10.0" />
                      </HBox.margin>
+                     <image>
+                        <Image url="@../images/Guardar%20(2).png" />
+                     </image>
                   </ImageView>
                   <Label text="Registro Nuevo Peregrino">
                      <HBox.margin>
@@ -71,9 +68,9 @@
                         <Insets top="10.0" />
                      </HBox.margin>
                   </ImageView>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="53.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/upload-file_11471564.png" />
+                        <Image url="@../images/Guardar_.png" />
                      </image>
                      <HBox.margin>
                         <Insets left="90.0" top="15.0" />
@@ -199,7 +196,7 @@
                <children>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/download_11471570.png" />
+                        <Image url="@../images/Guardar_Archivo.png" />
                      </image>
                      <HBox.margin>
                         <Insets left="190.0" top="10.0" />
@@ -220,7 +217,7 @@
                         <Insets left="10.0" top="10.0" />
                      </HBox.margin>
                      <image>
-                        <Image url="@../images/edit-folder_11471636%20(1).png" />
+                        <Image url="@../images/Editar_Archivo.png" />
                      </image>
                   </ImageView>
                </children>
