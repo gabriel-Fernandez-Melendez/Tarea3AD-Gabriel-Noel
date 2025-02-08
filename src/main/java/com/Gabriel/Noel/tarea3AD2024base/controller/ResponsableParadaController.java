@@ -367,12 +367,6 @@ public class ResponsableParadaController {
 			miParadaSellada.setParada(paradaActual);
 			miParadaSellada.setFechaParada(LocalDate.now());
 
-			if (paradaSelladaService.guardarParadaSellada(miParadaSellada) == null) {
-				mostrarAlerta("Error", "El peregrino ya ha sellado en esta parada en la misma fecha.",
-						Alert.AlertType.ERROR);
-				return;
-			}
-
 			// Creamos un objeto carnet y lo obtenemos del peregrino que hemos seleccionado
 			// de la tabla
 			Carnet carnet = peregrinoSeleccionado.getCarnet();
@@ -410,10 +404,10 @@ public class ResponsableParadaController {
 			System.out.println("Se hospeda?" + seHospeda);
 			if (seHospeda && esVip||seHospeda && !esVip) {
 				estanciaService.guardarEstancia(nuevaEstancia);
+				paradaSelladaService.guardarParadaSellada(miParadaSellada);
 			}
 			// NUEVA IMPLEMENTACION PARA RELLENAR EL FORMULARIO DE ENVIO A CASA
 			if (seHospeda && tieneEnvioACasa && grupo.getSelectedToggle() != null) {
-				
 				carnetService.GuardarCarnet(carnet); //pendiente de localizar
 				mostrarAlerta("Éxito", "Carnet sellado correctamente.", Alert.AlertType.INFORMATION);
 				GuardarConjunto();
