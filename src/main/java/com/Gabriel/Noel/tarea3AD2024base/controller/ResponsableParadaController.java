@@ -391,35 +391,40 @@ public class ResponsableParadaController {
 			 * peregrino entero seleccionado de la tabla
 			 */
 			if (seHospeda) {
-				
+
 				nuevaEstancia.setFecha(LocalDate.now());
 				nuevaEstancia.setVip(esVip);
 				nuevaEstancia.setParada(paradaActual);
 				nuevaEstancia.setPeregrino(peregrinoSeleccionado);
 
 				// Guardamos la nueva estancia del peregrino que se ha hospedado
-				
+
 			}
 
 			System.out.println("Se hospeda?" + seHospeda);
-			if (seHospeda && esVip||seHospeda && !esVip) {
+			if (seHospeda && esVip || seHospeda && !esVip) {
 				estanciaService.guardarEstancia(nuevaEstancia);
-				paradaSelladaService.guardarParadaSellada(miParadaSellada);
-			}
-			// NUEVA IMPLEMENTACION PARA RELLENAR EL FORMULARIO DE ENVIO A CASA
-			if (seHospeda && tieneEnvioACasa && grupo.getSelectedToggle() != null) {
-				carnetService.GuardarCarnet(carnet); //pendiente de localizar
-				mostrarAlerta("Éxito", "Carnet sellado correctamente.", Alert.AlertType.INFORMATION);
-				GuardarConjunto();
-				mostrarAlerta("Información", "Redirigiendo al formulario de Envío a Casa.",
-						Alert.AlertType.INFORMATION);
-				stageManager.switchScene(FxmlView.EnvioaCasa);
-				return;
-			} else {
-				mostrarAlerta("Metodo de pago fallido",
-						"seleccione un campo para poder continuar con el proceso de compra", AlertType.ERROR);
-			}
+				ParadaSellada p = paradaSelladaService.guardarParadaSellada(miParadaSellada);
+				if (p == null) {
+					mostrarAlerta("Error", "El peregrino ya ha sellado en esta parada en la misma fecha.",
+							Alert.AlertType.ERROR);
+					return;
+				}
+				// NUEVA IMPLEMENTACION PARA RELLENAR EL FORMULARIO DE ENVIO A CASA
+				if (seHospeda && tieneEnvioACasa && grupo.getSelectedToggle() != null) {
+					carnetService.GuardarCarnet(carnet); // pendiente de localizar
+					mostrarAlerta("Éxito", "Carnet sellado correctamente.", Alert.AlertType.INFORMATION);
+					GuardarConjunto();
+					mostrarAlerta("Información", "Redirigiendo al formulario de Envío a Casa.",
+							Alert.AlertType.INFORMATION);
+					stageManager.switchScene(FxmlView.EnvioaCasa);
+					return;
+				} else {
+					mostrarAlerta("Metodo de pago fallido",
+							"seleccione un campo para poder continuar con el proceso de compra", AlertType.ERROR);
+				}
 
+			}
 		}
 
 		catch (Exception e) {
