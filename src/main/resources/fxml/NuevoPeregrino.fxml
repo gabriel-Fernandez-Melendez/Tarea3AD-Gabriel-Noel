@@ -48,9 +48,6 @@
                      <HBox.margin>
                         <Insets left="20.0" top="10.0" />
                      </HBox.margin>
-                     <image>
-                        <Image url="@../images/Guardar%20(2).png" />
-                     </image>
                   </ImageView>
                   <Label text="Registro Nuevo Peregrino">
                      <HBox.margin>
@@ -61,16 +58,13 @@
                      </font>
                   </Label>
                   <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/Guardar%20(2).png" />
-                     </image>
                      <HBox.margin>
                         <Insets top="10.0" />
                      </HBox.margin>
                   </ImageView>
                   <ImageView fitHeight="53.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/SALIR.png" />
+                        <Image url="@../images/Apagado.png" />
                      </image>
                      <HBox.margin>
                         <Insets left="90.0" top="15.0" />
@@ -212,12 +206,12 @@
                         <Insets top="20.0" />
                      </HBox.margin>
                   </Button>
-                  <ImageView fitHeight="62.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="52.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <HBox.margin>
                         <Insets left="10.0" top="10.0" />
                      </HBox.margin>
                      <image>
-                        <Image url="@../images/LIMPIAR.png" />
+                        <Image url="@../images/PAPELERA.png" />
                      </image>
                   </ImageView>
                </children>
