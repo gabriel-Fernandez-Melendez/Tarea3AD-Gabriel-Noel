@@ -31,6 +31,7 @@ public class AppJavaConfig {
 //    public ExceptionWriter exceptionWriter() {
 //        return new ExceptionWriter(new StringWriter());
 //    }
+    
 
     @Bean
     public ResourceBundle resourceBundle() {

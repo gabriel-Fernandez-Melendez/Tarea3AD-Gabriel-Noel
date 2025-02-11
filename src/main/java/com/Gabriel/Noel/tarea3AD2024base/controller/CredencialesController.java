@@ -1,7 +1,13 @@
 package com.Gabriel.Noel.tarea3AD2024base.controller;
 
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +26,26 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.web.WebView;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.web.WebView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JasperCompileManager;
+
+import java.io.File;
+import java.io.FileInputStream;
+
 
 @Controller
 public class CredencialesController implements Initializable {
@@ -41,6 +61,8 @@ public class CredencialesController implements Initializable {
 	private Button Boton_login;
 	@FXML
 	private Button boton_Nuevo_Peregrino;
+	@FXML
+	private Button botonInforme;
 
 	@Autowired
 	private CredencialesService credenciales_service;
@@ -53,6 +75,46 @@ public class CredencialesController implements Initializable {
 	@Lazy
 	@Autowired
 	private StageManager stageManager;
+	
+	// PORFAVOR GABI NO LO TOQUES ES DE PRUEBA Y FUNCIONA
+	public void generarReporte() {
+	    try {
+	        // Ruta del archivo JRXML
+	        String reportPath = "src/main/resources/reportes/PeregrinosBDNoIncrustado.jrxml";
+
+	        System.out.println("Buscando el informe en: " + reportPath);
+
+	        // Compilar el archivo JRXML a JasperReport
+	        JasperReport jr = JasperCompileManager.compileReport(reportPath);
+	        System.out.println("Informe compilado correctamente.");
+
+	        // Conexión a la base de datos
+	        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdtarea3adnoel", "root", "");
+	        System.out.println("Conexión a la base de datos establecida.");
+
+	        // Crear un HashMap vacío para evitar `null`
+	        Map<String, Object> parameters = new HashMap<>();
+
+	        // Llenar el informe con los datos de la base de datos
+	        JasperPrint jp = JasperFillManager.fillReport(jr, parameters, conn);
+	        System.out.println("El informe ha sido rellenado con los datos.");
+
+	        // Exportar a PDF para verificar que funciona
+	        String outputPath = "ReportePeregrinos.pdf";
+	        JasperExportManager.exportReportToPdfFile(jp, outputPath);
+	        System.out.println("Informe exportado correctamente a: " + outputPath);
+
+	        // Cerrar conexión
+	        conn.close();
+	        System.out.println("Conexión cerrada correctamente.");
+
+	    } catch (Exception e) {
+	        System.err.println("Error al generar el informe: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+	}
+
+	
 
 	// no puedo usar static por que no llega correctamente la inyeccion de
 	// dependencias

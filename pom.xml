@@ -57,6 +57,22 @@
     <version>23</version>
 </dependency>
 
+
+    <!-- JasperReports -->
+    <dependency>
+        <groupId>net.sf.jasperreports</groupId>
+        <artifactId>jasperreports</artifactId>
+        <version>6.20.0</version>
+    </dependency>
+
+    <!-- Para la exportación a PDF -->
+    <dependency>
+        <groupId>com.lowagie</groupId>
+        <artifactId>itext</artifactId>
+        <version>2.1.7</version>
+    </dependency>
+
+
 	</dependencies>
 
 	<build>
