@@ -125,7 +125,7 @@ public class CredencialesController implements Initializable {
 		// interfaces pasando como argumento el tipo de usuario que es
 	}
 	
-
+//AQUI ESTABA EL METODO PA COJER UN ESTATICO QUE DONT REALLY WORK FOR THIS 
 	
 	private void AccesoAlMenu() {
 		Usuarios tipodeusuario =Credenciales_usuario.getTipo();

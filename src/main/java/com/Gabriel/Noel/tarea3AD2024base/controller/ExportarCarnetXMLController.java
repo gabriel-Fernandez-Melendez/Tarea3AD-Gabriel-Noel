@@ -47,6 +47,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -99,11 +100,12 @@ public class ExportarCarnetXMLController implements Initializable {
 	@Lazy
 	@Autowired
 	private ParadaSelladaService paradasellada_service;
-
+	@FXML
+	private MenuItem modificar;
 	@Lazy
 	@Autowired
 	private StageManager stageManager;
-
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
@@ -188,6 +190,10 @@ public class ExportarCarnetXMLController implements Initializable {
 		miAlerta.showAndWait();
 	}
 	
+	@FXML
+	private void VentanaModificar(){
+		stageManager.switchScene(FxmlView.ModificarPeregrino);
+	}
 	@FXML
 	public void Exportar() {
 		parada_service.ListaDeParadas();
