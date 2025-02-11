@@ -120,7 +120,7 @@ public class ExportarCarnetXMLController implements Initializable {
 		estancians_vip.setCellValueFactory(new PropertyValueFactory<>("Nvips"));
 		parada.setCellValueFactory(new PropertyValueFactory<>("ParadaInicial"));
 		// saco el dato del objeto estatico de credenciales
-		Peregrino per = peregrino_service.BuscarPorCredenciales(CredencialesController.getCredenciales());
+		Peregrino per = peregrino_service.BuscarPorCredenciales(CredencialesController.Credenciales_usuario);
 
 		ObservableList<Carnet> lista = FXCollections.observableArrayList(per.getCarnet());
 		System.out.println(per.getCarnet().toString() + "cargo ? ");

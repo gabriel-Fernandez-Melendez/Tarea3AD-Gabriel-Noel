@@ -125,10 +125,7 @@ public class CredencialesController implements Initializable {
 		// interfaces pasando como argumento el tipo de usuario que es
 	}
 	
-	public static Credenciales getCredenciales()
-	{
-		return Credenciales_usuario;
-	}
+
 	
 	private void AccesoAlMenu() {
 		Usuarios tipodeusuario =Credenciales_usuario.getTipo();

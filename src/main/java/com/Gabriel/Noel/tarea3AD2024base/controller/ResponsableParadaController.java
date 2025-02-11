@@ -354,7 +354,7 @@ public class ResponsableParadaController {
 		try
 		{
 			// Obtengo la credencial entera a traves del nombre de usuario que se ha logueado
-			Credenciales miCredencial = CredencialesController.getCredenciales();
+			Credenciales miCredencial = CredencialesController.Credenciales_usuario;
 			
 			
 			// Asigno la parada buscada a traves del objeto credenciales

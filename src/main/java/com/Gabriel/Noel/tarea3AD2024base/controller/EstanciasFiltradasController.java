@@ -201,11 +201,11 @@ public class EstanciasFiltradasController {
 		try
 		{
 			// Obtengo la credencial entera a traves del nombre de usuario que se ha logueado
-			Credenciales miCredencial = CredencialesController.getCredenciales();
+			Credenciales miCredencial = CredencialesController.Credenciales_usuario; //se llama asi  y no con un  getter por que el objetivo es no tener que declarar un  objeto de la clasepara usarlo  o recibir sus datos , de momentyo por no borrar mas codigo lo dejo asi pero  podia recortarse mas codigo un 
 			
 			
 			// Asigno la parada buscada a traves del objeto credenciales
-			paradaActual = paradaService.buscarParadaPorCredenciales(miCredencial);
+			paradaActual = paradaService.buscarParadaPorCredenciales(miCredencial); // metiendo aqui directamente CredencialesController.Credenciales_usuario
 			
 			// asigno el valor del nombre de la parada
 			nombreParada = paradaActual.getNombre();
