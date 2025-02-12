@@ -7,7 +7,6 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -23,12 +22,12 @@
           <Menu mnemonicParsing="false" text="Opciones">
             <items>
               <MenuItem mnemonicParsing="false" text="Exportar Carnet" />
-                  <MenuItem fx:id="menusalir" mnemonicParsing="false"  text="salir" />
+                  <MenuItem fx:id="menusalir" mnemonicParsing="false" text="salir" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Ayuda">
             <items>
-              <MenuItem mnemonicParsing="false"  text="About" />
+              <MenuItem mnemonicParsing="false" text="About" />
             </items>
           </Menu>
         </menus>
@@ -77,14 +76,14 @@
                   </Button>
                </children>
             </HBox>
-            <HBox layoutX="10.0" layoutY="304.0" prefHeight="67.0" prefWidth="1000.0">
+            <HBox  layoutX="10.0" layoutY="304.0" prefHeight="67.0" prefWidth="1000.0">
                <children>
                   <Label prefHeight="17.0" prefWidth="130.0" text="Nombre de Usuario">
                      <HBox.margin>
                         <Insets left="190.0" top="35.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="Nombre_login" prefHeight="25.0" prefWidth="327.0">
+                  <TextField fx:id="nombre" prefHeight="25.0" prefWidth="327.0">
                      <HBox.margin>
                         <Insets left="30.0" top="30.0" />
                      </HBox.margin>
@@ -114,12 +113,12 @@
                               <Insets left="190.0" top="25.0" />
                            </HBox.margin>
                         </Label>
-                        <PasswordField fx:id="Contraseña" prefHeight="25.0" prefWidth="327.0">
+                        <TextField fx:id="clave" prefHeight="25.0" prefWidth="327.0">
                            <HBox.margin>
                               <Insets left="30.0" top="20.0" />
                            </HBox.margin>
-                        </PasswordField>
-                        <ImageView fx:id="imagen" disable="true" fitHeight="26.0" fitWidth="26.0"  pickOnBounds="true" preserveRatio="true">
+                        </TextField>
+                        <ImageView disable="true" fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
                               <Insets left="10.0" right="10.0" top="20.0" />
                            </HBox.margin>
@@ -128,7 +127,7 @@
                   </HBox>
                   <HBox prefHeight="17.0" prefWidth="1000.0">
                      <children>
-                        <Label fx:id="mostrar_contraseña" prefHeight="17.0" prefWidth="328.0">
+                        <Label prefHeight="17.0" prefWidth="328.0">
                            <HBox.margin>
                               <Insets bottom="10.0" left="350.0" top="10.0" />
                            </HBox.margin>
@@ -192,7 +191,7 @@
                         <Insets left="190.0" top="10.0" />
                      </HBox.margin>
                   </ImageView>
-                  <Button fx:id="guardar" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"  prefHeight="33.0" prefWidth="130.0" styleClass="background" text="Guardar Cambios" textFill="WHITE">
+                  <Button fx:id="guardar" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="130.0" styleClass="background" text="Guardar Cambios" textFill="WHITE">
                      <HBox.margin>
                         <Insets left="10.0" right="190.0" top="20.0" />
                      </HBox.margin>

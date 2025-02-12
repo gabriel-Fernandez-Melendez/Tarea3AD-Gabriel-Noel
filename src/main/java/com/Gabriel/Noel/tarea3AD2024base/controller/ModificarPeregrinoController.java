@@ -2,6 +2,8 @@ package com.Gabriel.Noel.tarea3AD2024base.controller;
 
 import java.io.Serializable;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +33,13 @@ import javafx.scene.control.TextField;
 public class ModificarPeregrinoController implements Initializable {
 
 	@FXML
-	private TextField Nombre_login;
+	private TextField nombre;
 
 	@FXML
 	private TextField correo;
 
 	@FXML
-	private TextField contraseña;
+	private TextField clave;
 
 	@FXML
 	private TextField nombre_peregrino;
@@ -59,6 +61,7 @@ public class ModificarPeregrinoController implements Initializable {
 
 	@FXML
 	private Button guardar;
+	
 	@Autowired
 	private PeregrinoService peregrino_service;
 	@Autowired
@@ -75,16 +78,21 @@ public class ModificarPeregrinoController implements Initializable {
 		Peregrino per = peregrino_service.BuscarPorCredenciales(CredencialesController.Credenciales_usuario);
 		Carnet car = carnet_service.BuscarPorId(per.getId());
 		Credenciales cred =credenciales_service.obtenerCredencialesPorNombreUsuario(CredencialesController.Credenciales_usuario.getNombreUsuario());
-		/*
-		 * System.out.println(cred.toString());
-		 * Nombre_login.setText(cred.getNombreUsuario());
-		 * correo.setText(cred.getCorreo_usuario());
-		 * contraseña.setText(cred.getContraseñaUsuario()); ObservableList<Parada>
-		 * parada_ = FXCollections.observableArrayList(car.getParadaInicial());
-		 * ObservableList<String> pais_ =
-		 * FXCollections.observableArrayList(per.getNacionalidad());
-		 * parada.setItems(parada_); pais.setItems(pais_);
-		 */
+		System.out.println(cred.toString());
+		System.out.println(per.toString());
+		System.out.println(car.toString());
+		
+		  List<Parada> paradas = new ArrayList<Parada>(); List<String> paises = new
+		  ArrayList<String>(); paradas.add(car.getParadaInicial());
+		  paises.add(per.getNacionalidad()); System.out.println(cred.toString());
+		  nombre.setText(cred.getNombreUsuario());
+		  correo.setText(cred.getCorreo_usuario()); clave.setText(cred.getContraseñaUsuario());
+		  nombre_peregrino.setText(per.getNombre());
+		  ObservableList<Parada> parada_ = FXCollections.observableArrayList(paradas);
+		  ObservableList<String> pais_ = FXCollections.observableArrayList(paises);
+		  parada.setItems(parada_); pais.setItems(pais_);
+		 
+		 
 	}
 
 	@FXML
