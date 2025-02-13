@@ -8,6 +8,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -42,7 +43,7 @@
                <children>
                   <Label prefHeight="45.0" prefWidth="457.0" text="Los Datos de Carnet del Peregrino" textAlignment="CENTER">
                      <HBox.margin>
-                        <Insets bottom="10.0" left="300.0" top="50.0" />
+                        <Insets bottom="10.0" left="250.0" top="50.0" />
                      </HBox.margin>
                      <font>
                         <Font size="30.0" />
@@ -53,13 +54,16 @@
                         <Image url="@../images/Apagado.png" />
                      </image>
                      <HBox.margin>
-                        <Insets left="10.0" top="15.0" />
+                        <Insets left="70.0" top="15.0" />
                      </HBox.margin>
                   </ImageView>
                   <Button fx:id="botonCerrarSesion" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="40.0" prefWidth="140.0" styleClass="background" text="Cerrar Sesión" textFill="#fff9f9" textOverrun="CLIP">
                      <font>
                         <Font size="14.0" />
                      </font>
+                     <tooltip>
+                        <Tooltip text="Cerrar la sesión y volver al inicio" />
+                     </tooltip>
                      <effect>
                         <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
                      </effect>
@@ -71,7 +75,7 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="10.0" prefHeight="74.0" prefWidth="1000.0">
                <children>
-                  <TableView fx:id="tabla_carnet" prefHeight="74.0" prefWidth="909.0">
+                  <TableView fx:id="tabla_carnet" prefHeight="84.0" prefWidth="880.0">
                     <columns>
                       <TableColumn fx:id="id_carnet" prefWidth="51.0" text="ID" />
                       <TableColumn fx:id="distancia" prefWidth="115.0" text="Distancia en km" />
@@ -87,7 +91,7 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="88.0" prefHeight="74.0" prefWidth="1000.0">
                <children>
-                  <Label text="Click en el  boton para exportar sus datos en XML">
+                  <Label>
                      <HBox.margin>
                         <Insets left="300.0" top="60.0" />
                      </HBox.margin>
@@ -103,11 +107,14 @@
                      <font>
                         <Font size="14.0" />
                      </font>
+                     <tooltip>
+                        <Tooltip text="Exportar carnet en XML" />
+                     </tooltip>
                      <effect>
                         <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
                      </effect>
                      <HBox.margin>
-                        <Insets left="400.0" top="40.0" />
+                        <Insets left="260.0" top="40.0" />
                      </HBox.margin>
                   </Button>
                   <ImageView fitHeight="64.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
@@ -115,9 +122,23 @@
                         <Image url="@../images/GUARDARARCHIVO.png" />
                      </image>
                      <HBox.margin>
-                        <Insets left="15.0" top="40.0" />
+                        <Insets left="20.0" top="40.0" />
                      </HBox.margin>
                   </ImageView>
+                  <Button fx:id="botonInformeCarnet" mnemonicParsing="false" onAction="#generarReporte" prefHeight="56.0" prefWidth="183.0" styleClass="background" text="Generar Reporte Carnet" textFill="#fff9f9" textOverrun="CLIP">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <tooltip>
+                        <Tooltip text="Exportar informe del Carnet" />
+                     </tooltip>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
+                     </effect>
+                     <HBox.margin>
+                        <Insets left="20.0" top="40.0" />
+                     </HBox.margin>
+                  </Button>
                </children>
             </HBox>
          </children>

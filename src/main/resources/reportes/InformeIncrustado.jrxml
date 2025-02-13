@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InformeIncrustado" pageWidth="300" pageHeight="190" columnWidth="260" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3fed044a-6b0b-4e06-8150-ce3c3f8350b4">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="BDPeregrinoCarnet"/>
+	<parameter name="idCarnet" class="java.lang.Long"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT id,
+	distancia,
+	fecha_expedicion,
+	nvips
+FROM bdtarea3adnoel.carnet where id = $P{idCarnet}]]>
+	</queryString>
+	<field name="id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="carnet"/>
+	</field>
+	<field name="distancia" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="distancia"/>
+		<property name="com.jaspersoft.studio.field.label" value="distancia"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="carnet"/>
+	</field>
+	<field name="fecha_expedicion" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="fecha_expedicion"/>
+		<property name="com.jaspersoft.studio.field.label" value="fecha_expedicion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="carnet"/>
+	</field>
+	<field name="nvips" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="nvips"/>
+		<property name="com.jaspersoft.studio.field.label" value="nvips"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="carnet"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="109" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.layout"/>
+			<rectangle>
+				<reportElement x="-11" y="-10" width="279" height="119" backcolor="#9EB6F7" uuid="d8e7da73-f844-4bf6-a7d2-4cd06663f007"/>
+			</rectangle>
+			<textField>
+				<reportElement x="170" y="10" width="98" height="30" uuid="710b767f-e1b8-42ab-8ced-069d5623ec10">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="acadbcb9-b53e-4d48-bd59-2a712e096a34"/>
+				</reportElement>
+				<textFieldExpression><![CDATA["Distancia recorrida: "+$F{distancia}+" Km"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="30" y="70" width="110" height="30" uuid="16d32770-0248-49b0-80b1-7fa531e91bcf">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2b68bbb6-02b1-426d-b4c0-d7bab5e12725"/>
+				</reportElement>
+				<textFieldExpression><![CDATA["Fecha de la exportación: "+$F{fecha_expedicion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="70" width="98" height="30" uuid="bb768873-0854-4a4a-8294-27583fff7f88">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7418a45a-8dc3-4b53-8c55-8117fa452b36"/>
+				</reportElement>
+				<textFieldExpression><![CDATA["Numero de estancias VIP visitadas: "+$F{nvips}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="-10" y="0" width="59" height="61" uuid="fc9a5b98-0537-45a6-b72c-157d07223ec6"/>
+				<imageExpression><![CDATA["Images/PeregrinoBonito.jpeg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="50" y="11" width="100" height="30" uuid="7cecd288-259c-417b-9de5-3b4f2e411203">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="39e3a8aa-ee49-4e38-9fe1-74ec0f2b36c6"/>
+				</reportElement>
+				<textFieldExpression><![CDATA["ID del Carnet: "+$F{id}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="50" y="41" width="90" height="1" forecolor="#FFFFFF" uuid="8a8e06d6-455b-4f22-8df0-bd35743d0ef0"/>
+			</line>
+			<line>
+				<reportElement x="30" y="100" width="110" height="1" forecolor="#FFFFFF" uuid="2e88d57c-1e2b-4dd1-bd65-2c985aa7453b"/>
+			</line>
+			<line>
+				<reportElement x="160" y="100" width="90" height="1" forecolor="#FFFFFF" uuid="8cd5e9cc-4ef7-40da-88d5-4ea6a8156bfb"/>
+			</line>
+			<line>
+				<reportElement x="160" y="41" width="100" height="1" forecolor="#FFFFFF" uuid="4f0452e3-4343-4736-b42f-aeb2ee9fc72f"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

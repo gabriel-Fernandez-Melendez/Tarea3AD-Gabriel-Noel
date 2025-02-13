@@ -2,8 +2,12 @@ package com.Gabriel.Noel.tarea3AD2024base.controller;
 
 import java.io.File;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -54,6 +58,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 
 
 @Controller
@@ -65,6 +74,9 @@ public class ExportarCarnetXMLController implements Initializable {
 	// Añadido boton cerrar sesion (Noel)
 	@FXML
 	private Button botonCerrarSesion;
+	
+	@FXML
+	private Button botonInformeCarnet;
 
 	@FXML
 	private TableView<Carnet> tabla_carnet;
@@ -397,5 +409,51 @@ public class ExportarCarnetXMLController implements Initializable {
 			System.exit(0);
 		}
 	}
+	
+	public void generarReporte() {
+		
+		Peregrino per = peregrino_service.BuscarPorCredenciales(CredencialesController.Credenciales_usuario);
+		Long idCarnet = per.getCarnet().getId();
+		
+	    try {
+	        // Ruta del archivo JRXML
+	        String reportPath = "src/main/resources/reportes/InformeIncrustado.jrxml";
+	        System.out.println("Buscando el informe en: " + reportPath);
+
+	        // Compilar el archivo JRXML a JasperReport
+	        JasperReport jr = JasperCompileManager.compileReport(reportPath);
+	        System.out.println("Informe compilado correctamente.");
+
+	        // Conexión a la base de datos
+	        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdtarea3adnoel", "root", "");
+	        System.out.println("Conexión a la base de datos establecida.");
+
+	        // Parámetros para filtrar el informe por ID de carnet
+	        Map<String, Object> parameters = new HashMap<>();
+	        parameters.put("idCarnet", idCarnet); // Se pasa el ID del carnet
+	        System.out.println("Parámetro ID Carnet: " + idCarnet);
+
+	        // Llenar el informe con los datos filtrados
+	        JasperPrint jp = JasperFillManager.fillReport(jr, parameters, conn);
+	        System.out.println("El informe ha sido rellenado con los datos.");
+
+	        // Exportar a PDF
+	        String outputPath = "CarnetDe" + per.getNombre() + ".pdf";
+	        JasperExportManager.exportReportToPdfFile(jp, outputPath);
+	        System.out.println("Informe exportado correctamente a: " + outputPath);
+
+	        // Cerrar conexión
+	        conn.close();
+	        System.out.println("Conexión cerrada correctamente.");
+
+	        mostrarAlerta("Informe Generado", "Informe guardado con éxito en: " + outputPath, AlertType.INFORMATION);
+
+	    } catch (Exception e) {
+	        System.err.println("Error al generar el informe: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+	}
+
+
 
 }

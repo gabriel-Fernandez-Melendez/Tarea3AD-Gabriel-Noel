@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.Tooltip?>
 
 <BorderPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Gabriel.Noel.tarea3AD2024base.controller.NuevoPeregrinoController">
    <top>
@@ -74,6 +75,9 @@
                      <HBox.margin>
                         <Insets left="10.0" top="20.0" />
                      </HBox.margin>
+                     <tooltip>
+                        <Tooltip text="Cerrar la sesión y volver al inicio" />
+                     </tooltip>
                   </Button>
                </children>
             </HBox>
@@ -200,11 +204,17 @@
                      <HBox.margin>
                         <Insets left="10.0" right="190.0" top="20.0" />
                      </HBox.margin>
+                     <tooltip>
+                        <Tooltip text="Guardar y registrar nuevo Peregrino" />
+                     </tooltip>
                   </Button>
                   <Button fx:id="limpiar" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#limpiarCampos" prefHeight="33.0" prefWidth="108.0" styleClass="background" text="Limpiar campos" textFill="WHITE">
                      <HBox.margin>
                         <Insets top="20.0" />
                      </HBox.margin>
+                     <tooltip>
+                        <Tooltip text="Limpiar los Campos" />
+                     </tooltip>
                   </Button>
                   <ImageView fitHeight="52.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <HBox.margin>
