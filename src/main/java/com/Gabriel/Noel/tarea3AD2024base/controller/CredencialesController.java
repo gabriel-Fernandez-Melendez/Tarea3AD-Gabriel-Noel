@@ -61,8 +61,7 @@ public class CredencialesController implements Initializable {
 	private Button Boton_login;
 	@FXML
 	private Button boton_Nuevo_Peregrino;
-	@FXML
-	private Button botonInforme;
+	
 
 	@Autowired
 	private CredencialesService credenciales_service;
@@ -76,43 +75,7 @@ public class CredencialesController implements Initializable {
 	@Autowired
 	private StageManager stageManager;
 	
-	// PORFAVOR GABI NO LO TOQUES ES DE PRUEBA Y FUNCIONA
-	public void generarReporte() {
-	    try {
-	        // Ruta del archivo JRXML
-	        String reportPath = "src/main/resources/reportes/PeregrinosBDNoIncrustado.jrxml";
-
-	        System.out.println("Buscando el informe en: " + reportPath);
-
-	        // Compilar el archivo JRXML a JasperReport
-	        JasperReport jr = JasperCompileManager.compileReport(reportPath);
-	        System.out.println("Informe compilado correctamente.");
-
-	        // Conexión a la base de datos
-	        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdtarea3adnoel", "root", "");
-	        System.out.println("Conexión a la base de datos establecida.");
-
-	        // Crear un HashMap vacío para evitar `null`
-	        Map<String, Object> parameters = new HashMap<>();
-
-	        // Llenar el informe con los datos de la base de datos
-	        JasperPrint jp = JasperFillManager.fillReport(jr, parameters, conn);
-	        System.out.println("El informe ha sido rellenado con los datos.");
-
-	        // Exportar a PDF para verificar que funciona
-	        String outputPath = "ReportePeregrinos.pdf";
-	        JasperExportManager.exportReportToPdfFile(jp, outputPath);
-	        System.out.println("Informe exportado correctamente a: " + outputPath);
-
-	        // Cerrar conexión
-	        conn.close();
-	        System.out.println("Conexión cerrada correctamente.");
-
-	    } catch (Exception e) {
-	        System.err.println("Error al generar el informe: " + e.getMessage());
-	        e.printStackTrace();
-	    }
-	}
+	
 
 	
 

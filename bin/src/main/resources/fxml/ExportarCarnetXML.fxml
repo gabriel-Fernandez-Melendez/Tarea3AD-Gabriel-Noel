@@ -23,6 +23,7 @@
           <Menu mnemonicParsing="false" text="Opciones">
             <items>
               <MenuItem mnemonicParsing="false" text="Exportar Carnet" />
+                  <MenuItem fx:id="modificar" mnemonicParsing="false" onAction="#VentanaModificar" text="Modificar Datos" />
                   <MenuItem mnemonicParsing="false" onAction="#Salir" text="Exit" />
             </items>
           </Menu>
@@ -49,7 +50,7 @@
                   </Label>
                   <ImageView fitHeight="52.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/cerrar-sesion.png" />
+                        <Image url="@../images/Apagado.png" />
                      </image>
                      <HBox.margin>
                         <Insets left="10.0" top="15.0" />
@@ -98,9 +99,9 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="162.0" prefHeight="135.0" prefWidth="1000.0">
                <children>
-                  <Button fx:id="botonFiltrarEstancias" mnemonicParsing="false" onAction="#ExportarXML" prefHeight="62.0" prefWidth="208.0" styleClass="background" text="Filtrar Estancias" textFill="#fff9f9" textOverrun="CLIP">
+                  <Button fx:id="botonFiltrarEstancias" mnemonicParsing="false" onAction="#ExportarXML" prefHeight="56.0" prefWidth="183.0" styleClass="background" text="Exportar Carnet" textFill="#fff9f9" textOverrun="CLIP">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="14.0" />
                      </font>
                      <effect>
                         <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
@@ -109,9 +110,9 @@
                         <Insets left="400.0" top="40.0" />
                      </HBox.margin>
                   </Button>
-                  <ImageView fitHeight="71.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="64.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/exportar.png" />
+                        <Image url="@../images/GUARDARARCHIVO.png" />
                      </image>
                      <HBox.margin>
                         <Insets left="15.0" top="40.0" />
