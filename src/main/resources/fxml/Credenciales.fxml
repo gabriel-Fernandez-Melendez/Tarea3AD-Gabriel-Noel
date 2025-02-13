@@ -47,14 +47,6 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="botonInforme" layoutX="604.0" layoutY="435.0" mnemonicParsing="false" onAction="#generarReporte" prefHeight="30.0" prefWidth="169.0" styleClass="btnGreen" text="Exportar Informe" textFill="WHITE">
-         <font>
-            <Font size="14.0" />
-         </font>
-         <effect>
-            <DropShadow blurType="ONE_PASS_BOX" />
-         </effect>
-      </Button>
    </children>
    <opaqueInsets>
       <Insets />

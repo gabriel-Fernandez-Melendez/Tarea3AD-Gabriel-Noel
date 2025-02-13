@@ -37,13 +37,19 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="74.0" prefWidth="1000.0">
+            <HBox prefHeight="74.0" prefWidth="967.0">
                <children>
-                  <ImageView fitHeight="95.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                  <Button fx:id="botonInforme" mnemonicParsing="false" onAction="#generarReporte" prefHeight="30.0" prefWidth="260.0" styleClass="background" text="Exportar Informe de Peregrinos" textFill="#fff9f9" textOverrun="CLIP">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
+                     </effect>
                      <HBox.margin>
-                        <Insets left="250.0" top="10.0" />
+                        <Insets right="100.0" top="30.0" />
                      </HBox.margin>
-                  </ImageView>
+                  </Button>
                   <Label alignment="CENTER" prefHeight="36.0" prefWidth="307.0" text="Registro Nueva Parada" textAlignment="CENTER">
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" top="30.0" />
@@ -62,7 +68,7 @@
                         <Image url="@../images/Apagado.png" />
                      </image>
                      <HBox.margin>
-                        <Insets left="60.0" right="10.0" top="10.0" />
+                        <Insets left="60.0" right="10.0" top="25.0" />
                      </HBox.margin>
                   </ImageView>
                   <Button fx:id="botonCerrarSesion" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="30.0" prefWidth="154.0" styleClass="background" text="Cerrar Sesión" textFill="#fff9f9" textOverrun="CLIP">
@@ -73,7 +79,7 @@
                         <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
                      </effect>
                      <HBox.margin>
-                        <Insets right="20.0" top="15.0" />
+                        <Insets right="20.0" top="30.0" />
                      </HBox.margin>
                   </Button>
                </children>
