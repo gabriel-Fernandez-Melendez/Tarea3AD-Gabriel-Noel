@@ -9,6 +9,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -18,37 +19,36 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Gabriel.Noel.tarea3AD2024base.controller.EstanciasFiltradasController">
+    
    <center>
       <VBox alignment="TOP_RIGHT" prefHeight="571.0" prefWidth="692.0" BorderPane.alignment="CENTER">
          <children>
             <MenuBar>
-              <menus>
-                <Menu mnemonicParsing="false" text="File">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
-              </menus>
+               <menus>
+                  <Menu mnemonicParsing="false" text="File">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Edit">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Help">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                     </items>
+                  </Menu>
+               </menus>
             </MenuBar>
+            
             <HBox alignment="TOP_RIGHT" prefHeight="41.0" prefWidth="640.0">
                <children>
                   <Label alignment="CENTER" prefHeight="70.0" prefWidth="307.0" text="Lista de Peregrinos en">
                      <font>
                         <Font size="30.0" />
                      </font>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
                   </Label>
                   <Label fx:id="nombreDeLaParada" prefHeight="70.0" prefWidth="204.0" text="Label">
                      <font>
@@ -59,31 +59,32 @@
                      <image>
                         <Image url="@../images/SALIR.png" />
                      </image>
-                     <HBox.margin>
-                        <Insets right="10.0" top="10.0" />
-                     </HBox.margin>
                   </ImageView>
                   <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#volverALogin" prefHeight="15.0" prefWidth="130.0" styleClass="background" text="Cerrar Sesion" textFill="#fff9f9" textOverrun="CLIP">
                      <font>
                         <Font size="14.0" />
                      </font>
-                     <HBox.margin>
-                        <Insets bottom="20.0" right="20.0" top="20.0" />
-                     </HBox.margin>
+                     <tooltip>
+                        <Tooltip text="Cerrar la sesión y volver al inicio" />
+                     </tooltip>
                      <effect>
                         <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
                      </effect>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
                   </Button>
                </children>
             </HBox>
+
             <TableView fx:id="tablaPeregrinosFiltrados" prefHeight="603.0" prefWidth="985.0" tableMenuButtonVisible="true">
-              <columns>
-                <TableColumn fx:id="colPeregrinoID" maxWidth="700.0" prefWidth="90.0" text="ID" />
-                <TableColumn fx:id="colNombre" maxWidth="4000.0" prefWidth="168.0" text="Nombre" />
+               <columns>
+                  <TableColumn fx:id="colPeregrinoID" maxWidth="700.0" prefWidth="90.0" text="ID" />
+                  <TableColumn fx:id="colNombre" maxWidth="4000.0" prefWidth="168.0" text="Nombre" />
                   <TableColumn fx:id="colFechaSellado" maxWidth="4000.0" prefWidth="374.0" text="Fecha Sellado" />
                   <TableColumn fx:id="colSeEstancio" maxWidth="6000.0" prefWidth="242.0" text="Se Estanció" />
                   <TableColumn fx:id="colEsVIP" maxWidth="6000.0" prefWidth="104.0" text="VIP" />
-              </columns>
+               </columns>
                <VBox.margin>
                   <Insets left="10.0" right="5.0" />
                </VBox.margin>
@@ -91,6 +92,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
+
             <VBox prefHeight="262.0" prefWidth="694.0">
                <children>
                   <HBox prefHeight="79.0" prefWidth="1000.0">
@@ -99,61 +101,70 @@
                            <font>
                               <Font size="14.0" />
                            </font>
+                           <tooltip>
+                              <Tooltip text="Regresar a la pantalla anterior" />
+                           </tooltip>
                            <effect>
                               <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
                            </effect>
                            <HBox.margin>
-                              <Insets left="20.0" top="20.0" />
+                              <Insets left="15.0" top="10.0" />
                            </HBox.margin>
                         </Button>
+
                         <Button fx:id="botonReseteo" mnemonicParsing="false" onAction="#resetearFechas" prefHeight="30.0" prefWidth="118.0" styleClass="background" text="Resetear Fechas" textFill="#fff9f9" textOverrun="CLIP">
                            <font>
                               <Font size="14.0" />
                            </font>
+                           <tooltip>
+                              <Tooltip text="Restablecer los filtros de fecha" />
+                           </tooltip>
                            <effect>
                               <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
                            </effect>
                            <HBox.margin>
-                              <Insets left="30.0" right="10.0" top="20.0" />
+                              <Insets left="20.0" top="10.0" />
                            </HBox.margin>
                         </Button>
-                        <ImageView fitHeight="50.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/LIMPIAR.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets right="20.0" top="15.0" />
-                           </HBox.margin>
-                        </ImageView>
+
                         <Label prefHeight="17.0" prefWidth="41.0" text="Desde">
                            <HBox.margin>
-                              <Insets left="30.0" right="5.0" top="25.0" />
-                           </HBox.margin>
-                        </Label>
+                              <Insets left="50.0" top="15.0" />
+                           </HBox.margin></Label>
                         <DatePicker fx:id="fechaFiltradoInicio" prefHeight="32.0" prefWidth="174.0">
+                           <tooltip>
+                              <Tooltip text="Seleccione la fecha de inicio" />
+                           </tooltip>
                            <HBox.margin>
-                              <Insets top="20.0" />
+                              <Insets top="10.0" />
                            </HBox.margin>
                         </DatePicker>
+
                         <Label prefHeight="17.0" prefWidth="41.0" text="Hasta">
                            <HBox.margin>
-                              <Insets left="15.0" right="5.0" top="25.0" />
-                           </HBox.margin>
-                        </Label>
+                              <Insets left="50.0" top="15.0" />
+                           </HBox.margin></Label>
                         <DatePicker fx:id="fechaFiltradoFin" prefHeight="31.0" prefWidth="174.0">
+                           <tooltip>
+                              <Tooltip text="Seleccione la fecha de fin" />
+                           </tooltip>
                            <HBox.margin>
-                              <Insets top="20.0" />
+                              <Insets top="10.0" />
                            </HBox.margin>
                         </DatePicker>
+
                         <Button fx:id="botonFiltrarEstancias" mnemonicParsing="false" onAction="#filtrarEstancias" prefHeight="30.0" prefWidth="130.0" styleClass="background" text="Filtrar Estancias" textFill="#fff9f9" textOverrun="CLIP">
                            <font>
                               <Font size="14.0" />
                            </font>
+                           <tooltip>
+                              <Tooltip text="Aplicar filtro según las fechas seleccionadas" />
+                           </tooltip>
                            <effect>
                               <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
                            </effect>
                            <HBox.margin>
-                              <Insets left="40.0" right="20.0" top="20.0" />
+                              <Insets left="80.0" top="10.0" />
                            </HBox.margin>
                         </Button>
                      </children>
