@@ -1,6 +1,7 @@
 package com.Gabriel.Noel.tarea3AD2024base.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -410,8 +411,9 @@ public class ExportarCarnetXMLController implements Initializable {
 		}
 	}
 	
+	//metodo de generar reporte
 	public void generarReporte() {
-		
+		String outputPath="";
 		Peregrino per = peregrino_service.BuscarPorCredenciales(CredencialesController.Credenciales_usuario);
 		Long idCarnet = per.getCarnet().getId();
 		
@@ -438,7 +440,7 @@ public class ExportarCarnetXMLController implements Initializable {
 	        System.out.println("El informe ha sido rellenado con los datos.");
 
 	        // Exportar a PDF
-	        String outputPath = "CarnetDe" + per.getNombre() + ".pdf";
+	         outputPath = "CarnetDe" + per.getNombre() + ".pdf";
 	        JasperExportManager.exportReportToPdfFile(jp, outputPath);
 	        System.out.println("Informe exportado correctamente a: " + outputPath);
 
@@ -452,8 +454,29 @@ public class ExportarCarnetXMLController implements Initializable {
 	        System.err.println("Error al generar el informe: " + e.getMessage());
 	        e.printStackTrace();
 	    }
+	    finally {CargarPdf(outputPath);}
 	}
 
+	private static void CargarPdf(String s) {
+        System.out.println("entry ");
+        String entry = s;
+        File pdfFile = new File(entry);
 
+        if (pdfFile.exists()) {
+            try {
+                // Comando para abrir el archivo en el navegador predeterminado
+                String os = System.getProperty("os.name").toLowerCase();
+                if (os.contains("win")) {
+                    // Windows
+                    Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + pdfFile.getAbsolutePath());
+                
+            } 
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("El archivo no existe: " + entry);
+        }
+    }
 
 }
