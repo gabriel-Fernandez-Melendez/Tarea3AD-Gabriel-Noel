@@ -33,7 +33,7 @@ import javafx.scene.control.TextField;
 @Controller
 public class CredencialesController implements Initializable {
 
-	// Variable Global estatica para el nombre de usuario (NOEL)
+	// Variable Global estatica para el nombre de usuario (NOELIA)
 	public static Credenciales Credenciales_usuario;
 
 	@FXML

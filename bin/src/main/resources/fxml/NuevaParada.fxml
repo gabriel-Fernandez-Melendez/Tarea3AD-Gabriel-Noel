@@ -23,12 +23,12 @@
           <Menu mnemonicParsing="false" text="Opciones">
             <items>
               <MenuItem mnemonicParsing="false" text="Exportar Carnet" />
-                  <MenuItem mnemonicParsing="false" text="Exit" />
+                  <MenuItem fx:id="menusalir" mnemonicParsing="false" onAction="#Salir" text="Exit" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Ayuda">
+          <Menu fx:id="ayuda" mnemonicParsing="false" text="Ayuda">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" onAction="#AyudaJavaFX" text="About" />
             </items>
           </Menu>
         </menus>
