@@ -1,11 +1,15 @@
 package com.Gabriel.Noel.tarea3AD2024base.modelo;
 
+import java.util.ArrayList;
+
 public class ConjuntoContratado {
 	private Long id;
 	private Double precio_total;
 	private char modo_de_pago;
 	private String detalle_pedido;
 	
+	//coleccion de los conjuntos de servicios que se contratan
+	private ArrayList<Servicio> servicios;
 	
 	public ConjuntoContratado() {
 		
@@ -39,6 +43,13 @@ public class ConjuntoContratado {
 	}
 	public void setDetalle_pedido(String detalle_pedido) {
 		this.detalle_pedido = detalle_pedido;
+	}
+	
+	public ArrayList<Servicio> getServicios() {
+		return servicios;
+	}
+	public void setServicios(ArrayList<Servicio> servicios) {
+		this.servicios = servicios;
 	}
 	@Override
 	public String toString() {
