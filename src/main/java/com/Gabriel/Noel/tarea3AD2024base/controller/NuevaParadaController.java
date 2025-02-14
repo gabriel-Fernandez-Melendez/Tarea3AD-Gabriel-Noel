@@ -1,5 +1,7 @@
 package com.Gabriel.Noel.tarea3AD2024base.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -317,7 +319,32 @@ public class NuevaParadaController implements Initializable {
 		        System.err.println("Error al generar el informe: " + e.getMessage());
 		        e.printStackTrace();
 		    }
+		    finally {
+		    	CargarPdf();
+			}
 		}
+		
+		private static void CargarPdf() {
+	        System.out.println("entry ");
+	        String entry = "ReportePeregrinos.pdf";
+	        File pdfFile = new File(entry);
+
+	        if (pdfFile.exists()) {
+	            try {
+	                // Comando para abrir el archivo en el navegador predeterminado
+	                String os = System.getProperty("os.name").toLowerCase();
+	                if (os.contains("win")) {
+	                    // Windows
+	                    Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + pdfFile.getAbsolutePath());
+	                
+	            } 
+	            }catch (IOException e) {
+	                e.printStackTrace();
+	            }
+	        } else {
+	            System.out.println("El archivo no existe: " + entry);
+	        }
+	    }
 
 
 }
