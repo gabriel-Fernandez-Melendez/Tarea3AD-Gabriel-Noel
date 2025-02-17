@@ -68,6 +68,9 @@ public class NuevaParadaController implements Initializable {
 
 	@FXML
 	private Button botonCerrarSesion;
+	
+	@FXML
+	private Button botonServicio;
 
 	@FXML
 	private Label mostrar_contraseña;
@@ -251,6 +254,11 @@ public class NuevaParadaController implements Initializable {
 	@FXML
 	private void cerrarSesion() {
 		stageManager.switchScene(FxmlView.LOGIN);
+	}
+	
+	@FXML
+	private void irAServicio() {
+		stageManager.switchScene(FxmlView.ServiciosAdministrador);
 	}
 
 	@FXML

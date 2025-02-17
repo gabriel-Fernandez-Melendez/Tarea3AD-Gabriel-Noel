@@ -94,8 +94,19 @@ public enum FxmlView {
 		public String getFxmlFile() {
 			return "/fxml/NuevaParada.fxml";
 		}
-	}
+	},
+	
+	ServiciosAdministrador {
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("NuevaParada.title");
+		}
 
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/ServiciosAdministrador.fxml";
+		}
+	}
 	;
 
 	public abstract String getTitle();
