@@ -7,6 +7,8 @@ public class ConjuntoContratado {
 	private Double precio_total;
 	private char modo_de_pago;
 	private String detalle_pedido;
+	private ArrayList<Long> id_servicios;
+	
 	
 	//coleccion de los conjuntos de servicios que se contratan
 	private ArrayList<Servicio> servicios;

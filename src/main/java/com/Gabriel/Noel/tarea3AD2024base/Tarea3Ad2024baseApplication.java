@@ -42,12 +42,12 @@ public class Tarea3Ad2024baseApplication extends Application {
 		Application.launch(args);
 		
 		// ESTO ES UNA TEST DE DB4O
-		 ObjectContainer db = Db4oEmbedded.openFile("test.db4o");
+		 ObjectContainer db = Db4oEmbedded.openFile("DB4O_Peregrinos.db4o");
 
 	        try {
 	            // Insertar un objeto de prueba
 	            System.out.println("Guardando objeto en DB4O...");
-	            Persona p = new Persona("Gabriel", 90);
+	            Persona p = new Persona("Peregrino", 30);
 	            db.store(p);
 	            db.commit();
 

@@ -185,7 +185,7 @@ public class ResponsableParadaController {
 	{
 	    try 
 	    {
-	        Peregrino peregrinoSeleccionado = tablaPeregrinos.getSelectionModel().getSelectedItem();
+	        Peregrino peregrinoSeleccionado = tablaPeregrinos.getSelectionModel().getSelectedItem(); // <-- GABRIEL
 
 	        if (peregrinoSeleccionado == null) 
 	        {
