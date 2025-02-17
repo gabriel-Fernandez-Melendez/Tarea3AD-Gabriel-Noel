@@ -1,6 +1,7 @@
 package com.Gabriel.Noel.tarea3AD2024base;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -16,6 +17,8 @@ import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Usuarios;
 import com.Gabriel.Noel.tarea3AD2024base.services.CredencialesService;
 import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
+import com.db4o.Db4oEmbedded;
+import com.db4o.ObjectContainer;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -35,7 +38,49 @@ public class Tarea3Ad2024baseApplication extends Application {
 	}
 
 	public static void main(final String[] args) {
+		// ESTO NO BORRAR
 		Application.launch(args);
+		
+		// ESTO ES UNA TEST DE DB4O
+		 ObjectContainer db = Db4oEmbedded.openFile("test.db4o");
+
+	        try {
+	            // Insertar un objeto de prueba
+	            System.out.println("Guardando objeto en DB4O...");
+	            Persona p = new Persona("Gabriel", 90);
+	            db.store(p);
+	            db.commit();
+
+	            // Recuperar objetos
+	            List<Persona> resultados = db.query(Persona.class);
+	            for (Persona persona : resultados) {
+	                System.out.println("Recuperado: " + persona);
+	            }
+
+	        } finally {
+	            db.close();
+	        }
+	    }
+
+	// CLASE TEMPORAL 
+	    static class Persona {
+	        private String nombre;
+	        private int edad;
+
+	        public Persona() {}
+
+	        public Persona(String nombre, int edad) {
+	            this.nombre = nombre;
+	            this.edad = edad;
+	        }
+
+	        @Override
+	        public String toString() {
+	            return "Persona{nombre='" + nombre + "', edad=" + edad + "}";
+	        }
+		
+		
+		
 	}
 
 	@Override
