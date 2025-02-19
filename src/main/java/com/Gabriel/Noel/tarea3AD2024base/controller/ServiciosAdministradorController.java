@@ -93,7 +93,6 @@ public class ServiciosAdministradorController implements Serializable
 	private ServiciosService servicioService;
 	
 	
-	// Depende con que BD se quiera cerrar la sesion 
 	@Lazy
 	@Autowired
 	private StageManager stageManager;

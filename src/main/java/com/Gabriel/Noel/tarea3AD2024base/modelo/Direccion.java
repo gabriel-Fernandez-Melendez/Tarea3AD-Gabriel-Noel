@@ -15,26 +15,23 @@ public class Direccion implements Serializable {
     @GeneratedValue
     private Long id;
 
-    private String calle;
-    private String portal;
-    private String piso;
-    private String letra;
+    private String direccion;
+    
     private String localidad;
 
-    public Direccion() {
-    }
+	public Direccion(Long id, String direccion, String localidad) {
+		super();
+		this.id = id;
+		this.direccion = direccion;
+		this.localidad = localidad;
+	}
 
-    public Direccion(String calle, String portal, String piso, String letra, String localidad) {
-        this.calle = calle;
-        this.portal = portal;
-        this.piso = piso;
-        this.letra = letra;
-        this.localidad = localidad;
-    }
+	public Direccion()
+	{
+		
+	}
 
-   
-
-    public Long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -42,36 +39,12 @@ public class Direccion implements Serializable {
 		this.id = id;
 	}
 
-	public String getCalle() {
-		return calle;
+	public String getDireccion() {
+		return direccion;
 	}
 
-	public void setCalle(String calle) {
-		this.calle = calle;
-	}
-
-	public String getPortal() {
-		return portal;
-	}
-
-	public void setPortal(String portal) {
-		this.portal = portal;
-	}
-
-	public String getPiso() {
-		return piso;
-	}
-
-	public void setPiso(String piso) {
-		this.piso = piso;
-	}
-
-	public String getLetra() {
-		return letra;
-	}
-
-	public void setLetra(String letra) {
-		this.letra = letra;
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 
 	public String getLocalidad() {
@@ -83,7 +56,13 @@ public class Direccion implements Serializable {
 	}
 
 	@Override
-    public String toString() {
-        return calle + " " + portal + ", " + piso + letra + " - " + localidad;
-    }
+	public String toString() {
+		return "Direccion [id=" + id + ", direccion=" + direccion + ", localidad=" + localidad + "]";
+	}
+
+	
+	
+	
+	
+    
 }
