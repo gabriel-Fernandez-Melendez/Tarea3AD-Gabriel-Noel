@@ -150,20 +150,29 @@ public class ResponsableParadaController {
 		bizum.setText("B");
 	}
 
-	private void CargarServicios() 
-	{
-		
+	private void CargarServicios() {
+		Parada parada_aux=new Parada();
 		ArrayList<Servicio> servicios = (ArrayList<Servicio>) servicioService.obtenerTodosLosServicios();
 		
-		tabla_servicios.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		
+		  ArrayList<Servicio> servicios_filtrados = new ArrayList<Servicio>();
+		  ArrayList<Parada> paradas=(ArrayList<Parada>) paradaService.ListaDeParadas();
+		  for(Parada p:paradas) {
+		  if(CredencialesController.Credenciales_usuario.getNombreUsuario().matches(p.
+		  getResponsable())) { parada_aux=p; for(Servicio s:servicios) {
+		  if(s.getIdParada().contains(parada_aux.getId())) {
+		  servicios_filtrados.add(s); 
+		  } 
+		  }
+		tabla_servicios.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);		
 		id_servicio.setCellValueFactory(new PropertyValueFactory<>("id"));
 		nombre_servicio.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
 		precio_servicio.setCellValueFactory(new PropertyValueFactory<>("Precio"));
-		
-		ObservableList<Servicio> lista = FXCollections.observableArrayList(servicios);
+		ObservableList<Servicio> lista = FXCollections.observableArrayList(servicios_filtrados); //esta es la lista con los campos filtrados que es la que hay que 
 		tabla_servicios.setItems(lista);
-	}
+		}	
+		  }	  
+		  }
+		 
 
 	// habia que inicializar la llamada de la tabla
 	private void Inicializar_tabla() {
