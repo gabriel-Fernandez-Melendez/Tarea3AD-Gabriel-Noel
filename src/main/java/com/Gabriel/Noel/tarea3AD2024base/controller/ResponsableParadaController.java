@@ -150,12 +150,17 @@ public class ResponsableParadaController {
 		bizum.setText("B");
 	}
 
-	private void CargarServicios() {
+	private void CargarServicios() 
+	{
+		
 		ArrayList<Servicio> servicios = (ArrayList<Servicio>) servicioService.obtenerTodosLosServicios();
+		
 		tabla_servicios.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		
 		id_servicio.setCellValueFactory(new PropertyValueFactory<>("id"));
 		nombre_servicio.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
 		precio_servicio.setCellValueFactory(new PropertyValueFactory<>("Precio"));
+		
 		ObservableList<Servicio> lista = FXCollections.observableArrayList(servicios);
 		tabla_servicios.setItems(lista);
 	}
@@ -164,6 +169,7 @@ public class ResponsableParadaController {
 	private void Inicializar_tabla() {
 
 		servicios_contratados.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		
 		id_serviciocontratado.setCellValueFactory(new PropertyValueFactory<>("id"));
 		nombre_serviciocontratado.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
 		precio_contratados.setCellValueFactory(new PropertyValueFactory<>("Precio"));
