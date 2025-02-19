@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import org.springframework.stereotype.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -11,6 +12,7 @@ import com.Gabriel.Noel.tarea3AD2024base.config.StageManager;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Servicio;
 import com.Gabriel.Noel.tarea3AD2024base.services.ParadaService;
+import com.Gabriel.Noel.tarea3AD2024base.services.ServiciosService;
 import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
 
 import javafx.collections.FXCollections;
@@ -25,6 +27,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.beans.property.SimpleStringProperty;
+
 
 
 
@@ -62,6 +66,9 @@ public class ServiciosAdministradorController implements Serializable
 	@FXML
 	private TableColumn<Servicio,Double> precioServicio;
 	
+	@FXML
+	private TableColumn<Servicio,String> idParadas; // Concatenar los ID de las paradas y no trabajarlo con Long
+	
 	
 	// COLUMNAS PARADA
 	@FXML
@@ -81,6 +88,9 @@ public class ServiciosAdministradorController implements Serializable
 	@Autowired
 	private ParadaService parada_service;
 	
+	@Autowired
+	private ServiciosService servicioService;
+	
 	
 	// Depende con que BD se quiera cerrar la sesion 
 	@Lazy
@@ -92,58 +102,47 @@ public class ServiciosAdministradorController implements Serializable
 	public void initialize()
 	{
 		cargarColumnasParadas();
-		// cargarColumnasServicios();
+		cargarColumnasServicios();
 		
 	}
-	
 	
 	@FXML
-	private void crearServicio()
-	{
-		String nombre = textServicio.getText();
-		Double precio = 0.0;
-		
-		try {
-	        precio = Double.parseDouble(textPrecio.getText());
-	    } catch (NumberFormatException e) {
-	        mostrarAlerta("Error", "Introduzca un valor numérico válido para el precio (ejemplo: 10.5)", Alert.AlertType.ERROR);
-	        return;
-	    }
+	private void crearServicio() {
 
-	    // Validar que el nombre no esté vacío
-	    if (nombre == null || nombre.isEmpty()) {
-	        mostrarAlerta("Error", "El nombre del servicio no puede estar vacío.", Alert.AlertType.ERROR);
-	        return;
-	    }
+	    // Obtener valores de los campos de texto
+	    String nombre = textServicio.getText();
+	    Double precio = Double.parseDouble(textPrecio.getText());
 
-	    // Ejemplo pata comprobar si el servicio existe (Preguntar como hacer con DB4O)
-	    //	    if (servicioExiste(nombre)) {
-	    //	        mostrarAlerta("Error", "Ya existe un servicio con este nombre.", Alert.AlertType.ERROR);
-	    //	        return;
-	    //	    }
+	    // Obtener la lista de servicios existentes
+	    List<Servicio> listaServicios = servicioService.obtenerTodosLosServicios();
+
+	    // Generar un nuevo ID (el mayor +1)
+	    long idNuevo = listaServicios.size()+1;
+
+	    // Crear servicio con los datos obtenidos
+	    Servicio nuevoServicio = new Servicio();
+	    nuevoServicio.setId(idNuevo);
+	    nuevoServicio.setNombre(nombre);
+	    nuevoServicio.setPrecio(precio);
+	    nuevoServicio.setIdParada(new ArrayList<>());
+
+	    // Guardar en la base de datos
+	    servicioService.crearServicio(nuevoServicio);
+
+	    System.out.println("Servicio guardado: " + nuevoServicio);
 	    
-	    
-		// Creo el nuevo objeto
-		Servicio miNuevoServicio = new Servicio();
-		
-		miNuevoServicio.setNombre(nombre);
-		miNuevoServicio.setPrecio(precio);
-		
-		
-		/**
-		 * Aqui añadir el objeto SERVICIO a la BD de DB4O a traves de algun metodo en el service
-		 */
-		
-		// Mostrar alerta para indicar al usuario
-		mostrarAlerta("Exito","Ha guardado el servicio correctamente", AlertType.CONFIRMATION);
-		
-		// Limpiar campos después de la creación
+	    // Mostrar alerta para indicar al usuario
+	    mostrarAlerta("Exito","Ha guardado el servicio correctamente", AlertType.CONFIRMATION);
+
+	    // Limpiar campos
 	    textServicio.clear();
 	    textPrecio.clear();
-		
-		// Recargamos la tabla para ver los cambios en tiempo real
-		cargarColumnasServicios();
+
+	    // Recargar la tabla para reflejar cambios
+	    cargarColumnasServicios();
 	}
+
+
 	
 
 	
@@ -156,6 +155,7 @@ public class ServiciosAdministradorController implements Serializable
 		try 
 		{
 			stageManager.switchScene(FxmlView.LOGIN);
+			servicioService.cerrarConexion();
 		}
 
 		catch (Exception e) 
@@ -204,17 +204,22 @@ public class ServiciosAdministradorController implements Serializable
 		nombreServicio.setCellValueFactory(new PropertyValueFactory<>("nombre"));
 		precioServicio.setCellValueFactory(new PropertyValueFactory<>("precio"));
 		
+		idParadas.setCellValueFactory(cellData -> {
+			 List<Long> idParadasList = cellData.getValue().getIdParada(); // Obtiene la lista de IDs
+	            String ids = (idParadasList != null && !idParadasList.isEmpty()) ? 
+	                         idParadasList.toString().replace("[", "").replace("]", "") : "Sin paradas";
+	            return new SimpleStringProperty(ids); // Devuelve la lista como String limpio
+	        });
 		
-		// Cargamos los servicios
-		/**
-		 * Aqui recoger la lista de los servicios por una clase Service
-		 * ejemplo List<Servicio> misServicios = servicio_service.ListaDeServicios();
-		 * 
-		 * Así recojo todos los servicios
-		 */
-		List<Servicio> misServicios = null;
+		List<Servicio> misServicios = servicioService.obtenerTodosLosServicios();
 		
-		
+		// Imprimir los servicios recuperados
+        System.out.println("Servicios recuperados desde DB4O:");
+        for (Servicio s : misServicios) 
+        {
+            System.out.println(s.toString());
+        }
+	
 		// Convertimos la lista a un Observable
 		ObservableList<Servicio> miObservable = FXCollections.observableArrayList(misServicios);
 		
@@ -224,60 +229,73 @@ public class ServiciosAdministradorController implements Serializable
 		
 		catch(Exception e)
 		{
-			System.out.println("Error en el metodo cargarColumnasServicios()");
+			System.out.println(e.getMessage());
 		}				
 	}
 	
 	
-	@FXML
-	private void asignarServicio()
-	{
-		try 
-		{
-		
-			 // Obtener el servicio seleccionado
-	        Servicio miServicio = tablaServicios.getSelectionModel().getSelectedItem();
-	        
-	        // Obtener las paradas seleccionadas (múltiples)
-	        List<Parada> paradasSeleccionadas = tablaParadas.getSelectionModel().getSelectedItems();
 
-	        // Verificar que ambos elementos han sido seleccionados
-	        if (paradasSeleccionadas.isEmpty() || miServicio == null) {
-	            mostrarAlerta("Error", "Seleccione un Servicio y una o varias Paradas", Alert.AlertType.ERROR);
+
+	
+	@FXML
+	private void asignarServicio() {
+	    try {
+	        // 1️⃣ Obtener el servicio seleccionado
+	        Servicio miServicio = tablaServicios.getSelectionModel().getSelectedItem();
+	        if (miServicio == null) {
+	            mostrarAlerta("Error", "Seleccione un servicio antes de asignar paradas.", Alert.AlertType.ERROR);
 	            return;
 	        }
-	        
-	        // Hacer un For para evitar que paradas
-	        
+	        System.out.println("Servicio seleccionado: " + miServicio.getNombre());
 
-	      
-	        for (Parada misParadas : paradasSeleccionadas)
-	        {
-	        	
-	        	/**
-				 * Recorrer la lista de las paradas y guarda el servicio a aquel que no lo tiene
-				 * se evita duplicados y se asigna correctamente el servicio
-				 * ejemplo: 
-				 * 
-				 * 	if (!misParadas.getservicio().contains(miServicio)) {
-				 * 		misParadas.getservicio().add(miServicio)
-				 * 	}
-				 * 
-				 * 	parada_service.save(misParadas)
-				 */	
-	        	
+	        // 2️⃣ Obtener las paradas seleccionadas
+	        List<Parada> paradasSeleccionadas = new ArrayList<>(tablaParadas.getSelectionModel().getSelectedItems());
+	        if (paradasSeleccionadas.isEmpty()) {
+	            mostrarAlerta("Error", "Seleccione al menos una parada para asignar.", Alert.AlertType.ERROR);
+	            return;
 	        }
-		
-	        mostrarAlerta("Éxito", "El servicio ha sido asignado correctamente a las paradas seleccionadas.", Alert.AlertType.INFORMATION);
-		
-		
-		}
-		catch(Exception e)
-		{
-			System.out.println("Error en el metodo asignarServicio");
-		}
-		
+	        System.out.println("Paradas seleccionadas: " + paradasSeleccionadas);
+
+	        // 3️⃣ Evitar duplicados en los IDs de paradas
+	        List<Long> idParadasActuales = new ArrayList<>(miServicio.getIdParada()); // Copia segura de la lista actual
+	        List<Long> nuevasParadas = new ArrayList<>();
+
+	        for (Parada parada : paradasSeleccionadas) {
+	            if (!idParadasActuales.contains(parada.getId())) { // Solo agregar si no está ya en la lista
+	                nuevasParadas.add(parada.getId());
+	            }
+	        }
+
+	        if (nuevasParadas.isEmpty()) {
+	            mostrarAlerta("Información", "Todas las paradas seleccionadas ya están asignadas a este servicio.", Alert.AlertType.WARNING);
+	            return;
+	        }
+
+	        // 4️⃣ Actualizar el servicio con los nuevos IDs de paradas
+	        idParadasActuales.addAll(nuevasParadas); // Agregar las nuevas paradas a la lista
+	        miServicio.setIdParada(idParadasActuales); // Asignar la lista actualizada al servicio
+	        System.out.println("Lista total de paradas en servicio: " + miServicio.getIdParada());
+
+	        // 5️⃣ Guardar cambios en DB4O
+	        servicioService.asignarParadasAServicio(miServicio.getId(), idParadasActuales);
+
+	        // Refrescar tabla con la lista actualizada
+	        cargarColumnasServicios();
+
+	        // Confirmación al usuario
+	        mostrarAlerta("Éxito", "El servicio ha sido asignado correctamente a las paradas seleccionadas.", Alert.AlertType.CONFIRMATION);
+
+	    } catch (Exception e) {
+	        System.out.println("Error en el método asignarServicio: " + e.getMessage());
+	        e.printStackTrace();
+	    }
 	}
+
+
+	
+	
+	
+	
 	
 	/**
 	 * Metodo para mostrar las alertas en la parte de la vista

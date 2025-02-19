@@ -14,6 +14,7 @@ import com.Gabriel.Noel.tarea3AD2024base.modelo.Carnet;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
+import com.Gabriel.Noel.tarea3AD2024base.modelo.Servicio;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Usuarios;
 import com.Gabriel.Noel.tarea3AD2024base.services.CredencialesService;
 import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
@@ -37,50 +38,11 @@ public class Tarea3Ad2024baseApplication extends Application {
 
 	}
 
-	public static void main(final String[] args) {
+	public static void main(final String[] args) {	
 		// ESTO NO BORRAR
 		Application.launch(args);
 		
-		// ESTO ES UNA TEST DE DB4O
-		 ObjectContainer db = Db4oEmbedded.openFile("DB4O_Peregrinos.db4o");
-
-	        try {
-	            // Insertar un objeto de prueba
-	            System.out.println("Guardando objeto en DB4O...");
-	            Persona p = new Persona("Peregrino", 30);
-	            db.store(p);
-	            db.commit();
-
-	            // Recuperar objetos
-	            List<Persona> resultados = db.query(Persona.class);
-	            for (Persona persona : resultados) {
-	                System.out.println("Recuperado: " + persona);
-	            }
-
-	        } finally {
-	            db.close();
-	        }
-	    }
-
-	// CLASE TEMPORAL 
-	    static class Persona {
-	        private String nombre;
-	        private int edad;
-
-	        public Persona() {}
-
-	        public Persona(String nombre, int edad) {
-	            this.nombre = nombre;
-	            this.edad = edad;
-	        }
-
-	        @Override
-	        public String toString() {
-	            return "Persona{nombre='" + nombre + "', edad=" + edad + "}";
-	        }
-		
-		
-		
+	
 	}
 
 	@Override
