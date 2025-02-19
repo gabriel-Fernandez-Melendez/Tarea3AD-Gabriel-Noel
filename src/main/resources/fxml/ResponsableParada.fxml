@@ -92,11 +92,11 @@
                   </VBox>
                   <HBox prefHeight="302.0" prefWidth="985.0">
                      <children>
-                        <TableView fx:id="tabla_servicios" prefHeight="387.0" prefWidth="1007.0" tableMenuButtonVisible="true">
+                        <TableView fx:id="tabla_servicios" prefHeight="165.0" prefWidth="440.0" tableMenuButtonVisible="true">
                            <columns>
-                              <TableColumn fx:id="colPeregrinoID1" maxWidth="700.0" prefWidth="20.0" text="ID" />
-                              <TableColumn fx:id="colNombre1" maxWidth="4000.0" prefWidth="75.0" text="Nombre" />
-                              <TableColumn fx:id="colNacionalidad1" maxWidth="4000.0" prefWidth="75.0" text="Precio" />
+                              <TableColumn fx:id="id_servicio" maxWidth="700.0" prefWidth="20.0" text="ID" />
+                              <TableColumn fx:id="nombre_servicio" maxWidth="4000.0" prefWidth="75.0" text="Nombre" />
+                              <TableColumn fx:id="precio_servicio" maxWidth="4000.0" prefWidth="75.0" text="Precio" />
                            </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -105,11 +105,28 @@
                               <Insets bottom="40.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
                         </TableView>
-                        <TableView fx:id="servicios_contratados" layoutX="10.0" layoutY="10.0" prefHeight="387.0" prefWidth="1007.0" tableMenuButtonVisible="true">
+                        <VBox prefHeight="215.0" prefWidth="150.0">
+                           <children>
+                              <Button fx:id="añadir" mnemonicParsing="false" text="-&gt;">
+                                 <VBox.margin>
+                                    <Insets left="40.0" top="50.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="remover" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="&lt;-">
+                                 <VBox.margin>
+                                    <Insets left="40.0" top="30.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <TableView fx:id="servicios_contratados" layoutX="10.0" layoutY="10.0" prefHeight="165.0" prefWidth="440.0" tableMenuButtonVisible="true">
                            <columns>
-                              <TableColumn fx:id="colPeregrinoID11" maxWidth="700.0" prefWidth="20.0" text="ID" />
-                              <TableColumn fx:id="colNombre11" maxWidth="4000.0" prefWidth="75.0" text="Nombre" />
-                              <TableColumn fx:id="colNacionalidad11" maxWidth="4000.0" prefWidth="75.0" text="Precio" />
+                              <TableColumn fx:id="id_serviciocontratado" maxWidth="700.0" prefWidth="20.0" text="ID" />
+                              <TableColumn fx:id="nombre_serviciocontratado" maxWidth="4000.0" prefWidth="75.0" text="Nombre" />
+                              <TableColumn fx:id="precio_contratados" maxWidth="4000.0" prefWidth="75.0" text="Precio" />
                            </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -216,7 +233,7 @@
                         </RadioButton>
                         <ImageView fitHeight="57.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/Peregrino%20Interrogante.png" />
+                              <Image url="@../images/Pagos.png" />
                            </image>
                            <HBox.margin>
                               <Insets left="10.0" top="5.0" />
