@@ -8,9 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import com.Gabriel.Noel.tarea3AD2024base.config.StageManager;
+import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Direccion;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.EnvioACasa;
+import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
 import com.Gabriel.Noel.tarea3AD2024base.services.EnvioACasaService;
+import com.Gabriel.Noel.tarea3AD2024base.services.ParadaService;
 import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
 
 import javafx.fxml.FXML;
@@ -56,6 +59,9 @@ public class EnvioACasaController implements Serializable {
 	@FXML
 	private CheckBox esUrgente;
 	
+	@Autowired
+	private ParadaService paradaService;
+	
 	
 	@Autowired
 	private EnvioACasaService envioCasaService;
@@ -96,7 +102,10 @@ public class EnvioACasaController implements Serializable {
 		boolean urgente = esUrgente.isSelected();
 		
 		if (!validar(peso)|| !validar(largo) || !validar(ancho) || !validar(alto) ||
-				!validar(direccion) || !validar(localidad));
+				!validar(direccion) || !validar(localidad))
+		{
+			return;
+		}
 		
 		// Creo el objeto Direccion
 		miDireccion.setDireccion(direccion);
@@ -118,6 +127,7 @@ public class EnvioACasaController implements Serializable {
 		miEnvio.setAlto(altoDouble);
 		miEnvio.setEsUrgente(urgente);
 		miEnvio.setDireccion(miDireccion);
+		miEnvio.setIdParada(recogerIDParada());
 		
 		envioCasaService.registrarEnvio(miEnvio);
 		
@@ -138,16 +148,15 @@ public class EnvioACasaController implements Serializable {
 	
 	public boolean validar(String texto)
 	{
-		boolean valido = false;
 		
 		if (texto.isEmpty())
 		{
 			
 			mostrarAlerta("Error", "No puedes dejar el campo "+ texto +"vacio", AlertType.WARNING);
-			return valido = false;
+			return false;
 		}
 			
-		return valido = true;
+		return true;
 		
 		
 	}
@@ -177,5 +186,31 @@ public class EnvioACasaController implements Serializable {
 		miAlerta.setContentText(mensaje);
 		miAlerta.showAndWait();
 	}
+	
+	
+	private Long recogerIDParada()
+    {
+    	Long idParada = 0L;
+    	
+    	try 
+    	{
+    		Credenciales miCredencial = CredencialesController.getCredenciales();
+    		
+    		Parada paradaActual = paradaService.buscarParadaPorCredenciales(miCredencial);
+    		
+    		idParada = paradaActual.getId();
+    		  		
+    	}
+    	
+    	catch(Exception e)
+    	{
+    		System.out.println("Error en el metodo de recogerIDParada"+ e.getMessage());
+    	}
+    	
+    	
+    	
+    	return idParada;
+    }
+	
 
 }

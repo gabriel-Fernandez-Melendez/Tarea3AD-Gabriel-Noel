@@ -41,8 +41,4 @@ public class EnvioACasaService {
         return envioRepository.obtenerEnviosPorParada(idParada);
     }
 
-    
-//    public void eliminarEnvio(Long id) {
-//        envioRepository.eliminarEnvio(id);
-//    }
 }

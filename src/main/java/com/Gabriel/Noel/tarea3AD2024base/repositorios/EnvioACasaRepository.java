@@ -17,7 +17,10 @@ public class EnvioACasaRepository {
 	 */
 	public void guardarEnvio(EnvioACasa envio) 
 	{
+		
         EntityManager em = ObjectDBConnection.getEntityManager();
+        
+        
         
         try 
         {
@@ -81,39 +84,6 @@ public class EnvioACasaRepository {
 	        em.close();
 	        
 	        return envios;
-	    }
-	
+	 }
 	 
-	 
-//	 public void eliminarEnvio(Long id) 
-//	 {
-//	        EntityManager em = ObjectDBConnection.getEntityManager();
-//	        
-//	        try 
-//	        {
-//	            em.getTransaction().begin();
-//	            
-//	            EnvioACasa envio = em.find(EnvioACasa.class, id);
-//	            
-//	            if (envio != null) 
-//	            {
-//	                em.remove(envio);
-//	                System.out.println("Envío eliminado: " + envio);
-//	            }
-//	            
-//	            em.getTransaction().commit();
-//	            
-//	        } 
-//	        
-//	        catch (Exception e) 
-//	        {
-//	            em.getTransaction().rollback();
-//	            System.out.println("Error al eliminar el envío: " + e.getMessage());
-//	        } 
-//	        
-//	        finally 
-//	        {
-//	            em.close();
-//	        }
-//	    }
 }

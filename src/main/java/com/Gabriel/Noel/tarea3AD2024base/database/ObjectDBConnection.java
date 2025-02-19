@@ -10,7 +10,7 @@ import javax.persistence.Persistence;
 public class ObjectDBConnection {
 
     //EntityManager para manejar la conexión a ObjectDB
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("objectdb:db/OBDB_Peregrinos.odb");
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("objectdb:OBDB_Peregrinos.odb");
 
     
     /**

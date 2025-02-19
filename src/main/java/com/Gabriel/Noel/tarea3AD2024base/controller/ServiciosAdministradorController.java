@@ -170,8 +170,8 @@ public class ServiciosAdministradorController implements Serializable
 	{
 		try 
 		{
-			servicioService.cerrarConexion();
-			mostrarAlerta("Información", "Sesion cerrada con DB4O correctamente", Alert.AlertType.INFORMATION);
+//			servicioService.cerrarConexion();
+//			mostrarAlerta("Información", "Sesion cerrada con DB4O correctamente", Alert.AlertType.INFORMATION);
 			stageManager.switchScene(FxmlView.LOGIN);
 		}
 
