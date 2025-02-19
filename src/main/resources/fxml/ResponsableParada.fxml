@@ -107,12 +107,12 @@
                         </TableView>
                         <VBox prefHeight="215.0" prefWidth="150.0">
                            <children>
-                              <Button fx:id="añadir" mnemonicParsing="false" text="-&gt;">
+                              <Button fx:id="añadir" mnemonicParsing="false" onAction="#PasarServicio" text="-&gt;">
                                  <VBox.margin>
                                     <Insets left="40.0" top="50.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button fx:id="remover" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="&lt;-">
+                              <Button fx:id="remover" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#EliminarSeleccion" text="&lt;-">
                                  <VBox.margin>
                                     <Insets left="40.0" top="30.0" />
                                  </VBox.margin>

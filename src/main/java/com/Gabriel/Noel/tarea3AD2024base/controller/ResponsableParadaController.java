@@ -1,6 +1,7 @@
 package com.Gabriel.Noel.tarea3AD2024base.controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +24,7 @@ import com.Gabriel.Noel.tarea3AD2024base.services.EstanciaService;
 import com.Gabriel.Noel.tarea3AD2024base.services.ParadaSelladaService;
 import com.Gabriel.Noel.tarea3AD2024base.services.ParadaService;
 import com.Gabriel.Noel.tarea3AD2024base.services.PeregrinoService;
+import com.Gabriel.Noel.tarea3AD2024base.services.ServiciosService;
 import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
 
 import javafx.beans.property.SimpleObjectProperty;
@@ -111,17 +113,17 @@ public class ResponsableParadaController {
 	@FXML
 	private TableView<Servicio> servicios_contratados;
 	@FXML
-	private TableColumn<Servicio,Long> id_servicio;
+	private TableColumn<Servicio, Long> id_servicio;
 	@FXML
-	private TableColumn<Servicio,String> nombre_servicio;
+	private TableColumn<Servicio, String> nombre_servicio;
 	@FXML
-	private TableColumn<Servicio,Double> precio_servicio;
+	private TableColumn<Servicio, Double> precio_servicio;
 	@FXML
-	private TableColumn<Servicio,Long> id_serviciocontratado;
+	private TableColumn<Servicio, Long> id_serviciocontratado;
 	@FXML
-	private TableColumn<Servicio,String> nombre_serviciocontratado;
+	private TableColumn<Servicio, String> nombre_serviciocontratado;
 	@FXML
-	private TableColumn<Servicio,Double> precio_contratados;
+	private TableColumn<Servicio, Double> precio_contratados;
 	@FXML
 	private Button añadir;
 	@FXML
@@ -132,11 +134,12 @@ public class ResponsableParadaController {
 	private RadioButton efectivo;
 	@FXML
 	private RadioButton bizum;
-	
-	
-	
-	
-	//metodos de la nuevo implementacion(revisar si la asignacion del char funciona correctamente)
+
+	@Autowired
+	private ServiciosService servicioService;
+
+	// metodos de la nuevo implementacion(revisar si la asignacion del char funciona
+	// correctamente)
 	private void GrupoPagos() {
 		ToggleGroup grupo = new ToggleGroup();
 		tarjeta.setToggleGroup(grupo);
@@ -146,6 +149,43 @@ public class ResponsableParadaController {
 		efectivo.setText("E");
 		bizum.setText("B");
 	}
+
+	private void CargarServicios() {
+		ArrayList<Servicio> servicios = (ArrayList<Servicio>) servicioService.obtenerTodosLosServicios();
+		tabla_servicios.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		id_servicio.setCellValueFactory(new PropertyValueFactory<>("id"));
+		nombre_servicio.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
+		precio_servicio.setCellValueFactory(new PropertyValueFactory<>("Precio"));
+		ObservableList<Servicio> lista = FXCollections.observableArrayList(servicios);
+		tabla_servicios.setItems(lista);
+	}
+
+	// habia que inicializar la llamada de la tabla
+	private void Inicializar_tabla() {
+
+		servicios_contratados.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		id_serviciocontratado.setCellValueFactory(new PropertyValueFactory<>("id"));
+		nombre_serviciocontratado.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
+		precio_contratados.setCellValueFactory(new PropertyValueFactory<>("Precio"));
+	}
+
+	@FXML
+	private void PasarServicio() {
+		System.out.println("entra en el metodo");
+		ObservableList<Servicio> s= tabla_servicios.getSelectionModel().getSelectedItems();
+		if (s == null) {
+			mostrarAlerta("Seleccione un servicio", "no tiene ningun servicio seleccionado", AlertType.WARNING);
+		} else {
+			servicios_contratados.getItems().addAll(s);
+		}
+	}
+	
+	@FXML
+	private void EliminarSeleccion() {
+		ObservableList<Servicio> s=servicios_contratados.getSelectionModel().getSelectedItems();
+		servicios_contratados.getItems().removeAll(s);
+	}
+
 	/**
 	 * Método de inicialización del controlador. Carga los datos de la tabla de
 	 * peregrinos y asigna la parada actual para ver el nombre de la parada
@@ -155,8 +195,10 @@ public class ResponsableParadaController {
 		cargarColumnas();
 		cargarPeregrinos();
 		inicializarParadaActual();
-		//nuevos metodos al momento de inicializar la ventana
+		// nuevos metodos al momento de inicializar la ventana
 		GrupoPagos();
+		CargarServicios();
+		Inicializar_tabla();
 	}
 
 	@FXML
