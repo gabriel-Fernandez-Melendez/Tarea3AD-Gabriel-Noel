@@ -2,57 +2,57 @@ package com.Gabriel.Noel.tarea3AD2024base.services;
 
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Servicio;
 import com.Gabriel.Noel.tarea3AD2024base.repositorios.ServicioRepository;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
+/**
+ * Servicio que gestiona las operaciones relacionadas con los servicios en la base de datos DB4O.
+ */
 @Service
 public class ServiciosService {
 
-	@Autowired
-    private ServicioRepository servicioRepository;
-    
+    private final ServicioRepository servicioRepository;
+
     /**
-     * Guarda un nuevo servicio en la base de datos.
-     * @param servicio El servicio a guardar.
-     * @return `true` si se guardó correctamente, `false` si hubo un error.
+     * Constructor del servicio que inyecta el repositorio de servicios.
+     * 
+     * @param servicioRepository Repositorio de servicios para manejar la persistencia.
      */
-    public boolean crearServicio(Servicio servicio) {
-        if (servicio == null || servicio.getNombre().isEmpty() || servicio.getPrecio() == null || servicio.getPrecio() < 0) {
-            System.out.println("Error: Datos del servicio inválidos.");
-            return false;
-        }
-        servicioRepository.guardarServicio(servicio);
-        return true;
+    public ServiciosService(ServicioRepository servicioRepository) {
+        this.servicioRepository = servicioRepository;
     }
 
     /**
-     * Obtiene todos los servicios almacenados en la base de datos.
-     * @return Lista de servicios.
+     * Obtiene la lista de todos los servicios almacenados en la base de datos.
+     * 
+     * @return Lista de objetos Servicio.
      */
     public List<Servicio> obtenerTodosLosServicios() {
-        return servicioRepository.recogerServicios();
+        return servicioRepository.obtenerTodosLosServicios();
     }
 
     /**
-     * Asigna paradas a un servicio específico.
-     * @param servicioId ID del servicio a modificar.
-     * @param idParadas Lista de IDs de paradas a asignar.
-     * @return `true` si se asignaron correctamente, `false` en caso de error.
+     * Guarda un nuevo servicio en la base de datos.
+     * 
+     * @param servicio Objeto Servicio a almacenar.
      */
-    public boolean asignarParadasAServicio(Long servicioId, List<Long> idParadas) {
-        if (servicioId == null || idParadas == null || idParadas.isEmpty()) {
-            System.out.println("Error: Datos de asignación inválidos.");
-            return false;
-        }
-        servicioRepository.asignarParadasAServicio(servicioId, idParadas);
-        System.out.println("Parada asignada correctamente al servicio metodo asignarParadasAServicio en Service");
-        return true;
+    public void crearServicio(Servicio servicio) {
+        servicioRepository.guardarServicio(servicio);
     }
-    
-    
+
+    /**
+     * Asigna una lista de paradas a un servicio específico, evitando duplicados.
+     * 
+     * @param servicioId ID del servicio al que se le asignarán las paradas.
+     * @param idParadas  Lista de IDs de las paradas a asignar.
+     */
+    public void asignarParadasAServicio(Long servicioId, List<Long> idParadas) {
+        servicioRepository.asignarParadasAServicio(servicioId, idParadas);
+    }
+
+    /**
+     * Cierra la conexión con la base de datos DB4O.
+     */
     public void cerrarConexion() {
         servicioRepository.cerrarConexion();
     }

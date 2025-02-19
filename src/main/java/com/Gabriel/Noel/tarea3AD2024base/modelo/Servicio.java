@@ -17,7 +17,7 @@ public class Servicio {
 		this.idParada = new ArrayList<>();
 	}
 
-	public Servicio(Long id, String nombre, Double precio, List<Long> idParada) {
+	public Servicio(Long id, String nombre, Double precio) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -25,9 +25,6 @@ public class Servicio {
 		this.idParada = new ArrayList<>();
 	}
 	
-	
-	
-
 	public Long getId() {
 		return id;
 	}

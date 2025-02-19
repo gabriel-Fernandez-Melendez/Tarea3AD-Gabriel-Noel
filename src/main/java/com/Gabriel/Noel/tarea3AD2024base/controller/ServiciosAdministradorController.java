@@ -32,6 +32,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 
 
+
 @Controller
 public class ServiciosAdministradorController implements Serializable
 {
@@ -106,6 +107,13 @@ public class ServiciosAdministradorController implements Serializable
 		
 	}
 	
+	/**
+	 * Metodo para crear el servicio cogiendo los dos resultados de nuestros TextField
+	 * 1º Obtenemos primero la lista de los servicios que existan en nuestra DB4O
+	 * 2º Generamos un nuevo ID en base al tamaño que haya de Servicios sumando +1
+	 * 3º Creamos el objeto Servicio
+	 * 4º Llamamos al metodo de la Capa del Service pasandole por parametro nuestro objeto que hemos creado
+	 */
 	@FXML
 	private void crearServicio() {
 
@@ -115,6 +123,15 @@ public class ServiciosAdministradorController implements Serializable
 
 	    // Obtener la lista de servicios existentes
 	    List<Servicio> listaServicios = servicioService.obtenerTodosLosServicios();
+	    
+	    for(Servicio s : listaServicios)
+	    {
+	    	if (s.getNombre().equals(nombre))
+	    	{
+	    		mostrarAlerta("Error", "No se puede registrar un servicio con el mismo nombre", AlertType.WARNING);
+	    		return;
+	    	}
+	    }
 
 	    // Generar un nuevo ID (el mayor +1)
 	    long idNuevo = listaServicios.size()+1;
@@ -131,7 +148,6 @@ public class ServiciosAdministradorController implements Serializable
 
 	    System.out.println("Servicio guardado: " + nuevoServicio);
 	    
-	    // Mostrar alerta para indicar al usuario
 	    mostrarAlerta("Exito","Ha guardado el servicio correctamente", AlertType.CONFIRMATION);
 
 	    // Limpiar campos
@@ -148,14 +164,16 @@ public class ServiciosAdministradorController implements Serializable
 	
 	/**
 	 * Metodo para cerrar sesion y volver al Login.
+	 * y cerrar conexion con DB4O
 	 */
 	@FXML
 	private void volverALogin() 
 	{
 		try 
 		{
-			stageManager.switchScene(FxmlView.LOGIN);
 			servicioService.cerrarConexion();
+			mostrarAlerta("Información", "Sesion cerrada con DB4O correctamente", Alert.AlertType.INFORMATION);
+			stageManager.switchScene(FxmlView.LOGIN);
 		}
 
 		catch (Exception e) 
@@ -164,7 +182,15 @@ public class ServiciosAdministradorController implements Serializable
 		}
 	}	
 	
-	
+	/**
+	 * Método que carga las columnas de la tabla de paradas con los datos almacenados en la base de datos.
+	 * 
+	 * Este método configura la tabla para permitir la selección múltiple de filas, 
+	 * define las propiedades de las columnas y recupera la lista de paradas desde el servicio correspondiente.
+	 * Luego, convierte esta lista en un objeto `ObservableList` para su correcta visualización en la UI.
+	 * 
+	 * En caso de error durante la carga de datos, se captura la excepción y se muestra un mensaje en la consola.
+	 */
 	@FXML
 	private void cargarColumnasParadas()
 	{
@@ -195,6 +221,9 @@ public class ServiciosAdministradorController implements Serializable
 	}
 	
 	
+	/**
+	 * 
+	 */
 	@FXML
 	private void cargarColumnasServicios()
 	{
@@ -235,54 +264,94 @@ public class ServiciosAdministradorController implements Serializable
 	
 	
 
-
-	
+	/**
+	 * Asigna una o varias paradas a un servicio seleccionado, evitando duplicados y 
+	 * asegurando la persistencia en la base de datos DB4O.
+	 * 
+	 * Este método permite que un servicio tenga múltiples paradas asignadas y 
+	 * evita agregar paradas que ya estaban previamente asignadas. 
+	 * Si no se selecciona un servicio o paradas, se muestra una alerta informando al usuario.
+	 * 
+	 * El proceso sigue los siguientes pasos:
+	 * 
+	 * Verifica que el usuario haya seleccionado un servicio.
+	 * Obtiene las paradas seleccionadas de la tabla.
+	 * Filtra las paradas para evitar duplicados en la lista.
+	 * Actualiza el servicio con las nuevas paradas.
+	 * Guarda los cambios en la base de datos a través del servicio.
+	 * Refresca la interfaz gráfica para reflejar los cambios.
+	 * Muestra un mensaje de confirmación si la asignación fue exitosa.
+	 * 
+	 * 
+	 * Si todas las paradas seleccionadas ya estaban asignadas, se muestra un mensaje de advertencia.
+	 * 
+	 * @throws Exception Si ocurre un error durante la asignación de paradas.
+	 */
 	@FXML
 	private void asignarServicio() {
 	    try {
-	        // 1️⃣ Obtener el servicio seleccionado
+	        // Obtener el servicio seleccionado
 	        Servicio miServicio = tablaServicios.getSelectionModel().getSelectedItem();
-	        if (miServicio == null) {
+	        
+	        // Comprueba de que selecciono un servicio antes de asignarlo
+	        if (miServicio == null) 
+	        {
 	            mostrarAlerta("Error", "Seleccione un servicio antes de asignar paradas.", Alert.AlertType.ERROR);
 	            return;
 	        }
+	        
+	        // Debug por pantalla
 	        System.out.println("Servicio seleccionado: " + miServicio.getNombre());
 
-	        // 2️⃣ Obtener las paradas seleccionadas
+	        // Obtener las paradas seleccionadas de la tabla de paradas
 	        List<Parada> paradasSeleccionadas = new ArrayList<>(tablaParadas.getSelectionModel().getSelectedItems());
-	        if (paradasSeleccionadas.isEmpty()) {
+	        
+	        // Si no selecciona ninguna parada le saldra una alerta para que escoja una
+	        if (paradasSeleccionadas.isEmpty()) 
+	        {
 	            mostrarAlerta("Error", "Seleccione al menos una parada para asignar.", Alert.AlertType.ERROR);
 	            return;
 	        }
+	        
+	        // Debug para que saque por pantalla las paradas seleccionadas
 	        System.out.println("Paradas seleccionadas: " + paradasSeleccionadas);
 
-	        // 3️⃣ Evitar duplicados en los IDs de paradas
-	        List<Long> idParadasActuales = new ArrayList<>(miServicio.getIdParada()); // Copia segura de la lista actual
-	        List<Long> nuevasParadas = new ArrayList<>();
+	        
+	        
+	        //Evitar duplicados en los IDs de paradas
+	        List<Long> idParadasActuales = new ArrayList<>(miServicio.getIdParada()); // Creamos una lista con los ID de las paradas asignadas al Servicio
+	        
+	        List<Long> nuevasParadas = new ArrayList<>(); // Sera para guardar las nuevas paradas que aun no estan asignadas
 
-	        for (Parada parada : paradasSeleccionadas) {
-	            if (!idParadasActuales.contains(parada.getId())) { // Solo agregar si no está ya en la lista
+	        // Solo añadira las paradas que no estan previamente asignadas
+	        for (Parada parada : paradasSeleccionadas) 
+	        {
+	            if (!idParadasActuales.contains(parada.getId())) // Solo agregar si no está ya en la lista
+	            { 
 	                nuevasParadas.add(parada.getId());
 	            }
 	        }
 
-	        if (nuevasParadas.isEmpty()) {
+	        // Si la alerta salta, es que no hay ningun ID para asignar a lo que ya todas las paradas seleccionadas
+	        // Tienen asignado el servicio que se quiere asignar.
+	        if (nuevasParadas.isEmpty()) 
+	        {
 	            mostrarAlerta("Información", "Todas las paradas seleccionadas ya están asignadas a este servicio.", Alert.AlertType.WARNING);
 	            return;
 	        }
 
-	        // 4️⃣ Actualizar el servicio con los nuevos IDs de paradas
+	        //Actualizar el servicio con los nuevos IDs de paradas
 	        idParadasActuales.addAll(nuevasParadas); // Agregar las nuevas paradas a la lista
 	        miServicio.setIdParada(idParadasActuales); // Asignar la lista actualizada al servicio
+	        
 	        System.out.println("Lista total de paradas en servicio: " + miServicio.getIdParada());
 
-	        // 5️⃣ Guardar cambios en DB4O
+	        //Guardar cambios en DB4O
 	        servicioService.asignarParadasAServicio(miServicio.getId(), idParadasActuales);
 
-	        // Refrescar tabla con la lista actualizada
-	        cargarColumnasServicios();
-
-	        // Confirmación al usuario
+	        //Refrescar tabla con la lista actualizada
+	        tablaServicios.refresh();
+       
 	        mostrarAlerta("Éxito", "El servicio ha sido asignado correctamente a las paradas seleccionadas.", Alert.AlertType.CONFIRMATION);
 
 	    } catch (Exception e) {
@@ -291,11 +360,6 @@ public class ServiciosAdministradorController implements Serializable
 	    }
 	}
 
-
-	
-	
-	
-	
 	
 	/**
 	 * Metodo para mostrar las alertas en la parte de la vista

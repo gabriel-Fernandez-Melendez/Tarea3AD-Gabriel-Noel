@@ -1,113 +1,80 @@
 package com.Gabriel.Noel.tarea3AD2024base.repositorios;
 
-import java.util.ArrayList;
 import java.util.List;
-
+import java.util.ArrayList;
 import org.springframework.stereotype.Repository;
-
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Servicio;
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 
+
 @Repository
 public class ServicioRepository {
 
-	ObjectContainer db = Db4oEmbedded.openFile("DB4O_Peregrinos.db4o");
-	
-	
-	// Metodo para recoger todos los servicios
-	public List<Servicio> recogerServicios()
-	{
-		 List<Servicio> misServicios = new ArrayList<>();
+    private final ObjectContainer db = Db4oEmbedded.openFile("DB4O_Peregrinos.db4o");
 
-	        try 
-	        {
-	            List<Servicio> resultados = db.query(Servicio.class);
-	            for(Servicio ser : resultados)
-	            {
-	            	misServicios.add(ser);
-	            }
-	        }
-	        
-	        catch(Exception e)
-	        {
-	        	System.out.println("Error"+ e.getMessage());
-	        }
-	        
-	        return misServicios;
-	    }
-	
-	
-	// Metodo para guardar un servicio
-	public void guardarServicio(Servicio miServicio) 
-	{
-		try
-		{
-			db.store(miServicio);
-			db.commit();
-			
-		}
-		catch(Exception e)
-		{
-			System.out.println("Error en el metodo guardarServicio()");
-		}
-	}
-	
-	
-	public void asignarParadasAServicio(Long servicioId, List<Long> nuevasParadas) {
-	    try {
-	        System.out.println("Buscando servicio con ID: " + servicioId);
-	        
-	        // Buscar el servicio por ID en la base de datos
-	        List<Servicio> servicios = db.query(Servicio.class);
-	        
-	        for (Servicio servicio : servicios) 
-	        {
-	            if (servicio.getId().equals(servicioId)) 
-	            {
-	                
-	                // Filtrar paradas nuevas para evitar duplicados
-	                List<Long> nuevasParadasUnicas = new ArrayList<>();
-	                
-	                for (Long idParada : nuevasParadas) 
-	                {
-	                    if (!servicio.getIdParada().contains(idParada)) 
-	                    {
-	                        nuevasParadasUnicas.add(idParada);
-	                    }
-	                }
+    /**
+     * Obtiene todos los servicios almacenados en la base de datos.
+     * 
+     * @return Lista de servicios disponibles.
+     */
+    public List<Servicio> obtenerTodosLosServicios() {
+        return new ArrayList<>(db.query(Servicio.class));
+    }
 
-	                if (nuevasParadasUnicas.isEmpty()) 
-	                {
-	                    System.out.println("No hay nuevas paradas para agregar.");
-	                    return;
-	                }
-
-	                // Agregar las nuevas paradas
-	                servicio.getIdParada().addAll(nuevasParadasUnicas);
-	                System.out.println("Paradas agregadas al servicio ID " + servicio.getId() + ": " + servicio.getIdParada());
-
-	                // Guardar en DB4O
-	                db.store(servicio);
-	                db.commit();
-	                System.out.println("Servicio actualizado y guardado en la BD.");
-
-	                break;
-	            }
-	        }
-	    } catch (Exception e) {
-	        System.out.println("Error al asignar paradas al servicio: " + e.getMessage());
-	    }
-	}
-
-	
-	
-	// Método para cerrar la conexión a DB4O cuando se cierra la sesión
-    public void cerrarConexion() {
-        if (db != null) {
-            db.close();
-            System.out.println("Conexión a DB4O cerrada correctamente.");
+    /**
+     * Guarda un nuevo servicio en la base de datos.
+     * 
+     * @param servicio Objeto Servicio a almacenar.
+     */
+    public void guardarServicio(Servicio servicio) {
+        try {
+            db.store(servicio);
+            db.commit();
+            System.out.println("Servicio guardado en DB4O: " + servicio);
+        } catch (Exception e) {
+            System.out.println("Error al guardar el servicio: " + e.getMessage());
         }
-	
+    }
+
+    /**
+     * Asigna paradas a un servicio determinado evitando duplicados.
+     * 
+     * @param servicioId     ID del servicio al que se le asignarán paradas.
+     * @param nuevasParadas  Lista de IDs de las nuevas paradas a asignar.
+     */
+    public void asignarParadasAServicio(Long servicioId, List<Long> nuevasParadas) {
+        try {
+            List<Servicio> servicios = db.query(Servicio.class);
+
+            for (Servicio servicio : servicios) {
+                if (servicio.getId().equals(servicioId)) {
+
+                    // Evitar duplicados antes de asignar paradas
+                    for (Long idParada : nuevasParadas) {
+                        if (!servicio.getIdParada().contains(idParada)) {
+                            servicio.getIdParada().add(idParada);
+                        }
+                    }
+
+                    // Guardar cambios en la base de datos
+                    db.store(servicio);
+                    db.commit();
+                    System.out.println("Servicio actualizado en DB4O: " + servicio);
+                    return;
+                }
+            }
+            System.out.println("No se encontró el servicio con ID: " + servicioId);
+        } catch (Exception e) {
+            System.out.println("Error al asignar paradas: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Cierra la conexión con la base de datos DB4O.
+     */
+    public void cerrarConexion() {
+        db.close();
+        System.out.println("Conexión a DB4O cerrada correctamente.");
     }
 }
