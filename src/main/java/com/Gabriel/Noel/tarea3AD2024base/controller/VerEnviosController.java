@@ -14,6 +14,7 @@ import com.Gabriel.Noel.tarea3AD2024base.services.EnvioACasaService;
 import com.Gabriel.Noel.tarea3AD2024base.services.ParadaService;
 import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -42,15 +43,17 @@ public class VerEnviosController implements Serializable {
 	@FXML
 	private TableColumn<EnvioACasa,Double> pesoEnvio;
 	@FXML
-	private TableColumn<EnvioACasa,Double> largoEnvio;
+	private TableColumn<EnvioACasa,Integer> largoEnvio;
 	@FXML
-	private TableColumn<EnvioACasa,Double> anchoEnvio;
+	private TableColumn<EnvioACasa,Integer> anchoEnvio;
 	@FXML
-	private TableColumn<EnvioACasa,Double> altoEnvio;
+	private TableColumn<EnvioACasa,Integer> altoEnvio;
 	@FXML
 	private TableColumn<EnvioACasa,Boolean> esUrgente;
 	@FXML
 	private TableColumn<EnvioACasa,String> direccionEnvio;
+	
+	
 	
 	@Autowired
 	private ParadaService paradaService;
@@ -78,9 +81,16 @@ public class VerEnviosController implements Serializable {
     private void configurarColumnas() {
     	 idEnvio.setCellValueFactory(new PropertyValueFactory<>("id"));
          pesoEnvio.setCellValueFactory(new PropertyValueFactory<>("peso"));
-         largoEnvio.setCellValueFactory(new PropertyValueFactory<>("largo"));
-         anchoEnvio.setCellValueFactory(new PropertyValueFactory<>("ancho"));
-         altoEnvio.setCellValueFactory(new PropertyValueFactory<>("alto"));
+        
+         largoEnvio.setCellValueFactory(cellData -> 
+         new SimpleObjectProperty<>(cellData.getValue().getVolumen()[0]));
+
+         anchoEnvio.setCellValueFactory(cellData -> 
+         new SimpleObjectProperty<>(cellData.getValue().getVolumen()[1]));
+
+         altoEnvio.setCellValueFactory(cellData -> 
+         new SimpleObjectProperty<>(cellData.getValue().getVolumen()[2]));
+         
          esUrgente.setCellValueFactory(new PropertyValueFactory<>("esUrgente"));
          direccionEnvio.setCellValueFactory(new PropertyValueFactory<>("direccion"));
      }

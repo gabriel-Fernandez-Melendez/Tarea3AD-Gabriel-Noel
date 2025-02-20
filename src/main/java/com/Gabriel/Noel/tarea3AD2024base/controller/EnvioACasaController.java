@@ -114,17 +114,15 @@ public class EnvioACasaController implements Serializable {
 		
 		// Convierto las variables a Double para almacenarlas al objeto miEnvio
 		Double pesoDouble = Double.parseDouble(peso);
-		Double largoDouble = Double.parseDouble(largo);
-		Double anchoDouble = Double.parseDouble(ancho);
-		Double altoDouble = Double.parseDouble(alto);
+		int largoInt = Integer.parseInt(largo);
+        int anchoInt = Integer.parseInt(ancho);
+        int altoInt = Integer.parseInt(alto);
 		
-
+        int[] volumen = {largoInt, anchoInt, altoInt};
 		
 		// Creo el Objeto Envio
 		miEnvio.setPeso(pesoDouble);
-		miEnvio.setLargo(largoDouble);
-		miEnvio.setAncho(anchoDouble);
-		miEnvio.setAlto(altoDouble);
+		miEnvio.setVolumen(volumen);
 		miEnvio.setEsUrgente(urgente);
 		miEnvio.setDireccion(miDireccion);
 		miEnvio.setIdParada(recogerIDParada());
@@ -144,6 +142,9 @@ public class EnvioACasaController implements Serializable {
 		
 		
 	}
+	
+	
+	
 	
 	
 	public boolean validar(String texto)

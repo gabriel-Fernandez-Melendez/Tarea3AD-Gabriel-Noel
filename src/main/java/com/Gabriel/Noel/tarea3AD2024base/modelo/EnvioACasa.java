@@ -2,6 +2,7 @@ package com.Gabriel.Noel.tarea3AD2024base.modelo;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * Clase que representa un envío a casa dentro del sistema de peregrinos.
@@ -9,17 +10,22 @@ import java.io.Serializable;
 @Entity
 public class EnvioACasa implements Serializable {
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @Embedded
     private Direccion direccion;
 
     private double peso;
-    private double largo;
-    private double ancho;
-    private double alto;
+    
+    private int[] volumen = new int[3];
+    
     private boolean esUrgente;
 
     private Long idParada;  // Se guarda solo el ID de la parada desde donde se envió
@@ -27,12 +33,10 @@ public class EnvioACasa implements Serializable {
     public EnvioACasa() {
     }
 
-    public EnvioACasa(Direccion direccion, double peso, double largo, double ancho, double alto, boolean esUrgente, Long idParada) {
+    public EnvioACasa(Direccion direccion, double peso, int[] volumen, boolean esUrgente, Long idParada) {
         this.direccion = direccion;
         this.peso = peso;
-        this.largo = largo;
-        this.ancho = ancho;
-        this.alto = alto;
+        this.volumen = new int[]{0, 0, 0};
         this.esUrgente = esUrgente;
         this.idParada = idParada;
     }
@@ -63,28 +67,13 @@ public class EnvioACasa implements Serializable {
 		this.peso = peso;
 	}
 
-	public double getLargo() {
-		return largo;
+	
+	public int[] getVolumen() {
+		return volumen;
 	}
 
-	public void setLargo(double largo) {
-		this.largo = largo;
-	}
-
-	public double getAncho() {
-		return ancho;
-	}
-
-	public void setAncho(double ancho) {
-		this.ancho = ancho;
-	}
-
-	public double getAlto() {
-		return alto;
-	}
-
-	public void setAlto(double alto) {
-		this.alto = alto;
+	public void setVolumen(int[] volumen) {
+		this.volumen = volumen;
 	}
 
 	public boolean isEsUrgente() {
@@ -104,13 +93,10 @@ public class EnvioACasa implements Serializable {
 	}
 
 	@Override
-    public String toString() {
-        return "EnvioACasa{" +
-                "direccion=" + direccion +
-                ", peso=" + peso +
-                ", dimensiones=" + largo + "x" + ancho + "x" + alto +
-                ", urgente=" + esUrgente +
-                ", idParada=" + idParada +
-                '}';
-    }
+	public String toString() {
+		return "EnvioACasa [id=" + id + ", direccion=" + direccion + ", peso=" + peso + ", volumen="
+				+ Arrays.toString(volumen) + ", esUrgente=" + esUrgente + ", idParada=" + idParada + "]";
+	}
+
+	
 }
