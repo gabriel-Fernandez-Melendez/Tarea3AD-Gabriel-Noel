@@ -381,4 +381,9 @@ public class ServiciosAdministradorController implements Serializable
 	private void volverAtras() {
 		stageManager.switchScene(FxmlView.NuevaParada);
 	}
+	
+	@FXML
+	private void editarServicios() {
+		stageManager.switchScene(FxmlView.EDITARSERVICIOS);
+	}
 }

@@ -49,6 +49,17 @@ public class ServiciosService {
     public void asignarParadasAServicio(Long servicioId, List<Long> idParadas) {
         servicioRepository.asignarParadasAServicio(servicioId, idParadas);
     }
+    
+    
+    /**
+     * Actualiza los datos de un servicio existente.
+     *
+     * @param servicio Servicio con los datos modificados.
+     * @return `true` si se actualizó correctamente, `false` en caso de error.
+     */
+    public boolean actualizarServicio(Servicio servicio) {
+        return servicioRepository.actualizarServicio(servicio);
+    }
 
     /**
      * Cierra la conexión con la base de datos DB4O.

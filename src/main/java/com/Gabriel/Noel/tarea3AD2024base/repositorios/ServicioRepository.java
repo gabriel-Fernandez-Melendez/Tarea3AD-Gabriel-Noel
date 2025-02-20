@@ -80,6 +80,38 @@ public class ServicioRepository {
         }
     }
 
+
+    public boolean actualizarServicio(Servicio servicio) {
+        try {
+            // Buscar el servicio en la base de datos
+            List<Servicio> servicios = db.query(Servicio.class);
+
+            for (Servicio s : servicios) {
+                if (s.getId().equals(servicio.getId())) {
+                    // Actualizar los datos
+                    s.setNombre(servicio.getNombre());
+                    s.setPrecio(servicio.getPrecio());
+                    s.setIdParada(new ArrayList<>(servicio.getIdParada()));
+
+                    // Guardar en la base de datos
+                    db.store(s);
+                    db.commit();
+                    System.out.println("Servicio actualizado en DB4O: " + s);
+                    return true;
+                }
+            }
+
+            System.out.println("No se encontró el servicio con ID: " + servicio.getId());
+            return false;
+
+        } catch (Exception e) {
+            System.out.println("Error al actualizar el servicio: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    
+
     /**
      * Cierra la conexión con la base de datos DB4O.
      */

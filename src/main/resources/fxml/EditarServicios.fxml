@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Gabriel.Noel.tarea3AD2024base.controller.ServiciosAdministradorController">
+<BorderPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Gabriel.Noel.tarea3AD2024base.controller.EditarServiciosController">
    <center>
       <VBox alignment="TOP_RIGHT" prefHeight="571.0" prefWidth="692.0" BorderPane.alignment="CENTER">
          <children>
@@ -69,21 +69,13 @@
                                     <Insets left="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label text="Conjunto de Paradas">
-                                 <font>
-                                    <Font size="23.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="270.0" />
-                                 </HBox.margin>
-                              </Label>
                            </children>
                         </HBox>
                      </children>
                   </VBox>
                   <HBox prefHeight="489.0" prefWidth="985.0">
                      <children>
-                        <TableView fx:id="tablaServicios" prefHeight="387.0" prefWidth="1007.0" tableMenuButtonVisible="true">
+                        <TableView fx:id="tablaServicios" prefHeight="353.0" prefWidth="552.0" tableMenuButtonVisible="true">
                            <columns>
                               <TableColumn fx:id="idServicio" maxWidth="700.0" prefWidth="20.0" text="ID" />
                               <TableColumn fx:id="nombreServicio" maxWidth="4000.0" prefWidth="104.0" text="Nombre" />
@@ -97,72 +89,52 @@
                               <Insets bottom="40.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
                         </TableView>
-                        <TableView fx:id="tablaParadas" layoutX="10.0" layoutY="10.0" prefHeight="387.0" prefWidth="1007.0" tableMenuButtonVisible="true">
-                           <columns>
-                              <TableColumn fx:id="idParada" maxWidth="700.0" prefWidth="20.0" text="ID" />
-                              <TableColumn fx:id="nombreParada" maxWidth="4000.0" prefWidth="75.0" text="Nombre" />
-                           </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                           <HBox.margin>
-                              <Insets bottom="40.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                        </TableView>
+                        <VBox prefHeight="403.0" prefWidth="163.0">
+                           <children>
+                              <Label text="Nombre:">
+                                 <VBox.margin>
+                                    <Insets left="40.0" top="40.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label text="Precio:">
+                                 <VBox.margin>
+                                    <Insets left="40.0" top="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label text="ID de las Paradas">
+                                 <VBox.margin>
+                                    <Insets left="40.0" top="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="403.0" prefWidth="163.0">
+                           <children>
+                              <TextField fx:id="textoNombre">
+                                 <VBox.margin>
+                                    <Insets top="40.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="textoPrecio">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="textoParadas">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
                </children>
             </VBox>
             <VBox prefHeight="262.0" prefWidth="694.0">
                <children>
-                  <HBox prefHeight="119.0" prefWidth="1000.0">
-                     <children>
-                        <Label text="Nombre del Servicio:">
-                           <HBox.margin>
-                              <Insets left="20.0" top="15.0" />
-                           </HBox.margin>
-                        </Label>
-                        <TextField fx:id="textServicio">
-                           <HBox.margin>
-                              <Insets left="5.0" top="10.0" />
-                           </HBox.margin>
-                        </TextField>
-                        <Label text="Precio del Servicio:">
-                           <HBox.margin>
-                              <Insets left="20.0" top="15.0" />
-                           </HBox.margin>
-                        </Label>
-                        <TextField fx:id="textPrecio">
-                           <HBox.margin>
-                              <Insets left="5.0" top="10.0" />
-                           </HBox.margin>
-                        </TextField>
-                        <Button fx:id="botonCrearServicio" mnemonicParsing="false" onAction="#crearServicio" prefHeight="30.0" prefWidth="150.0" styleClass="background" text="Crear Servicio" textFill="#fff9f9" textOverrun="CLIP">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <effect>
-                              <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
-                           </effect>
-                           <HBox.margin>
-                              <Insets left="20.0" top="5.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="botonAsignarServicio" mnemonicParsing="false" onAction="#asignarServicio" prefHeight="30.0" prefWidth="150.0" styleClass="background" text="Asignar Servicio" textFill="#fff9f9" textOverrun="CLIP">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <effect>
-                              <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
-                           </effect>
-                           <HBox.margin>
-                              <Insets left="100.0" top="5.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                  </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" />
-                  <Button fx:id="botonEditarServicio" mnemonicParsing="false" onAction="#editarServicios" prefHeight="30.0" prefWidth="150.0" styleClass="background" text="Editar Servicios" textFill="#fff9f9" textOverrun="CLIP">
+                  <Button fx:id="botonGuardar" mnemonicParsing="false" onAction="#guardarCambios" prefHeight="30.0" prefWidth="150.0" styleClass="background" text="Guardar Cambios" textFill="#fff9f9" textOverrun="CLIP">
                      <font>
                         <Font size="14.0" />
                      </font>

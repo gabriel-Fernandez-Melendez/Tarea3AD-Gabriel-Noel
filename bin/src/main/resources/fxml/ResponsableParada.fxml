@@ -21,6 +21,17 @@
          <children>
             <HBox alignment="TOP_RIGHT" prefHeight="41.0" prefWidth="640.0">
                <children>
+                  <Button fx:id="botonEnvios" mnemonicParsing="false" onAction="#irVerEnvios" prefHeight="30.0" prefWidth="164.0" styleClass="background" text="Ver envios Realizados" textFill="#fff9f9" textOverrun="CLIP">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
+                     </effect>
+                     <HBox.margin>
+                        <Insets right="120.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
                   <Label alignment="CENTER" prefHeight="36.0" prefWidth="162.0" text="Bienvenido a">
                      <font>
                         <Font size="25.0" />
@@ -80,14 +91,26 @@
                   </TableView>
                   <VBox prefHeight="97.0" prefWidth="985.0">
                      <children>
-                        <Label text="Contratar Servicios">
-                           <VBox.margin>
-                              <Insets left="400.0" />
-                           </VBox.margin>
-                           <font>
-                              <Font size="23.0" />
-                           </font>
-                        </Label>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Servicios Asignados a la Parada">
+                                 <font>
+                                    <Font size="23.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label text="Servicios Seleccionados">
+                                 <font>
+                                    <Font size="23.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="250.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                   <HBox prefHeight="302.0" prefWidth="985.0">
