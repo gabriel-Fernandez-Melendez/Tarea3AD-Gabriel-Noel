@@ -3,6 +3,8 @@ package com.Gabriel.Noel.tarea3AD2024base.repositorios;
 import java.util.List;
 import java.util.ArrayList;
 import org.springframework.stereotype.Repository;
+
+import com.Gabriel.Noel.tarea3AD2024base.dataCon.DataConnection;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Servicio;
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
@@ -11,8 +13,16 @@ import com.db4o.ObjectContainer;
 @Repository
 public class ServicioRepository {
 
-    private final ObjectContainer db = Db4oEmbedded.openFile("DB4O_Peregrinos.db4o");
+    private  ObjectContainer db;
 
+    
+    public ServicioRepository()
+    {
+    	this.db = DataConnection.getInstance();
+    }
+    
+    
+    
     /**
      * Obtiene todos los servicios almacenados en la base de datos.
      * 

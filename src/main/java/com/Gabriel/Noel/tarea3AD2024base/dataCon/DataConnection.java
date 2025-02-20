@@ -6,7 +6,7 @@ import com.db4o.ObjectContainer;
 public class DataConnection {
 
 	private static DataConnection INSTANCE = null;
-	private final String PATH = "Peregrinos.db4o";
+	private final String PATH = "DB4O_Peregrinos.db4o";
 	private static ObjectContainer db;
 
 	private DataConnection() {
