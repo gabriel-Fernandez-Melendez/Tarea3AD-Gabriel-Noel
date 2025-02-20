@@ -93,7 +93,6 @@ public class ServiciosAdministradorController implements Serializable
 	private ServiciosService servicioService;
 	
 	
-	// Depende con que BD se quiera cerrar la sesion 
 	@Lazy
 	@Autowired
 	private StageManager stageManager;
@@ -171,8 +170,8 @@ public class ServiciosAdministradorController implements Serializable
 	{
 		try 
 		{
-			servicioService.cerrarConexion();
-			mostrarAlerta("Información", "Sesion cerrada con DB4O correctamente", Alert.AlertType.INFORMATION);
+//			servicioService.cerrarConexion();
+//			mostrarAlerta("Información", "Sesion cerrada con DB4O correctamente", Alert.AlertType.INFORMATION);
 			stageManager.switchScene(FxmlView.LOGIN);
 		}
 

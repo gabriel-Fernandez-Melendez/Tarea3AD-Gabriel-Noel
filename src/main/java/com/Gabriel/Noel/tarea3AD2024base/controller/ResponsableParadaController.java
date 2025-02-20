@@ -53,6 +53,10 @@ public class ResponsableParadaController {
 
 	@FXML
 	private Button btnLogout;
+	
+	@FXML
+	private Button botonEnvios;
+	
 	@FXML
 	private MenuItem menusalir;
 	@FXML
@@ -150,20 +154,54 @@ public class ResponsableParadaController {
 		bizum.setText("B");
 	}
 
-	private void CargarServicios() {
+	private void CargarServicios() 
+	{
+		Parada parada_aux = new Parada();
+		
 		ArrayList<Servicio> servicios = (ArrayList<Servicio>) servicioService.obtenerTodosLosServicios();
+		
+		  ArrayList<Servicio> servicios_filtrados = new ArrayList<Servicio>();
+		  
+		  ArrayList<Parada> paradas=(ArrayList<Parada>) paradaService.ListaDeParadas();
+		  
+		  for(Parada p:paradas) 
+			  
+		  	{  
+			  
+			  if(CredencialesController.Credenciales_usuario.getNombreUsuario().matches(p.
+			  getResponsable())) { parada_aux=p; for(Servicio s:servicios) 
+				  
+			  {
+				  if(s.getIdParada().contains(parada_aux.getId()))
+					  
+				  {
+					  servicios_filtrados.add(s); 
+				  }
+				  
+			  }
+		  
 		tabla_servicios.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		
 		id_servicio.setCellValueFactory(new PropertyValueFactory<>("id"));
 		nombre_servicio.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
 		precio_servicio.setCellValueFactory(new PropertyValueFactory<>("Precio"));
-		ObservableList<Servicio> lista = FXCollections.observableArrayList(servicios);
+		
+		ObservableList<Servicio> lista = FXCollections.observableArrayList(servicios_filtrados); //esta es la lista con los campos filtrados que es la que hay que 
+		
 		tabla_servicios.setItems(lista);
-	}
+		}	
+		  }	  
+		  }
+	
+	
+
+		 
 
 	// habia que inicializar la llamada de la tabla
 	private void Inicializar_tabla() {
 
 		servicios_contratados.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		
 		id_serviciocontratado.setCellValueFactory(new PropertyValueFactory<>("id"));
 		nombre_serviciocontratado.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
 		precio_contratados.setCellValueFactory(new PropertyValueFactory<>("Precio"));
@@ -280,6 +318,13 @@ public class ResponsableParadaController {
 						Alert.AlertType.ERROR);
 				return;
 			}
+			
+			
+			// VERIFICAR SI EL PEREGRINO HA CONTRATADO EL SERVICIO ENVIO A CASA
+			boolean tieneEnvioACasa = servicios_contratados.getItems().stream()
+	                .anyMatch(servicio -> servicio.getNombre().equalsIgnoreCase("Envio a Casa"));
+			
+			
 
 			// Validar si ya existe el sellado antes de proceder
 			ParadaSellada miParadaSellada = new ParadaSellada();
@@ -305,6 +350,8 @@ public class ResponsableParadaController {
 				carnet.setNvips(carnet.getNvips() + 1);
 			}
 
+			System.out.println("El servicio es"+ tieneEnvioACasa);
+			
 			// Guardamos el carnet Ó Actualizamos
 			carnetService.GuardarCarnet(carnet);
 
@@ -324,8 +371,20 @@ public class ResponsableParadaController {
 				// Guardamos la nueva estancia del peregrino que se ha hospedado
 				estanciaService.guardarEstancia(nuevaEstancia);
 			}
-
+			
+			
+			System.out.println("Se hospeda?"+seHospeda);
+			
 			mostrarAlerta("Éxito", "Carnet sellado correctamente.", Alert.AlertType.INFORMATION);
+			
+			
+			// NUEVA IMPLEMENTACION PARA RELLENAR EL FORMULARIO DE ENVIO A CASA
+			if (seHospeda && tieneEnvioACasa)
+			{
+				  mostrarAlerta("Información", "Redirigiendo al formulario de Envío a Casa.", Alert.AlertType.INFORMATION);
+		            stageManager.switchScene(FxmlView.EnvioaCasa);
+		            return;
+			}
 
 		}
 
@@ -347,6 +406,22 @@ public class ResponsableParadaController {
 			System.out.println("Error en el metodo volverALogin");
 		}
 	}
+	
+	
+	@FXML
+	private void irVerEnvios()
+	{
+		try
+		{
+			stageManager.switchScene(FxmlView.EnviosRealizados);
+		}
+		
+		catch(Exception e)
+		{
+			System.out.println("Error en el metodo irVerEnvios"+e.getMessage());
+		}
+	}
+	
 
 	/**
 	 * Cargar Columnas del TableView

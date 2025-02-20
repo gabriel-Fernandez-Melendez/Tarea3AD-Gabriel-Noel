@@ -106,6 +106,30 @@ public enum FxmlView {
 		public String getFxmlFile() {
 			return "/fxml/ServiciosAdministrador.fxml";
 		}
+	},
+	
+	EnvioaCasa {
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("NuevaParada.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/EnvioACasa.fxml";
+		}
+	},
+	
+	EnviosRealizados {
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("NuevaParada.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/EnviosRealizados.fxml";
+		}
 	}
 	;
 
