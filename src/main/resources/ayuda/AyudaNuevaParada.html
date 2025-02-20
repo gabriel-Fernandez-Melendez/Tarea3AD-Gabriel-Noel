@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ayuda - Registro de Nueva Parada</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f4;
+    }
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    ul {
+      list-style-type: disc;
+      margin-left: 40px;
+    }
+    .highlight {
+      color: #007BFF;
+      font-weight: bold;
+    }
+    hr {
+      margin: 20px 0;
+    }
+    p {
+      line-height: 1.5em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Ayuda - Registro de Nueva Parada</h1>
+    <p>
+      En esta ventana puedes dar de alta una <strong>nueva parada</strong> en el sistema
+      y asignarle un <strong>responsable</strong> que se encargará de su gestión.
+      Además, dispones de un botón para generar un <span class="highlight">Informe PDF de Peregrinos</span>
+      con información resumida de cada uno de ellos.
+    </p>
+
+    <hr>
+
+    <h2>1. Exportar Informe de Peregrinos (PDF)</h2>
+    <p>
+      El botón <strong>“Exportar Informe de Peregrinos”</strong> genera un documento PDF
+      con los datos individualizados de todos los peregrinos. En concreto, se incluyen:
+    </p>
+    <ul>
+      <li><strong>ID del Peregrino</strong></li>
+      <li><strong>Nombre</strong></li>
+      <li><strong>Nacionalidad</strong></li>
+      <li><strong>ID de Carnet</strong></li>
+      <li><strong>Distancia Recorrida</strong></li>
+      <li><strong>Parada Inicial</strong></li>
+    </ul>
+    <p>
+      Una vez generado, el PDF se abrirá en tu navegador o en el visor de PDF predeterminado,
+      permitiéndote guardarlo o imprimirlo.
+    </p>
+
+    <hr>
+
+    <h2>2. Credenciales del Responsable</h2>
+    <p>
+      Antes de crear la nueva parada, es necesario especificar la información de la persona
+      que será responsable de su administración. Los campos requeridos son:
+    </p>
+    <ul>
+      <li><strong>Nombre de Usuario:</strong> identificador que utilizará para iniciar sesión.</li>
+      <li><strong>Correo del Usuario:</strong> dirección de email para notificaciones y recuperación de cuenta.</li>
+      <li><strong>Contraseña del Usuario:</strong> clave de acceso que debe ser confidencial y segura.</li>
+    </ul>
+
+    <hr>
+
+    <h2>3. Datos de la Nueva Parada</h2>
+    <p>
+      A continuación, deberás rellenar los datos de la parada que se va a registrar:
+    </p>
+    <ul>
+      <li><strong>Nombre de la Parada:</strong> nombre identificativo de la nueva parada.</li>
+      <li><strong>Región:</strong> región o código de la zona en la que se ubica la parada.</li>
+    </ul>
+
+    <hr>
+
+    <h2>4. Acciones Principales</h2>
+    <ul>
+      <li>
+        <strong>Guardar Parada:</strong>
+        <p>
+          Guarda la información introducida (credenciales del responsable y datos de la parada) 
+          en la base de datos. Verifica que todos los campos sean correctos antes de pulsar este botón.
+        </p>
+      </li>
+      <li>
+        <strong>Limpiar Campos:</strong>
+        <p>
+          Restablece los campos a su estado inicial, borrando lo que hayas introducido.
+          Útil si te has equivocado o quieres comenzar de nuevo.
+        </p>
+      </li>
+      <li>
+        <strong>Cerrar Sesión:</strong>
+        <p>
+          Finaliza tu sesión actual y regresa a la pantalla de inicio de sesión.
+        </p>
+      </li>
+    </ul>
+
+    <hr>
+
+    <p>
+      Si tienes dudas adicionales sobre el proceso de registro de una nueva parada o la generación 
+      de informes de peregrinos, revisa las otras secciones de ayuda o contacta con soporte.
+    </p>
+  </div>
+</body>
+</html>

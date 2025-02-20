@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ayuda - Bienvenido a la Parada X</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f4;
+    }
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    ul {
+      list-style-type: disc;
+      margin-left: 40px;
+    }
+    .highlight {
+      color: #007BFF;
+      font-weight: bold;
+    }
+    hr {
+      margin: 20px 0;
+    }
+    p {
+      line-height: 1.5em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Ayuda - Bienvenido al Responsable de Parada</h1>
+    <p>
+      Esta ventana te permite <strong>sellar el carnet</strong> de un peregrino y, opcionalmente,
+      registrar una <strong>estancia</strong> (VIP o normal) en la parada actual. 
+      Además, puedes navegar a la pantalla de filtrado de estancias para consultar sellados por fecha.
+    </p>
+
+    <hr>
+
+    <h2>1. Tabla de Peregrinos</h2>
+    <p>
+      En la parte central de la ventana se muestra una tabla con la información de los peregrinos 
+      que llegan a la parada. Entre otros, se incluyen:
+    </p>
+    <ul>
+      <li><strong>ID:</strong> Identificador único del peregrino.</li>
+      <li><strong>Nombre:</strong> Nombre del peregrino.</li>
+      <li><strong>Nacionalidad:</strong> País de origen.</li>
+      <li><strong>ID Carnet:</strong> Identificador del carnet asociado al peregrino.</li>
+      <li><strong>ID Credenciales (opcional):</strong> Información de sus credenciales de usuario.</li>
+    </ul>
+    <p>
+      Selecciona en la tabla el peregrino al que deseas sellar o registrar la estancia.
+    </p>
+
+    <hr>
+
+    <h2>2. Opciones de Estancia</h2>
+    <ul>
+      <li>
+        <strong>Check “VIP”:</strong> 
+        <p>
+          Marca esta casilla si el peregrino desea una <span class="highlight">estancia VIP</span>.
+          Las estancias VIP pueden tener beneficios adicionales o un coste distinto.
+        </p>
+      </li>
+      <li>
+        <strong>Check “Hotel” / “Estancia”:</strong>
+        <p>
+          Marca esta casilla para indicar que el peregrino <span class="highlight">se alojará</span> 
+          en la parada. Si no la marcas, sólo se sellará el carnet sin crear estancia.
+        </p>
+      </li>
+    </ul>
+
+    <hr>
+
+    <h2>3. Botones Principales</h2>
+    <ul>
+      <li>
+        <strong>Sellar Carnet:</strong>
+        <p>
+          Confirma el sellado del carnet para el peregrino seleccionado en la tabla. 
+          Si has marcado la estancia (y opcionalmente VIP), se creará también el registro 
+          de la estancia en la base de datos.
+        </p>
+      </li>
+      <li>
+        <strong>Ir a Filtrar Estancias:</strong>
+        <p>
+          Abre la ventana de <span class="highlight">filtrado de estancias</span> 
+          para consultar los sellados realizados en esta parada en un rango de fechas específico.
+        </p>
+      </li>
+      <li>
+        <strong>Cerrar Sesión:</strong>
+        <p>
+          Finaliza tu sesión y te devuelve a la pantalla de inicio de sesión.
+        </p>
+      </li>
+    </ul>
+
+    <hr>
+
+    <h2>4. Recomendaciones</h2>
+    <p>
+      - Verifica que seleccionas el <span class="highlight">peregrino correcto</span> en la tabla antes de sellar el carnet.<br>
+      - Activa la casilla de <span class="highlight">“VIP”</span> sólo si el peregrino realmente requiere 
+        los servicios o beneficios de una estancia VIP.<br>
+      - Utiliza la opción de <span class="highlight">“Estancia”</span> cuando el peregrino se aloje en la parada.
+        Si el peregrino sólo necesita sellar, deja la casilla sin marcar.<br>
+      - Si deseas consultar o filtrar estancias ya registradas, pulsa <strong>“Ir a Filtrar Estancias”</strong>.
+    </p>
+
+    <hr>
+
+    <p>
+      Para más información sobre otras funcionalidades de la aplicación,
+      revisa las demás secciones de ayuda o ponte en contacto con soporte.
+    </p>
+  </div>
+</body>
+</html>

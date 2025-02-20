@@ -78,6 +78,9 @@ public class NuevoPeregrinoController implements Initializable {
 
 	@FXML
 	private TextField correo_peregrino;
+	
+	@FXML
+	private MenuItem ayuda;
 
 	@FXML
 	private ComboBox<String> pais;
@@ -126,7 +129,7 @@ public class NuevoPeregrinoController implements Initializable {
 			WebView webView = new WebView();
 
 			// Cargar el archivo HTML desde los recursos
-			String url = getClass().getResource("/ayuda/Ayuda.html").toExternalForm();
+			String url = getClass().getResource("/ayuda/AyudaNuevoPeregrino.html").toExternalForm();
 			webView.getEngine().load(url);
 
 			// Crear un nuevo Stage para la ventana de ayuda

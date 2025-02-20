@@ -88,6 +88,9 @@ public class NuevaParadaController implements Initializable {
 
 	@FXML
 	private ImageView imagen;
+	
+	@FXML
+	private MenuItem ayuda;
 
 	@Autowired
 	private CredencialesService credenciales_service;
@@ -154,7 +157,7 @@ public class NuevaParadaController implements Initializable {
 			WebView webView = new WebView();
 
 			// Cargar el archivo HTML desde los recursos
-			String url = getClass().getResource("/ayuda/Ayuda.html").toExternalForm();
+			String url = getClass().getResource("/ayuda/AyudaNuevaParada.html").toExternalForm();
 			webView.getEngine().load(url);
 
 			// Crear un nuevo Stage para la ventana de ayuda

@@ -115,6 +115,9 @@ public class ExportarCarnetXMLController implements Initializable {
 	private ParadaSelladaService paradasellada_service;
 	@FXML
 	private MenuItem modificar;
+	@FXML
+	private MenuItem ayuda;
+	
 	@Lazy
 	@Autowired
 	private StageManager stageManager;
@@ -151,7 +154,7 @@ public class ExportarCarnetXMLController implements Initializable {
 			WebView webView = new WebView();
 
 			// Cargar el archivo HTML desde los recursos
-			String url = getClass().getResource("/ayuda/Ayuda.html").toExternalForm();
+			String url = getClass().getResource("/ayuda/AyudaExportarCarnetXML.html").toExternalForm();
 			webView.getEngine().load(url);
 
 			// Crear un nuevo Stage para la ventana de ayuda

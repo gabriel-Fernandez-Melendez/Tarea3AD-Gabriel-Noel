@@ -98,6 +98,12 @@ public class ResponsableParadaController {
 	
 	@Autowired
 	private ParadaService paradaService;
+	
+	@FXML
+	private MenuItem ayuda;
+	
+	@FXML
+	private MenuItem salir;
 
 	@Lazy
 	@Autowired
@@ -115,6 +121,8 @@ public class ResponsableParadaController {
 		inicializarParadaActual();
 
 	}
+	
+	
 
 	@FXML
 	public void AyudaJavaFX() {
@@ -124,7 +132,7 @@ public class ResponsableParadaController {
 			WebView webView = new WebView();
 
 			// Cargar el archivo HTML desde los recursos
-			String url = getClass().getResource("/ayuda/Ayuda.html").toExternalForm();
+			String url = getClass().getResource("/ayuda/AyudaResponsableParada.html").toExternalForm();
 			webView.getEngine().load(url);
 
 			// Crear un nuevo Stage para la ventana de ayuda

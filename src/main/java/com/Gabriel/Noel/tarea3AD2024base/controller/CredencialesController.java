@@ -27,6 +27,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.web.WebView;
@@ -62,6 +63,9 @@ public class CredencialesController implements Initializable {
 	@FXML
 	private Button boton_Nuevo_Peregrino;
 	
+	@FXML
+	private MenuItem ayuda;
+	
 
 	@Autowired
 	private CredencialesService credenciales_service;
@@ -74,6 +78,7 @@ public class CredencialesController implements Initializable {
 	@Lazy
 	@Autowired
 	private StageManager stageManager;
+	
 	
 	
 
@@ -208,7 +213,7 @@ public class CredencialesController implements Initializable {
 		    WebView webView = new WebView();
 
 		    // Cargar el archivo HTML desde los recursos
-		    String url = getClass().getResource("/ayuda/Ayuda.html").toExternalForm();
+		    String url = getClass().getResource("/ayuda/AyudaCredenciales.html").toExternalForm();
 		    webView.getEngine().load(url);
 
 		    // Crear un nuevo Stage para la ventana de ayuda

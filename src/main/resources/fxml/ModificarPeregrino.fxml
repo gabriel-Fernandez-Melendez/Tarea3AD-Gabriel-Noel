@@ -8,13 +8,13 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.control.Tooltip?>
 
 <BorderPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Gabriel.Noel.tarea3AD2024base.controller.ModificarPeregrinoController">
    <top>
@@ -22,13 +22,13 @@
         <menus>
           <Menu mnemonicParsing="false" text="Opciones">
             <items>
-              <MenuItem mnemonicParsing="false" text="Exportar Carnet" />
-                  <MenuItem fx:id="menusalir" mnemonicParsing="false" text="salir" />
+              <MenuItem fx:id="exportarPeregrino" mnemonicParsing="false" onAction="#volverExportar" text="Exportar Carnet" />
+                  <MenuItem fx:id="menusalir" mnemonicParsing="false" onAction="#Salir" text="salir" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Ayuda">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem fx:id="ayuda" mnemonicParsing="false" onAction="#AyudaJavaFX" text="Ayuda" />
             </items>
           </Menu>
         </menus>
@@ -80,7 +80,7 @@
                   </Button>
                </children>
             </HBox>
-            <HBox  layoutX="10.0" layoutY="304.0" prefHeight="67.0" prefWidth="1000.0">
+            <HBox layoutX="10.0" layoutY="304.0" prefHeight="67.0" prefWidth="1000.0">
                <children>
                   <Label prefHeight="17.0" prefWidth="130.0" text="Nombre de Usuario">
                      <HBox.margin>

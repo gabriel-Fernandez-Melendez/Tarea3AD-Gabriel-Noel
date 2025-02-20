@@ -25,19 +25,14 @@
          <children>
             <MenuBar>
                <menus>
-                  <Menu mnemonicParsing="false" text="File">
+                  <Menu mnemonicParsing="false" text="Opciones">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Close" />
+                        <MenuItem fx:id="salir" mnemonicParsing="false" onAction="#Salir" text="Salir" />
                      </items>
                   </Menu>
-                  <Menu mnemonicParsing="false" text="Edit">
+                  <Menu mnemonicParsing="false" text="Ayuda">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Delete" />
-                     </items>
-                  </Menu>
-                  <Menu mnemonicParsing="false" text="Help">
-                     <items>
-                        <MenuItem mnemonicParsing="false" text="About" />
+                        <MenuItem fx:id="ayuda" mnemonicParsing="false" onAction="#AyudaJavaFX" text="Ayuda" />
                      </items>
                   </Menu>
                </menus>
