@@ -26,12 +26,12 @@ public class ConjuntoContratadosRepository {
 	        {
 	            db.store(c);
 	            db.commit();
-	            System.out.println("✅ Servicio guardado en DB4O: " + c);
+	            System.out.println("Servicio guardado en DB4O: " + c);
 	            
 	        } 
 	        catch (Exception e) 
 	        {
-	            System.out.println("❌ Error al guardar el servicio: " + e.getMessage());
+	            System.out.println("Error al guardar el servicio: " + e.getMessage());
 	        }
 	    }
 	
