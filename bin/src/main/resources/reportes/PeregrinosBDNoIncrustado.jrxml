@@ -1,0 +1,87 @@
+<jasperReport name="PeregrinosBDNoIncrustado" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="PeregrinosBDFinal"/>
+
+    <queryString language="SQL">
+        <![CDATA[
+        SELECT bdtarea3adnoel.peregrinos.id,
+               bdtarea3adnoel.peregrinos.nacionalidad,
+               bdtarea3adnoel.peregrinos.nombre,
+               bdtarea3adnoel.carnet.distancia,
+               bdtarea3adnoel.carnet.fecha_expedicion,
+               bdtarea3adnoel.paradas.nombre as COLUMN_11
+        FROM bdtarea3adnoel.peregrinos
+        INNER JOIN bdtarea3adnoel.carnet 
+            ON bdtarea3adnoel.peregrinos.carnet_id = bdtarea3adnoel.carnet.id 
+        INNER JOIN bdtarea3adnoel.paradas 
+            ON bdtarea3adnoel.carnet.parada_inicial_id = bdtarea3adnoel.paradas.id
+        ]]>
+    </queryString>
+
+    <field name="id" class="java.lang.Long"/>
+    <field name="nacionalidad" class="java.lang.String"/>
+    <field name="nombre" class="java.lang.String"/>
+    <field name="distancia" class="java.lang.Double"/>
+    <field name="fecha_expedicion" class="java.sql.Date"/>
+    <field name="COLUMN_11" class="java.lang.String"/>
+
+    <background>
+        <band/>
+    </background>
+
+    <pageHeader>
+        <band height="80">
+            <image>
+                <reportElement x="440" y="-10" width="105" height="90"/>
+                <imageExpression><![CDATA["Images/Concha.png"]]></imageExpression>
+            </image>
+            <staticText>
+                <reportElement x="-11" y="20" width="594" height="30"/>
+                <textElement>
+                    <font size="22" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Lista de los Peregrinos:]]></text>
+            </staticText>
+        </band>
+    </pageHeader>
+
+    <columnHeader>
+        <band height="30">
+            <staticText><reportElement x="-10" y="0" width="60" height="30"/><text><![CDATA[ID Peregrino:]]></text></staticText>
+            <staticText><reportElement x="60" y="0" width="60" height="30"/><text><![CDATA[Nombre:]]></text></staticText>
+            <staticText><reportElement x="140" y="0" width="70" height="30"/><text><![CDATA[Nacionalidad:]]></text></staticText>
+            <staticText><reportElement x="300" y="0" width="90" height="30"/><text><![CDATA[Fecha expedición:]]></text></staticText>
+            <staticText><reportElement x="400" y="0" width="90" height="30"/><text><![CDATA[Distancia recorrida:]]></text></staticText>
+            <staticText><reportElement x="500" y="0" width="64" height="30"/><text><![CDATA[Parada Inicial:]]></text></staticText>
+        </band>
+    </columnHeader>
+
+    <detail>
+        <band height="31">
+            <textField><reportElement x="-10" y="0" width="40" height="30"/><textFieldExpression><![CDATA[$F{id}]]></textFieldExpression></textField>
+            <textField><reportElement x="60" y="0" width="60" height="30"/><textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression></textField>
+            <textField><reportElement x="140" y="0" width="80" height="30"/><textFieldExpression><![CDATA[$F{nacionalidad}]]></textFieldExpression></textField>
+            <textField><reportElement x="300" y="0" width="80" height="30"/><textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{fecha_expedicion})]]></textFieldExpression></textField>
+            <textField><reportElement x="400" y="0" width="50" height="30"/><textFieldExpression><![CDATA[$F{distancia} + " Km"]]></textFieldExpression></textField>
+            <textField><reportElement x="500" y="0" width="64" height="30"/><textFieldExpression><![CDATA[$F{COLUMN_11}]]></textFieldExpression></textField>
+        </band>
+    </detail>
+
+    <pageFooter>
+        <band height="60">
+            <textField>
+                <reportElement x="410" y="30" width="100" height="30"/>
+                <textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="510" y="30" width="100" height="30"/>
+                <textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+
+    <summary>
+        <band height="42"/>
+    </summary>
+
+</jasperReport>

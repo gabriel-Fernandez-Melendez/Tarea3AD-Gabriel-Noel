@@ -1,4 +1,4 @@
-package com.Gabriel.Noel.tarea3AD2024base.modelo;
+package com.Gabriel.Noel.tarea3AD2024base.controller;
 
 import java.time.LocalDate;
 
@@ -7,7 +7,7 @@ import java.time.LocalDate;
  * a la TableView de la EstanciasFiltradasController
  * solo el contructor y los getter y setters
  */
-public class PeregrinoTabla {
+public class PeregrinoTablaController {
     private Long id;
     private String nombre;
     private LocalDate fechaSellado; // Como String para mostrar directamente en la tabla
@@ -15,7 +15,7 @@ public class PeregrinoTabla {
     private String esVIP;       // "Sí" o "No"
 
     // Constructor
-    public PeregrinoTabla(Long id, String nombre, LocalDate fechaSellado, String seEstancio, String esVIP) {
+    public PeregrinoTablaController(Long id, String nombre, LocalDate fechaSellado, String seEstancio, String esVIP) {
         this.id = id;
         this.nombre = nombre;
         this.fechaSellado = fechaSellado;

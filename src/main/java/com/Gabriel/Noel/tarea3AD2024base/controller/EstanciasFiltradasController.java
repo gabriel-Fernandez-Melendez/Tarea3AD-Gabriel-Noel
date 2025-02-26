@@ -25,7 +25,6 @@ import org.springframework.stereotype.Controller;
 import com.Gabriel.Noel.tarea3AD2024base.config.StageManager;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
-import com.Gabriel.Noel.tarea3AD2024base.modelo.PeregrinoTabla;
 import com.Gabriel.Noel.tarea3AD2024base.services.EstanciaService;
 import com.Gabriel.Noel.tarea3AD2024base.services.ParadaService;
 import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
@@ -61,22 +60,22 @@ public class EstanciasFiltradasController {
 	private Button botonVolverAtras;
 
 	@FXML
-	private TableView<PeregrinoTabla> tablaPeregrinosFiltrados;
+	private TableView<PeregrinoTablaController> tablaPeregrinosFiltrados;
 
 	@FXML
-	private TableColumn<PeregrinoTabla, Long> colPeregrinoID;
+	private TableColumn<PeregrinoTablaController, Long> colPeregrinoID;
 
 	@FXML
-	private TableColumn<PeregrinoTabla, String> colNombre;
+	private TableColumn<PeregrinoTablaController, String> colNombre;
 
 	@FXML
-	private TableColumn<PeregrinoTabla, String> colFechaSellado;
+	private TableColumn<PeregrinoTablaController, String> colFechaSellado;
 
 	@FXML
-	private TableColumn<PeregrinoTabla, String> colSeEstancio;
+	private TableColumn<PeregrinoTablaController, String> colSeEstancio;
 
 	@FXML
-	private TableColumn<PeregrinoTabla, String> colEsVIP;
+	private TableColumn<PeregrinoTablaController, String> colEsVIP;
 
 	@FXML
 	private DatePicker fechaFiltradoInicio;
@@ -186,7 +185,7 @@ public class EstanciasFiltradasController {
 	        }
 
 	        // Obtener las estancias directamente como objetos PeregrinoTabla
-	        List<PeregrinoTabla> estancias = estanciaService.obtenerEstanciasFiltradas(paradaActual.getId(), fechaInicio, fechaFin);
+	        List<PeregrinoTablaController> estancias = estanciaService.obtenerEstanciasFiltradas(paradaActual.getId(), fechaInicio, fechaFin);
 
 	        if (estancias.isEmpty()) 
 	        {
@@ -196,7 +195,7 @@ public class EstanciasFiltradasController {
 	        }
 
 	        // Convertir la lista en un ObservableList para la tabla
-	        ObservableList<PeregrinoTabla> peregrinosTabla = FXCollections.observableArrayList(estancias);
+	        ObservableList<PeregrinoTablaController> peregrinosTabla = FXCollections.observableArrayList(estancias);
 
 	        // Asignar los valores a la tabla
 	        tablaPeregrinosFiltrados.setItems(peregrinosTabla);

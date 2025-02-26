@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.Gabriel.Noel.tarea3AD2024base.controller.PeregrinoTablaController;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Estancia;
-import com.Gabriel.Noel.tarea3AD2024base.modelo.PeregrinoTabla;
 import com.Gabriel.Noel.tarea3AD2024base.repositorios.EstanciaRepository;
 
 @Service
@@ -33,7 +33,7 @@ public class EstanciaService {
      * @param fechaFin Fecha de fin del filtro
      * @return Lista de PeregrinoTabla con los datos listos para mostrar en la tabla
      */
-    public List<PeregrinoTabla> obtenerEstanciasFiltradas(Long idParada, LocalDate fechaInicio, LocalDate fechaFin) 
+    public List<PeregrinoTablaController> obtenerEstanciasFiltradas(Long idParada, LocalDate fechaInicio, LocalDate fechaFin) 
     {
         return estanciaRepository.filtrarEstancias(idParada, fechaInicio, fechaFin);
     }

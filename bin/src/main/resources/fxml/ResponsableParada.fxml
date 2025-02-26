@@ -9,6 +9,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -23,19 +24,13 @@
          <children>
             <MenuBar>
               <menus>
-                <Menu mnemonicParsing="false" text="File">
+                <Menu mnemonicParsing="false" text="Opciones">
+                     <items>
+                        <MenuItem fx:id="salir" mnemonicParsing="false" onAction="#Salir" text="Salir" />
+                     </items></Menu>
+                <Menu mnemonicParsing="false" text="Ayuda">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
+                    <MenuItem fx:id="ayuda" mnemonicParsing="false" onAction="#AyudaJavaFX" text="Ayuda" />
                   </items>
                 </Menu>
               </menus>
@@ -60,7 +55,7 @@
                   </Label>
                   <ImageView fitHeight="40.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/SALIR.png" />
+                        <Image url="@../images/Apagado.png" />
                      </image>
                      <HBox.margin>
                         <Insets right="10.0" top="8.0" />
@@ -76,6 +71,9 @@
                      <effect>
                         <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
                      </effect>
+                     <tooltip>
+                        <Tooltip text="Cerrar la sesión y volver al inicio" />
+                     </tooltip>
                   </Button>
                </children>
             </HBox>
@@ -108,6 +106,9 @@
                            <HBox.margin>
                               <Insets left="50.0" right="20.0" top="15.0" />
                            </HBox.margin>
+                           <tooltip>
+                        <Tooltip text="Interfaz para filtrar paradas" />
+                     </tooltip>
                         </Button>
                         <ImageView fitHeight="54.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -121,6 +122,9 @@
                            <HBox.margin>
                               <Insets left="360.0" right="10.0" top="25.0" />
                            </HBox.margin>
+                           <tooltip>
+                        <Tooltip text="Seleccionar estancia VIP" />
+                     </tooltip>
                         </CheckBox>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -134,6 +138,9 @@
                            <HBox.margin>
                               <Insets left="25.0" right="10.0" top="25.0" />
                            </HBox.margin>
+                           <tooltip>
+                        <Tooltip text="Seleccionar hospedarse en la Parada" />
+                     </tooltip>
                         </CheckBox>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -153,6 +160,9 @@
                            <HBox.margin>
                               <Insets right="20.0" top="15.0" />
                            </HBox.margin>
+                           <tooltip>
+                        <Tooltip text="Sellar el carnet del Peregrino" />
+                     </tooltip>
                         </Button>
                      </children>
                   </HBox>

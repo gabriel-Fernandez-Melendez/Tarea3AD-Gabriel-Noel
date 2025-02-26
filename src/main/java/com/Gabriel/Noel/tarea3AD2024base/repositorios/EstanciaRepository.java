@@ -2,13 +2,16 @@ package com.Gabriel.Noel.tarea3AD2024base.repositorios;
 
 import java.time.LocalDate;
 import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.Gabriel.Noel.tarea3AD2024base.controller.PeregrinoTablaController;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Estancia;
-import com.Gabriel.Noel.tarea3AD2024base.modelo.PeregrinoTabla;
+
+
 
 @Repository
 public interface EstanciaRepository extends JpaRepository<Estancia, Long> {
@@ -28,7 +31,8 @@ public interface EstanciaRepository extends JpaRepository<Estancia, Long> {
 	 * @param fechaFin
 	 * @return
 	 */
-	@Query("SELECT new com.Gabriel.Noel.tarea3AD2024base.modelo.PeregrinoTabla( " +
+	//todo review
+	@Query("SELECT new com.Gabriel.Noel.tarea3AD2024base.controller.PeregrinoTablaController( " +
 		       "p.id, " +
 		       "p.nombre, " +
 		       "ps.fechaParada, " +  
@@ -39,7 +43,7 @@ public interface EstanciaRepository extends JpaRepository<Estancia, Long> {
 		       "LEFT JOIN Estancia e ON e.peregrino.id = p.id AND e.parada.id = ps.parada.id AND e.fecha = ps.fechaParada " +
 		       "WHERE ps.parada.id = :idParada " +
 		       "AND ps.fechaParada BETWEEN :fechaInicio AND :fechaFin")
-		List<PeregrinoTabla> filtrarEstancias(@Param("idParada") Long idParada,
+		List<PeregrinoTablaController> filtrarEstancias(@Param("idParada") Long idParada,
 		                                      @Param("fechaInicio") LocalDate fechaInicio,
 		                                      @Param("fechaFin") LocalDate fechaFin);
 
