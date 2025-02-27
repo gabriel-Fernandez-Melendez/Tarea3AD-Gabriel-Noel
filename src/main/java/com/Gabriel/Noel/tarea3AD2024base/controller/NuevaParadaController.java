@@ -44,7 +44,7 @@ public class NuevaParadaController implements Initializable {
 
 	@FXML
 	private PasswordField contraseña_login;
-	
+
 	@FXML
 	private MenuItem menusalir;
 
@@ -68,7 +68,7 @@ public class NuevaParadaController implements Initializable {
 
 	@FXML
 	private Button botonCerrarSesion;
-	
+
 	@FXML
 	private Button botonServicio;
 
@@ -134,7 +134,7 @@ public class NuevaParadaController implements Initializable {
 		miAlerta.setContentText(mensaje);
 		miAlerta.showAndWait();
 	}
-	
+
 	@FXML
 	public void AyudaJavaFX() {
 		try {
@@ -179,37 +179,36 @@ public class NuevaParadaController implements Initializable {
 	// metodos para guardar la parada y las credenciales del usuario
 	@FXML
 	public void GuardarCredencialesResponsableParada() {
-		boolean validar_correo = true;
-		boolean validar_region = true;
-		boolean validar_nombre = true;
-		boolean validar_contraseña = true;
 
-		if (nombre_login.getText().contains(" ")) {
+		if (nombre_login.getText().isEmpty() || nombre_login.getText().contains(" ")) {
 			mostrarAlerta("Nombre no valido", "no puede tener espacios blancos el nombre", AlertType.ERROR);
-			validar_nombre = false;
+			return;
 		}
-		if (contraseña_login.getText().contains(" ")) {
+		if (contraseña_login.getText().contains(" ") || contraseña_login.getText().isEmpty()) {
 			mostrarAlerta("contraseña no valida", "no puede tener espacios blancos la contraseña", AlertType.ERROR);
-			validar_contraseña = false;
+			return;
 		}
-		if (!correo_usuario.getText().contains("@")) {
-			mostrarAlerta("contraseña no valida", "falta el @", AlertType.ERROR);
-			validar_correo = false;
-		}
-		if (!correo_usuario.getText().contains(".com")) {
-			mostrarAlerta("contraseña no valida", "falta el .com", AlertType.ERROR);
-			validar_correo = false;
+		if (!correo_usuario.getText().matches(
+				"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")) {
+			mostrarAlerta("correo no valida", "falta el @", AlertType.ERROR);
+			return;
 		}
 		if (nombre_region.getText().length() > 1) {
-			mostrarAlerta("contraseña no valida", "la region solo puede ser un caracter", AlertType.ERROR);
-			validar_region = false;
+			mostrarAlerta("region cago en ros", "la region solo puede ser un caracter", AlertType.ERROR);
+			return;
 		}
-		if (validar_contraseña && validar_correo && validar_nombre && validar_region) {
-			Credenciales c = GuardarNuevasCredenciales();
-			GuardarParada(c);
-			mostrarAlerta("Nueva parada", "A guardado la nueva parada con sus responsable correspondiente",
-					AlertType.INFORMATION);
+		ArrayList<Parada> paradas = new ArrayList<Parada>();
+		paradas =(ArrayList<Parada>) parada_service.ListaDeParadas();
+		for(Parada p : paradas	) {
+			if(p.getNombre().equalsIgnoreCase(nombre_parada.getText())) {
+				mostrarAlerta("nombre de parada existente", "tiene que escojer un  nombre que no exista en la parada", AlertType.ERROR);
+				return;
+			}
 		}
+		Credenciales c = GuardarNuevasCredenciales();
+		GuardarParada(c);
+		mostrarAlerta("Nueva parada", "A guardado la nueva parada con sus responsable correspondiente",
+				AlertType.INFORMATION);
 
 	}
 
@@ -255,7 +254,7 @@ public class NuevaParadaController implements Initializable {
 	private void cerrarSesion() {
 		stageManager.switchScene(FxmlView.LOGIN);
 	}
-	
+
 	@FXML
 	private void irAServicio() {
 		stageManager.switchScene(FxmlView.ServiciosAdministrador);
@@ -269,11 +268,9 @@ public class NuevaParadaController implements Initializable {
 		miAlerta.setContentText("seguro que quiere salir?");
 		Optional<ButtonType> resultado = miAlerta.showAndWait();
 
-		if(resultado.get()==ButtonType.OK) {
+		if (resultado.get() == ButtonType.OK) {
 			System.exit(0);
 		}
 	}
-	
-
 
 }
