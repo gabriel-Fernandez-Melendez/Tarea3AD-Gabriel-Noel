@@ -46,8 +46,8 @@ public class ServiciosService {
      * @param servicioId ID del servicio al que se le asignarán las paradas.
      * @param idParadas  Lista de IDs de las paradas a asignar.
      */
-    public void asignarParadasAServicio(Long servicioId, List<Long> idParadas) {
-        servicioRepository.asignarParadasAServicio(servicioId, idParadas);
+    public void asignarParadasAServicio(Long servicioId, List<String> nombreParadas) {
+        servicioRepository.asignarParadasAServicio(servicioId, nombreParadas);
     }
     
     

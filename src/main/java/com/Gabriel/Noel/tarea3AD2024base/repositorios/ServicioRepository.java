@@ -47,23 +47,17 @@ public class ServicioRepository {
         }
     }
 
-    /**
-     * Asigna paradas a un servicio determinado evitando duplicados.
-     * 
-     * @param servicioId     ID del servicio al que se le asignarán paradas.
-     * @param nuevasParadas  Lista de IDs de las nuevas paradas a asignar.
-     */
-    public void asignarParadasAServicio(Long servicioId, List<Long> nuevasParadas) {
+    public void asignarParadasAServicio(Long servicioId, List<String> nombreParadas) {
         try {
             List<Servicio> servicios = db.query(Servicio.class);
 
             for (Servicio servicio : servicios) {
                 if (servicio.getId().equals(servicioId)) {
 
-                    // Evitar duplicados antes de asignar paradas
-                    for (Long idParada : nuevasParadas) {
-                        if (!servicio.getIdParada().contains(idParada)) {
-                            servicio.getIdParada().add(idParada);
+                    // Evitar duplicados antes de asignar nombres de paradas
+                    for (String nombreParada : nombreParadas) {
+                        if (!servicio.getNombreParadas().contains(nombreParada)) {
+                            servicio.getNombreParadas().add(nombreParada);
                         }
                     }
 
@@ -81,6 +75,7 @@ public class ServicioRepository {
     }
 
 
+
     public boolean actualizarServicio(Servicio servicio) {
         try {
             // Buscar el servicio en la base de datos
@@ -91,7 +86,9 @@ public class ServicioRepository {
                     // Actualizar los datos
                     s.setNombre(servicio.getNombre());
                     s.setPrecio(servicio.getPrecio());
-                    s.setIdParada(new ArrayList<>(servicio.getIdParada()));
+
+                    // Convertir la lista de nombreParadas en una lista mutable
+                    s.setNombreParadas(new ArrayList<>(servicio.getNombreParadas()));
 
                     // Guardar en la base de datos
                     db.store(s);
@@ -109,6 +106,7 @@ public class ServicioRepository {
             return false;
         }
     }
+
     
     
 

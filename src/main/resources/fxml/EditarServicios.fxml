@@ -57,9 +57,9 @@
                   <Insets left="10.0" right="5.0" />
                </VBox.margin>
                <children>
-                  <VBox prefHeight="97.0" prefWidth="985.0">
+                  <VBox prefHeight="42.0" prefWidth="985.0">
                      <children>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
+                        <HBox prefHeight="38.0" prefWidth="985.0">
                            <children>
                               <Label text="Conjunto de Servicios">
                                  <font>
@@ -80,7 +80,7 @@
                               <TableColumn fx:id="idServicio" maxWidth="700.0" prefWidth="20.0" text="ID" />
                               <TableColumn fx:id="nombreServicio" maxWidth="4000.0" prefWidth="104.0" text="Nombre" />
                               <TableColumn fx:id="precioServicio" maxWidth="4000.0" prefWidth="123.0" text="Precio" />
-                              <TableColumn fx:id="idParadas" maxWidth="4000.0" prefWidth="178.0" text="ID Paradas" />
+                              <TableColumn fx:id="idParadas" maxWidth="4000.0" prefWidth="178.0" text="Nombre Paradas" />
                            </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -89,51 +89,70 @@
                               <Insets bottom="40.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
                         </TableView>
-                        <VBox prefHeight="403.0" prefWidth="163.0">
+                        <VBox prefHeight="236.0" prefWidth="138.0">
                            <children>
-                              <Label text="Nombre:">
+                              <Label prefHeight="17.0" prefWidth="122.0" text="Nombre:">
                                  <VBox.margin>
                                     <Insets left="40.0" top="40.0" />
                                  </VBox.margin>
                               </Label>
-                              <Label text="Precio:">
+                              <Label prefHeight="17.0" prefWidth="47.0" text="Precio:">
                                  <VBox.margin>
                                     <Insets left="40.0" top="20.0" />
                                  </VBox.margin>
                               </Label>
-                              <Label text="ID de las Paradas">
+                              <Label text="Paradas:">
                                  <VBox.margin>
                                     <Insets left="40.0" top="20.0" />
                                  </VBox.margin>
                               </Label>
                            </children>
                         </VBox>
-                        <VBox prefHeight="403.0" prefWidth="163.0">
+                        <VBox prefHeight="403.0" prefWidth="392.0">
                            <children>
-                              <TextField fx:id="textoNombre">
+                              <TextField fx:id="textoNombre" prefHeight="25.0" prefWidth="303.0">
                                  <VBox.margin>
-                                    <Insets top="40.0" />
+                                    <Insets right="20.0" top="40.0" />
                                  </VBox.margin>
                               </TextField>
                               <TextField fx:id="textoPrecio">
                                  <VBox.margin>
-                                    <Insets top="10.0" />
+                                    <Insets right="20.0" top="10.0" />
                                  </VBox.margin>
                               </TextField>
                               <TextField fx:id="textoParadas">
                                  <VBox.margin>
-                                    <Insets top="10.0" />
+                                    <Insets right="20.0" top="10.0" />
                                  </VBox.margin>
                               </TextField>
+                              <Label alignment="CENTER" prefHeight="30.0" prefWidth="323.0" text="Lista de Paradas">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TableView fx:id="tablaParadas" prefHeight="260.0" prefWidth="333.0" tableMenuButtonVisible="true">
+                                 <columns>
+                                    <TableColumn fx:id="idParada" maxWidth="700.0" prefWidth="20.0" text="ID" />
+                                    <TableColumn fx:id="nombreParada" maxWidth="4000.0" prefWidth="104.0" text="Parada" />
+                                 </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                                 <VBox.margin>
+                                    <Insets right="20.0" top="5.0" />
+                                 </VBox.margin>
+                              </TableView>
                            </children>
                         </VBox>
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <VBox prefHeight="262.0" prefWidth="694.0">
+            <VBox prefHeight="63.0" prefWidth="1000.0">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0" />
                   <Button fx:id="botonGuardar" mnemonicParsing="false" onAction="#guardarCambios" prefHeight="30.0" prefWidth="150.0" styleClass="background" text="Guardar Cambios" textFill="#fff9f9" textOverrun="CLIP">
                      <font>
                         <Font size="14.0" />

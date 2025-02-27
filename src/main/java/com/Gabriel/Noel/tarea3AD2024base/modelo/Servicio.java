@@ -7,14 +7,14 @@ public class Servicio {
 	private Long id;
 	private String nombre;
 	private Double precio;
-	private List<Long> idParada;
+	private List<String> nombreParadas;
 
 	//hay que crear la conexion con ambas, probablemente la coleccion puede y debe estar solo del lado de la relacion de conjuntos pero lo pongo aqui de forma provicional
 	private ArrayList<ConjuntoContratado> conjuntos;
 	
 	
 	public Servicio() {
-		this.idParada = new ArrayList<>();
+		this.nombreParadas = new ArrayList<>();
 	}
 
 	public Servicio(Long id, String nombre, Double precio) {
@@ -22,7 +22,7 @@ public class Servicio {
 		this.id = id;
 		this.nombre = nombre;
 		this.precio = precio;
-		this.idParada = new ArrayList<>();
+		this.nombreParadas = new ArrayList<>();
 	}
 	
 	public Long getId() {
@@ -57,21 +57,22 @@ public class Servicio {
 	public void setConjuntos(ArrayList<ConjuntoContratado> conjuntos) {
 		this.conjuntos = conjuntos;
 	}
-	
 
-	public List<Long> getIdParada() {
-		return idParada;
+	public List<String> getNombreParadas() {
+		return nombreParadas;
 	}
 
-	public void setIdParada(List<Long> idParada) {
-		this.idParada = idParada;
+	public void setNombreParadas(List<String> nombreParadas) {
+		this.nombreParadas = nombreParadas;
 	}
 
 	@Override
 	public String toString() {
-		return "Servicio [id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", idParada=" + idParada + "]";
+		return "Servicio [id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", nombreParadas=" + nombreParadas
+				+ ", conjuntos=" + conjuntos + "]";
 	}
 
+	
 	
 	
 	

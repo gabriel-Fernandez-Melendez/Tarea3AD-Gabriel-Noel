@@ -101,11 +101,43 @@ public class EnvioACasaController implements Serializable {
 		
 		boolean urgente = esUrgente.isSelected();
 		
-		if (!validar(peso)|| !validar(largo) || !validar(ancho) || !validar(alto) ||
-				!validar(direccion) || !validar(localidad))
-		{
-			return;
-		}
+//		if (!validar(peso)|| !validar(largo) || !validar(ancho) || !validar(alto) ||
+//				!validar(direccion) || !validar(localidad))
+//		{
+//			return;
+//		}
+		
+		 // Comprobación de campos vacíos y mostrar qué campo falta
+        if (peso.isEmpty()) {
+            mostrarAlerta("Error", "El campo 'Peso' no puede estar vacío.", AlertType.ERROR);
+            return;
+        }
+        if (largo.isEmpty()) {
+            mostrarAlerta("Error", "El campo 'Largo' no puede estar vacío.", AlertType.ERROR);
+            return;
+        }
+        if (ancho.isEmpty()) {
+            mostrarAlerta("Error", "El campo 'Ancho' no puede estar vacío.", AlertType.ERROR);
+            return;
+        }
+        if (alto.isEmpty()) {
+            mostrarAlerta("Error", "El campo 'Alto' no puede estar vacío.", AlertType.ERROR);
+            return;
+        }
+        if (direccion.isEmpty()) {
+            mostrarAlerta("Error", "El campo 'Dirección' no puede estar vacío.", AlertType.ERROR);
+            return;
+        }
+        if (localidad.isEmpty()) {
+            mostrarAlerta("Error", "El campo 'Localidad' no puede estar vacío.", AlertType.ERROR);
+            return;
+        }
+		
+		 // Verificar que el peso usa punto (.) como separador decimal y no coma (,)
+        if (!peso.matches("\\d+(\\.\\d{1,2})?")) {
+            mostrarAlerta("Error", "El peso debe ser un número válido con punto (.) como separador decimal.", AlertType.ERROR);
+            return;
+        }
 		
 		// Creo el objeto Direccion
 		miDireccion.setDireccion(direccion);
@@ -114,9 +146,29 @@ public class EnvioACasaController implements Serializable {
 		
 		// Convierto las variables a Double para almacenarlas al objeto miEnvio
 		Double pesoDouble = Double.parseDouble(peso);
+		
+		// Verificar que el peso no sea negativo
+        if (pesoDouble < 0) {
+            mostrarAlerta("Error", "El peso no puede ser un número negativo.", AlertType.ERROR);
+            return;
+        }
+        
+        // Verificar que largo, ancho y alto son enteros válidos
+        if (!largo.matches("\\d+") || !ancho.matches("\\d+") || !alto.matches("\\d+")) {
+            mostrarAlerta("Error", "Las dimensiones deben ser números enteros positivos.", AlertType.ERROR);
+            return;
+        }
+		
+		
 		int largoInt = Integer.parseInt(largo);
         int anchoInt = Integer.parseInt(ancho);
         int altoInt = Integer.parseInt(alto);
+        
+     // Verificar que ninguna dimensión sea negativa
+        if (largoInt < 0 || anchoInt < 0 || altoInt < 0) {
+            mostrarAlerta("Error", "Las dimensiones no pueden ser negativas.", AlertType.ERROR);
+            return;
+        }
 		
         int[] volumen = {largoInt, anchoInt, altoInt};
 		
@@ -147,20 +199,20 @@ public class EnvioACasaController implements Serializable {
 	
 	
 	
-	public boolean validar(String texto)
-	{
-		
-		if (texto.isEmpty())
-		{
-			
-			mostrarAlerta("Error", "No puedes dejar el campo "+ texto +"vacio", AlertType.WARNING);
-			return false;
-		}
-			
-		return true;
-		
-		
-	}
+//	public boolean validar(String texto)
+//	{
+//		
+//		if (texto.isEmpty())
+//		{
+//			
+//			mostrarAlerta("Error", "No puedes dejar el campo "+ texto +"vacio", AlertType.WARNING);
+//			return false;
+//		}
+//			
+//		return true;
+//		
+//		
+//	}
 	
 	
 	private void volverAtras() {

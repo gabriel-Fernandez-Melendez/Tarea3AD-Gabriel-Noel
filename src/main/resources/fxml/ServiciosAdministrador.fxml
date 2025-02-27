@@ -88,7 +88,7 @@
                               <TableColumn fx:id="idServicio" maxWidth="700.0" prefWidth="20.0" text="ID" />
                               <TableColumn fx:id="nombreServicio" maxWidth="4000.0" prefWidth="104.0" text="Nombre" />
                               <TableColumn fx:id="precioServicio" maxWidth="4000.0" prefWidth="123.0" text="Precio" />
-                              <TableColumn fx:id="idParadas" maxWidth="4000.0" prefWidth="178.0" text="ID Paradas" />
+                              <TableColumn fx:id="idParadas" maxWidth="4000.0" prefWidth="178.0" text="Nombre Paradas" />
                            </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

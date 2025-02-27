@@ -200,7 +200,7 @@ public class ResponsableParadaController {
 				for (Servicio s : servicios)
 
 				{
-					if (s.getIdParada().contains(parada_aux.getId()))
+					if (s.getNombreParadas().contains(parada_aux.getNombre()))
 
 					{
 						servicios_filtrados.add(s);

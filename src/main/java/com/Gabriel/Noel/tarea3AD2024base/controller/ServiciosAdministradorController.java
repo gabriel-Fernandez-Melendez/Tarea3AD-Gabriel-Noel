@@ -118,14 +118,36 @@ public class ServiciosAdministradorController implements Serializable
 
 	    // Obtener valores de los campos de texto
 	    String nombre = textServicio.getText();
-	    Double precio = Double.parseDouble(textPrecio.getText());
+	    String precio = textPrecio.getText().trim();
+	    
+	    
+	    // Verificar que los campos no estén vacíos
+        if (nombre.isEmpty() || precio.isEmpty()) {
+            mostrarAlerta("Error", "Todos los campos son obligatorios", AlertType.ERROR);
+            return;
+        }
+        
+        // Verificar que el precio usa punto (.) como separador decimal y no coma (,)
+        if (!precio.matches("\\d+(\\.\\d{1,2})?")) {
+            mostrarAlerta("Error", "El precio debe ser un número válido con punto (.) como separador decimal", AlertType.ERROR);
+            return;
+        }
+
+        // Convertir el precio a número
+        double miPrecio = Double.parseDouble(precio);
+        
+     // Verificar que el precio no sea negativo
+        if (miPrecio < 0) {
+            mostrarAlerta("Error", "El precio no puede ser negativo", AlertType.ERROR);
+            return;
+        }
 
 	    // Obtener la lista de servicios existentes
 	    List<Servicio> listaServicios = servicioService.obtenerTodosLosServicios();
 	    
 	    for(Servicio s : listaServicios)
 	    {
-	    	if (s.getNombre().equals(nombre))
+	    	if (s.getNombre().equalsIgnoreCase(nombre))
 	    	{
 	    		mostrarAlerta("Error", "No se puede registrar un servicio con el mismo nombre", AlertType.WARNING);
 	    		return;
@@ -139,8 +161,8 @@ public class ServiciosAdministradorController implements Serializable
 	    Servicio nuevoServicio = new Servicio();
 	    nuevoServicio.setId(idNuevo);
 	    nuevoServicio.setNombre(nombre);
-	    nuevoServicio.setPrecio(precio);
-	    nuevoServicio.setIdParada(new ArrayList<>());
+	    nuevoServicio.setPrecio(miPrecio);
+	    nuevoServicio.setNombreParadas(new ArrayList<>());
 
 	    // Guardar en la base de datos
 	    servicioService.crearServicio(nuevoServicio);
@@ -220,46 +242,34 @@ public class ServiciosAdministradorController implements Serializable
 	}
 	
 	
-	/**
-	 * 
-	 */
 	@FXML
-	private void cargarColumnasServicios()
-	{
-		try
-		{
-		idServicio.setCellValueFactory(new PropertyValueFactory<>("id"));
-		nombreServicio.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-		precioServicio.setCellValueFactory(new PropertyValueFactory<>("precio"));
-		
-		idParadas.setCellValueFactory(cellData -> {
-			 List<Long> idParadasList = cellData.getValue().getIdParada(); // Obtiene la lista de IDs
-	            String ids = (idParadasList != null && !idParadasList.isEmpty()) ? 
-	                         idParadasList.toString().replace("[", "").replace("]", "") : "Sin paradas";
-	            return new SimpleStringProperty(ids); // Devuelve la lista como String limpio
+	private void cargarColumnasServicios() {
+	    try {
+	        idServicio.setCellValueFactory(new PropertyValueFactory<>("id"));
+	        nombreServicio.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+	        precioServicio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+
+	        // Mostrar nombres de paradas en lugar de IDs
+	        idParadas.setCellValueFactory(cellData -> {
+	            List<String> nombreParadasList = cellData.getValue().getNombreParadas();
+	            String nombres = (nombreParadasList != null && !nombreParadasList.isEmpty())
+	                    ? String.join(", ", nombreParadasList)
+	                    : "Sin paradas";
+	            return new SimpleStringProperty(nombres);
 	        });
-		
-		List<Servicio> misServicios = servicioService.obtenerTodosLosServicios();
-		
-		// Imprimir los servicios recuperados
-        System.out.println("Servicios recuperados desde DB4O:");
-        for (Servicio s : misServicios) 
-        {
-            System.out.println(s.toString());
-        }
-	
-		// Convertimos la lista a un Observable
-		ObservableList<Servicio> miObservable = FXCollections.observableArrayList(misServicios);
-		
-		// Por ultimo cargar a la tabla
-		tablaServicios.setItems(miObservable);
-		}
-		
-		catch(Exception e)
-		{
-			System.out.println(e.getMessage());
-		}				
+
+	        List<Servicio> misServicios = servicioService.obtenerTodosLosServicios();
+
+	        // Convertimos la lista a un Observable
+	        ObservableList<Servicio> miObservable = FXCollections.observableArrayList(misServicios);
+
+	        // Cargar la tabla
+	        tablaServicios.setItems(miObservable);
+	    } catch (Exception e) {
+	        System.out.println("Error al cargar los servicios: " + e.getMessage());
+	    }
 	}
+
 	
 	
 
@@ -318,16 +328,16 @@ public class ServiciosAdministradorController implements Serializable
 	        
 	        
 	        //Evitar duplicados en los IDs de paradas
-	        List<Long> idParadasActuales = new ArrayList<>(miServicio.getIdParada()); // Creamos una lista con los ID de las paradas asignadas al Servicio
+	        List<String> nombresParadas = new ArrayList<>(miServicio.getNombreParadas()); // Creamos una lista con los ID de las paradas asignadas al Servicio
 	        
-	        List<Long> nuevasParadas = new ArrayList<>(); // Sera para guardar las nuevas paradas que aun no estan asignadas
+	        List<String> nuevasParadas = new ArrayList<>(); // Sera para guardar las nuevas paradas que aun no estan asignadas
 
 	        // Solo añadira las paradas que no estan previamente asignadas
 	        for (Parada parada : paradasSeleccionadas) 
 	        {
-	            if (!idParadasActuales.contains(parada.getId())) // Solo agregar si no está ya en la lista
+	            if (!nombresParadas.contains(parada.getNombre())) // Solo agregar si no está ya en la lista
 	            { 
-	                nuevasParadas.add(parada.getId());
+	                nuevasParadas.add(parada.getNombre());
 	            }
 	        }
 
@@ -340,13 +350,13 @@ public class ServiciosAdministradorController implements Serializable
 	        }
 
 	        //Actualizar el servicio con los nuevos IDs de paradas
-	        idParadasActuales.addAll(nuevasParadas); // Agregar las nuevas paradas a la lista
-	        miServicio.setIdParada(idParadasActuales); // Asignar la lista actualizada al servicio
+	        nombresParadas.addAll(nuevasParadas); // Agregar las nuevas paradas a la lista
+	        miServicio.setNombreParadas(nombresParadas); // Asignar la lista actualizada al servicio
 	        
-	        System.out.println("Lista total de paradas en servicio: " + miServicio.getIdParada());
+	        System.out.println("Lista total de paradas en servicio: " + miServicio.getNombreParadas());
 
 	        //Guardar cambios en DB4O
-	        servicioService.asignarParadasAServicio(miServicio.getId(), idParadasActuales);
+	        servicioService.asignarParadasAServicio(miServicio.getId(), nombresParadas);
 
 	        //Refrescar tabla con la lista actualizada
 	        tablaServicios.refresh();
