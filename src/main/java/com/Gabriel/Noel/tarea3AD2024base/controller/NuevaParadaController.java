@@ -193,7 +193,7 @@ public class NuevaParadaController implements Initializable {
 			mostrarAlerta("correo no valida", "falta el @", AlertType.ERROR);
 			return;
 		}
-		if (nombre_region.getText().length() > 1||nombre_region.getText().matches("[a-zA-Z]")) {
+		if (!nombre_region.getText().matches("^[a-zA-Z]$")) {
 			mostrarAlerta("region cago en ros", "la region solo puede ser un caracter", AlertType.ERROR);
 			return;
 		}

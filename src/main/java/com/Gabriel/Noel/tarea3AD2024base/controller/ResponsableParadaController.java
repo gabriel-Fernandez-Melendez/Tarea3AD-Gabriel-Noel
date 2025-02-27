@@ -338,98 +338,92 @@ public class ResponsableParadaController {
 	 */
 	@FXML
 	private void sellarCarnet() {
-		Estancia nuevaEstancia = new Estancia();
-		try {
-			Peregrino peregrinoSeleccionado = tablaPeregrinos.getSelectionModel().getSelectedItem(); // <-- GABRIEL
+	    boolean seHospeda = checkHospedaje.isSelected();
+	    boolean esVip = checkEsVIP.isSelected();
 
-			if (peregrinoSeleccionado == null) {
-				mostrarAlerta("Error", "Por favor, selecciona a un peregrino de la lista.", Alert.AlertType.ERROR);
-				return;
-			}
+	    // Seleccionar el peregrino de la tabla
+	    Peregrino peregrinoSeleccionado = tablaPeregrinos.getSelectionModel().getSelectedItem();
+	    if (peregrinoSeleccionado == null) {
+	        mostrarAlerta("Error", "Por favor, selecciona a un peregrino de la lista.", Alert.AlertType.ERROR);
+	        return;
+	    }
 
-			boolean seHospeda = checkHospedaje.isSelected();
-			boolean esVip = checkEsVIP.isSelected();
+	    // Validar que si se marca VIP, se debe hospedar
+	    if (esVip && !seHospeda) {
+	        mostrarAlerta("Error", "Si selecciona Es VIP, tiene que seleccionar la casilla de hospedaje.", Alert.AlertType.ERROR);
+	        return;
+	    }
+	    
+	 // Validación: Si se ha seleccionado algún servicio, debe marcarse hospedaje
+	    if (!servicios_contratados.getItems().isEmpty() && !checkHospedaje.isSelected()) {
+	        mostrarAlerta("Error", "Si contratas un servicio, debes seleccionar que te hospedas.", AlertType.ERROR);
+	        return;
+	    }
 
-			// Si selecciona VIP y no es VIP al mismo tiempo, saltara la alerta
-			if (esVip && !seHospeda) {
-				mostrarAlerta("Error", "Si selecciona Es VIP, tiene que seleccionar la casilla con el icono de Hotel",
-						Alert.AlertType.ERROR);
-				return;
-			}
+	    // Validación: Si se ha seleccionado algún servicio, debe haber un método de pago seleccionado
+	    if (!servicios_contratados.getItems().isEmpty() && grupo.getSelectedToggle() == null) {
+	        mostrarAlerta("Error", "Si contratas un servicio, debes seleccionar un método de pago.", AlertType.ERROR);
+	        return;
+	    }
 
-			// VERIFICAR SI EL PEREGRINO HA CONTRATADO EL SERVICIO ENVIO A CASA
-			boolean tieneEnvioACasa = servicios_contratados.getItems().stream()
-					.anyMatch(servicio -> servicio.getNombre().equalsIgnoreCase("Envio a Casa"));
+	    // Validar que el peregrino no haya sellado su carnet hoy en esta parada
+	    ParadaSellada miParadaSellada = new ParadaSellada();
+	    miParadaSellada.setPeregrino(peregrinoSeleccionado);
+	    miParadaSellada.setParada(paradaActual);
+	    miParadaSellada.setFechaParada(LocalDate.now());
+	    ParadaSellada selladoExistente = paradaSelladaService.guardarParadaSellada(miParadaSellada);
+	    if (selladoExistente == null) {
+	        mostrarAlerta("Error", "El peregrino ya ha sellado en esta parada en la misma fecha.", Alert.AlertType.ERROR);
+	        return;
+	    }
 
-			// Validar si ya existe el sellado antes de proceder
-			ParadaSellada miParadaSellada = new ParadaSellada();
-			miParadaSellada.setPeregrino(peregrinoSeleccionado);
-			miParadaSellada.setParada(paradaActual);
-			miParadaSellada.setFechaParada(LocalDate.now());
+	    // Actualizar el carnet (sumar distancia)
+	    Carnet carnet = peregrinoSeleccionado.getCarnet();
+	    carnet.setDistancia(carnet.getDistancia() + 5.0);
+	    if (seHospeda && esVip) {
+	        carnet.setNvips(carnet.getNvips() + 1);
+	    }
 
-			// Creamos un objeto carnet y lo obtenemos del peregrino que hemos seleccionado
-			// de la tabla
-			Carnet carnet = peregrinoSeleccionado.getCarnet();
+	    // Procesar la estancia solo si se hospeda
+	    if (seHospeda) {
+	        Estancia nuevaEstancia = new Estancia();
+	        nuevaEstancia.setFecha(LocalDate.now());
+	        nuevaEstancia.setVip(esVip);
+	        nuevaEstancia.setParada(paradaActual);
+	        nuevaEstancia.setPeregrino(peregrinoSeleccionado);
+	        estanciaService.guardarEstancia(nuevaEstancia);
+	    }
 
-			// Sumamos 5.0Km a su carnet
-			carnet.setDistancia(carnet.getDistancia() + 5.0);
+	    // Lógica de método de pago y servicios contratados
+	    if (seHospeda && !servicios_contratados.getItems().isEmpty()) {
+	        // Si hay servicios contratados, se requiere método de pago
+	        if (grupo.getSelectedToggle() == null) {
+	            mostrarAlerta("Error", "Por favor, seleccione un método de pago para continuar con el proceso de compra.", Alert.AlertType.ERROR);
+	            return;
+	        }
+	        // Guardar el conjunto de servicios contratado (incluyendo el método de pago)
+	        GuardarConjunto();
+	        
+	        // Comprobar si entre los servicios se encuentra "Envio a Casa"
+	        boolean tieneEnvioACasa = servicios_contratados.getItems().stream()
+	                .anyMatch(servicio -> servicio.getNombre().equalsIgnoreCase("Envio a Casa"));
+	        if (tieneEnvioACasa) {
+	            carnetService.GuardarCarnet(carnet);
+	            mostrarAlerta("Éxito", "Carnet sellado correctamente.", Alert.AlertType.INFORMATION);
+	            mostrarAlerta("Información", "Redirigiendo al formulario de Envío a Casa.", Alert.AlertType.INFORMATION);
+	            stageManager.switchScene(FxmlView.EnvioaCasa);
+	            return;
+	        }
+	    } else {
+	        // Si no se hospeda o no contrata servicios, y se ha seleccionado algún método de pago, informar que no es necesario
+	        if (grupo.getSelectedToggle() != null) {
+	            mostrarAlerta("Aviso", "No es necesario seleccionar un método de pago si no se hospeda o no se contrata ningún servicio.", Alert.AlertType.INFORMATION);
+	        }
+	    }
 
-			// Si se Hospeda y es VIP sumamos a su carnet en el campo VIP +1
-			if (seHospeda && esVip) {
-				carnet.setNvips(carnet.getNvips() + 1);
-			}
-
-			System.out.println("El servicio es" + tieneEnvioACasa);
-
-			// Guardamos el carnet Ó Actualizamos
-			// ELIMINO
-
-			/**
-			 * Para el caso de que se Hospede el peregrino Recogemos todos los datos que
-			 * almacena la entidad ESTANCIA Cogemos la fecha de hoy Cogemos el campo esVIP
-			 * Cogemos la Parada actual del responsable de la parada Cogemos el objeto
-			 * peregrino entero seleccionado de la tabla
-			 */
-			if (seHospeda) {
-
-				nuevaEstancia.setFecha(LocalDate.now());
-				nuevaEstancia.setVip(esVip);
-				nuevaEstancia.setParada(paradaActual);
-				nuevaEstancia.setPeregrino(peregrinoSeleccionado);
-
-				// Guardamos la nueva estancia del peregrino que se ha hospedado
-
-			}
-
-			System.out.println("Se hospeda?" + seHospeda);
-			if (seHospeda && esVip || seHospeda && !esVip) {
-				estanciaService.guardarEstancia(nuevaEstancia);
-				ParadaSellada p = paradaSelladaService.guardarParadaSellada(miParadaSellada);
-				if (p == null) {
-					mostrarAlerta("Error", "El peregrino ya ha sellado en esta parada en la misma fecha.",
-							Alert.AlertType.ERROR);
-					return;
-				}
-				// NUEVA IMPLEMENTACION PARA RELLENAR EL FORMULARIO DE ENVIO A CASA
-				if (seHospeda && tieneEnvioACasa && grupo.getSelectedToggle() != null) {
-					carnetService.GuardarCarnet(carnet); // pendiente de localizar
-					mostrarAlerta("Éxito", "Carnet sellado correctamente.", Alert.AlertType.INFORMATION);
-					GuardarConjunto();
-					mostrarAlerta("Información", "Redirigiendo al formulario de Envío a Casa.",
-							Alert.AlertType.INFORMATION);
-					stageManager.switchScene(FxmlView.EnvioaCasa);
-					return;
-				} else {
-					mostrarAlerta("Metodo de pago fallido",
-							"seleccione un campo para poder continuar con el proceso de compra", AlertType.ERROR);
-				}
-
-			}
-		}
-
-		catch (Exception e) {
-			mostrarAlerta("Error", "No se pudo sellar el carnet: " + e.getMessage(), Alert.AlertType.ERROR);
-		}
+	    // Guardar el carnet actualizado y finalizar el proceso
+	    carnetService.GuardarCarnet(carnet);
+	    mostrarAlerta("Éxito", "Carnet sellado correctamente.", Alert.AlertType.INFORMATION);
 	}
 
 	/**
