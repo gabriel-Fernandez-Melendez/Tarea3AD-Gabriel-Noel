@@ -17,9 +17,9 @@ import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.ParadaSellada;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Servicio;
-import com.Gabriel.Noel.tarea3AD2024base.modelo.Usuarios;
+import com.Gabriel.Noel.tarea3AD2024base.modelo.ConjuntoContratado;
 import com.Gabriel.Noel.tarea3AD2024base.services.CarnetService;
-import com.Gabriel.Noel.tarea3AD2024base.services.CredencialesService;
+import com.Gabriel.Noel.tarea3AD2024base.services.ConjuntoContradadoService;
 import com.Gabriel.Noel.tarea3AD2024base.services.EstanciaService;
 import com.Gabriel.Noel.tarea3AD2024base.services.ParadaSelladaService;
 import com.Gabriel.Noel.tarea3AD2024base.services.ParadaService;
@@ -53,10 +53,10 @@ public class ResponsableParadaController {
 
 	@FXML
 	private Button btnLogout;
-	
+
 	@FXML
 	private Button botonEnvios;
-	
+
 	@FXML
 	private MenuItem menusalir;
 	@FXML
@@ -140,12 +140,18 @@ public class ResponsableParadaController {
 	private RadioButton bizum;
 
 	@Autowired
+	ConjuntoContradadoService ConjuntoContratado;
+
+	@FXML
+	private ToggleGroup grupo;
+
+	@Autowired
 	private ServiciosService servicioService;
 
 	// metodos de la nuevo implementacion(revisar si la asignacion del char funciona
 	// correctamente)
 	private void GrupoPagos() {
-		ToggleGroup grupo = new ToggleGroup();
+		grupo = new ToggleGroup();
 		tarjeta.setToggleGroup(grupo);
 		efectivo.setToggleGroup(grupo);
 		bizum.setToggleGroup(grupo);
@@ -154,54 +160,79 @@ public class ResponsableParadaController {
 		bizum.setText("B");
 	}
 
-	private void CargarServicios() 
-	{
-		Parada parada_aux = new Parada();
-		
-		ArrayList<Servicio> servicios = (ArrayList<Servicio>) servicioService.obtenerTodosLosServicios();
-		
-		  ArrayList<Servicio> servicios_filtrados = new ArrayList<Servicio>();
-		  
-		  ArrayList<Parada> paradas=(ArrayList<Parada>) paradaService.ListaDeParadas();
-		  
-		  for(Parada p:paradas) 
-			  
-		  	{  
-			  
-			  if(CredencialesController.Credenciales_usuario.getNombreUsuario().matches(p.
-			  getResponsable())) { parada_aux=p; for(Servicio s:servicios) 
-				  
-			  {
-				  if(s.getIdParada().contains(parada_aux.getId()))
-					  
-				  {
-					  servicios_filtrados.add(s); 
-				  }
-				  
-			  }
-		  
-		tabla_servicios.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		
-		id_servicio.setCellValueFactory(new PropertyValueFactory<>("id"));
-		nombre_servicio.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
-		precio_servicio.setCellValueFactory(new PropertyValueFactory<>("Precio"));
-		
-		ObservableList<Servicio> lista = FXCollections.observableArrayList(servicios_filtrados); //esta es la lista con los campos filtrados que es la que hay que 
-		
-		tabla_servicios.setItems(lista);
-		}	
-		  }	  
-		  }
-	
-	
+	private void GuardarConjunto() {
+		grupo.getSelectedToggle();
+		List<Servicio> servicios = new ArrayList<>(servicios_contratados.getItems());
+		ConjuntoContratado c = new ConjuntoContratado();
+		// en funcion del tamañalo de la lista creamos el id
+		Long id = (long) servicios.size() + 1;
+		c.setId(id);
+		List<Servicio> servicios_aux = new ArrayList<>();
+		Double precio = 0.0;
+		for (Servicio s : servicios) {
+			servicios_aux.add(s);
+			precio += s.getPrecio();
+		}
+		System.out.println("el precio es" + precio);
+		c.setServicios((ArrayList<Servicio>) servicios_aux);
+		c.setPrecio_total(precio);
+		RadioButton seleccion = (RadioButton) grupo.getSelectedToggle();
+		c.setModo_de_pago(seleccion.getText().charAt(0));
+		System.out.println("Se ha creado el objeto" + c.toString());
+		ConjuntoContratado.GuardarConjunto(c);
+	}
 
-		 
+	private void CargarServicios() {
+		Parada parada_aux = new Parada();
+
+		ArrayList<Servicio> servicios = (ArrayList<Servicio>) servicioService.obtenerTodosLosServicios();
+
+		ArrayList<Servicio> servicios_filtrados = new ArrayList<Servicio>();
+
+		ArrayList<Parada> paradas = (ArrayList<Parada>) paradaService.ListaDeParadas();
+
+		for (Parada p : paradas)
+
+		{
+
+			if (CredencialesController.Credenciales_usuario.getNombreUsuario().matches(p.getResponsable())) {
+				parada_aux = p;
+				for (Servicio s : servicios)
+
+				{
+					if (s.getIdParada().contains(parada_aux.getId()))
+
+					{
+						servicios_filtrados.add(s);
+					}
+
+				}
+
+				tabla_servicios.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+				id_servicio.setCellValueFactory(new PropertyValueFactory<>("id"));
+				nombre_servicio.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
+				precio_servicio.setCellValueFactory(new PropertyValueFactory<>("Precio"));
+
+				ObservableList<Servicio> lista = FXCollections.observableArrayList(servicios_filtrados); // esta es la
+																											// lista con
+																											// los
+																											// campos
+																											// filtrados
+																											// que es la
+																											// que hay
+																											// que
+
+				tabla_servicios.setItems(lista);
+			}
+		}
+	}
 
 	// habia que inicializar la llamada de la tabla
 	private void Inicializar_tabla() {
 
 		servicios_contratados.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		
+
 		id_serviciocontratado.setCellValueFactory(new PropertyValueFactory<>("id"));
 		nombre_serviciocontratado.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
 		precio_contratados.setCellValueFactory(new PropertyValueFactory<>("Precio"));
@@ -210,17 +241,17 @@ public class ResponsableParadaController {
 	@FXML
 	private void PasarServicio() {
 		System.out.println("entra en el metodo");
-		ObservableList<Servicio> s= tabla_servicios.getSelectionModel().getSelectedItems();
+		ObservableList<Servicio> s = tabla_servicios.getSelectionModel().getSelectedItems();
 		if (s == null) {
 			mostrarAlerta("Seleccione un servicio", "no tiene ningun servicio seleccionado", AlertType.WARNING);
 		} else {
 			servicios_contratados.getItems().addAll(s);
 		}
 	}
-	
+
 	@FXML
 	private void EliminarSeleccion() {
-		ObservableList<Servicio> s=servicios_contratados.getSelectionModel().getSelectedItems();
+		ObservableList<Servicio> s = servicios_contratados.getSelectionModel().getSelectedItems();
 		servicios_contratados.getItems().removeAll(s);
 	}
 
@@ -234,9 +265,15 @@ public class ResponsableParadaController {
 		cargarPeregrinos();
 		inicializarParadaActual();
 		// nuevos metodos al momento de inicializar la ventana
-		GrupoPagos();
 		CargarServicios();
 		Inicializar_tabla();
+		grupo = new ToggleGroup();
+		tarjeta.setToggleGroup(grupo);
+		efectivo.setToggleGroup(grupo);
+		bizum.setToggleGroup(grupo);
+		tarjeta.setText("T");
+		efectivo.setText("E");
+		bizum.setText("B");
 	}
 
 	@FXML
@@ -318,13 +355,10 @@ public class ResponsableParadaController {
 						Alert.AlertType.ERROR);
 				return;
 			}
-			
-			
+
 			// VERIFICAR SI EL PEREGRINO HA CONTRATADO EL SERVICIO ENVIO A CASA
 			boolean tieneEnvioACasa = servicios_contratados.getItems().stream()
-	                .anyMatch(servicio -> servicio.getNombre().equalsIgnoreCase("Envio a Casa"));
-			
-			
+					.anyMatch(servicio -> servicio.getNombre().equalsIgnoreCase("Envio a Casa"));
 
 			// Validar si ya existe el sellado antes de proceder
 			ParadaSellada miParadaSellada = new ParadaSellada();
@@ -350,10 +384,10 @@ public class ResponsableParadaController {
 				carnet.setNvips(carnet.getNvips() + 1);
 			}
 
-			System.out.println("El servicio es"+ tieneEnvioACasa);
-			
+			System.out.println("El servicio es" + tieneEnvioACasa);
+
 			// Guardamos el carnet Ó Actualizamos
-			carnetService.GuardarCarnet(carnet);
+			//ELIMINO
 
 			/**
 			 * Para el caso de que se Hospede el peregrino Recogemos todos los datos que
@@ -371,20 +405,25 @@ public class ResponsableParadaController {
 				// Guardamos la nueva estancia del peregrino que se ha hospedado
 				estanciaService.guardarEstancia(nuevaEstancia);
 			}
+
+			System.out.println("Se hospeda?" + seHospeda);
+
 			
-			
-			System.out.println("Se hospeda?"+seHospeda);
-			
-			mostrarAlerta("Éxito", "Carnet sellado correctamente.", Alert.AlertType.INFORMATION);
-			
-			
+
 			// NUEVA IMPLEMENTACION PARA RELLENAR EL FORMULARIO DE ENVIO A CASA
-			if (seHospeda && tieneEnvioACasa)
-			{
-				  mostrarAlerta("Información", "Redirigiendo al formulario de Envío a Casa.", Alert.AlertType.INFORMATION);
-		            stageManager.switchScene(FxmlView.EnvioaCasa);
-		            return;
+			if (seHospeda && tieneEnvioACasa && grupo.getSelectedToggle() != null) {
+				mostrarAlerta("Éxito", "Carnet sellado correctamente.", Alert.AlertType.INFORMATION);
+				carnetService.GuardarCarnet(carnet);
+				GuardarConjunto();
+				mostrarAlerta("Información", "Redirigiendo al formulario de Envío a Casa.",
+						Alert.AlertType.INFORMATION);
+				stageManager.switchScene(FxmlView.EnvioaCasa);
+				return;
+			} else {
+				mostrarAlerta("Metodo de pago fallido",
+						"seleccione un campo para poder continuar con el proceso de compra", AlertType.ERROR);
 			}
+
 
 		}
 
@@ -406,22 +445,17 @@ public class ResponsableParadaController {
 			System.out.println("Error en el metodo volverALogin");
 		}
 	}
-	
-	
+
 	@FXML
-	private void irVerEnvios()
-	{
-		try
-		{
+	private void irVerEnvios() {
+		try {
 			stageManager.switchScene(FxmlView.EnviosRealizados);
 		}
-		
-		catch(Exception e)
-		{
-			System.out.println("Error en el metodo irVerEnvios"+e.getMessage());
+
+		catch (Exception e) {
+			System.out.println("Error en el metodo irVerEnvios" + e.getMessage());
 		}
 	}
-	
 
 	/**
 	 * Cargar Columnas del TableView
@@ -513,7 +547,6 @@ public class ResponsableParadaController {
 
 	@FXML
 	private void Salir() {
-		Boolean salir = false;
 		Alert miAlerta = new Alert(AlertType.CONFIRMATION);
 		miAlerta.setTitle("Salir");
 		miAlerta.setContentText("seguro que quiere salir?");
