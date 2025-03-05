@@ -28,7 +28,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-@SpringBootTest
+@SpringBootTest(classes = CredencialesController.class) //hay que especificar la clase de la que vienea
 @ExtendWith(MockitoExtension.class) // esta llamada permite organizar los componentes de javafx con sus valores
 									// correctos
 public class CredencialesControllerTest {
@@ -78,7 +78,7 @@ public class CredencialesControllerTest {
 	@Test
 	public void PruebaCredencialesCorrectas() {
 		boolean resultado =true;
-		 assertTrue(resultado, "El login debe ser exitoso con credenciales válidas");
+		 assertTrue(resultado);
 
 	}
 }
