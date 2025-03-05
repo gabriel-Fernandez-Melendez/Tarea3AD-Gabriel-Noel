@@ -13,6 +13,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.exceptions.base.MockitoException;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Lazy;
@@ -30,7 +32,7 @@ import javafx.scene.control.TextField;
 
 @SpringBootTest(classes = CredencialesController.class) //hay que especificar la clase de la que vienea
 @ExtendWith(MockitoExtension.class) // esta llamada permite organizar los componentes de javafx con sus valores
-									// correctos
+@MockitoSettings(strictness = Strictness.LENIENT)							// correctos
 public class CredencialesControllerTest {
 
 	@InjectMocks
@@ -66,7 +68,6 @@ public class CredencialesControllerTest {
 	public void Carga() {
 		MockitoAnnotations.openMocks(this);
 		spyLoaderController = spy(CredencialesController);
-
 		spyLoaderController.Boton_login = Boton_login;
 		spyLoaderController.nombreUsuario = nombreUsuario;
 		spyLoaderController.contraseña = contraseña;
