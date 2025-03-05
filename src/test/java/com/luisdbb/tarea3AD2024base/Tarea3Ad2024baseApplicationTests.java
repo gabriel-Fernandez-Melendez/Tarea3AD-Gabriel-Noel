@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
-//esta clase de momento no la voy a itilizar pero hay que utilizar el mock para precargar los campos del fxml 
+//esta clase de momento no la voy a utilizar pero hay que utilizar el mock para precargar los campos del fxml 
 @SpringBootTest
 class Tarea3Ad2024baseApplicationTests {
 
