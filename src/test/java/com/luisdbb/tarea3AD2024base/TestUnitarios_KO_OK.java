@@ -29,6 +29,11 @@ import com.Gabriel.Noel.tarea3AD2024base.services.PeregrinoService;
 @ExtendWith(MockitoExtension.class)
 public class TestUnitarios_KO_OK {
 
+    /**
+     * 1) Campos @Mock:
+     *    - Se crean "repositorios falsos" que NO acceden a una BD real.
+     *    - Mockito nos permite simular su comportamiento en los tests.
+     */
     @Mock
     private CredencialesRepository credencialesRepo;
     @Mock
@@ -38,6 +43,11 @@ public class TestUnitarios_KO_OK {
     @Mock
     private CarnetRepository carnetRepo;
 
+    /**
+     * 2) Campos @InjectMocks:
+     *    - Se inyectan los mocks anteriores en los servicios reales.
+     *    - Así, cuando el servicio llame a su repositorio, en realidad estará usando el mock.
+     */
     @InjectMocks
     private CredencialesService credencialesService;
     @InjectMocks
@@ -45,31 +55,61 @@ public class TestUnitarios_KO_OK {
     @InjectMocks
     private ParadaService paradaService;
 
+    /**
+     * PRUEBA: Loguearse con credenciales válidas (OK).
+     * Escenario:
+     * - Se crea un objeto Credenciales (mockeado).
+     * - Se simula su guardado (aunque en realidad no se persiste).
+     * - Se simula su recuperación por nombre de usuario.
+     * - Se comprueba que la contraseña coincide.
+     */
     @Test
     void pruebaLoginValido() {
+        // Creamos objeto Credenciales de prueba
         Credenciales cred = new Credenciales();
         cred.setId(1L);
         cred.setNombreUsuario("usuarioValido");
         cred.setContraseñaUsuario("passValida");
         cred.setTipo(Usuarios.Peregrino);
 
+        // Simulamos que al "guardar" el repositorio devuelva este mismo objeto con ID
         when(credencialesRepo.save(any(Credenciales.class))).thenReturn(cred);
         credencialesService.GuardarCredenciales(cred);
 
+        // Simulamos que al buscar por nombre de usuario, se retorne el mismo objeto
         when(credencialesRepo.findByNombreUsuario("usuarioValido")).thenReturn(cred);
         Credenciales encontrado = credencialesService.obtenerCredencialesPorNombreUsuario("usuarioValido");
 
+        // Validaciones
         assertNotNull(encontrado);
         assertEquals("passValida", encontrado.getContraseñaUsuario());
     }
 
+    /**
+     * PRUEBA: Loguearse con credenciales inválidas (KO).
+     * Escenario:
+     * - Se busca un usuario que no existe en el mock.
+     * - Se espera que retorne null.
+     */
     @Test
     void pruebaLoginInvalido() {
+        // Simulamos que no existe ese nombre de usuario en el mock
         when(credencialesRepo.findByNombreUsuario("inexistente")).thenReturn(null);
+
+        // Llamada al servicio
         Credenciales c = credencialesService.obtenerCredencialesPorNombreUsuario("inexistente");
+
+        // Validación: debe ser null
         assertNull(c, "No debe existir este usuario");
     }
 
+    /**
+     * PRUEBA: Registrar Peregrino (OK).
+     * Escenario:
+     * - Se crean Credenciales, Parada (como parada inicial) y Carnet.
+     * - Se simula el guardado de cada uno con un ID.
+     * - Se asocia todo al Peregrino y se comprueba que se guardó con éxito.
+     */
     @Test
     void registroPeregrinoOK() {
         // Credenciales
@@ -79,10 +119,11 @@ public class TestUnitarios_KO_OK {
         cred.setContraseñaUsuario("perePass");
         cred.setCorreo_usuario("pereUser@example.com");
         cred.setTipo(Usuarios.Peregrino);
+        // Al guardar, simulamos que vuelve el mismo objeto con ID
         when(credencialesRepo.save(any(Credenciales.class))).thenReturn(cred);
         Credenciales credGuardadas = credencialesService.GuardarCredenciales(cred);
 
-        // Parada inicial
+        // Parada inicial (para el carnet)
         Parada parada = new Parada();
         parada.setId(10L);
         parada.setNombre("ParadaInicial");
@@ -112,25 +153,41 @@ public class TestUnitarios_KO_OK {
         when(peregrinoRepo.save(any(Peregrino.class))).thenReturn(p);
         Peregrino resultado = peregrinoService.GuardarPeregrino(p);
 
+        // Validaciones
         assertNotNull(resultado.getId());
         assertEquals("Juan", resultado.getNombre());
         assertNotNull(resultado.getCarnet());
         assertNotNull(resultado.getCredenciales());
     }
 
+    /**
+     * PRUEBA: Registrar Peregrino con datos inválidos (KO).
+     * Escenario:
+     * - Se crea un Peregrino con nombre vacío.
+     * - Se asume que PeregrinoService lanza IllegalArgumentException.
+     */
     @Test
     void registroPeregrinoKO() {
-        // Se asume que si el nombre es vacío, PeregrinoService lanza IllegalArgumentException
         Peregrino p = new Peregrino();
         p.setNombre("");
         p.setNacionalidad("España");
+
+        // Se espera que PeregrinoService lance una excepción si el nombre es vacío
         assertThrows(IllegalArgumentException.class, () -> {
             peregrinoService.GuardarPeregrino(p);
         });
     }
 
+    /**
+     * PRUEBA: Modificar Peregrino (OK).
+     * Escenario:
+     * - Se crea un Peregrino con datos iniciales.
+     * - Se simula guardarlo (asignando ID).
+     * - Se cambia el nombre y se guarda de nuevo.
+     */
     @Test
     void modificarPeregrinoOK() {
+        // Peregrino inicial
         Peregrino p = new Peregrino();
         p.setId(3L);
         p.setNombre("Maria");
@@ -138,6 +195,7 @@ public class TestUnitarios_KO_OK {
         when(peregrinoRepo.save(any(Peregrino.class))).thenReturn(p);
         Peregrino guardado = peregrinoService.GuardarPeregrino(p);
 
+        // Modificamos
         guardado.setNombre("Maria Modificada");
         when(peregrinoRepo.save(any(Peregrino.class))).thenReturn(guardado);
         Peregrino modificado = peregrinoService.GuardarPeregrino(guardado);
@@ -145,6 +203,13 @@ public class TestUnitarios_KO_OK {
         assertEquals("Maria Modificada", modificado.getNombre());
     }
 
+    /**
+     * PRUEBA: Modificar Peregrino con datos inválidos (KO).
+     * Escenario:
+     * - Peregrino con nombre válido.
+     * - Se modifica para dejar el nombre vacío.
+     * - Se espera que lance IllegalArgumentException.
+     */
     @Test
     void modificarPeregrinoKO() {
         Peregrino p = new Peregrino();
@@ -154,14 +219,23 @@ public class TestUnitarios_KO_OK {
         when(peregrinoRepo.save(any(Peregrino.class))).thenReturn(p);
         Peregrino guardado = peregrinoService.GuardarPeregrino(p);
 
+        // Dejamos el nombre vacío
         guardado.setNombre("");
         assertThrows(IllegalArgumentException.class, () -> {
             peregrinoService.GuardarPeregrino(guardado);
         });
     }
 
+    /**
+     * PRUEBA: Guardar Parada (OK).
+     * Escenario:
+     * - Se crean credenciales para el responsable.
+     * - Se crea la Parada con datos correctos.
+     * - Se guarda y se comprueba el ID asignado.
+     */
     @Test
     void guardarParadaOK() {
+        // Credenciales para el responsable
         Credenciales cred = new Credenciales();
         cred.setId(5L);
         cred.setNombreUsuario("respUser");
@@ -171,6 +245,7 @@ public class TestUnitarios_KO_OK {
         when(credencialesRepo.save(any(Credenciales.class))).thenReturn(cred);
         Credenciales credGuardadas = credencialesService.GuardarCredenciales(cred);
 
+        // Parada
         Parada parada = new Parada();
         parada.setId(6L);
         parada.setNombre("ParadaTest");
@@ -184,6 +259,12 @@ public class TestUnitarios_KO_OK {
         assertEquals("ParadaTest", paradaGuardada.getNombre());
     }
 
+    /**
+     * PRUEBA: Guardar Parada con datos inválidos (KO).
+     * Escenario:
+     * - Se crea Parada con nombre vacío.
+     * - Se espera que ParadaService lance IllegalArgumentException.
+     */
     @Test
     void guardarParadaKO() {
         Parada parada = new Parada();
@@ -194,6 +275,11 @@ public class TestUnitarios_KO_OK {
         });
     }
 
+    /**
+     * PRUEBAS: Listados (OK).
+     * - Simulan la llamada a findAll() y devuelven una lista vacía.
+     * - Simplemente comprobamos que la lista no es null.
+     */
     @Test
     void listarCredenciales() {
         when(credencialesRepo.findAll()).thenReturn(List.of());
@@ -215,14 +301,18 @@ public class TestUnitarios_KO_OK {
         assertNotNull(lista);
     }
 
-    // Placeholders de sellarParada
+    /**
+     * Placeholders para "sellarParada" (no implementado en ParadaService).
+     */
     @Test
     void sellarParadaOK() {
+        // Aquí no hay lógica real. Se asume un test de relleno.
         assertTrue(true);
     }
 
     @Test
     void sellarParadaKO() {
+        // Igual que el anterior, test de relleno hasta implementar la funcionalidad.
         assertTrue(true);
     }
 }
