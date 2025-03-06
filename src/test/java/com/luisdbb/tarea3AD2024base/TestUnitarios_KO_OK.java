@@ -308,9 +308,6 @@ public class TestUnitarios_KO_OK {
         assertNotNull(lista);
     }
 
-    /**
-     * Placeholders para "sellarParada" (no implementado en ParadaService).
-     */
     @Test
     void sellarParadaOK() {
     	// Crear un peregrino de prueba
