@@ -1,15 +1,12 @@
 package com.luisdbb.tarea3AD2024base;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SpringBootApplication
+public class Tarea3Ad2024baseApplicationTests {
 
-//esta clase de momento no la voy a utilizar pero hay que utilizar el mock para precargar los campos del fxml 
-@SpringBootTest
-class Tarea3Ad2024baseApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(Tarea3Ad2024baseApplicationTests.class, args);
+    }
 }

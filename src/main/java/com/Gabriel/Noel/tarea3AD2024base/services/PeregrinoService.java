@@ -20,8 +20,14 @@ public class PeregrinoService {
 	// peregrino(tengo que probar que lo inserta sin id )
 	@Transactional
 	public Peregrino GuardarPeregrino(Peregrino p) {
-		return peregrinoBD.save(p);
+	    if (p.getNombre() == null || p.getNombre().trim().isEmpty()) {
+	        throw new IllegalArgumentException("El nombre del peregrino no puede estar vacío");
+	    }
+	    // Podrías validar carnet o credenciales si quieres forzar error
+	    // ...
+	    return peregrinoBD.save(p);
 	}
+
 
 	// posible error en el import por hacer uso de util y no del import de list
 	// hibernate(este ye el metodo qu)

@@ -38,9 +38,11 @@ public class ParadaService {
 	 * @param miCarnet
 	 * @return
 	 */
-	public Parada guardarParada(Parada p)
-	{
-		return paradasRepository.save(p);
+	public Parada guardarParada(Parada p) {
+	    if (p.getNombre() == null || p.getNombre().trim().isEmpty()) {
+	        throw new IllegalArgumentException("Nombre de la parada no puede ser vacío");
+	    }
+	    return paradasRepository.save(p);
 	}
 	
 	
