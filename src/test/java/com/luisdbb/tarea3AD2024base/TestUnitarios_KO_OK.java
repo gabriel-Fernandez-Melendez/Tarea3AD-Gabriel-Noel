@@ -16,13 +16,16 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Carnet;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
+import com.Gabriel.Noel.tarea3AD2024base.modelo.ParadaSellada;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Usuarios;
 import com.Gabriel.Noel.tarea3AD2024base.repositorios.CarnetRepository;
 import com.Gabriel.Noel.tarea3AD2024base.repositorios.CredencialesRepository;
 import com.Gabriel.Noel.tarea3AD2024base.repositorios.ParadasRepository;
+import com.Gabriel.Noel.tarea3AD2024base.repositorios.ParadasSelladasRepository;
 import com.Gabriel.Noel.tarea3AD2024base.repositorios.PeregrinoRepository;
 import com.Gabriel.Noel.tarea3AD2024base.services.CredencialesService;
+import com.Gabriel.Noel.tarea3AD2024base.services.ParadaSelladaService;
 import com.Gabriel.Noel.tarea3AD2024base.services.ParadaService;
 import com.Gabriel.Noel.tarea3AD2024base.services.PeregrinoService;
 
@@ -42,6 +45,8 @@ public class TestUnitarios_KO_OK {
     private ParadasRepository paradasRepo;
     @Mock
     private CarnetRepository carnetRepo;
+    @Mock
+    private ParadasSelladasRepository paradasSelladasRepo;
 
     /**
      * 2) Campos @InjectMocks:
@@ -54,6 +59,8 @@ public class TestUnitarios_KO_OK {
     private PeregrinoService peregrinoService;
     @InjectMocks
     private ParadaService paradaService;
+    @InjectMocks
+    private ParadaSelladaService paradaSelladaService;
 
     /**
      * PRUEBA: Loguearse con credenciales válidas (OK).
@@ -306,13 +313,58 @@ public class TestUnitarios_KO_OK {
      */
     @Test
     void sellarParadaOK() {
-        // Aquí no hay lógica real. Se asume un test de relleno.
-        assertTrue(true);
+    	// Crear un peregrino de prueba
+        Peregrino peregrino = new Peregrino();
+        peregrino.setId(1L);
+        
+        // Crear una parada de prueba
+        Parada parada = new Parada();
+        parada.setId(10L);
+        
+        // Definir la fecha del sellado (por ejemplo, hoy)
+        LocalDate fecha = LocalDate.now();
+        
+        // Crear el objeto ParadaSellada a guardar y simular que se le asigna un ID (por ejemplo, 100L)
+        ParadaSellada ps = new ParadaSellada(peregrino, parada, fecha);
+        ps.setId(100L);
+        
+        // Configurar el mock: se simula que NO existe sellado previo (devuelve false)
+        when(paradasSelladasRepo.existeSelladoEnFecha(1L, 10L, fecha)).thenReturn(false);
+        // Al guardar, el mock retorna el objeto con ID asignado
+        when(paradasSelladasRepo.save(any(ParadaSellada.class))).thenReturn(ps);
+        
+        // Llamada al método del servicio que guarda el sellado
+        ParadaSellada resultado = paradaSelladaService.guardarParadaSellada(ps);
+        
+        // Validaciones: se espera que el resultado no sea null y tenga el ID asignado (100L)
+        assertNotNull(resultado, "El sellado debería guardarse correctamente.");
+        assertNotNull(resultado.getId(), "El sellado guardado debe tener un ID asignado.");
+        assertEquals(100L, resultado.getId());
     }
 
     @Test
     void sellarParadaKO() {
-        // Igual que el anterior, test de relleno hasta implementar la funcionalidad.
-        assertTrue(true);
+    	// Crear un peregrino de prueba
+        Peregrino peregrino = new Peregrino();
+        peregrino.setId(2L);
+        
+        // Crear una parada de prueba
+        Parada parada = new Parada();
+        parada.setId(20L);
+        
+        // Definir la fecha del sellado
+        LocalDate fecha = LocalDate.now();
+        
+        // Crear el objeto ParadaSellada (sin asignar ID, ya que no se guardará)
+        ParadaSellada ps = new ParadaSellada(peregrino, parada, fecha);
+        
+        // Configurar el mock: se simula que YA existe un sellado previo (devuelve true)
+        when(paradasSelladasRepo.existeSelladoEnFecha(2L, 20L, fecha)).thenReturn(true);
+        
+        // Llamada al método del servicio, se espera que retorne null (no se guarda duplicado)
+        ParadaSellada resultado = paradaSelladaService.guardarParadaSellada(ps);
+        
+        // Validación: se espera que el resultado sea null
+        assertNull(resultado, "No se debe guardar un sellado duplicado para el mismo peregrino, parada y fecha.");
     }
 }
