@@ -1,9 +1,13 @@
 package com.Gabriel.Noel.tarea3AD2024base.modelo;
 
 import jakarta.persistence.*; // Usa jakarta.persistence con Spring Boot 3.x
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
+@XmlRootElement
 @Entity
 @Table(name = "carnet") // Nombre de la tabla en la base de datos
 public class Carnet {
@@ -40,6 +44,7 @@ public class Carnet {
     }
 
     // Getters y Setters
+    @XmlElement(name="Id_Carnet")
     public Long getId() {
         return id;
     }
@@ -48,6 +53,7 @@ public class Carnet {
         this.id = id;
     }
 
+    @XmlElement(name="Fecha_Expedicion")
     public LocalDate getFechaexp() {
         return fechaexp;
     }
@@ -56,6 +62,7 @@ public class Carnet {
         this.fechaexp = fechaexp;
     }
 
+    @XmlElement(name="Distancia_recorrida")
     public double getDistancia() {
         return distancia;
     }
@@ -64,6 +71,7 @@ public class Carnet {
         this.distancia = distancia;
     }
 
+    @XmlElement(name="N_vips")
     public int getNvips() {
         return nvips;
     }
@@ -72,6 +80,7 @@ public class Carnet {
         this.nvips = nvips;
     }
 
+    @XmlElement(name="Parada_Inicial")
     public Parada getParadaInicial() {
         return paradaInicial;
     }
