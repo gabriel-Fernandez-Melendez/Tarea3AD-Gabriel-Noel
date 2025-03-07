@@ -208,6 +208,14 @@ public class NuevoPeregrinoController implements Initializable {
 			Carnet c = GuardarCarnet(parada.getValue());
 			Carnet carnet_aux = carnet_service.BuscarPorId(c.getId());
 			GuardarPeregrinoSellado(cred, carnet_aux);
+			
+			
+			// Ahora el metodo para inyectar el carnet en existDB
+			// Le damos por parametro el nombre de la parada inicial y el objeto carnet
+			// crearCarnetXML(c.getParadaInicial().getNombre(), c)
+			
+			
+			
 			mostrarAlerta("Peregrino añadido", "Puede entrar con sus credenciales de peregrino", AlertType.INFORMATION);
 			stageManager.switchScene(FxmlView.LOGIN);// que una vez registrado con exito te lleve directamente a el login
 		

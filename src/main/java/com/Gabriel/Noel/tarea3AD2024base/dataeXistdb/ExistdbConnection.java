@@ -24,6 +24,7 @@ public class ExistdbConnection
 	
 	// URI colección
 	// Recordar Crear una coleccion dentro de la BD que se llame Paradas
+	// cambiar puerto mirarlo
 	String URI = "xmldb:exist://localhost:8080/exist/xmlrpc/db/Paradas";
 	String User = "Admin";
 	String Pass = " ";
@@ -43,6 +44,9 @@ public class ExistdbConnection
 			    
 			    //Conectar con la coleccion de existDB
 			    miColeccionParada = DatabaseManager.getCollection(URI, User, Pass);
+			    
+			    
+			    System.out.println("Conexion correcta");
 			    
 		}
 		catch(Exception e)
@@ -85,6 +89,7 @@ public class ExistdbConnection
 	
 	
 	// Metodo que convierte un objeto (en ete caso carnet) a XML con JAXB https://www.arquitecturajava.com/introduccion-java-jaxb/
+	// Metodo que se va a usar en esta clase no en ninguna mas
 	 private String convertirCarnetAXml(Carnet carnet)
 	    {
 	    	String miCarnetXML = null;
@@ -107,6 +112,8 @@ public class ExistdbConnection
 	        
 	        miCarnetXML = escritor.toString();
 	        
+	        System.out.println("Carnet convertido a XML de forma correcta");
+	        
 	    	}
 	    	
 	    	catch(Exception e)
@@ -120,7 +127,7 @@ public class ExistdbConnection
 	    }
 	 
 	 
-	 
+	 // Metodo solo para esta clase, no para ninguna mas
 	 private void guardarCarnetEnSubColectionParada(String nombreParada, String nombreFichero, String contenidoXml)
 	{
 		 
@@ -147,6 +154,7 @@ public class ExistdbConnection
 			 // Guardamos el recurso en la subcoleccion
 			 subParada.storeResource(nuevoXML);
 			 
+			 System.out.println("Carnet guardado en: "+rutaSubParada+ " de forma correcta");
 			 
 		 }
 		 
@@ -158,8 +166,8 @@ public class ExistdbConnection
 	}
 
 	 
-	 // Metodo para crear el XML en existsDB e inyectarlo en la SubColeccion de Paradas
-	 private void crearCarnetXML(String nombreParada, Carnet miCarnet)
+	 // Metodo inyectar el carnet a existDB en la SubColeccion de Paradas
+	 private void inyectarCarnet(String nombreParada, Carnet miCarnet)
 	 {
 		 try
 		 {
@@ -174,6 +182,8 @@ public class ExistdbConnection
 		 
 		 
 		 guardarCarnetEnSubColectionParada(nombreParada, nombreFicheroXML, miXMLCarnet);
+		 
+		 System.out.println("Carnet creado de forma exitosa");
 		 
 		 }
 		 

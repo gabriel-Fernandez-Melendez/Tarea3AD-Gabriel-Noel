@@ -125,6 +125,10 @@ public class NuevaParadaController implements Initializable {
 		p.setResponsable(nombre_responsable.getText());
 		p.setCredenciales(cred);
 		parada_service.guardarParada(p);
+		
+		// Aqui iria el metodo para crear la subcoleccion de las paradas
+		// Y crearia la subColeccion con el nombre de la parada
+		// crearSubColectionParadas(p.getNombre());
 
 	}
 
