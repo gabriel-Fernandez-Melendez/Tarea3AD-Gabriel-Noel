@@ -26,15 +26,35 @@ public class ExistdbConnection
 	// Recordar Crear una coleccion dentro de la BD que se llame Paradas
 	// cambiar puerto mirarlo
 	String URI = "xmldb:exist://localhost:8080/exist/xmlrpc/db/Paradas";
-	String User = "Admin";
-	String Pass = " ";
+	String User = "admin";
+	String Pass = "";
 	
-	//Coleccion de Paradas
-	Collection miColeccionParada = null;
+	// Instancia unica Singleton
+	 private static ExistdbConnection instancia;
+	
+	// Objeto Collection para
+	private Collection coleccionParadas;
+	
+	
+	   private ExistdbConnection() {
+	        // Inicializamos la conexión a la colección "Paradas"
+	        coleccionParadas = conectarBD(URI);
+	    }
+	
+
+	   public static ExistdbConnection crearInstancia() {
+	        if (instancia == null) {
+	            instancia = new ExistdbConnection();
+	        }
+	        return instancia;
+	    }
 		
 	// Conectar a la coleccion a traves del URI y devuelve un objeto de tipo Collection
 	private Collection conectarBD(String URI)
 	{	
+		//Coleccion de Paradas
+		Collection miColeccionParada = null;
+		
 		try
 		{
 				Class miClase = Class.forName("org.exist.xmldb.DatabaseImpl");
@@ -57,18 +77,20 @@ public class ExistdbConnection
 		return miColeccionParada;				
 	}
 	
+
+	// Realizar un metodo Sigleton para coger la instancia y usarla para conectar a la BD ExistDB
+	
+	
 	
 	// Metodo para Crear una subColection que serán las nuevas paradas que se creen
 	public void crearSubColectionParadas(String nombreParada)
 	{
 		
-		Collection subParada = null;
+		Collection subParada = conectarBD(URI);
 		
 		try
 		{
-			// Conectamos con la URI
-			subParada = conectarBD(URI);
-			
+	
 			CollectionManagementService mgtService = (CollectionManagementService) subParada.getService("CollectionManagementService", "1.0");
 			
 			
@@ -131,7 +153,7 @@ public class ExistdbConnection
 	 private void guardarCarnetEnSubColectionParada(String nombreParada, String nombreFichero, String contenidoXml)
 	{
 		 
-		 Collection subParada = null;
+		 Collection subParada;
 		 
 		 try
 		 {
@@ -144,9 +166,13 @@ public class ExistdbConnection
 			 // Conectarse a la nueva URI /Paradas/nombreParada
 			 subParada = conectarBD(rutaSubParada);
 			 
+			 System.out.println();
+			 
+			 Resource colec_aux=subParada.createResource(nombreFichero, "XMLResource");
+			 
 			 // Crear el recurso XML que contendrán estas subParadas
 			 // Decimos primero el nombre del fichero y por ultimo el tipo que es
-			 XMLResource nuevoXML = (XMLResource) subParada.createResource(nombreFichero, "XMLResource");
+			 XMLResource nuevoXML = (XMLResource)colec_aux;
 			 
 			 // Creamos el contenido dandole por parametro el XML que hemos creado
 			 nuevoXML.setContent(contenidoXml);
@@ -161,19 +187,18 @@ public class ExistdbConnection
 		 catch(Exception e)
 		 {
 			 System.out.println("Error al guardar el carnet en la SubColeccion de Parada: "+ e.getMessage());
+			 e.printStackTrace();
 		 }
 		 
 	}
 
 	 
 	 // Metodo inyectar el carnet a existDB en la SubColeccion de Paradas
-	 private void inyectarCarnet(String nombreParada, Carnet miCarnet)
+	 public void inyectarCarnet(String nombreParada, Carnet miCarnet)
 	 {
 		 try
 		 {
-			 
-		 
-		 
+			  
 		 // Generar el xml a partir del objeto carnet
 		 String miXMLCarnet = convertirCarnetAXml(miCarnet);
 		 

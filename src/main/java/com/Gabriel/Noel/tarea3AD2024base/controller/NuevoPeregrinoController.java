@@ -39,6 +39,7 @@ import com.Gabriel.Noel.tarea3AD2024base.services.ParadaSelladaService;
 import com.Gabriel.Noel.tarea3AD2024base.services.ParadaService;
 import com.Gabriel.Noel.tarea3AD2024base.services.PeregrinoService;
 import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
+import com.Gabriel.Noel.tarea3AD2024base.dataeXistdb.ExistdbConnection;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -64,8 +65,13 @@ import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+
 @Controller
 public class NuevoPeregrinoController implements Initializable {
+	
+	private ExistdbConnection EXBD = ExistdbConnection.crearInstancia();
+	
+	private ExistdbConnection miconexionExist;
 
 	@FXML
 	private PasswordField Contraseña;
@@ -212,7 +218,7 @@ public class NuevoPeregrinoController implements Initializable {
 			
 			// Ahora el metodo para inyectar el carnet en existDB
 			// Le damos por parametro el nombre de la parada inicial y el objeto carnet
-			// crearCarnetXML(c.getParadaInicial().getNombre(), c)
+			EXBD.inyectarCarnet(c.getParadaInicial().getNombre(), c);
 			
 			
 			

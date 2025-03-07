@@ -10,12 +10,14 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.Gabriel.Noel.tarea3AD2024base.config.StageManager;
+import com.Gabriel.Noel.tarea3AD2024base.dataeXistdb.ExistdbConnection;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Usuarios;
 import com.Gabriel.Noel.tarea3AD2024base.services.CredencialesService;
 import com.Gabriel.Noel.tarea3AD2024base.services.ParadaService;
 import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
+
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -38,6 +40,8 @@ import javafx.stage.Stage;
 
 @Controller
 public class NuevaParadaController implements Initializable {
+	
+	private ExistdbConnection EXBD = ExistdbConnection.crearInstancia();
 
 	@FXML
 	private TextField nombre_login;
@@ -128,7 +132,7 @@ public class NuevaParadaController implements Initializable {
 		
 		// Aqui iria el metodo para crear la subcoleccion de las paradas
 		// Y crearia la subColeccion con el nombre de la parada
-		// crearSubColectionParadas(p.getNombre());
+		EXBD.crearSubColectionParadas(p.getNombre());
 
 	}
 
