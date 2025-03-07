@@ -37,6 +37,11 @@ import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Esta clase define los metodos que del cotrolador de Modificacion de los datos del peregrino, en caso de que los datos incluidos sean validos se almacenan los cambios (no se puede cambiar la parada incial ni el pais de origen)
+ * @author: Gabriel - Noel
+ * @version: 06/03/2025
+ */
 @Controller
 public class ModificarPeregrinoController implements Initializable {
 
@@ -104,9 +109,18 @@ public class ModificarPeregrinoController implements Initializable {
 		  nombre_peregrino.setText(per.getNombre());
 		  ObservableList<Parada> parada_ = FXCollections.observableArrayList(paradas);
 		  ObservableList<String> pais_ = FXCollections.observableArrayList(paises);
-		  parada.setItems(parada_); pais.setItems(pais_);
+		  parada.setItems(parada_); 
+		  pais.setItems(pais_);
+		  pais.setValue(pais_.get(0));
+		  parada.setValue(parada_.get(0));
+		 System.out.println("funciona");
 		 
-		 
+	}
+	
+	@FXML
+	public void GuardarDatosModificados(){
+		Peregrino p =new Peregrino();
+		//setear los campos
 	}
 	
 	

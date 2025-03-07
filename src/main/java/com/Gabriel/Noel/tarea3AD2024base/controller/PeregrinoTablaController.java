@@ -2,10 +2,14 @@ package com.Gabriel.Noel.tarea3AD2024base.controller;
 
 import java.time.LocalDate;
 
+
+
 /**
- * Tabla Creada para manejar los datos mejor e inyectarlos
+ *  * Tabla Creada para manejar los datos mejor e inyectarlos
  * a la TableView de la EstanciasFiltradasController
  * solo el contructor y los getter y setters
+ * @author: Gabriel - Noel
+ * @version: 06/03/2025
  */
 public class PeregrinoTablaController {
     private Long id;

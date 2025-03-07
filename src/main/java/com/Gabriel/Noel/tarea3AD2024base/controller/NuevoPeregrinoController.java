@@ -58,6 +58,11 @@ import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Esta clase define los metodos que del cotrolador de la creacion de un nuevo peregrino , capturando los datos de los elementos de la pantalla y si sin validos persistiendolo en la base de datos
+ * @author: Gabriel - Noel
+ * @version: 06/03/2025
+ */
 @Controller
 public class NuevoPeregrinoController implements Initializable {
 

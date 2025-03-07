@@ -36,9 +36,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * Controlador de la vista del responsable de la parada.
- * Permite visualizar los peregrinos que han sellado su carnet, 
- * gestionar su hospedaje y verificar su estado en la parada.
+ * Esta clase define los metodos que uso un responsable de parada en funcion de que accion quiera hacer el peregrino que llega a esta, se capturan los datos necesarios en los diferentes casos y se persiste adecuadamente con spring en slq o en objectDb en el caso de los servicios
+ * @author: Gabriel - Noel
+ * @version: 06/03/2025 1.0
  */
 @Controller
 public class ResponsableParadaController {

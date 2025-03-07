@@ -24,7 +24,11 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
+/**
+ * Esta clase define los metodos que del cotrolador de recuperacion de contraseña (aun  no funcional por falta de conocimientos en el uso correcto des proceso que puede disparar esta accion)
+ * @author: Gabriel - Noel
+ * @version: 06/03/2025 1.0
+ */
 @Controller
 public class RecuperarContraseñaController implements Initializable{
 

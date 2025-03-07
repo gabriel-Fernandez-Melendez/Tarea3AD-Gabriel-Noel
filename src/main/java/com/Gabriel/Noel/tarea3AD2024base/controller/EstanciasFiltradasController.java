@@ -32,10 +32,12 @@ import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-
 /**
- * Controlador para la vista de estancias filtradas.
- * Permite filtrar peregrinos en base a sus sellados y estancias en una parada específica
+
+ * Esta clase define los metodos que del cotrolador de las vista del filtrado de estancias donde se definen los metodos que capturan los datos de la ventana y si tienen el formato deseado los inserta en la base de datos 
+ * y tambien muestra los datos filtrados por las fechas que indique el usuario 
+ * @author: Gabriel - Noel
+ * @version: 06/03/2025
  */
 @Controller
 public class EstanciasFiltradasController {

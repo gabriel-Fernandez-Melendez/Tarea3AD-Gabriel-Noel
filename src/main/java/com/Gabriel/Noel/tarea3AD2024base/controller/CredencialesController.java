@@ -46,7 +46,12 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 
 import java.io.File;
 import java.io.FileInputStream;
+/**
 
+ * Esta clase define los metodos que del cotrolador de las vista donde se definen los metodos que capturan los datos de la ventana y si tienen el formato deseado los inserta en la base de datos
+ * @author: Gabriel - Noel
+ * @version: 06/03/2025
+ */
 @Controller
 public class CredencialesController implements Initializable {
 

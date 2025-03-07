@@ -65,7 +65,12 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 
+/**
 
+ * Esta clase define los metodos que del cotrolador del exporte del carnet en formato xml  de un peregrino logeado con sus credenciales validas
+ * @author: Gabriel - Noel
+ * @version: 06/03/2025
+ */
 @Controller
 public class ExportarCarnetXMLController implements Initializable {
 
