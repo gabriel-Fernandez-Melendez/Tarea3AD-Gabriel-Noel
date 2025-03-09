@@ -178,10 +178,10 @@ public class ExistdbConnection
 			 // Ruta para la subParada ejemplo xmldb:exist://localhost:8080/exist/xmlrpc/db/Paradas/Gijon
 			 // Uri: xmldb:exist://localhost:8080/exist/xmlrpc/db/Paradas
 			 // Y le damos / nombreParada 
-			 String rutaSubParada = URI + "/" + nombreParada;
+			 String rutaSubParada = URI + "/" + nombreParada+"/";
+			 System.out.println(contenidoXml);
 			 
-			 
-			 // Conectarse a la nueva URI /Paradas/nombreParada
+			 // Conectarse a la nueva URI /Paradas/nombreParada (Se conecta correctamente)
 			 subParada = conectarBD(rutaSubParada);
 			 
 			 System.out.println();
@@ -190,7 +190,7 @@ public class ExistdbConnection
 			 
 			 // Crear el recurso XML que contendrán estas subParadas
 			 // Decimos primero el nombre del fichero y por ultimo el tipo que es
-			 //XMLResource nuevoXML = (XMLResource)colec_aux;
+			 //XMLResource nuevoXML = (XMLResource)colec_aux; (puede que se tenga que encapsular aqui?)
 			 
 			 // Creamos el contenido dandole por parametro el XML que hemos creado
 			 colec_aux.setContent(contenidoXml);
@@ -204,7 +204,7 @@ public class ExistdbConnection
 		 
 		 catch(Exception e)
 		 {
-			 System.out.println("Error al guardar el carnet en la SubColeccion de Parada: "+ e.getMessage());
+			 //porfa usa e.printStackTrace(); para poder ver toda la ruta del error
 			 e.printStackTrace();
 		 }
 		 
@@ -217,7 +217,7 @@ public class ExistdbConnection
 			 
 			 
 			    System.out.println("guardarCarnetEnSubCollectionParada");
-
+			    System.out.println(contenidoXml);
 			    try {
 			        // Construct the path for the subParada
 			        String rutasubParada = URI + "/" + nombreParada;
@@ -232,13 +232,13 @@ public class ExistdbConnection
 
 			        // Set the content of the resource directly from the XML string
 			        colec_aux.setContent(contenidoXml.getBytes(StandardCharsets.UTF_8));
-
+			        System.out.println("llega aqui ?");
 			        // Save the resource in the subcollection
 			        subParada.storeResource(colec_aux);
 
 			        System.out.println("Carnet guardado en: " + rutasubParada + " de forma correcta");
 			    } catch (Exception e) {
-			        System.out.println("Error al guardar el carnet en la SubColeccion de Parada: " + e.getMessage());
+			       // System.out.println("Error al guardar el carnet en la SubColeccion de Parada: " + e.getMessage());
 			        e.printStackTrace();
 			    }
 			 
