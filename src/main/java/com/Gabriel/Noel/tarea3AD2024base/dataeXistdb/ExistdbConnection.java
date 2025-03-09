@@ -235,7 +235,7 @@ public class ExistdbConnection
 			        System.out.println("llega aqui ?");
 			        // Save the resource in the subcollection
 			        subParada.storeResource(colec_aux);
-
+			        //EL ERROR DEBE ESTAR JUSTO EN LA LINEA DE ARRIBAAAAA
 			        System.out.println("Carnet guardado en: " + rutasubParada + " de forma correcta");
 			    } catch (Exception e) {
 			       // System.out.println("Error al guardar el carnet en la SubColeccion de Parada: " + e.getMessage());
