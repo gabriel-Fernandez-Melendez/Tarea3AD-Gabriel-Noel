@@ -210,7 +210,8 @@ public class ExistdbConnection
 		 
 	}
 	 
-	// Metodo solo para esta clase, no para ninguna mas
+	// Metodo solo para esta clase, no para ninguna mas //Gabriel : este estamos usando 
+	 
 		 private void guardarCarnetEnSubColectionParada(String nombreParada, String nombreFichero, String contenidoXml)
 		{
 			 
@@ -227,7 +228,7 @@ public class ExistdbConnection
 			        System.out.println("llega hasta aqui ");
 
 			        // Create a new resource in the subcollection
-			        Resource colec_aux = subParada.createResource(nombreFichero, contenidoXml);
+			        Resource colec_aux = subParada.createResource(contenidoXml, "XMLResource");
 
 			        // Set the content of the resource directly from the XML string
 			        colec_aux.setContent(contenidoXml.getBytes(StandardCharsets.UTF_8));
