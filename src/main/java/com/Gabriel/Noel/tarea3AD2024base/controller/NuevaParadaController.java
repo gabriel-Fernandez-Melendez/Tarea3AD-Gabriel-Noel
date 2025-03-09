@@ -41,7 +41,7 @@ import javafx.stage.Stage;
 @Controller
 public class NuevaParadaController implements Initializable {
 	
-	private ExistdbConnection EXBD = ExistdbConnection.crearInstancia();
+	private ExistdbConnection EXBD ; //inicializar al usar
 
 	@FXML
 	private TextField nombre_login;
@@ -132,6 +132,7 @@ public class NuevaParadaController implements Initializable {
 		
 		// Aqui iria el metodo para crear la subcoleccion de las paradas
 		// Y crearia la subColeccion con el nombre de la parada
+		EXBD=new ExistdbConnection("xmldb:exist://localhost:8080/exist/xmlrpc/db/Paradas");
 		EXBD.crearSubColectionParadas(p.getNombre());
 
 	}

@@ -69,7 +69,7 @@ import javafx.stage.Stage;
 @Controller
 public class NuevoPeregrinoController implements Initializable {
 	
-	private ExistdbConnection EXBD = ExistdbConnection.crearInstancia();
+	private ExistdbConnection EXBD ;
 	
 	private ExistdbConnection miconexionExist;
 
@@ -214,11 +214,15 @@ public class NuevoPeregrinoController implements Initializable {
 			Carnet c = GuardarCarnet(parada.getValue());
 			Carnet carnet_aux = carnet_service.BuscarPorId(c.getId());
 			GuardarPeregrinoSellado(cred, carnet_aux);
-			
-			
+			Peregrino p =new Peregrino();
+			p=peregrino_service.BuscarPorCredenciales(cred);
+			ArrayList<Parada> par = (ArrayList<Parada>) parada_service.ListaDeParadas();
+			ArrayList<ParadaSellada> selladas=(ArrayList<ParadaSellada>) sellado.obtenerTodasParadasSelladas();
 			// Ahora el metodo para inyectar el carnet en existDB
 			// Le damos por parametro el nombre de la parada inicial y el objeto carnet
-			EXBD.inyectarCarnet(c.getParadaInicial().getNombre(), c);
+			EXBD=new ExistdbConnection("xmldb:exist://localhost:8080/exist/xmlrpc/db/Paradas/");
+			String xml=EXBD.exportarCarnet(p, par, selladas);
+			EXBD.inyectarCarnet(carnet_aux.getParadaInicial().getNombre(), carnet_aux,xml);
 			
 			
 			
