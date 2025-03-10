@@ -16,6 +16,7 @@ import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Marshaller;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
@@ -31,6 +32,10 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.w3c.dom.Document;
+import java.io.ByteArrayInputStream;
 
 import org.exist.xmldb.DatabaseInstanceManager;
 import org.exist.xmldb.EXistResource;
@@ -210,67 +215,70 @@ public class ExistdbConnection
 		 
 	}
 	 
-	// Metodo solo para esta clase, no para ninguna mas //Gabriel : este estamos usando 
-	 
-		 private void guardarCarnetEnSubColectionParada(String nombreParada, String nombreFichero, String contenidoXml)
-		{
-			 
-			 
-			    System.out.println("guardarCarnetEnSubCollectionParada");
-			    System.out.println(contenidoXml);
-			    try {
-			        // Construct the path for the subParada
-			        String rutasubParada = URI + "/" + nombreParada;
 
-			        // Connect to the new URL /Paradas/nombreParada
-			        Collection subParada = conectarBD(rutasubParada);
-
-			        System.out.println("llega hasta aqui ");
-
-			        // Create a new resource in the subcollection
-			        Resource colec_aux = subParada.createResource(contenidoXml, "XMLResource");
-
-			        // Set the content of the resource directly from the XML string
-			        colec_aux.setContent(contenidoXml.getBytes(StandardCharsets.UTF_8));
-			        System.out.println("llega aqui ?");
-			        // Save the resource in the subcollection
-			        subParada.storeResource(colec_aux);
-			        //EL ERROR DEBE ESTAR JUSTO EN LA LINEA DE ARRIBAAAAA
-			        System.out.println("Carnet guardado en: " + rutasubParada + " de forma correcta");
-			    } catch (Exception e) {
-			       // System.out.println("Error al guardar el carnet en la SubColeccion de Parada: " + e.getMessage());
-			        e.printStackTrace();
-			    }
-			 
+	 public void guardarCarnetEnSubColectionParada(String nombreParada, String nombreFichero, String contenidoXml) {
+		    try {
+		        // Construir la ruta de la subcolección
+		        String rutaSubColeccion = URI + "/" + nombreParada;
+		        Collection subColeccion = DatabaseManager.getCollection(rutaSubColeccion, User, Pass);
+		        if (subColeccion == null) {
+		            System.out.println("No se pudo obtener la subcolección: " + nombreParada);
+		            return;
+		        }
+		        // Crear el recurso XML
+		        XMLResource recurso = (XMLResource) subColeccion.createResource(nombreFichero, "XMLResource");
+		        
+		        // Eliminar el BOM si existe y recortar espacios en blanco
+		        contenidoXml = removeBom(contenidoXml).trim();
+		        
+		        // Establecer el MIME type para asegurar el procesamiento como XML
+		        ((EXistResource) recurso).setMimeType("text/xml");
+		        // Asignar el contenido como String
+		        recurso.setContent(contenidoXml);
+		        
+		        // Guardar el recurso en la subcolección
+		        subColeccion.storeResource(recurso);
+		        System.out.println("Carnet guardado en la subcolección: " + nombreFichero);
+		    } catch(Exception e) {
+		        System.out.println("Error en guardarCarnetEnSubColeccionParada_V1: " + e.getMessage());
+		        e.printStackTrace();
+		    }
 		}
 
+		private String removeBom(String xml) {
+		    // Si la cadena comienza con el BOM Unicode, se elimina
+		    if(xml != null && xml.startsWith("\uFEFF")) {
+		         xml = xml.substring(1);
+		    }
+		    return xml;
+		}
+
+
+
+
+
+		
+
+
 	 
-	 // Metodo inyectar el carnet a existDB en la SubColeccion de Paradas
-	 public void inyectarCarnet(String nombreParada, Carnet miCarnet,String xml)
-	 {
-		 System.out.println("inyectar carnet entro en el metodo");
-		 try
-		 {
-			  
-		 
-		 
-		 // Dar nombre al xml
-		 String nombreFicheroXML = "Carnet_"+miCarnet.getId()+".xml";
-		 
-		 
-		 guardarCarnetEnSubColectionParada(nombreParada, nombreFicheroXML, xml);
-		 
-		 System.out.println("Carnet creado de forma exitosa");
-		 
-		 }
-		 
-		 catch(Exception e)
-		 {
-			 System.out.println("Error al crear el carnet y almacenarlo en ExistDB: "+ e.getMessage());
-		 }
-		 
-		 
-	 }
+		 // Inyecta el XML del carnet en la subcolección correspondiente a la parada
+		    public void inyectarCarnet(String nombreParada, Carnet miCarnet, String xml) 
+		    {
+		        System.out.println("Inyectar carnet en ExistDB para parada: " + nombreParada);
+		        try 
+		        {
+		            String nombreFicheroXML = "Carnet_" + miCarnet.getId() + ".xml";
+		            System.out.println("Nombre del fichero XML generado: " + nombreFicheroXML);
+		            guardarCarnetEnSubColectionParada(nombreParada, nombreFicheroXML, xml);
+		            System.out.println("Carnet inyectado exitosamente.");
+		        } 
+		        catch(Exception ex)
+		        {
+		        	System.out.println("Error al inyectar el carnet:");
+		            ex.printStackTrace();
+		        }
+		    }
+		    
 
 		public static String exportarCarnet(Peregrino p,ArrayList<Parada> paradas_colec,ArrayList<ParadaSellada> selladas_colec) // PROBADO Y FUNCIONAL//hace falta poner el nombre de la parada
 		{

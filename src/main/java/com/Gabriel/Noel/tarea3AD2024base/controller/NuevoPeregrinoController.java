@@ -218,11 +218,31 @@ public class NuevoPeregrinoController implements Initializable {
 			p=peregrino_service.BuscarPorCredenciales(cred);
 			ArrayList<Parada> par = (ArrayList<Parada>) parada_service.ListaDeParadas();
 			ArrayList<ParadaSellada> selladas=(ArrayList<ParadaSellada>) sellado.obtenerTodasParadasSelladas();
+			
+			
 			// Ahora el metodo para inyectar el carnet en existDB
 			// Le damos por parametro el nombre de la parada inicial y el objeto carnet
-			EXBD=new ExistdbConnection("xmldb:exist://localhost:8080/exist/xmlrpc/db/Paradas/");
-			String xml=EXBD.exportarCarnet(p, par, selladas);
-			EXBD.inyectarCarnet(carnet_aux.getParadaInicial().getNombre(), carnet_aux,xml);
+			// Generar el XML a partir del carnet y otros datos
+            EXBD = new ExistdbConnection("xmldb:exist://localhost:8080/exist/xmlrpc/db/Paradas/");
+            String xml = ExistdbConnection.exportarCarnet(p, par, selladas);
+            System.out.println("XML generado:\n" + xml);
+
+            // Obtener el nombre de la parada inicial desde el carnet
+            Parada paradaInicial = c.getParadaInicial();
+            if (paradaInicial == null) {
+                System.out.println("Error: La parada inicial del carnet es nula.");
+                return;
+            }
+            String nombreParada = paradaInicial.getNombre();
+            System.out.println("Nombre de la parada inicial: " + nombreParada);
+
+            // Inyectar el XML en ExistDB
+            try {
+                EXBD.inyectarCarnet(nombreParada, c, xml);
+            } catch (Exception ex) {
+                System.out.println("Error en inyectarCarnet: " + ex.getMessage());
+                ex.printStackTrace();
+            }
 			
 			
 			
