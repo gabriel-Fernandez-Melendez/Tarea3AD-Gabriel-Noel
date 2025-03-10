@@ -131,6 +131,17 @@ public enum FxmlView {
 			return "/fxml/EnviosRealizados.fxml";
 		}
 	},
+	CarnetsPorParada {
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("NuevaParada.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/CarnetsEnParada.fxml";
+		}
+	},
 	EDITARSERVICIOS {
 		@Override
 		public String getTitle() {

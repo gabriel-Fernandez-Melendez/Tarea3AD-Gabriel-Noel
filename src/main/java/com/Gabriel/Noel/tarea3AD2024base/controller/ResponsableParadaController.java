@@ -56,6 +56,9 @@ public class ResponsableParadaController {
 
 	@FXML
 	private Button botonEnvios;
+	
+	@FXML
+	private Button botonVerCarnets;
 
 	@FXML
 	private MenuItem menusalir;
@@ -551,4 +554,11 @@ public class ResponsableParadaController {
 		}
 	}
 
+	
+	@FXML
+	private void verCarnets()
+	{
+		stageManager.switchScene(FxmlView.CarnetsPorParada);
+	}
+	
 }

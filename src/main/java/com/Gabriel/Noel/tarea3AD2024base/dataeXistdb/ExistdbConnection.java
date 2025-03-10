@@ -16,34 +16,27 @@ import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Marshaller;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
-import java.io.ByteArrayInputStream;
-
-import org.exist.xmldb.DatabaseInstanceManager;
 import org.exist.xmldb.EXistResource;
 import org.w3c.dom.DOMImplementation;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
+
 
 public class ExistdbConnection 
 {
@@ -56,15 +49,12 @@ public class ExistdbConnection
 	String User = "admin";
 	String Pass = "";
 	
-
-	
-	// Objeto Collection para
-	private Collection coleccionParadas;
+	private Collection miColeccion;
 	
 	
 	   public ExistdbConnection(String url) {
 	        // Inicializamos la conexión a la colección "Paradas"
-	        coleccionParadas = conectarBD(url);
+	       miColeccion = conectarBD(url);
 	    }
 	
 
@@ -116,10 +106,7 @@ public class ExistdbConnection
 			
 			
 			// Creamos la subColleccion con el nombre de la nueva parada que registremos
-			mgtService.createCollection(nombreParada);
-			
-			// Prueba por pantalla
-			System.out.println("Coleccion creada: "+ nombreParada);
+			mgtService.createCollection(nombreParada);			
 						
 		}
 		
@@ -135,7 +122,6 @@ public class ExistdbConnection
 	// Metodo que se va a usar en esta clase no en ninguna mas
 	 private String convertirCarnetAXml(Carnet carnet)
 	    {
-		 System.out.println("convertir xml");
 	    	String miCarnetXML = null;
 	    	
 	    	try 
@@ -154,9 +140,7 @@ public class ExistdbConnection
 	        marshaller.marshal(carnet, escritor);
 	        
 	        
-	        miCarnetXML = escritor.toString();
-	        
-	        System.out.println("Carnet convertido a XML de forma correcta");
+	        miCarnetXML = escritor.toString();	        
 	        
 	    	}
 	    	
@@ -187,9 +171,7 @@ public class ExistdbConnection
 			 System.out.println(contenidoXml);
 			 
 			 // Conectarse a la nueva URI /Paradas/nombreParada (Se conecta correctamente)
-			 subParada = conectarBD(rutaSubParada);
-			 
-			 System.out.println();
+			 subParada = conectarBD(rutaSubParada);			 
 			 
 			 Resource colec_aux=subParada.createResource(nombreFichero, "XMLResource");
 			 
@@ -201,10 +183,7 @@ public class ExistdbConnection
 			 colec_aux.setContent(contenidoXml);
 			 
 			 // Guardamos el recurso en la subcoleccion
-			 subParada.storeResource(colec_aux);
-			 
-			 System.out.println("Carnet guardado en: "+rutaSubParada+ " de forma correcta");
-			 
+			 subParada.storeResource(colec_aux);		 
 		 }
 		 
 		 catch(Exception e)
@@ -220,57 +199,40 @@ public class ExistdbConnection
 		    try {
 		        // Construir la ruta de la subcolección
 		        String rutaSubColeccion = URI + "/" + nombreParada;
+		        
 		        Collection subColeccion = DatabaseManager.getCollection(rutaSubColeccion, User, Pass);
+		        
 		        if (subColeccion == null) {
 		            System.out.println("No se pudo obtener la subcolección: " + nombreParada);
 		            return;
 		        }
+		        
 		        // Crear el recurso XML
 		        XMLResource recurso = (XMLResource) subColeccion.createResource(nombreFichero, "XMLResource");
-		        
-		        // Eliminar el BOM si existe y recortar espacios en blanco
-		        contenidoXml = removeBom(contenidoXml).trim();
-		        
+		        		        
 		        // Establecer el MIME type para asegurar el procesamiento como XML
-		        ((EXistResource) recurso).setMimeType("text/xml");
+		        ((EXistResource) recurso).setMimeType("carnet/xml");
+		        
 		        // Asignar el contenido como String
 		        recurso.setContent(contenidoXml);
 		        
 		        // Guardar el recurso en la subcolección
 		        subColeccion.storeResource(recurso);
-		        System.out.println("Carnet guardado en la subcolección: " + nombreFichero);
+		        
 		    } catch(Exception e) {
-		        System.out.println("Error en guardarCarnetEnSubColeccionParada_V1: " + e.getMessage());
+		        System.out.println("Error en guardarCarnetEnSubColeccionParada: " + e.getMessage());
 		        e.printStackTrace();
 		    }
 		}
-
-		private String removeBom(String xml) {
-		    // Si la cadena comienza con el BOM Unicode, se elimina
-		    if(xml != null && xml.startsWith("\uFEFF")) {
-		         xml = xml.substring(1);
-		    }
-		    return xml;
-		}
-
-
-
-
-
 		
-
-
 	 
 		 // Inyecta el XML del carnet en la subcolección correspondiente a la parada
 		    public void inyectarCarnet(String nombreParada, Carnet miCarnet, String xml) 
 		    {
-		        System.out.println("Inyectar carnet en ExistDB para parada: " + nombreParada);
 		        try 
 		        {
 		            String nombreFicheroXML = "Carnet_" + miCarnet.getId() + ".xml";
-		            System.out.println("Nombre del fichero XML generado: " + nombreFicheroXML);
 		            guardarCarnetEnSubColectionParada(nombreParada, nombreFicheroXML, xml);
-		            System.out.println("Carnet inyectado exitosamente.");
 		        } 
 		        catch(Exception ex)
 		        {
@@ -440,7 +402,6 @@ public class ExistdbConnection
 
 				carnet.appendChild(estancias); // cierro elemento padre
 
-				System.out.println("----- Generando el fichero XML");
 				Source fuente = new DOMSource(documento);
 
 				TransformerFactory tf = TransformerFactory.newInstance();
@@ -453,6 +414,7 @@ public class ExistdbConnection
 		       
 		        transformer.transform(new DOMSource(documento), new StreamResult(writer));
 		        return writer.toString();
+		        
 			}
 
 			catch (Exception e) {
@@ -462,6 +424,68 @@ public class ExistdbConnection
 		}
 	    
 	    
+		
+		
+		public List<String> listarCarnetsDeParada(String nombreParada) {
+		    List<String> listaFicheros = new ArrayList<>();
+		    Collection subParada = null;
+		    try {
+		        String rutaSubParada = URI + "/" + nombreParada;  // "xmldb:exist://.../db/Paradas/Granda"
+		        subParada = conectarBD(rutaSubParada);
+		        if (subParada != null) {
+		            String[] recursos = subParada.listResources();
+		            if (recursos != null) {
+		                for (String recurso : recursos) {
+		                    listaFicheros.add(recurso);
+		                }
+		            }
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		        System.out.println("Error al listar carnets en la parada " + nombreParada + ": " + e.getMessage());
+		    } finally {
+		        // Cerrar la colección si se desea
+		        if (subParada != null) {
+		            try { subParada.close(); } catch (XMLDBException e) { /* ignore */ }
+		        }
+		    }
+		    return listaFicheros;
+		}
+
+
+		public String obtenerContenidoCarnet(String nombreParada, String nombreFichero) {
+		    Collection subParada = null;
+		    try {
+		        String rutaSubParada = URI + "/" + nombreParada;
+		        subParada = conectarBD(rutaSubParada);
+		        if (subParada != null) {
+		            Resource res = subParada.getResource(nombreFichero);
+		            if (res != null) {
+		                Object rawContent = res.getContent();
+		                if (rawContent instanceof String) {
+		                    // Directamente un String
+		                    return (String) rawContent;
+		                } else if (rawContent instanceof byte[]) {
+		                    // Es un array de bytes, lo convertimos a String
+		                    byte[] bytes = (byte[]) rawContent;
+		                    return new String(bytes, StandardCharsets.UTF_8);
+		                } else {
+		                    System.out.println("Contenido no es String ni byte[], sino: " + rawContent.getClass());
+		                }
+		            }
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		        System.out.println("No se pudo obtener el contenido XML de " + nombreFichero + ": " + e.getMessage());
+		    } finally {
+		        if (subParada != null) {
+		            try { subParada.close(); } catch (XMLDBException e) { /* ignore */ }
+		        }
+		    }
+		    return null;
+		}
+
+
 		
 
 	
