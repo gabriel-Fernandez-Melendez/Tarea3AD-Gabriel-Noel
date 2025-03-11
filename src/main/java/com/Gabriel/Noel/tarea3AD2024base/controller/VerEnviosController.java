@@ -19,134 +19,111 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 
-
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-
-
 @Controller
 public class VerEnviosController implements Serializable {
 
-	
 	@FXML
 	private Button botonVolver;
-	
+
 	@FXML
-	private TableView <EnvioACasa> tablaEnvios;
-	
+	private TableView<EnvioACasa> tablaEnvios;
+
 	@FXML
-	private TableColumn<EnvioACasa,Long> idEnvio;
-	
+	private TableColumn<EnvioACasa, Long> idEnvio;
+
 	@FXML
-	private TableColumn<EnvioACasa,Double> pesoEnvio;
+	private TableColumn<EnvioACasa, Double> pesoEnvio;
 	@FXML
-	private TableColumn<EnvioACasa,Integer> largoEnvio;
+	private TableColumn<EnvioACasa, Integer> largoEnvio;
 	@FXML
-	private TableColumn<EnvioACasa,Integer> anchoEnvio;
+	private TableColumn<EnvioACasa, Integer> anchoEnvio;
 	@FXML
-	private TableColumn<EnvioACasa,Integer> altoEnvio;
+	private TableColumn<EnvioACasa, Integer> altoEnvio;
 	@FXML
-	private TableColumn<EnvioACasa,Boolean> esUrgente;
+	private TableColumn<EnvioACasa, Boolean> esUrgente;
 	@FXML
-	private TableColumn<EnvioACasa,String> direccionEnvio;
-	
-	
-	
+	private TableColumn<EnvioACasa, String> direccionEnvio;
+
 	@Autowired
 	private ParadaService paradaService;
-	
-	
+
 	@Autowired
-    private EnvioACasaService envioService;
+	private EnvioACasaService envioService;
 
-    @Lazy
-    @Autowired
-    private StageManager stageManager;
+	@Lazy
+	@Autowired
+	private StageManager stageManager;
 
-    /**
-     * Inicializa la vista y carga la lista de envíos desde la base de datos.
-     */
-    @FXML
-    public void initialize() {
-        configurarColumnas();
-        cargarEnvios();
-    }
 
-    /**
-     * Configura las columnas de la tabla con las propiedades de `EnvioACasa`.
-     */
-    private void configurarColumnas() {
-    	 idEnvio.setCellValueFactory(new PropertyValueFactory<>("id"));
-         pesoEnvio.setCellValueFactory(new PropertyValueFactory<>("peso"));
-        
-         largoEnvio.setCellValueFactory(cellData -> 
-         new SimpleObjectProperty<>(cellData.getValue().getVolumen()[0]));
+	@FXML
+	public void initialize() {
+		configurarColumnas();
+		cargarEnvios();
+	}
 
-         anchoEnvio.setCellValueFactory(cellData -> 
-         new SimpleObjectProperty<>(cellData.getValue().getVolumen()[1]));
-
-         altoEnvio.setCellValueFactory(cellData -> 
-         new SimpleObjectProperty<>(cellData.getValue().getVolumen()[2]));
-         
-         esUrgente.setCellValueFactory(new PropertyValueFactory<>("esUrgente"));
-         direccionEnvio.setCellValueFactory(new PropertyValueFactory<>("direccion"));
-     }
-
-    /**
-     * Carga los envíos desde la base de datos y los muestra en la tabla.
-     */
-    private void cargarEnvios() {
-        try {
-        	
-        	System.out.println("El id de la parada es"+ recogerIDParada().toString());
-        	
-            ObservableList<EnvioACasa> envios = FXCollections.observableArrayList(envioService.obtenerEnviosPorParada(recogerIDParada()));
-            tablaEnvios.setItems(envios);
-
-            if (envios.isEmpty()) {
-                System.out.println("No hay envíos registrados.");
-            } else {
-                System.out.println("Se han cargado " + envios.size() + " envíos en la tabla.");
-            }
-        } catch (Exception e) {
-            System.out.println("Error al cargar envíos: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Vuelve a la vista anterior.
-     */
-    @FXML
-    private void volverAtras() {
-        stageManager.switchScene(FxmlView.RESPONSABLE);
-    }
-    
-    
-    
-    private Long recogerIDParada()
-    {
-    	Long idParada = 0L;
-    	
-    	try 
-    	{
-    		Credenciales miCredencial = CredencialesController.getCredenciales();
-    		
-    		Parada paradaActual = paradaService.buscarParadaPorCredenciales(miCredencial);
-    		
-    		idParada = paradaActual.getId();
-    		  		
-    	}
-    	
-    	catch(Exception e)
-    	{
-    		System.out.println("Error en el metodo de recogerIDParada"+ e.getMessage());
-    	}
-
-    	return idParada;
-    }
-    
 	
+	private void configurarColumnas() {
+		idEnvio.setCellValueFactory(new PropertyValueFactory<>("id"));
+		pesoEnvio.setCellValueFactory(new PropertyValueFactory<>("peso"));
+
+		largoEnvio.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getVolumen()[0]));
+
+		anchoEnvio.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getVolumen()[1]));
+
+		altoEnvio.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getVolumen()[2]));
+
+		esUrgente.setCellValueFactory(new PropertyValueFactory<>("esUrgente"));
+		direccionEnvio.setCellValueFactory(new PropertyValueFactory<>("direccion"));
+	}
+
+
+	private void cargarEnvios() {
+		try {
+
+			System.out.println("El id de la parada es" + recogerIDParada().toString());
+
+			ObservableList<EnvioACasa> envios = FXCollections
+					.observableArrayList(envioService.obtenerEnviosPorParada(recogerIDParada()));
+			tablaEnvios.setItems(envios);
+
+			if (envios.isEmpty()) {
+				System.out.println("No hay envíos registrados.");
+			} else {
+				System.out.println("Se han cargado " + envios.size() + " envíos en la tabla.");
+			}
+		} catch (Exception e) {
+			System.out.println("Error al cargar envíos: " + e.getMessage());
+		}
+	}
+
+	
+	@FXML
+	private void volverAtras() {
+		stageManager.switchScene(FxmlView.RESPONSABLE);
+	}
+
+	private Long recogerIDParada() {
+		Long idParada = 0L;
+
+		try {
+			Credenciales miCredencial = CredencialesController.getCredenciales();
+
+			Parada paradaActual = paradaService.buscarParadaPorCredenciales(miCredencial);
+
+			idParada = paradaActual.getId();
+
+		}
+
+		catch (Exception e) {
+			System.out.println("Error en el metodo de recogerIDParada" + e.getMessage());
+		}
+
+		return idParada;
+	}
+
 }

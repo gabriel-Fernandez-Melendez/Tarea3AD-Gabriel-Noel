@@ -59,12 +59,11 @@ import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-
 @Controller
 public class NuevoPeregrinoController implements Initializable {
-	
+
 	private ExistdbConnection EXBD;
-	
+
 	private ExistdbConnection miconexionExist;
 
 	@FXML
@@ -184,63 +183,60 @@ public class NuevoPeregrinoController implements Initializable {
 		mostrar_contraseña.setVisible(false);
 	}
 
-	// TENGO QUE METER EL METOD FXML RELATIVO AL BOTON QUE GUARDA CASA COSA(actualmente implementado)
 	@FXML
 	private void GuardarNuevoPeregrino() {
-		if (Nombre_login.getText().contains(" ")||Nombre_login.getText().isEmpty()) {
+		if (Nombre_login.getText().contains(" ") || Nombre_login.getText().isEmpty()) {
 			mostrarAlerta("Nombre no valido", "no puede tener espacios blancos el nombre", AlertType.ERROR);
 			return;
 		}
-		if (Contraseña.getText().contains(" ")||Contraseña.getText().isEmpty()) {
+		if (Contraseña.getText().contains(" ") || Contraseña.getText().isEmpty()) {
 			mostrarAlerta("contraseña no valida", "no puede tener espacios blancos la contraseña", AlertType.ERROR);
 			return;
-		} 
-		//exprecion regular saca de stack over flow https://stackoverflow.com/questions/201323/how-can-i-validate-an-email-address-using-a-regular-expression
-		if (!correo_peregrino.getText().matches("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")) {
+		}
+		// exprecion regular saca de stack over flow
+		// https://stackoverflow.com/questions/201323/how-can-i-validate-an-email-address-using-a-regular-expression
+		if (!correo_peregrino.getText().matches(
+				"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")) {
 			mostrarAlerta("contraseña no valida", "falta el @", AlertType.ERROR);
 			return;
 		}
-		if(nombre_peregrino.getText().length()<3) {
+		if (nombre_peregrino.getText().length() < 3) {
 			mostrarAlerta("nombre invalido", "tiene que poner un  nombre que pueda caminar", AlertType.INFORMATION);
 			return;
 		}
-			Credenciales cred = GuardarNuevasCredenciales();
-			Carnet c = GuardarCarnet(parada.getValue());
-			Carnet carnet_aux = carnet_service.BuscarPorId(c.getId());
-			GuardarPeregrinoSellado(cred, carnet_aux);
-			Peregrino p =new Peregrino();
-			p=peregrino_service.BuscarPorCredenciales(cred);
-			ArrayList<Parada> par = (ArrayList<Parada>) parada_service.ListaDeParadas();
-			ArrayList<ParadaSellada> selladas=(ArrayList<ParadaSellada>) sellado.obtenerTodasParadasSelladas();
-			
-			
-			// Ahora el metodo para inyectar el carnet en existDB
-			// Le damos por parametro el nombre de la parada inicial y el objeto carnet
-			// Generar el XML a partir del carnet y otros datos
-            EXBD = new ExistdbConnection("xmldb:exist://localhost:8080/exist/xmlrpc/db/Paradas/");
-            String xml = ExistdbConnection.exportarCarnet(p, par, selladas);
+		Credenciales cred = GuardarNuevasCredenciales();
+		Carnet c = GuardarCarnet(parada.getValue());
+		Carnet carnet_aux = carnet_service.BuscarPorId(c.getId());
+		GuardarPeregrinoSellado(cred, carnet_aux);
+		Peregrino p = new Peregrino();
+		p = peregrino_service.BuscarPorCredenciales(cred);
+		ArrayList<Parada> par = (ArrayList<Parada>) parada_service.ListaDeParadas();
+		ArrayList<ParadaSellada> selladas = (ArrayList<ParadaSellada>) sellado.obtenerTodasParadasSelladas();
 
-            // Obtener el nombre de la parada inicial desde el carnet
-            Parada paradaInicial = c.getParadaInicial();
-            if (paradaInicial == null) {
-                System.out.println("Error: La parada inicial del carnet es nula.");
-                return;
-            }
-            String nombreParada = paradaInicial.getNombre();
+		// Ahora el metodo para inyectar el carnet en existDB
+		// Le damos por parametro el nombre de la parada inicial y el objeto carnet
+		// Generar el XML a partir del carnet y otros datos
+		EXBD = new ExistdbConnection("xmldb:exist://localhost:8080/exist/xmlrpc/db/Paradas/");
+		String xml = ExistdbConnection.exportarCarnet(p, par, selladas);
 
-            // Inyectar el XML en ExistDB
-            try {
-                EXBD.inyectarCarnet(nombreParada, c, xml);
-            } catch (Exception ex) {
-                System.out.println("Error en inyectarCarnet: " + ex.getMessage());
-                ex.printStackTrace();
-            }
-			
-			
-			
-			mostrarAlerta("Peregrino añadido", "Puede entrar con sus credenciales de peregrino", AlertType.INFORMATION);
-			stageManager.switchScene(FxmlView.LOGIN);// que una vez registrado con exito te lleve directamente a el login
-		
+		// Obtener el nombre de la parada inicial desde el carnet
+		Parada paradaInicial = c.getParadaInicial();
+		if (paradaInicial == null) {
+			System.out.println("Error: La parada inicial del carnet es nula.");
+			return;
+		}
+		String nombreParada = paradaInicial.getNombre();
+
+		// Inyectar el XML en ExistDB
+		try {
+			EXBD.inyectarCarnet(nombreParada, c, xml);
+		} catch (Exception ex) {
+			System.out.println("Error en inyectarCarnet: " + ex.getMessage());
+			ex.printStackTrace();
+		}
+
+		mostrarAlerta("Peregrino añadido", "Puede entrar con sus credenciales de peregrino", AlertType.INFORMATION);
+		stageManager.switchScene(FxmlView.LOGIN);// que una vez registrado con exito te lleve directamente a el login
 
 	}
 
@@ -287,7 +283,8 @@ public class NuevoPeregrinoController implements Initializable {
 		sellado.guardarParadaSellada(p);
 
 	}
-	//este metodo crea un  carnet bacio con los datos de la parada
+
+	// este metodo crea un carnet bacio con los datos de la parada
 	private Carnet GuardarCarnet(Parada par) {
 		Carnet c = new Carnet();
 		c.setDistancia(0);
@@ -354,8 +351,8 @@ public class NuevoPeregrinoController implements Initializable {
 		}
 		return val;
 	}
-	
-	public void Validar(TextField texto,String s) {
+
+	public void Validar(TextField texto, String s) {
 		if (texto.getText().contains(s)) {
 			mostrarAlerta("dato invalido ", "a ingresado un dato invalido", AlertType.ERROR);
 		}
@@ -389,15 +386,8 @@ public class NuevoPeregrinoController implements Initializable {
 		pais.setItems(opciones_2);
 		pais.setValue(paises.get(0));
 
-		// inicializarlabel
-
-		// Prueba para que no salga nada en pantalla esque carga un pais y una parada al
-		// azar (NOEL)
-		// Funciona, deja este metodo Gabi <3
-		//limpiarCampos();
 	}
 
-	// Volver al Login (Noel)
 	@FXML
 	private void volverLogin() {
 		stageManager.switchScene(FxmlView.LOGIN);
@@ -412,7 +402,7 @@ public class NuevoPeregrinoController implements Initializable {
 		pais.setValue(null);
 		parada.setValue(null);
 	}
-	
+
 	@FXML
 	private void Salir() {
 		Boolean salir = false;
@@ -421,7 +411,7 @@ public class NuevoPeregrinoController implements Initializable {
 		miAlerta.setContentText("seguro que quiere salir?");
 		Optional<ButtonType> resultado = miAlerta.showAndWait();
 
-		if(resultado.get()==ButtonType.OK) {
+		if (resultado.get() == ButtonType.OK) {
 			System.exit(0);
 		}
 	}
