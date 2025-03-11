@@ -22,7 +22,6 @@ import org.springframework.stereotype.Controller;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
 
@@ -39,7 +38,6 @@ import com.Gabriel.Noel.tarea3AD2024base.services.ParadaService;
 import com.Gabriel.Noel.tarea3AD2024base.services.PeregrinoService;
 import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
 
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -49,7 +47,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -110,7 +107,7 @@ public class ExportarCarnetXMLController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		// Credenciales cred= CredencialesController.Credenciales_usuario;
+		// Credenciales cred= CredencialesController.Credenciales_usuario;  //preguntar si  borramos todo esto 
 		// prueba de que llegan los datos
 		// System.out.println(cred.toString());
 		// colPeregrinoID.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -135,39 +132,23 @@ public class ExportarCarnetXMLController implements Initializable {
 	public void AyudaJavaFX() {
 		try {
 			System.out.println("entro a la funcion de ayuda pero no cargo la ventana");
-			// Crear un WebView para mostrar la ayuda
 			WebView webView = new WebView();
-
-			// Cargar el archivo HTML desde los recursos
 			String url = getClass().getResource("/ayuda/Ayuda.html").toExternalForm();
 			webView.getEngine().load(url);
-
-			// Crear un nuevo Stage para la ventana de ayuda
 			Stage helpStage = new Stage();
 			helpStage.setTitle("Ayuda");
-
-			// Crear una Scene con el WebView
 			Scene helpScene = new Scene(webView, 600, 600);
-
-			// Configurar la ventana
 			helpStage.setScene(helpScene);
-
-			// Bloquea la ventana principal mientras se muestra la ayuda
 			helpStage.initModality(Modality.APPLICATION_MODAL);
 			helpStage.setResizable(true);
-
-			// Mostrar la ventana de ayuda
 			helpStage.show();
 
 		} catch (NullPointerException e) {
-			// Manejar el caso en que el archivo de ayuda no se encuentra
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setTitle("Error");
 			alert.setHeaderText("Archivo de Ayuda no encontrado");
 			alert.setContentText("Por favor, verifica que el archivo 'help.html' esté en la ruta '/ayuda/help.html'.");
 			alert.showAndWait();
-			// esta linea en caso de que necesitemos detectar el origen del fallo atravez de
-			// consola
 			e.printStackTrace();
 		}
 	}
@@ -384,7 +365,6 @@ public class ExportarCarnetXMLController implements Initializable {
 	
 	@FXML
 	private void Salir() {
-		Boolean salir = false;
 		Alert miAlerta = new Alert(AlertType.CONFIRMATION);
 		miAlerta.setTitle("Salir");
 		miAlerta.setContentText("seguro que quiere salir?");

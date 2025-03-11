@@ -27,6 +27,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 @Controller
 public class VerEnviosController implements Serializable {
 
+
+	private static final long serialVersionUID = 1L;
+
 	@FXML
 	private Button botonVolver;
 

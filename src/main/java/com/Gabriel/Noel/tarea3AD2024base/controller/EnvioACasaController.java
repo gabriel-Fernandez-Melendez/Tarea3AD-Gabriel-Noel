@@ -28,6 +28,9 @@ import javafx.scene.control.TextField;
 public class EnvioACasaController implements Serializable {
 	
 	
+
+	private static final long serialVersionUID = 1L;
+
 	//Botones	
 	@FXML
 	private Button botonLimpiarCampos;
@@ -101,7 +104,7 @@ public class EnvioACasaController implements Serializable {
 		
 		boolean urgente = esUrgente.isSelected();
 		
-//		if (!validar(peso)|| !validar(largo) || !validar(ancho) || !validar(alto) ||
+//		if (!validar(peso)|| !validar(largo) || !validar(ancho) || !validar(alto) || // preguntar si  borrar esto
 //				!validar(direccion) || !validar(localidad))
 //		{
 //			return;
@@ -195,24 +198,7 @@ public class EnvioACasaController implements Serializable {
 		
 	}
 	
-	
-	
-	
-	
-//	public boolean validar(String texto)
-//	{
-//		
-//		if (texto.isEmpty())
-//		{
-//			
-//			mostrarAlerta("Error", "No puedes dejar el campo "+ texto +"vacio", AlertType.WARNING);
-//			return false;
-//		}
-//			
-//		return true;
-//		
-//		
-//	}
+
 	
 	
 	private void volverAtras() {

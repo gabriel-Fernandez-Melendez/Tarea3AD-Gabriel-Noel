@@ -64,8 +64,6 @@ public class NuevoPeregrinoController implements Initializable {
 
 	private ExistdbConnection EXBD;
 
-	private ExistdbConnection miconexionExist;
-
 	@FXML
 	private PasswordField Contraseña;
 
@@ -405,7 +403,6 @@ public class NuevoPeregrinoController implements Initializable {
 
 	@FXML
 	private void Salir() {
-		Boolean salir = false;
 		Alert miAlerta = new Alert(AlertType.CONFIRMATION);
 		miAlerta.setTitle("Salir");
 		miAlerta.setContentText("seguro que quiere salir?");

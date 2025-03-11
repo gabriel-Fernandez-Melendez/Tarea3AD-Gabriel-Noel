@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.Gabriel.Noel.tarea3AD2024base.config.StageManager;
-import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
 import com.Gabriel.Noel.tarea3AD2024base.view.FxmlView;
 
 import javafx.fxml.FXML;
@@ -107,7 +106,6 @@ public class RecuperarContraseñaController implements Initializable{
 	 */
 	@FXML
 	private void Salir() {
-		Boolean salir = false;
 		Alert miAlerta = new Alert(AlertType.CONFIRMATION);
 		miAlerta.setTitle("Salir");
 		miAlerta.setContentText("seguro que quiere salir?");
