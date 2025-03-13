@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Estancia;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.ParadaSellada;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.PeregrinoTabla;
-import com.Gabriel.Noel.tarea3AD2024base.repositorios.EstanciaRepository;
+import com.Gabriel.Noel.tarea3AD2024base.repositorios.jpa.EstanciaRepository;
 
 @Service
 public class EstanciaService {

@@ -10,9 +10,9 @@ import com.Gabriel.Noel.tarea3AD2024base.modelo.Carnet;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
-import com.Gabriel.Noel.tarea3AD2024base.repositorios.CarnetRepository;
-import com.Gabriel.Noel.tarea3AD2024base.repositorios.ParadasRepository;
-import com.Gabriel.Noel.tarea3AD2024base.repositorios.PeregrinoRepository;
+import com.Gabriel.Noel.tarea3AD2024base.repositorios.jpa.CarnetRepository;
+import com.Gabriel.Noel.tarea3AD2024base.repositorios.jpa.ParadasRepository;
+import com.Gabriel.Noel.tarea3AD2024base.repositorios.jpa.PeregrinoRepository;
 
 @Service
 public class ParadaService {

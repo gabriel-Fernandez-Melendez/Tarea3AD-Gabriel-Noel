@@ -7,6 +7,9 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "Carnets")
 @XmlRootElement
 @Entity
 @Table(name = "carnet") // Nombre de la tabla en la base de datos

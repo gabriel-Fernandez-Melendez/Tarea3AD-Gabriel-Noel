@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Carnet;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
-import com.Gabriel.Noel.tarea3AD2024base.repositorios.CarnetRepository;
+import com.Gabriel.Noel.tarea3AD2024base.repositorios.jpa.CarnetRepository;
 
 @Service
 public class CarnetService {

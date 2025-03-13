@@ -4,8 +4,8 @@ package com.Gabriel.Noel.tarea3AD2024base.services;
 import org.springframework.stereotype.Service;
 
 import com.Gabriel.Noel.tarea3AD2024base.modelo.ConjuntoContratado;
-import com.Gabriel.Noel.tarea3AD2024base.repositorios.ConjuntoContratadosRepository;
-import com.Gabriel.Noel.tarea3AD2024base.repositorios.ServicioRepository;
+import com.Gabriel.Noel.tarea3AD2024base.repositorios.jpa.ConjuntoContratadosRepository;
+import com.Gabriel.Noel.tarea3AD2024base.repositorios.jpa.ServicioRepository;
 
 
 @Service

@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
-import com.Gabriel.Noel.tarea3AD2024base.repositorios.PeregrinoRepository;
+import com.Gabriel.Noel.tarea3AD2024base.repositorios.jpa.PeregrinoRepository;
 
 @Service
 public class PeregrinoService {

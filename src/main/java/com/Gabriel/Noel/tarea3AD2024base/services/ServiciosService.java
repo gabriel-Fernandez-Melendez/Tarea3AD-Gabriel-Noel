@@ -1,7 +1,8 @@
 package com.Gabriel.Noel.tarea3AD2024base.services;
 
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Servicio;
-import com.Gabriel.Noel.tarea3AD2024base.repositorios.ServicioRepository;
+import com.Gabriel.Noel.tarea3AD2024base.repositorios.jpa.ServicioRepository;
+
 import org.springframework.stereotype.Service;
 import java.util.List;
 

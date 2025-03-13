@@ -1,4 +1,4 @@
-package com.Gabriel.Noel.tarea3AD2024base.repositorios;
+package com.Gabriel.Noel.tarea3AD2024base.repositorios.jpa;
 
 import java.time.LocalDate;
 import java.util.List;

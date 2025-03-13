@@ -1,7 +1,8 @@
 package com.Gabriel.Noel.tarea3AD2024base.services;
 
 import com.Gabriel.Noel.tarea3AD2024base.modelo.EnvioACasa;
-import com.Gabriel.Noel.tarea3AD2024base.repositorios.EnvioACasaRepository;
+import com.Gabriel.Noel.tarea3AD2024base.repositorios.jpa.EnvioACasaRepository;
+
 import org.springframework.stereotype.Service;
 import java.util.List;
 

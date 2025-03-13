@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Gabriel.Noel.tarea3AD2024base.modelo.ParadaSellada;
-import com.Gabriel.Noel.tarea3AD2024base.repositorios.ParadasSelladasRepository;
+import com.Gabriel.Noel.tarea3AD2024base.repositorios.jpa.ParadasSelladasRepository;
 
 @Service
 public class ParadaSelladaService {

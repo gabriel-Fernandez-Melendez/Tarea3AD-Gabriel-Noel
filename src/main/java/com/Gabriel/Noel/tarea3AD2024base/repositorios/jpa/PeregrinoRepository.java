@@ -1,4 +1,4 @@
-package com.Gabriel.Noel.tarea3AD2024base.repositorios;
+package com.Gabriel.Noel.tarea3AD2024base.repositorios.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
