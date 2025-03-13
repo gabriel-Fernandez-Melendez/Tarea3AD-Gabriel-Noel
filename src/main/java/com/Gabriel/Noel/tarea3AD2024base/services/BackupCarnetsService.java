@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.Gabriel.Noel.tarea3AD2024base.controller.ExportarCarnetXMLController;
+import com.Gabriel.Noel.tarea3AD2024base.dataeXistdb.ExistdbConnection;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.BackupCarnets;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Carnet;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Parada;
@@ -25,12 +26,8 @@ public class BackupCarnetsService {
     private BackupCarnetsRepository backupCarnetsRepository;
     @Autowired
     private CarnetService c;
-    @Autowired
-    private PeregrinoService p;
-    @Autowired
-    private ParadaService paradaservice;
-    @Autowired
-    private ParadaSelladaService sellado;
+
+
     public void generarBackupCarnets() {
     	 Date currentDate = new Date();
          System.out.println("Current Date and Time: " + currentDate);
@@ -39,14 +36,14 @@ public class BackupCarnetsService {
          SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
          String formattedDate = formatter.format(currentDate);
          //y ahora la lista de carnets
-         List<Peregrino> peregrinos =p.ListaDePeregrinos();
-         for (Peregrino c: peregrinos) {
 
-     		ArrayList<Parada> par = (ArrayList<Parada>) paradaservice.ListaDeParadas();
-     		ArrayList<ParadaSellada> selladas=(ArrayList<ParadaSellada>) sellado.obtenerTodasParadasSelladas();
-        	 ExportarCarnetXMLController.exportarCarnet(c, par, selladas);
+         List<Carnet>carnets =c.ListaDeCarnets();
+         List<String> carnets_xml = new ArrayList<>();
+         for (Carnet c: carnets) {	
+        	String xml= ExistdbConnection.convertirCarnetAXml(c);
+        	 carnets_xml.add(xml);
          }
-         List<String> carnets_xml=null;
+         
         BackupCarnets backup = new BackupCarnets(formattedDate,carnets_xml);
         backupCarnetsRepository.save(backup);
     }

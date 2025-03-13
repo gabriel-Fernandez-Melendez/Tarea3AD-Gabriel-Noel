@@ -120,7 +120,7 @@ public class ExistdbConnection
 	
 	// Metodo que convierte un objeto (en ete caso carnet) a XML con JAXB https://www.arquitecturajava.com/introduccion-java-jaxb/
 	// Metodo que se va a usar en esta clase no en ninguna mas
-	 private String convertirCarnetAXml(Carnet carnet)
+	 public static String convertirCarnetAXml(Carnet carnet)
 	    {
 	    	String miCarnetXML = null;
 	    	
