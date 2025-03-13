@@ -1,10 +1,13 @@
  package com.Gabriel.Noel.tarea3AD2024base.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Carnet;
+import com.Gabriel.Noel.tarea3AD2024base.modelo.Credenciales;
 import com.Gabriel.Noel.tarea3AD2024base.modelo.Peregrino;
 import com.Gabriel.Noel.tarea3AD2024base.repositorios.jpa.CarnetRepository;
 
@@ -29,6 +32,9 @@ public class CarnetService {
 			System.out.println("no se encontro ningun peregrino con ese id , intentelo de nuevo");
 		}
 		return carnet;
+	}
+	public List<Carnet> ListaDeCarnets() {
+		return carnetBD.findAll();
 	}
 	
 }

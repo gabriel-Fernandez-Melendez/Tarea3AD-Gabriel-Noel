@@ -9,10 +9,10 @@ import java.util.List;
 public class BackupCarnets {
 	@Id
 	private String id;
-	private Date fechaBackup;
-	private List<Carnet> carnets;
+	private String fechaBackup;
+	private List<String> carnets;
 
-	public BackupCarnets(Date fechaBackup, List<Carnet> carnets) {
+	public BackupCarnets(String fechaBackup, List<String> carnets) {
 		this.fechaBackup = fechaBackup;
 		this.carnets = carnets;
 	}
@@ -25,19 +25,19 @@ public class BackupCarnets {
 		this.id = id;
 	}
 
-	public Date getFechaBackup() {
+	public String getFechaBackup() {
 		return fechaBackup;
 	}
 
-	public void setFechaBackup(Date fechaBackup) {
+	public void setFechaBackup(String fechaBackup) {
 		this.fechaBackup = fechaBackup;
 	}
 
-	public List<Carnet> getCarnets() {
+	public List<String> getCarnets() {
 		return carnets;
 	}
 
-	public void setCarnets(List<Carnet> carnets) {
+	public void setCarnets(List<String> carnets) {
 		this.carnets = carnets;
 	}
 
