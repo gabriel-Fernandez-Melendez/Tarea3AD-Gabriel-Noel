@@ -38,6 +38,9 @@ public class BackupCarnetsService {
 		// Format the date and time
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String fecha_formated = formatter.format(fecha);
+		
+		String nombreArchivo = "backupcarnets"+"<"+fecha_formated+">";
+		
 		// y ahora la lista de carnets
 		List<Carnet> carnets = carnet_service.ListaDeCarnets();
 		List<String> carnets_xml = new ArrayList<>();
@@ -74,7 +77,7 @@ public class BackupCarnetsService {
 			}
 		}
 
-		BackupCarnets backup = new BackupCarnets(fecha_formated, carnets_xml);
+		BackupCarnets backup = new BackupCarnets(nombreArchivo,fecha_formated, carnets_xml);
 		backupCarnetsRepository.save(backup);
 	}
 

@@ -29,7 +29,18 @@
                         <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
                      </effect>
                      <HBox.margin>
-                        <Insets right="120.0" top="10.0" />
+                        <Insets left="20.0" right="15.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="botonVerCarnets" mnemonicParsing="false" onAction="#verCarnets" prefHeight="30.0" prefWidth="164.0" styleClass="background" text="Ver Carnets" textFill="#fff9f9" textOverrun="CLIP">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" color="#00000091" />
+                     </effect>
+                     <HBox.margin>
+                        <Insets top="10.0" />
                      </HBox.margin>
                   </Button>
                   <Label alignment="CENTER" prefHeight="36.0" prefWidth="162.0" text="Bienvenido a">
@@ -37,7 +48,7 @@
                         <Font size="25.0" />
                      </font>
                      <HBox.margin>
-                        <Insets bottom="10.0" top="10.0" />
+                        <Insets bottom="10.0" left="20.0" top="10.0" />
                      </HBox.margin>
                   </Label>
                   <Label fx:id="labelParadaResponsable" prefHeight="36.0" prefWidth="225.0" text="Parada X">

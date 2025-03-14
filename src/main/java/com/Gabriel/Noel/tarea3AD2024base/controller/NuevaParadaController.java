@@ -1,5 +1,8 @@
 package com.Gabriel.Noel.tarea3AD2024base.controller;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -63,6 +66,9 @@ public class NuevaParadaController implements Initializable {
 
 	@FXML
 	private TextField nombre_region;
+	
+	@FXML
+	private Button botonBackupCarnet;
 
 	@FXML
 	private Button boton_guardar;
@@ -279,5 +285,32 @@ public class NuevaParadaController implements Initializable {
 			System.exit(0);
 		}
 	}
+	
+	
+	@FXML
+	private void hacerBackup() {
+	    // URL para abrir en el navegador
+	    String url = "http://localhost:8081/backup";
+	    abrirNavegador(url);
+	}
+
+	private void abrirNavegador(String url) {
+	    try {
+	        ProcessBuilder pb;
+	        
+	        if (System.getProperty("os.name").toLowerCase().contains("win")) {
+	            pb = new ProcessBuilder("cmd", "/c", "start", url);
+	        } else {
+	            pb = new ProcessBuilder("xdg-open", url);
+	        }
+
+	        pb.start();
+	        mostrarAlerta("Redirigiendo al navegador", "Backup realizado con éxito", AlertType.INFORMATION);
+	    } catch (IOException e) {
+	        System.err.println("Error al abrir el navegador: " + e.getMessage());
+	    }
+	}
+
+
 
 }

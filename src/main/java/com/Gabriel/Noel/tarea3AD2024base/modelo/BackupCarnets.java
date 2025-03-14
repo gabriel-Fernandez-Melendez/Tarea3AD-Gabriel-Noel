@@ -8,22 +8,29 @@ import java.util.List;
 @Document(collection = "backups")
 public class BackupCarnets {
 	@Id
-	private String id;
+	private String nombreArchivo;
 	private String fechaBackup;
 	private List<String> carnets;
 
-	public BackupCarnets(String fechaBackup, List<String> carnets) {
+	public BackupCarnets(String nombreArchivo, String fechaBackup, List<String> carnets) {
+		this.nombreArchivo= nombreArchivo;
 		this.fechaBackup = fechaBackup;
 		this.carnets = carnets;
 	}
 
-	public String getId() {
-		return id;
+
+	
+	public String getNombreArchivo() {
+		return nombreArchivo;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+
+
+	public void setNombreArchivo(String nombreArchivo) {
+		this.nombreArchivo = nombreArchivo;
 	}
+
+
 
 	public String getFechaBackup() {
 		return fechaBackup;
