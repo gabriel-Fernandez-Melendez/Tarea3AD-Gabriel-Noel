@@ -22,30 +22,56 @@ import java.util.List;
 @Service
 
 public class BackupCarnetsService {
-    @Autowired
-    private BackupCarnetsRepository backupCarnetsRepository;
-    @Autowired
-    private CarnetService c;
+	@Autowired
+	private BackupCarnetsRepository backupCarnetsRepository;
+	@Autowired
+	private CarnetService carnet_service;
+	@Autowired
+	private PeregrinoService peregrino_service;
+	@Autowired
+	private ParadaService parada_service;
+	@Autowired
+	private ParadaSelladaService parada_sellada_service;
 
+	public void generarBackupCarnets() {
+		Date fecha = new Date();
+		// Format the date and time
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String fecha_formated = formatter.format(fecha);
+		// y ahora la lista de carnets
+		List<Carnet> carnets = carnet_service.ListaDeCarnets();
+		List<String> carnets_xml = new ArrayList<>();
+		List<Peregrino> peregrinos = peregrino_service.ListaDePeregrinos();
+		ArrayList<Parada> paradas_filtradas = new ArrayList<>();
+		ArrayList<ParadaSellada> paradas_selladas_filtradas = new ArrayList<>();
+		for (Peregrino p : peregrinos) {
+			for (Carnet c : carnets) {
+				if (p.getCarnet().getId() == c.getId()) {
+					List<Parada> paradas = parada_service.ListaDeParadas();
+					for (Parada paradas_aux : paradas) {
+						if (paradas_aux.getId() == c.getId()) {
+							paradas_filtradas.add(paradas_aux);
+							List<ParadaSellada> paradas_selladas = new ArrayList<>();
+							paradas_selladas = parada_sellada_service.obtenerTodasParadasSelladas();
+							for (ParadaSellada par : paradas_selladas) {
+								if (paradas_aux.getId() == par.getParada().getId()) {
+									paradas_selladas_filtradas.add(par);
+									String xml = ExistdbConnection.exportarCarnet(p, paradas_filtradas,
+											paradas_selladas_filtradas);
+									carnets_xml.add(xml);
+								}
+								
+							}
+						}
+					}
+				}
+			
 
-    public void generarBackupCarnets() {
-    	 Date currentDate = new Date();
-         System.out.println("Current Date and Time: " + currentDate);
+			}
+		}
 
-         // Format the date and time
-         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-         String formattedDate = formatter.format(currentDate);
-         //y ahora la lista de carnets
-
-         List<Carnet>carnets =c.ListaDeCarnets();
-         List<String> carnets_xml = new ArrayList<>();
-         for (Carnet c: carnets) {	
-        	String xml= ExistdbConnection.convertirCarnetAXml(c);
-        	 carnets_xml.add(xml);
-         }
-         
-        BackupCarnets backup = new BackupCarnets(formattedDate,carnets_xml);
-        backupCarnetsRepository.save(backup);
-    }
+		BackupCarnets backup = new BackupCarnets(fecha_formated, carnets_xml);
+		backupCarnetsRepository.save(backup);
+	}
 
 }
