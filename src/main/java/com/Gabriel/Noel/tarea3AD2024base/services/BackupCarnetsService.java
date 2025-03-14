@@ -44,28 +44,32 @@ public class BackupCarnetsService {
 		List<Peregrino> peregrinos = peregrino_service.ListaDePeregrinos();
 		ArrayList<Parada> paradas_filtradas = new ArrayList<>();
 		ArrayList<ParadaSellada> paradas_selladas_filtradas = new ArrayList<>();
+		List<Parada> paradas = parada_service.ListaDeParadas();
+		List<ParadaSellada> paradas_selladas = parada_sellada_service.obtenerTodasParadasSelladas();
 		for (Peregrino p : peregrinos) {
 			for (Carnet c : carnets) {
 				if (p.getCarnet().getId() == c.getId()) {
-					List<Parada> paradas = parada_service.ListaDeParadas();
 					for (Parada paradas_aux : paradas) {
 						if (paradas_aux.getId() == c.getId()) {
 							paradas_filtradas.add(paradas_aux);
-							List<ParadaSellada> paradas_selladas = new ArrayList<>();
-							paradas_selladas = parada_sellada_service.obtenerTodasParadasSelladas();
-							for (ParadaSellada par : paradas_selladas) {
-								if (paradas_aux.getId() == par.getParada().getId()) {
-									paradas_selladas_filtradas.add(par);
-									String xml = ExistdbConnection.exportarCarnet(p, paradas_filtradas,
-											paradas_selladas_filtradas);
-									carnets_xml.add(xml);
-								}
-								
-							}
+						} else {
+							continue;
 						}
 					}
+					for (ParadaSellada par : paradas_selladas) {
+							if (c.getId() == par.getParada().getId()) {
+								paradas_selladas_filtradas.add(par);
+							} else {
+								continue;
+							}
+						
+					}
+					String xml = ExistdbConnection.exportarCarnet(p,paradas_filtradas,paradas_selladas_filtradas);
+					carnets_xml.add(xml);
 				}
-			
+				else {
+					continue;
+				}
 
 			}
 		}
@@ -74,4 +78,7 @@ public class BackupCarnetsService {
 		backupCarnetsRepository.save(backup);
 	}
 
-}
+}/*
+	 * String xml = ExistdbConnection.exportarCarnet(p,
+	 * paradas_filtradas,paradas_selladas_filtradas); carnets_xml.add(xml);
+	 */
