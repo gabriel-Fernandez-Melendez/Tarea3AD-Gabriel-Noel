@@ -199,6 +199,9 @@ public class NuevaParadaController implements Initializable {
 			mostrarAlerta("Nombre no valido", "no puede tener espacios blancos el nombre", AlertType.ERROR);
 			return;
 		}
+		
+		
+		
 		if (contraseña_login.getText().contains(" ") || contraseña_login.getText().isEmpty()) {
 			mostrarAlerta("contraseña no valida", "no puede tener espacios blancos la contraseña", AlertType.ERROR);
 			return;
@@ -214,16 +217,30 @@ public class NuevaParadaController implements Initializable {
 		}
 		ArrayList<Parada> paradas = new ArrayList<Parada>();
 		paradas =(ArrayList<Parada>) parada_service.ListaDeParadas();
-		for(Parada p : paradas	) {
+		
+		for (Parada miParada : paradas)
+		{
+			if(miParada.getCredenciales().getNombreUsuario().equals(nombre_login.getText()))
+			{
+				mostrarAlerta("Nombre no valido", "El nombre ya existe en la BD y está registrado", AlertType.ERROR);
+				return;
+			}
+		}
+		
+		
+		for(Parada p : paradas	) 
+		{
 			if(p.getNombre().equalsIgnoreCase(nombre_parada.getText())) {
 				mostrarAlerta("nombre de parada existente", "tiene que escojer un  nombre que no exista en la parada", AlertType.ERROR);
 				return;
 			}
 		}
+		
 		Credenciales c = GuardarNuevasCredenciales();
+		
 		GuardarParada(c);
-		mostrarAlerta("Nueva parada", "A guardado la nueva parada con sus responsable correspondiente",
-				AlertType.INFORMATION);
+		
+		mostrarAlerta("Nueva parada", "A guardado la nueva parada con sus responsable correspondiente",AlertType.INFORMATION);
 	}
 
 	// Metodo para setear todo a null y los campos quedarian vacios (Noel)
