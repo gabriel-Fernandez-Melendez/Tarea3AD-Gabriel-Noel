@@ -211,93 +211,77 @@ public class EditarServiciosController {
 
    
     @FXML
-    private void guardarCambios() 
-    {
-        if (servicioSeleccionado != null) 
-        {
+    private void guardarCambios() {
+        if (servicioSeleccionado != null) {
             try {
-      	
-            	// Obtener valores de los campos
+                // Obtener valores de los campos
                 String nuevoNombre = textoNombre.getText().trim();
                 String precioTexto = textoPrecio.getText().trim();
                 String nuevasParadasTexto = textoParadas.getText().trim();
 
                 // Validaciones básicas
                 if (nuevoNombre.isEmpty() || precioTexto.isEmpty()) {
-                    mostrarAlerta("Error", "Los campos no pueden estar vacíos", Alert.AlertType.ERROR);
+                    mostrarAlerta("Error", "Los campos no pueden estar vacíos", AlertType.ERROR);
                     return;
                 }
-                
-                if (precioTexto.isEmpty())
-                {
-                	mostrarAlerta("Error", "El precio no puede estar vacio", AlertType.ERROR);
-                	return;
-                }
-                
-                // Verificar que el precio usa punto (.) como separador decimal y no coma (,)
+
+                // Verificar que el precio usa punto (.) como separador decimal
                 if (!precioTexto.matches("\\d+(\\.\\d{1,2})?")) {
                     mostrarAlerta("Error", "El precio debe ser un número válido con punto (.) como separador decimal", AlertType.ERROR);
                     return;
                 }
-                
-                // Transormar el texto del precio a double
+
                 double precio = Double.parseDouble(precioTexto);
-                
-             // Verificar que el precio no sea negativo
                 if (precio < 0) {
                     mostrarAlerta("Error", "El precio no puede ser negativo", AlertType.ERROR);
                     return;
                 }
-                
-                
-             // Obtener la lista de paradas disponibles en la BD
+
+                // Obtener la lista de paradas disponibles de la base de datos
                 List<Parada> misParadas = parada_service.ListaDeParadas();
+                List<String> paradasValidas = new ArrayList<>();
 
-                // Lista para almacenar paradas validadas
-                List<String> paradaValida = new ArrayList<>();
+                if (!nuevasParadasTexto.isEmpty()) {
+                    // Separamos las paradas por comas (ignorando espacios)
+                    String[] paradasIngresadas = nuevasParadasTexto.split("\\s*,\\s*");
 
+                    for (String nombreParada : paradasIngresadas) {
+                        boolean existe = false;
 
-                /*
-                 * Comprueba de que la parada escrita por el usuario no sea nula.
-                 * Luego Recorre como String el nombre de la parada/s que hemos escrito y las separa por ,
-                 * Boleano para controlar en caso de que encuentre coincidencias
-                 * Recorremos con un for la lista de paradas del Service de la BD
-                 * comparamos el nombre de la parada con los que hay en la BD
-                 * En caso de ser valido y encuentre una, lo añadira a la lista de String paradaValida
-                 * Eliminamos los espacios en blanco con .trim
-                 * Salimos.
-                 * 
-                 * En caso de no encontrar ningun nombre de parada igual a alguno de la BD, saltará un aviso.
-                 *
-                 */
-                if (!nuevasParadasTexto.isEmpty()) 
-                {
-                    for (String nombreParada : nuevasParadasTexto.split("\\s*,\\s*")) 
-                    {
-                        boolean esValido = false;
-                        
-                        for (Parada parada : misParadas) 
-                        {
-                            if (parada.getNombre().equalsIgnoreCase(nombreParada)) 
-                            {
-                                esValido = true;
-                                paradaValida.add(nombreParada.trim());
+                        // Comprobar si ya existe en la lista de paradas válidas (evitar duplicados)
+                        // Usa equalsIgnoreCase si deseas que "Oviedo" y "oviedo" se consideren duplicados
+                        for (String paradaValida : paradasValidas) {
+                            if (paradaValida.equalsIgnoreCase(nombreParada)) {
+                                mostrarAlerta("Error",
+                                        "La parada '" + nombreParada + "' está repetida. Elimine duplicados.",
+                                        AlertType.ERROR);
+                                return;
+                            }
+                        }
+
+                        // Verificar si la parada existe en la BD
+                        for (Parada p : misParadas) {
+                            if (p.getNombre().equalsIgnoreCase(nombreParada)) {
+                                existe = true;
+                                // Almacena el nombre original o en un formato unificado (p.ej. con mayúscula inicial)
+                                paradasValidas.add(p.getNombre());
                                 break;
                             }
                         }
 
-                        if (!esValido) 
-                        {
-                            mostrarAlerta("Error", "La parada '" + nombreParada + "' no existe en la base de datos.", AlertType.ERROR);
+                        if (!existe) {
+                            mostrarAlerta("Error",
+                                    "La parada '" + nombreParada + "' no existe en la base de datos.",
+                                    AlertType.ERROR);
                             return;
                         }
                     }
                 }
-                
+
                 // Actualizar el objeto servicio
                 servicioSeleccionado.setNombre(nuevoNombre);
                 servicioSeleccionado.setPrecio(precio);
-                servicioSeleccionado.setNombreParadas(paradaValida);
+                servicioSeleccionado.setNombreParadas(paradasValidas);
 
                 // Guardar cambios en la base de datos
                 servicioService.actualizarServicio(servicioSeleccionado);
@@ -306,14 +290,16 @@ public class EditarServiciosController {
                 tablaServicios.refresh();
 
                 mostrarAlerta("Éxito", "Servicio actualizado correctamente", Alert.AlertType.INFORMATION);
+
             } catch (Exception e) {
-                mostrarAlerta("Error", "El precio debe ser un número válido", Alert.AlertType.ERROR);
+                mostrarAlerta("Error", "El precio debe ser un número válido", AlertType.ERROR);
                 System.out.println("Error: " + e.getMessage());
             }
         } else {
-            mostrarAlerta("Error", "Selecciona un servicio antes de modificar", Alert.AlertType.WARNING);
+            mostrarAlerta("Error", "Selecciona un servicio antes de modificar", AlertType.WARNING);
         }
     }
+
 
 
 

@@ -173,46 +173,40 @@ public class ResponsableParadaController {
 		ConjuntoContratado.GuardarConjunto(c);
 	}
 
+
 	private void CargarServicios() {
-	    // Obtenemos todos los servicios y las paradas
-	    List<Servicio> todosServicios = servicioService.obtenerTodosLosServicios();
-	    List<Servicio> serviciosFiltrados = new ArrayList<>();
-	    List<Parada> todasParadas = paradaService.ListaDeParadas();
 
-	    // Buscar la parada asociada al usuario actual (por responsable)
-	    Parada paradaUsuario = null;
-	    for (Parada p : todasParadas) {
-	        if (CredencialesController.Credenciales_usuario.getNombreUsuario().equalsIgnoreCase(p.getResponsable())) {
-	            paradaUsuario = p;
-	            break;
-	        }
-	    }
+		ArrayList<Servicio> servicios = (ArrayList<Servicio>) servicioService.obtenerTodosLosServicios();
 
-	    if (paradaUsuario != null) {
-	        String nombreParadaActual = paradaUsuario.getNombre().toLowerCase();
-	        // Filtrar los servicios asignados a la parada actual (comparación sin distinguir mayúsculas/minúsculas)
-	        for (Servicio s : todosServicios) {
-	            for (String np : s.getNombreParadas()) {
-	                if (np.toLowerCase().equals(nombreParadaActual)) {
-	                    serviciosFiltrados.add(s);
-	                    break;
-	                }
-	            }
-	        }
+		ArrayList<Servicio> servicios_filtrados = new ArrayList<Servicio>();
 
-	        // Configurar la tabla: usar nombres de propiedad correctos ("nombre" y "precio")
-	        tabla_servicios.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-	        id_servicio.setCellValueFactory(new PropertyValueFactory<>("id"));
-	        nombre_servicio.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-	        precio_servicio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+		// Valido de que ha recogido el responsable de la parada
 
-	        ObservableList<Servicio> lista = FXCollections.observableArrayList(serviciosFiltrados);
-	        tabla_servicios.setItems(lista);
-	    } else {
-	        System.out.println("No se encontró una parada asociada al usuario actual.");
-	    }
+		// Recorremos la lista de los servicios 
+		for (Servicio misServicios : servicios) 
+		{
+			// Si alguno de los servicios que recorro contiene el nombre de la parada
+			// Añade a una nueva lista, el servicio que contiene ese nombre de parada.
+			if (misServicios.getNombreParadas().contains(paradaActual.getNombre())) 
+			{
+				servicios_filtrados.add(misServicios);
+			}
+		}
+
+		tabla_servicios.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		id_servicio.setCellValueFactory(new PropertyValueFactory<>("id"));
+		nombre_servicio.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
+		precio_servicio.setCellValueFactory(new PropertyValueFactory<>("Precio"));
+		ObservableList<Servicio> lista = FXCollections.observableArrayList(servicios_filtrados);
+
+
+
+		tabla_servicios.setItems(lista);
 	}
 
+
+		
+	
 
 	// habia que inicializar la llamada de la tabla
 	private void Inicializar_tabla() {
