@@ -174,50 +174,45 @@ public class ResponsableParadaController {
 	}
 
 	private void CargarServicios() {
-		Parada parada_aux = new Parada();
+	    // Obtenemos todos los servicios y las paradas
+	    List<Servicio> todosServicios = servicioService.obtenerTodosLosServicios();
+	    List<Servicio> serviciosFiltrados = new ArrayList<>();
+	    List<Parada> todasParadas = paradaService.ListaDeParadas();
 
-		ArrayList<Servicio> servicios = (ArrayList<Servicio>) servicioService.obtenerTodosLosServicios();
+	    // Buscar la parada asociada al usuario actual (por responsable)
+	    Parada paradaUsuario = null;
+	    for (Parada p : todasParadas) {
+	        if (CredencialesController.Credenciales_usuario.getNombreUsuario().equalsIgnoreCase(p.getResponsable())) {
+	            paradaUsuario = p;
+	            break;
+	        }
+	    }
 
-		ArrayList<Servicio> servicios_filtrados = new ArrayList<Servicio>();
+	    if (paradaUsuario != null) {
+	        String nombreParadaActual = paradaUsuario.getNombre().toLowerCase();
+	        // Filtrar los servicios asignados a la parada actual (comparación sin distinguir mayúsculas/minúsculas)
+	        for (Servicio s : todosServicios) {
+	            for (String np : s.getNombreParadas()) {
+	                if (np.toLowerCase().equals(nombreParadaActual)) {
+	                    serviciosFiltrados.add(s);
+	                    break;
+	                }
+	            }
+	        }
 
-		ArrayList<Parada> paradas = (ArrayList<Parada>) paradaService.ListaDeParadas();
+	        // Configurar la tabla: usar nombres de propiedad correctos ("nombre" y "precio")
+	        tabla_servicios.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+	        id_servicio.setCellValueFactory(new PropertyValueFactory<>("id"));
+	        nombre_servicio.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+	        precio_servicio.setCellValueFactory(new PropertyValueFactory<>("precio"));
 
-		for (Parada p : paradas)
-
-		{
-
-			if (CredencialesController.Credenciales_usuario.getNombreUsuario().matches(p.getResponsable())) {
-				parada_aux = p;
-				for (Servicio s : servicios)
-
-				{
-					if (s.getNombreParadas().contains(parada_aux.getNombre()))
-
-					{
-						servicios_filtrados.add(s);
-					}
-
-				}
-
-				tabla_servicios.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
-				id_servicio.setCellValueFactory(new PropertyValueFactory<>("id"));
-				nombre_servicio.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
-				precio_servicio.setCellValueFactory(new PropertyValueFactory<>("Precio"));
-
-				ObservableList<Servicio> lista = FXCollections.observableArrayList(servicios_filtrados); // esta es la
-																											// lista con
-																											// los
-																											// campos
-																											// filtrados
-																											// que es la
-																											// que hay
-																											// que
-
-				tabla_servicios.setItems(lista);
-			}
-		}
+	        ObservableList<Servicio> lista = FXCollections.observableArrayList(serviciosFiltrados);
+	        tabla_servicios.setItems(lista);
+	    } else {
+	        System.out.println("No se encontró una parada asociada al usuario actual.");
+	    }
 	}
+
 
 	// habia que inicializar la llamada de la tabla
 	private void Inicializar_tabla() {
@@ -404,12 +399,15 @@ public class ResponsableParadaController {
 				mostrarAlerta("Aviso",
 						"No es necesario seleccionar un método de pago si no se hospeda o no se contrata ningún servicio.",
 						Alert.AlertType.INFORMATION);
+				// Quitar el toggle
+				grupo.selectToggle(null);
 			}
 		}
 
 		// Guardar el carnet actualizado y finalizar el proceso
 		carnetService.GuardarCarnet(carnet);
 		mostrarAlerta("Éxito", "Carnet sellado correctamente.", Alert.AlertType.INFORMATION);
+		grupo.selectToggle(null);
 	}
 
 	@FXML

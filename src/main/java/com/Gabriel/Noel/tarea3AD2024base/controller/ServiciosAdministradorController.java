@@ -98,63 +98,57 @@ public class ServiciosAdministradorController implements Serializable {
 //metodo  para la creacion de un servicio
 	@FXML
 	private void crearServicio() {
+	    String nombre = textServicio.getText().trim();
+	    String precio = textPrecio.getText().trim();
 
-		String nombre = textServicio.getText();
-		String precio = textPrecio.getText().trim();
+	    if (nombre.isEmpty() || precio.isEmpty()) {
+	        mostrarAlerta("Error", "Todos los campos son obligatorios", AlertType.ERROR);
+	        return;
+	    }
 
-		if (nombre.isEmpty() || precio.isEmpty()) {
-			mostrarAlerta("Error", "Todos los campos son obligatorios", AlertType.ERROR);
-			return;
-		}
+	    // Verificar formato del precio (punto como separador)
+	    if (!precio.matches("\\d+(\\.\\d{1,2})?")) {
+	        mostrarAlerta("Error", "El precio debe ser un número válido con punto (.) como separador decimal", AlertType.ERROR);
+	        return;
+	    }
 
-		// Verificar que el precio usa punto (.) como separador decimal y no coma (,)
-		if (!precio.matches("\\d+(\\.\\d{1,2})?")) {
-			mostrarAlerta("Error", "El precio debe ser un número válido con punto (.) como separador decimal",
-					AlertType.ERROR);
-			return;
-		}
+	    double miPrecio = Double.parseDouble(precio);
+	    if (miPrecio < 0) {
+	        mostrarAlerta("Error", "El precio no puede ser negativo", AlertType.ERROR);
+	        return;
+	    }
 
-		double miPrecio = Double.parseDouble(precio);
+	    // Obtener la lista actual de servicios para comprobar duplicados y generar un nuevo ID
+	    List<Servicio> listaServicios = servicioService.obtenerTodosLosServicios();
+	    for (Servicio s : listaServicios) {
+	        if (s.getNombre().equalsIgnoreCase(nombre)) {
+	            mostrarAlerta("Error", "No se puede registrar un servicio con el mismo nombre", AlertType.WARNING);
+	            return;
+	        }
+	    }
 
-		if (miPrecio < 0) {
-			mostrarAlerta("Error", "El precio no puede ser negativo", AlertType.ERROR);
-			return;
-		}
+	    // Generar un nuevo ID (puedes mejorarlo buscando el máximo en la lista si fuese necesario)
+	    long idNuevo = listaServicios.isEmpty() ? 1 : listaServicios.get(listaServicios.size() - 1).getId() + 1;
 
-		// Obtener la lista de servicios existentes
-		List<Servicio> listaServicios = servicioService.obtenerTodosLosServicios();
+	    Servicio nuevoServicio = new Servicio();
+	    nuevoServicio.setId(idNuevo);
+	    nuevoServicio.setNombre(nombre);
+	    nuevoServicio.setPrecio(miPrecio);
+	    // Inicializamos la lista de paradas asignadas (vacía al crearlo)
+	    nuevoServicio.setNombreParadas(new ArrayList<>());
 
-		for (Servicio s : listaServicios) {
-			if (s.getNombre().equalsIgnoreCase(nombre)) {
-				mostrarAlerta("Error", "No se puede registrar un servicio con el mismo nombre", AlertType.WARNING);
-				return;
-			}
-		}
+	    // Guardamos el servicio en la base de datos
+	    servicioService.crearServicio(nuevoServicio);
+	    System.out.println("Servicio guardado: " + nuevoServicio);
 
-		// Generar un nuevo ID (el mayor +1)
-		long idNuevo = listaServicios.size() + 1;
+	    mostrarAlerta("Éxito", "Ha guardado el servicio correctamente", AlertType.CONFIRMATION);
 
-		// Crear servicio con los datos obtenidos
-		Servicio nuevoServicio = new Servicio();
-		nuevoServicio.setId(idNuevo);
-		nuevoServicio.setNombre(nombre);
-		nuevoServicio.setPrecio(miPrecio);
-		nuevoServicio.setNombreParadas(new ArrayList<>());
-
-		// Guardar en la base de datos
-		servicioService.crearServicio(nuevoServicio);
-
-		System.out.println("Servicio guardado: " + nuevoServicio);
-
-		mostrarAlerta("Exito", "Ha guardado el servicio correctamente", AlertType.CONFIRMATION);
-
-
-		textServicio.clear();
-		textPrecio.clear();
-
-		// Recargar la tabla para reflejar cambios
-		cargarColumnasServicios();
+	    // Limpiar campos y refrescar la tabla de servicios
+	    textServicio.clear();
+	    textPrecio.clear();
+	    cargarColumnasServicios();
 	}
+
 
 
 	//puedes dejar la alerta esta guapo 
@@ -260,74 +254,58 @@ public class ServiciosAdministradorController implements Serializable {
 	 */
 	@FXML
 	private void asignarServicio() {
-		try {
-			// Obtener el servicio seleccionado
-			Servicio miServicio = tablaServicios.getSelectionModel().getSelectedItem();
+	    try {
+	        // Obtener el servicio seleccionado en la tabla
+	        Servicio miServicio = tablaServicios.getSelectionModel().getSelectedItem();
+	        if (miServicio == null) {
+	            mostrarAlerta("Error", "Seleccione un servicio antes de asignar paradas.", AlertType.ERROR);
+	            return;
+	        }
 
-			// Comprueba de que selecciono un servicio antes de asignarlo
-			if (miServicio == null) {
-				mostrarAlerta("Error", "Seleccione un servicio antes de asignar paradas.", Alert.AlertType.ERROR);
-				return;
-			}
+	        // Obtener las paradas seleccionadas
+	        List<Parada> paradasSeleccionadas = new ArrayList<>(tablaParadas.getSelectionModel().getSelectedItems());
+	        if (paradasSeleccionadas.isEmpty()) {
+	            mostrarAlerta("Error", "Seleccione al menos una parada para asignar.", AlertType.ERROR);
+	            return;
+	        }
 
-			// Debug por pantalla
-			System.out.println("Servicio seleccionado: " + miServicio.getNombre());
+	        // Recuperamos la lista actual de nombres de paradas asignadas al servicio
+	        List<String> nombresParadas = new ArrayList<>(miServicio.getNombreParadas());
+	        List<String> nuevasParadas = new ArrayList<>();
 
-			// Obtener las paradas seleccionadas de la tabla de paradas
-			List<Parada> paradasSeleccionadas = new ArrayList<>(tablaParadas.getSelectionModel().getSelectedItems());
+	        // Solo se agregan aquellas paradas que no estén ya asignadas
+	        for (Parada parada : paradasSeleccionadas) {
+	            if (!nombresParadas.contains(parada.getNombre())) {
+	                nuevasParadas.add(parada.getNombre());
+	            }
+	        }
 
-			// Si no selecciona ninguna parada le saldra una alerta para que escoja una
-			if (paradasSeleccionadas.isEmpty()) {
-				mostrarAlerta("Error", "Seleccione al menos una parada para asignar.", Alert.AlertType.ERROR);
-				return;
-			}
+	        if (nuevasParadas.isEmpty()) {
+	            mostrarAlerta("Información", "Todas las paradas seleccionadas ya están asignadas a este servicio.", AlertType.WARNING);
+	            return;
+	        }
 
-			// Debug para que saque por pantalla las paradas seleccionadas
-			System.out.println("Paradas seleccionadas: " + paradasSeleccionadas);
+	        // Actualizamos la lista de paradas del servicio
+	        nombresParadas.addAll(nuevasParadas);
+	        miServicio.setNombreParadas(nombresParadas);
 
-			// Evitar duplicados en los IDs de paradas
-			List<String> nombresParadas = new ArrayList<>(miServicio.getNombreParadas()); // Creamos una lista con los
-																							// ID de las paradas
-																							// asignadas al Servicio
+	        // Persistimos la actualización (asegúrate de que este método realice correctamente el commit en DB4O)
+	        servicioService.asignarParadasAServicio(miServicio.getId(), nombresParadas);
 
-			List<String> nuevasParadas = new ArrayList<>(); // Sera para guardar las nuevas paradas que aun no estan
-															// asignadas
+	        // Mensaje de depuración: se muestra la lista actualizada de paradas asignadas
+	        System.out.println("Servicio actualizado con paradas: " + miServicio);
 
-			// Solo añadira las paradas que no estan previamente asignadas
-			for (Parada parada : paradasSeleccionadas) {
-				if (!nombresParadas.contains(parada.getNombre())) // Solo agregar si no está ya en la lista
-				{
-					nuevasParadas.add(parada.getNombre());
-				}
-			}
+	        // Refrescamos la tabla de servicios para ver el cambio reflejado en la columna de paradas asignadas
+	        cargarColumnasServicios();
+	        tablaServicios.refresh();
 
-		
-			if (nuevasParadas.isEmpty()) {
-				mostrarAlerta("Información", "Todas las paradas seleccionadas ya están asignadas a este servicio.",
-						Alert.AlertType.WARNING);
-				return;
-			}
-
-			// Actualizar el servicio con los nuevos IDs de paradas
-			nombresParadas.addAll(nuevasParadas); // Agregar las nuevas paradas a la lista
-			miServicio.setNombreParadas(nombresParadas); // Asignar la lista actualizada al servicio
-
-			System.out.println("Lista total de paradas en servicio: " + miServicio.getNombreParadas());
-
-			// Guardar cambios en DB4O
-			servicioService.asignarParadasAServicio(miServicio.getId(), nombresParadas);
-
-			// Refrescar tabla con la lista actualizada
-			tablaServicios.refresh();
-
-			mostrarAlerta("Éxito", "El servicio ha sido asignado correctamente a las paradas seleccionadas.",
-					Alert.AlertType.CONFIRMATION);
-
-		} catch (Exception e) {
-			System.out.println("Error en el método asignarServicio: " + e.getMessage());
-			e.printStackTrace();
-		}
+	        mostrarAlerta("Éxito", "El servicio ha sido asignado correctamente a las paradas seleccionadas.", AlertType.CONFIRMATION);
+	    } catch (Exception e) {
+	        System.out.println("Error en el método asignarServicio: " + e.getMessage());
+	        e.printStackTrace();
+	    }
 	}
+
 
 	/**
 	 * Metodo para mostrar las alertas en la parte de la vista
