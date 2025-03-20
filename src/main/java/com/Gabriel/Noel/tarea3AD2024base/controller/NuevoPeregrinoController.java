@@ -215,7 +215,7 @@ public class NuevoPeregrinoController implements Initializable {
 		// Le damos por parametro el nombre de la parada inicial y el objeto carnet
 		// Generar el XML a partir del carnet y otros datos
 		EXBD = new ExistdbConnection("xmldb:exist://localhost:8080/exist/xmlrpc/db/Paradas/");
-		String xml = ExistdbConnection.exportarCarnet(p, par, selladas);
+		String xml = ExistdbConnection.exportarCarnet(p);
 
 		// Obtener el nombre de la parada inicial desde el carnet
 		Parada paradaInicial = c.getParadaInicial();

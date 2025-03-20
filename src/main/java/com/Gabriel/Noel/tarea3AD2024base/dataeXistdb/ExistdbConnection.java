@@ -242,7 +242,7 @@ public class ExistdbConnection
 		    }
 		    
 
-		public static String exportarCarnet(Peregrino p,ArrayList<Parada> paradas_colec,ArrayList<ParadaSellada> selladas_colec) // PROBADO Y FUNCIONAL//hace falta poner el nombre de la parada
+		public static String exportarCarnet(Peregrino p) // PROBADO Y FUNCIONAL//hace falta poner el nombre de la parada
 		{
 			 StringWriter writer = new StringWriter();
 			try {
@@ -322,7 +322,7 @@ public class ExistdbConnection
 				// -- las paradas :D -- //
 				paradas = documento.createElement("paradas");
 				int num=1;
-				for (ParadaSellada par:selladas_colec)  // recorremos con un For llamandoa  mi peregrino.getParadas.size para saber el tamaño de paradas que tiene este peregrino
+				for (ParadaSellada par:p.getParadasSelladas())  // recorremos con un For llamandoa  mi peregrino.getParadas.size para saber el tamaño de paradas que tiene este peregrino
 				{
 					if(p.getId()==par.getPeregrino().getId()) {
 										parada = documento.createElement("parada"); // Creamos el elemento parada

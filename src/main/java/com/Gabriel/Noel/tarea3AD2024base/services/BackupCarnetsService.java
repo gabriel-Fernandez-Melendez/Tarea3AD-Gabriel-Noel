@@ -25,63 +25,31 @@ public class BackupCarnetsService {
 	@Autowired
 	private BackupCarnetsRepository backupCarnetsRepository;
 	@Autowired
-	private CarnetService carnet_service;
-	@Autowired
 	private PeregrinoService peregrino_service;
-	@Autowired
-	private ParadaService parada_service;
-	@Autowired
-	private ParadaSelladaService parada_sellada_service;
 
-	public void generarBackupCarnets() {
+	public void generarBackupCarnets() 
+	{
 		Date fecha = new Date();
+		
 		// Format the date and time
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String fecha_formated = formatter.format(fecha);
 		
 		String nombreArchivo = "backupcarnets"+"<"+fecha_formated+">";
 		
-		// y ahora la lista de carnets
-		List<Carnet> carnets = carnet_service.ListaDeCarnets();
 		List<String> carnets_xml = new ArrayList<>();
 		List<Peregrino> peregrinos = peregrino_service.ListaDePeregrinos();
-		ArrayList<Parada> paradas_filtradas = new ArrayList<>();
-		ArrayList<ParadaSellada> paradas_selladas_filtradas = new ArrayList<>();
-		List<Parada> paradas = parada_service.ListaDeParadas();
-		List<ParadaSellada> paradas_selladas = parada_sellada_service.obtenerTodasParadasSelladas();
-		for (Peregrino p : peregrinos) {
-			for (Carnet c : carnets) {
-				if (p.getCarnet().getId() == c.getId()) {
-					for (Parada paradas_aux : paradas) {
-						if (paradas_aux.getId() == c.getId()) {
-							paradas_filtradas.add(paradas_aux);
-						} else {
-							continue;
-						}
-					}
-					for (ParadaSellada par : paradas_selladas) {
-							if (c.getId() == par.getParada().getId()) {
-								paradas_selladas_filtradas.add(par);
-							} else {
-								continue;
-							}
-						
-					}
-					String xml = ExistdbConnection.exportarCarnet(p,paradas_filtradas,paradas_selladas_filtradas);
-					carnets_xml.add(xml);
-				}
-				else {
-					continue;
-				}
-
-			}
+		
+		for (Peregrino p : peregrinos) 
+		{
+			String xml = ExistdbConnection.exportarCarnet(p);			
+			carnets_xml.add(xml);
 		}
 
 		BackupCarnets backup = new BackupCarnets(nombreArchivo,fecha_formated, carnets_xml);
 		backupCarnetsRepository.save(backup);
+	
+		
 	}
 
-}/*
-	 * String xml = ExistdbConnection.exportarCarnet(p,
-	 * paradas_filtradas,paradas_selladas_filtradas); carnets_xml.add(xml);
-	 */
+}
